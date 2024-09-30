@@ -1,20 +1,6 @@
-package seedu.duke;
+package BookBob.functions;
 
-import java.util.ArrayList;
-
-public class Records {
-    public ArrayList<Patient> patients;
-
-    Records() {
-        patients = new ArrayList<>();
-    }
-
-    // Takes in an input string and determines whether to exit the program
-    public void exit(String input) {
-        if(input.equalsIgnoreCase("exit")) {
-            System.exit(0);
-        }
-    }
+public class CommandHandler {
 
     // Prints output for help command
     public void help() {
@@ -39,31 +25,20 @@ public class Records {
                 "+-----------+---------------------------------------+---------------------------------+\n" +
                 "| Delete    | delete NRIC                           | delete S9534567A                |\n" +
                 "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Save      | save                                  | save                            |\n" +
+                "| Save      | save(automatic)                       | save                            |\n" +
                 "+-----------+---------------------------------------+---------------------------------+\n" +
                 "| Retrieve/ | retrieve or import                    | retrieve                        |\n" +
-                "| Import    |                                       |                                 |\n" +
+                "| Import    | (automatic)                           |                                 |\n" +
                 "+-----------+---------------------------------------+---------------------------------+\n" +
                 "| Exit      | exit                                  | exit                            |\n" +
                 "+-----------+---------------------------------------+---------------------------------+\n");
     }
-    public void delete(String nric) {
-        int initialPatientSize = patients.size();
-        if (patients.isEmpty()) {
-            System.out.println("There are no patients in the record currently.");
-            return;
-        }
-        for (int i = 0; i < patients.size(); i++) {
-            Patient currentPatient = patients.get(i);
-            String patientNRIC = currentPatient.nric;
-            if (patientNRIC.equals(nric)) {
-                this.patients.remove(i);
-                System.out.println("Patient " + currentPatient.name + ", " + patientNRIC + ", has been deleted.");
-                break;
-            }
-        }
-        if (patients.size() == initialPatientSize) {
-            System.out.println("Patient " + nric + " not found");
+
+    // Takes in an input string and determines whether to exit the program
+    public void exit(String input) {
+        if(input.equalsIgnoreCase("exit")) {
+            System.exit(0);
         }
     }
+
 }
