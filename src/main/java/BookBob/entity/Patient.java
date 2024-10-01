@@ -16,6 +16,7 @@ public class Patient {
     public Patient(String name, String NRIC) {
         this.name = name;
         this.NRIC = NRIC;
+        this.phoneNumber = 0;
         this.homeAddress = "";
         this.medication = new ArrayList<>();
         this.diagnosis = "";
@@ -26,6 +27,7 @@ public class Patient {
     public Patient(String name, String NRIC, String phoneNumber, String dateOfBirth, String homeAddress, String diagnosis, ArrayList<String> medications) {
         this.name = name;
         this.NRIC = NRIC;
+        this.phoneNumber = Integer.parseInt(phoneNumber);
         this.dateOfBirth = dateOfBirth;
         this.homeAddress = homeAddress;
         this.diagnosis = diagnosis;
