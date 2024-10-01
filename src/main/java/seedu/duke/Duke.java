@@ -1,8 +1,8 @@
-package BookBob;
+package seedu.duke;
 
 import java.util.Scanner;
 
-public class Main {
+public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
