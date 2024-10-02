@@ -9,15 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Find {
-    public static List<Patient> findPatients(CommandAttributeType commandAttributeType, Records records, String[] keywords) {
+    public static List<Patient> findPatients(CommandAttributeType commandAttributeType,
+                                             Records records, String[] keywords) {
         return switch (commandAttributeType) {
-            case NAME -> findPatientsByName(records, keywords);
-            case NRIC -> findPatientsByNric(records, keywords);
-            case DATE_OF_BIRTH -> findPatientsByDateOfBirth(records, keywords);
-            case PHONE_NUMBER -> findPatientsByPhoneNumber(records, keywords);
-            case HOME_ADDRESS -> findPatientsByHomeAddress(records, keywords);
-            case DIAGNOSIS -> findPatientsByDiagnosis(records, keywords);
-            case MEDICATION -> findPatientsByMedication(records, keywords);
+        case NAME -> findPatientsByName(records, keywords);
+        case NRIC -> findPatientsByNric(records, keywords);
+        case DATE_OF_BIRTH -> findPatientsByDateOfBirth(records, keywords);
+        case PHONE_NUMBER -> findPatientsByPhoneNumber(records, keywords);
+        case HOME_ADDRESS -> findPatientsByHomeAddress(records, keywords);
+        case DIAGNOSIS -> findPatientsByDiagnosis(records, keywords);
+        case MEDICATION -> findPatientsByMedication(records, keywords);
         };
     }
 
