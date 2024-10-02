@@ -13,9 +13,7 @@ public class Records {
 
     // add a patient to records
     public void addPatient(Patient patient) {
-        List<Patient> patients = this.getPatients();
         patients.add(patient);
-        this.setPatients(patients);
     }
 
     // setter and getters

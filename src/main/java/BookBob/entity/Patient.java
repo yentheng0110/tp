@@ -91,4 +91,11 @@ public class Patient {
     public void setMedication(List<String> medication) {
         this.medication = medication;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + getName() + ", NRIC: " + getNric() + ", DOB: " + getDateOfBirth() +
+                ", Phone: " + getPhoneNumber() + ", Address: " + getHomeAddress() +
+                ", Diagnosis: " + getDiagnosis() + ", Medication: " + getMedication();
+    }
 }
