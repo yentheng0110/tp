@@ -142,37 +142,6 @@ public class CommandHandler {
         }
     }
 
-    public void find(String input, Records records) {
-        String[] inputArr = input.split("\\s+", 3);
-
-        CommandAttributeType commandAttributeType = null;
-
-        for (CommandAttributeType t : CommandAttributeType.values()) {
-            if (t.getLabel().equals(inputArr[1])) {
-                commandAttributeType = t;
-                break;
-            }
-        }
-
-        if (commandAttributeType == null) {
-            System.out.println("Invalid find");
-            return;
-        }
-
-        String[] keywords = inputArr[2].split("\\s+");
-
-        List<Patient> findList = Find.findPatients(commandAttributeType, records, keywords);
-
-        if (findList.isEmpty()) {
-            System.out.println("No patients found");
-            return;
-        }
-
-        for (Patient patient : findList) {
-            System.out.println(patient);
-        }
-    }
-
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
         if(input.equalsIgnoreCase("exit")) {
