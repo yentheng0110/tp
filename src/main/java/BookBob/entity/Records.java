@@ -1,30 +1,27 @@
 package BookBob.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Records {
+    private List<Patient> patients;
 
-    public ArrayList<Patient> patients;
-
-    //default constructor: empty
+    // default constructor: empty
     public Records() {
-        ArrayList<Patient> patients = new ArrayList<>();
-        this.patients = patients;
+        this.patients = new ArrayList<>();
     }
 
-    //add a patient to records
+    // add a patient to records
     public void addPatient(Patient patient) {
-        ArrayList<Patient> patients = this.getPatients();
         patients.add(patient);
-        this.setPatients(patients);
     }
 
-    //setter and getters
-    public ArrayList<Patient> getPatients() {
+    // setter and getters
+    public List<Patient> getPatients() {
         return patients;
     }
 
-    public void setPatients(ArrayList<Patient> patients) {
+    public void setPatients(List<Patient> patients) {
         this.patients = patients;
     }
 }

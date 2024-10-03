@@ -41,6 +41,10 @@ public class Main {
                 }
                 break;
 
+            case "find":
+                commandHandler.find(input, records);
+                break;
+
             case "help":
                 commandHandler.help();
                 break;
