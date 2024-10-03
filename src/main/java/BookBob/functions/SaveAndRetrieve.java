@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SaveAndRetrieve {
@@ -29,10 +30,10 @@ public class SaveAndRetrieve {
 
     private static String convertPatientToOutputText(Patient patient) {
         String output = "";
-        output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNRIC() + " | " + "Phone Number: " + patient.getPhoneNumber() + " | "
+        output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | " + "Phone Number: " + patient.getPhoneNumber() + " | "
                 + "Date_Of_Birth: " + patient.getDateOfBirth() + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Diagnosis: " + patient.getDiagnosis() + " | "
                 + "Medication: ";
-        ArrayList<String> medications = patient.getMedication();
+        List<String> medications = patient.getMedication();
         for(int i = 0; i < medications.size(); i++) {
             output += medications.get(i) + ";";
         }
@@ -40,7 +41,7 @@ public class SaveAndRetrieve {
     }
 
     public static void autosave(Records records) throws IOException {
-        ArrayList<Patient> patients = records.getPatients();
+        List<Patient> patients = records.getPatients();
         FileWriter fw = new FileWriter("bookbob_data.txt");
         for(int i = 0; i < patients.size(); i++) {
             Patient currPatient = patients.get(i);
@@ -62,7 +63,7 @@ public class SaveAndRetrieve {
                 String line = reader.nextLine();
                 String[] data = line.split("\\|");
                 String name = data[0].trim();
-                String NRIC = data[1].trim();
+                String nric = data[1].trim();
                 String phoneNumber = data[2].trim();
                 String dateOfBirth = data[3].trim();
                 String homeAddress = data[4].trim();
@@ -72,7 +73,7 @@ public class SaveAndRetrieve {
                 for(int i = 0; i < rawMedications.length; i++) {
                     medications.add(rawMedications[i].trim());
                 }
-                Patient patient = new Patient(name, NRIC, phoneNumber, dateOfBirth, homeAddress, diagnosis, medications);
+                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, diagnosis, medications);
                 records.addPatient(patient);
             }
         } catch (FileNotFoundException e) {

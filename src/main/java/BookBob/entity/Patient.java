@@ -5,36 +5,37 @@ import java.util.List;
 
 public class Patient {
     private String name;
-    private String NRIC;
-    private String diagnosis;
-    private ArrayList<String> medication;
-    private int phoneNumber;
+    private String nric;
     private String dateOfBirth;
+    private String phoneNumber;
     private String homeAddress;
+    private String diagnosis;
+    private List<String> medication;
 
-    //default constructor only takes in name and NRIC
-    public Patient(String name, String NRIC) {
+    // default constructor only takes in name and NRIC
+    public Patient(String name, String nric) {
         this.name = name;
-        this.NRIC = NRIC;
-        this.phoneNumber = 0;
-        this.homeAddress = "";
-        this.medication = new ArrayList<>();
-        this.diagnosis = "";
+        this.nric = nric;
         this.dateOfBirth = "";
+        this.phoneNumber = "";
+        this.homeAddress = "";
+        this.diagnosis = "";
+        this.medication = new ArrayList<>();
     }
 
-    //constructor used in retrieving data
-    public Patient(String name, String NRIC, String phoneNumber, String dateOfBirth, String homeAddress, String diagnosis, ArrayList<String> medications) {
+    // constructor used in retrieving data
+    public Patient(String name, String nric, String dateOfBirth, String phoneNumber, String homeAddress,
+                   String diagnosis, List<String> medications) {
         this.name = name;
-        this.NRIC = NRIC;
-        this.phoneNumber = Integer.parseInt(phoneNumber);
+        this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
         this.diagnosis = diagnosis;
         this.medication = medications;
     }
 
-    //getters and setters
+    // getters and setters
     public String getName() {
         return name;
     }
@@ -43,36 +44,12 @@ public class Patient {
         this.name = name;
     }
 
-    public String getNRIC() {
-        return NRIC;
+    public String getNric() {
+        return nric;
     }
 
-    public void setNRIC(String NRIC) {
-        this.NRIC = NRIC;
-    }
-
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public ArrayList<String> getMedication() {
-        return medication;
-    }
-
-    public void setMedication(ArrayList<String> medication) {
-        this.medication = medication;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setNric(String nric) {
+        this.nric = nric;
     }
 
     public String getDateOfBirth() {
@@ -83,11 +60,42 @@ public class Patient {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getHomeAddress() {
         return homeAddress;
     }
 
     public void setHomeAddress(String homeAddress) {
         this.homeAddress = homeAddress;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public List<String> getMedication() {
+        return medication;
+    }
+
+    public void setMedication(List<String> medication) {
+        this.medication = medication;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + getName() + ", NRIC: " + getNric() + ", DOB: " + getDateOfBirth() +
+                ", Phone: " + getPhoneNumber() + ", Address: " + getHomeAddress() +
+                ", Diagnosis: " + getDiagnosis() + ", Medication: " + getMedication();
     }
 }
