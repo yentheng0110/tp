@@ -4,6 +4,7 @@ import BookBob.entity.Patient;
 import BookBob.entity.Records;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandHandler {
 
@@ -40,31 +41,58 @@ public class CommandHandler {
     }
 
     public void add(String input, Records records) {
-        String[] inputParts = input.split(" ");
         String name = "";
         String NRIC = "";
-        int phoneNumber = 0;
-        String diagnosis = "";
-        ArrayList<String> medications = new ArrayList<>();
-        String homeAddress = "";
         String dateOfBirth = "";
+        String phoneNumber = "";
+        String homeAddress = "";
+        String diagnosis = "";
+        List<String> medications = new ArrayList<>();
 
-        for (String part : inputParts) {
-            if (part.startsWith("n/")) {
-                name = part.substring(2);
-            } else if (part.startsWith("ic/")) {
-                NRIC = part.substring(3);
-            } else if (part.startsWith("p/")) {
-                phoneNumber = Integer.parseInt(part.substring(2));
-            } else if (part.startsWith("d/")) {
-                diagnosis = part.substring(2);
-            } else if (part.startsWith("m/")) {
-                medications.add(part.substring(2));
-            } else if (part.startsWith("ha/")) {
-                homeAddress = part.substring(3);
-            } else if (part.startsWith("dob/")) {
-                dateOfBirth = part.substring(4);
+        // Extract name
+        int nameStart = input.indexOf("n/");
+        int NRICStart = input.indexOf("ic/");
+        if (nameStart != -1 && NRICStart != -1) {
+            name = input.substring(nameStart + 2, NRICStart).trim();
+        }
+
+        // Extract NRIC
+        int phoneStart = input.indexOf("p/");
+        if (NRICStart != -1 && phoneStart != -1) {
+            NRIC = input.substring(NRICStart + 3, phoneStart).trim();
+        }
+
+        // Extract phone number
+        int diagnosisStart = input.indexOf("d/");
+        if (phoneStart != -1 && diagnosisStart != -1) {
+            phoneNumber = Integer.parseInt(input.substring(phoneStart + 2, diagnosisStart).trim());
+        }
+
+        // Extract diagnosis
+        int medicationStart = input.indexOf("m/");
+        if (diagnosisStart != -1 && medicationStart != -1) {
+            diagnosis = input.substring(diagnosisStart + 2, medicationStart).trim();
+        }
+
+        // Extract medications (split by comma)
+        int homeAddressStart = input.indexOf("ha/");
+        if (medicationStart != -1 && homeAddressStart != -1) {
+            String meds = input.substring(medicationStart + 2, homeAddressStart).trim();
+            String[] medsArray = meds.split(",\\s*");
+            for (String med : medsArray) {
+                medications.add(med.trim());
             }
+        }
+
+        // Extract home address
+        int dobStart = input.indexOf("dob/");
+        if (homeAddressStart != -1 && dobStart != -1) {
+            homeAddress = input.substring(homeAddressStart + 3, dobStart).trim();
+        }
+
+        // Extract date of birth
+        if (dobStart != -1) {
+            dateOfBirth = input.substring(dobStart + 4).trim();
         }
 
         Patient patient = new Patient(name, NRIC);
@@ -78,22 +106,23 @@ public class CommandHandler {
         System.out.println("Patient " + name + " with NRIC " + NRIC + " added.");
     }
 
+
     public void list(Records records) {
-        ArrayList<Patient> patients = records.getPatients();
+        List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
             System.out.println("No patients found.");
             return;
         }
         for (Patient patient : patients) {
-            System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNRIC() +
+            System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
                     ", Phone: " + patient.getPhoneNumber() + ", Diagnosis: " + patient.getDiagnosis() +
                     ", Medication: " + patient.getMedication() + ", Address: " + patient.getHomeAddress() +
                     ", DOB: " + patient.getDateOfBirth());
         }
     }
 
-    public void delete(String NRIC, Records records) {
-        ArrayList<Patient> patients = records.patients;
+    public void delete(String nric, Records records) {
+        List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
         if (initialPatientSize == 0) {
             System.out.println("There are no patients in the record currently.");
@@ -101,15 +130,46 @@ public class CommandHandler {
         }
         for (int i = 0; i < patients.size(); i++) {
             Patient currentPatient = patients.get(i);
-            String patientNRIC = currentPatient.getNRIC();
-            if (patientNRIC.equals(NRIC)) {
+            String patientNRIC = currentPatient.getNric();
+            if (patientNRIC.equals(nric)) {
                 patients.remove(i);
                 System.out.println("Patient " + currentPatient.getName() + ", " + patientNRIC + ", has been deleted.");
                 break;
             }
         }
         if (patients.size() == initialPatientSize) {
-            System.out.println("Patient " + NRIC + " not found");
+            System.out.println("Patient " + nric + " not found");
+        }
+    }
+
+    public void find(String input, Records records) {
+        String[] inputArr = input.split("\\s+", 3);
+
+        CommandAttributeType commandAttributeType = null;
+
+        for (CommandAttributeType t : CommandAttributeType.values()) {
+            if (t.getLabel().equals(inputArr[1])) {
+                commandAttributeType = t;
+                break;
+            }
+        }
+
+        if (commandAttributeType == null) {
+            System.out.println("Invalid find");
+            return;
+        }
+
+        String[] keywords = inputArr[2].split("\\s+");
+
+        List<Patient> findList = Find.findPatients(commandAttributeType, records, keywords);
+
+        if (findList.isEmpty()) {
+            System.out.println("No patients found");
+            return;
+        }
+
+        for (Patient patient : findList) {
+            System.out.println(patient);
         }
     }
 
