@@ -1,13 +1,12 @@
 package BookBob.entity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Patient {
     private String name;
     private String NRIC;
     private String diagnosis;
-    private ArrayList<String> medication;
+    private ArrayList<String> medications;
     private int phoneNumber;
     private String dateOfBirth;
     private String homeAddress;
@@ -18,20 +17,21 @@ public class Patient {
         this.NRIC = NRIC;
         this.phoneNumber = 0;
         this.homeAddress = "";
-        this.medication = new ArrayList<>();
+        this.medications = new ArrayList<>();
         this.diagnosis = "";
         this.dateOfBirth = "";
     }
 
     //constructor used in retrieving data
-    public Patient(String name, String NRIC, String phoneNumber, String dateOfBirth, String homeAddress, String diagnosis, ArrayList<String> medications) {
+    public Patient(String name, String NRIC, String phoneNumber, String dateOfBirth,
+                   String homeAddress, String diagnosis, ArrayList<String> medications) {
         this.name = name;
         this.NRIC = NRIC;
         this.phoneNumber = Integer.parseInt(phoneNumber);
         this.dateOfBirth = dateOfBirth;
         this.homeAddress = homeAddress;
         this.diagnosis = diagnosis;
-        this.medication = medications;
+        this.medications = medications;
     }
 
     //getters and setters
@@ -60,11 +60,11 @@ public class Patient {
     }
 
     public ArrayList<String> getMedication() {
-        return medication;
+        return medications;
     }
 
     public void setMedication(ArrayList<String> medication) {
-        this.medication = medication;
+        this.medications = medication;
     }
 
     public int getPhoneNumber() {
