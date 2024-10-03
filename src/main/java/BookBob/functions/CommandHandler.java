@@ -41,7 +41,6 @@ public class CommandHandler {
     }
 
     public void add(String input, Records records) {
-        String[] inputParts = input.split(" ");
         String name = "";
         String NRIC = "";
         String dateOfBirth = "";
@@ -50,22 +49,50 @@ public class CommandHandler {
         String diagnosis = "";
         List<String> medications = new ArrayList<>();
 
-        for (String part : inputParts) {
-            if (part.startsWith("n/")) {
-                name = part.substring(2);
-            } else if (part.startsWith("ic/")) {
-                NRIC = part.substring(3);
-            } else if (part.startsWith("p/")) {
-                phoneNumber = part.substring(2);
-            } else if (part.startsWith("d/")) {
-                diagnosis = part.substring(2);
-            } else if (part.startsWith("m/")) {
-                medications.add(part.substring(2));
-            } else if (part.startsWith("ha/")) {
-                homeAddress = part.substring(3);
-            } else if (part.startsWith("dob/")) {
-                dateOfBirth = part.substring(4);
+        // Extract name
+        int nameStart = input.indexOf("n/");
+        int NRICStart = input.indexOf("ic/");
+        if (nameStart != -1 && NRICStart != -1) {
+            name = input.substring(nameStart + 2, NRICStart).trim();
+        }
+
+        // Extract NRIC
+        int phoneStart = input.indexOf("p/");
+        if (NRICStart != -1 && phoneStart != -1) {
+            NRIC = input.substring(NRICStart + 3, phoneStart).trim();
+        }
+
+        // Extract phone number
+        int diagnosisStart = input.indexOf("d/");
+        if (phoneStart != -1 && diagnosisStart != -1) {
+            phoneNumber = Integer.parseInt(input.substring(phoneStart + 2, diagnosisStart).trim());
+        }
+
+        // Extract diagnosis
+        int medicationStart = input.indexOf("m/");
+        if (diagnosisStart != -1 && medicationStart != -1) {
+            diagnosis = input.substring(diagnosisStart + 2, medicationStart).trim();
+        }
+
+        // Extract medications (split by comma)
+        int homeAddressStart = input.indexOf("ha/");
+        if (medicationStart != -1 && homeAddressStart != -1) {
+            String meds = input.substring(medicationStart + 2, homeAddressStart).trim();
+            String[] medsArray = meds.split(",\\s*");
+            for (String med : medsArray) {
+                medications.add(med.trim());
             }
+        }
+
+        // Extract home address
+        int dobStart = input.indexOf("dob/");
+        if (homeAddressStart != -1 && dobStart != -1) {
+            homeAddress = input.substring(homeAddressStart + 3, dobStart).trim();
+        }
+
+        // Extract date of birth
+        if (dobStart != -1) {
+            dateOfBirth = input.substring(dobStart + 4).trim();
         }
 
         Patient patient = new Patient(name, NRIC);
@@ -78,6 +105,7 @@ public class CommandHandler {
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + NRIC + " added.");
     }
+
 
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
