@@ -30,9 +30,10 @@ public class SaveAndRetrieve {
 
     private static String convertPatientToOutputText(Patient patient) {
         String output = "";
-        output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | " + "Phone Number: " + patient.getPhoneNumber() + " | "
-                + "Date_Of_Birth: " + patient.getDateOfBirth() + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Diagnosis: " + patient.getDiagnosis() + " | "
-                + "Medication: ";
+        output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
+                + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
+                + " | " + "Home Address: " + patient.getHomeAddress() + " | "
+                + "Diagnosis: " + patient.getDiagnosis() + " | " + "Medication: ";
         List<String> medications = patient.getMedication();
         for(int i = 0; i < medications.size(); i++) {
             output += medications.get(i) + ";";
@@ -73,7 +74,8 @@ public class SaveAndRetrieve {
                 for(int i = 0; i < rawMedications.length; i++) {
                     medications.add(rawMedications[i].trim());
                 }
-                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, diagnosis, medications);
+                Patient patient = new Patient(name, nric, phoneNumber,
+                        dateOfBirth, homeAddress, diagnosis, medications);
                 records.addPatient(patient);
             }
         } catch (FileNotFoundException e) {
