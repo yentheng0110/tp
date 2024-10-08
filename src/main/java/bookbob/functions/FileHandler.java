@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class SaveAndRetrieve {
+public class FileHandler {
+
+    private final static String filePath = "bookbob_data.txt";
 
     public static void initFile(Records records){
         try {
-            File file = new File("bookbob_data.txt");
+            File file = new File(filePath);
             if(file.createNewFile()) {
             } else {
                 retrieveData(records);
@@ -26,7 +28,7 @@ public class SaveAndRetrieve {
         }
     }
 
-    private static String convertPatientToOutputText(Patient patient) {
+    public static String convertPatientToOutputText(Patient patient) {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
@@ -41,14 +43,10 @@ public class SaveAndRetrieve {
 
     public static void autosave(Records records) throws IOException {
         List<Patient> patients = records.getPatients();
-        FileWriter fw = new FileWriter("bookbob_data.txt");
+        FileWriter fw = new FileWriter(filePath);
         for(int i = 0; i < patients.size(); i++) {
             Patient currPatient = patients.get(i);
-            String toWrite = convertPatientToOutputText(currPatient);
-
-            //for test
-            System.out.println(toWrite);
-
+            String toWrite = convertPatientToOutputText(patients.get(i));
             fw.write(toWrite + "\n");
         }
         fw.close();
@@ -56,7 +54,7 @@ public class SaveAndRetrieve {
 
     public static void retrieveData(Records records){
         try {
-            File file = new File("bookbob_data.txt");
+            File file = new File(filePath);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();

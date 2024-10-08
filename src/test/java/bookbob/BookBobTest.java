@@ -1,6 +1,7 @@
-package seedu.bookbob;
+package bookbob;
 
 import bookbob.entity.Records;
+import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
 
 import bookbob.functions.CommandHandler;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BookBobTest {
+    FileHandler saveAndRetrieve;
     CommandHandler command = new CommandHandler();
     Records records = new Records();
 
@@ -90,6 +92,12 @@ public class BookBobTest {
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
                 "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Diagnosis: Asthma, Medication: [Albuterol], " +
                 "Address: NUS-PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testSaveConverter() {
+        //Patient patient = new Patient();
+        //SaveAndRetrieve.convertPatientToOutputText(patient);
     }
 
 }

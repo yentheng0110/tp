@@ -3,10 +3,13 @@ package bookbob.functions;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommandHandler {
+
+    FileHandler fileHandler = new FileHandler();
 
     // Prints output for help command
     public void help() {
@@ -41,7 +44,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+""");
     }
 
-    public void add(String input, Records records) {
+    public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
         String dateOfBirth = "";
@@ -124,6 +127,9 @@ public class CommandHandler {
         patient.setMedication(medications);
 
         records.addPatient(patient);
+
+        fileHandler.autosave(records);
+
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
