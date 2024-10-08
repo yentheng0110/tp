@@ -54,24 +54,36 @@ public class CommandHandler {
         int NRICStart = input.indexOf("ic/");
         if (nameStart != -1 && NRICStart != -1) {
             name = input.substring(nameStart + 2, NRICStart).trim();
+        } else if (nameStart != -1) { // Handle case where only name is provided
+            name = input.substring(nameStart + 2).trim();
+            System.out.println("Please provide the NRIC for the patient named " + name +
+                    ", then add the patient record again.");
+            return; // Exit the method until user provides NRIC
         }
 
         // Extract NRIC
         int phoneStart = input.indexOf("p/");
         if (NRICStart != -1 && phoneStart != -1) {
             NRIC = input.substring(NRICStart + 3, phoneStart).trim();
+        } else if (NRICStart != -1) { // Handle case where there is no phone number
+            NRIC = input.substring(NRICStart + 3).trim();
         }
 
         // Extract phone number
         int diagnosisStart = input.indexOf("d/");
         if (phoneStart != -1 && diagnosisStart != -1) {
             phoneNumber = input.substring(phoneStart + 2, diagnosisStart).trim();
+        } else if (phoneStart != -1) { // Handle case where there is no diagnosis
+            int nextFieldStart = findNextFieldStart(input, phoneStart);
+            phoneNumber = input.substring(phoneStart + 2, nextFieldStart).trim();
         }
 
         // Extract diagnosis
         int medicationStart = input.indexOf("m/");
         if (diagnosisStart != -1 && medicationStart != -1) {
             diagnosis = input.substring(diagnosisStart + 2, medicationStart).trim();
+        } else if (diagnosisStart != -1) { // Handle case where there is no medication
+            diagnosis = input.substring(diagnosisStart + 2).trim();
         }
 
         // Extract medications (split by comma)
@@ -82,12 +94,20 @@ public class CommandHandler {
             for (String med : medsArray) {
                 medications.add(med.trim());
             }
+        } else if (medicationStart != -1) { // Handle case where there is no home address
+            String meds = input.substring(medicationStart + 2).trim();
+            String[] medsArray = meds.split(",\\s*");
+            for (String med : medsArray) {
+                medications.add(med.trim());
+            }
         }
 
         // Extract home address
         int dobStart = input.indexOf("dob/");
         if (homeAddressStart != -1 && dobStart != -1) {
             homeAddress = input.substring(homeAddressStart + 3, dobStart).trim();
+        } else if (homeAddressStart != -1) { // Handle case where there is no DOB
+            homeAddress = input.substring(homeAddressStart + 3).trim();
         }
 
         // Extract date of birth
@@ -104,6 +124,19 @@ public class CommandHandler {
 
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + NRIC + " added.");
+    }
+
+    // Utility method to find the start of the next field or the end of the input string
+    private int findNextFieldStart(String input, int currentFieldEnd) {
+        int nextFieldStart = input.length(); // Default to end of string
+        String[] fieldPrefixes = {"d/", "m/", "ha/", "dob/"};
+        for (String prefix : fieldPrefixes) {
+            int prefixStart = input.indexOf(prefix, currentFieldEnd);
+            if (prefixStart != -1 && prefixStart < nextFieldStart) {
+                nextFieldStart = prefixStart;
+            }
+        }
+        return nextFieldStart;
     }
 
 
