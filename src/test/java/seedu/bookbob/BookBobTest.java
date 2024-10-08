@@ -21,8 +21,8 @@ public class BookBobTest {
         assertTrue(true);
     }
 
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    private final PrintStream standardOut = System.out;
+    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    PrintStream standardOut = System.out;
 
     @BeforeEach
     public void setUp() {
