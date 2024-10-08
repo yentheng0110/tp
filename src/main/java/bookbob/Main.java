@@ -15,13 +15,19 @@ public class Main {
         FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             String input = in.nextLine();
             String[] inputArr = input.split(" ", 2);
             String command = inputArr[0];
 
             switch (command) {
+            case "find":
+                commandHandler.find(input, records);
+                break;
+
             case "exit":
+                isRunning = false;  // This will cause the loop to exit
                 commandHandler.exit(input);
                 break;
 
@@ -51,5 +57,6 @@ public class Main {
                 break;
             }
         }
+        in.close();  // Close the scanner when done
     }
 }
