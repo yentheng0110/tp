@@ -15,14 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BookBobTest {
     CommandHandler command = new CommandHandler();
     Records records = new Records();
+    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    PrintStream standardOut = System.out;
 
     @Test
     public void sampleTest() {
         assertTrue(true);
     }
-
-    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    PrintStream standardOut = System.out;
 
     @BeforeEach
     public void setUp() {
