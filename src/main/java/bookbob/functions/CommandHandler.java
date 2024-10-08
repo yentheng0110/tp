@@ -161,7 +161,7 @@ public class CommandHandler {
         }
     }
 
-    public void delete(String nric, Records records) {
+    public void delete(String nric, Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
         if (initialPatientSize == 0) {
@@ -180,6 +180,7 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
+        fileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
