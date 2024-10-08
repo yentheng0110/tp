@@ -153,12 +153,10 @@ public class CommandHandler {
             return;
         }
         for (Patient patient : patients) {
-            System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
-                    ", Phone: " + patient.getPhoneNumber() + ", Diagnosis: " + patient.getDiagnosis() +
-                    ", Medication: " + patient.getMedication() + ", Address: " + patient.getHomeAddress() +
-                    ", DOB: " + patient.getDateOfBirth());
+            System.out.println(patient);
         }
     }
+
 
     public void delete(String nric, Records records) {
         List<Patient> patients = records.getPatients();
