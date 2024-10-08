@@ -1,7 +1,7 @@
-package BookBob.functions;
+package bookbob.functions;
 
-import BookBob.entity.Patient;
-import BookBob.entity.Records;
+import bookbob.entity.Patient;
+import bookbob.entity.Records;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,12 +17,10 @@ public class SaveAndRetrieve {
         try {
             File file = new File("bookbob_data.txt");
             if(file.createNewFile()) {
-            }
-            else {
+            } else {
                 retrieveData(records);
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             System.out.println("An error occured");
             e.printStackTrace();
         }

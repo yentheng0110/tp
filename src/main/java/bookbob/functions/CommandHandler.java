@@ -1,7 +1,7 @@
-package BookBob.functions;
+package bookbob.functions;
 
-import BookBob.entity.Patient;
-import BookBob.entity.Records;
+import bookbob.entity.Patient;
+import bookbob.entity.Records;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class CommandHandler {
 
     public void add(String input, Records records) {
         String name = "";
-        String NRIC = "";
+        String nric = "";
         String dateOfBirth = "";
         String phoneNumber = "";
         String homeAddress = "";
@@ -51,9 +51,9 @@ public class CommandHandler {
 
         // Extract name
         int nameStart = input.indexOf("n/");
-        int NRICStart = input.indexOf("ic/");
-        if (nameStart != -1 && NRICStart != -1) {
-            name = input.substring(nameStart + 2, NRICStart).trim();
+        int nricStart = input.indexOf("ic/");
+        if (nameStart != -1 && nricStart != -1) {
+            name = input.substring(nameStart + 2, nricStart).trim();
         } else if (nameStart != -1) { // Handle case where only name is provided
             name = input.substring(nameStart + 2).trim();
             System.out.println("Please provide the NRIC for the patient named " + name +
@@ -63,10 +63,10 @@ public class CommandHandler {
 
         // Extract NRIC
         int phoneStart = input.indexOf("p/");
-        if (NRICStart != -1 && phoneStart != -1) {
-            NRIC = input.substring(NRICStart + 3, phoneStart).trim();
-        } else if (NRICStart != -1) { // Handle case where there is no phone number
-            NRIC = input.substring(NRICStart + 3).trim();
+        if (nricStart != -1 && phoneStart != -1) {
+            NRIC = input.substring(nricStart + 3, phoneStart).trim();
+        } else if (nricStart != -1) { // Handle case where there is no phone number
+            NRIC = input.substring(nricStart + 3).trim();
         }
 
         // Extract phone number

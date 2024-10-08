@@ -1,4 +1,4 @@
-package BookBob.entity;
+package bookbob.entity;
 
 import java.util.ArrayList;
 import java.util.List;

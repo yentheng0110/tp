@@ -1,7 +1,7 @@
-package BookBob;
-import BookBob.entity.Records;
-import BookBob.functions.CommandHandler;
-import BookBob.functions.SaveAndRetrieve;
+package bookbob;
+import bookbob.entity.Records;
+import bookbob.functions.CommandHandler;
+import bookbob.functions.SaveAndRetrieve;
 import java.util.Scanner;
 
 public class Main {
@@ -33,8 +33,8 @@ public class Main {
 
             case "delete":
                 if (inputArr.length > 1) {
-                    String NRIC = inputArr[1].trim();
-                    commandHandler.delete(NRIC, records);
+                    String nric = inputArr[1].trim();
+                    commandHandler.delete(nric, records);
                 } else {
                     System.out.println("Please specify an NRIC to delete.");
                 }
