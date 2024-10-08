@@ -18,13 +18,13 @@ public class BookBobTest {
     CommandHandler command = new CommandHandler();
     Records records = new Records();
 
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
     @Test
     public void sampleTest() {
         assertTrue(true);
     }
-
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {
