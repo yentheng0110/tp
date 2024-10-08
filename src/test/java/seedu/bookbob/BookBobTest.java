@@ -12,8 +12,6 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class BookBobTest {
     CommandHandler command = new CommandHandler();
     Records records = new Records();
@@ -61,7 +59,8 @@ public class BookBobTest {
                 "| Import    | (automatic)                           |                                 |\n" +
                 "+-----------+---------------------------------------+---------------------------------+\n" +
                 "| Exit      | exit                                  | exit                            |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n".trim(), outputStreamCaptor.toString().trim());
+                "+-----------+---------------------------------------+---------------------------------+\n".trim(),
+                outputStreamCaptor.toString().trim());
     }
 
     @AfterEach
