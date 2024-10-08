@@ -13,14 +13,26 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-    private final static String filePath = "bookbob_data.txt";
+    private final static String filePath = "data" + File.separator + "bookbob_data.txt";
 
     public static void initFile(Records records){
         try {
-            File file = new File(filePath);
-            if(file.createNewFile()) {
-            } else {
-                retrieveData(records);
+
+            String directoryName = "data";
+            String currentDirectory = System.getProperty("user.dir");
+            String directory = currentDirectory + File.separator + directoryName;
+            File directoryFile = new File(directory);
+
+            if(directoryFile.mkdirs()) {           //directory was not created
+                File file = new File(filePath);
+                file.createNewFile();              //create new data file
+            } else {                               //directory already created
+                File file = new File(filePath);
+                if(file.createNewFile()) {         //file was not created
+                }
+                else {
+                    retrieveData(records);
+                }
             }
         } catch(Exception e){
             System.out.println("An error occured");
