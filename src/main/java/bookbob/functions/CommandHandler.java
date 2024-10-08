@@ -1,7 +1,7 @@
-package BookBob.functions;
+package bookbob.functions;
 
-import BookBob.entity.Patient;
-import BookBob.entity.Records;
+import bookbob.entity.Patient;
+import bookbob.entity.Records;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,39 +10,40 @@ public class CommandHandler {
 
     // Prints output for help command
     public void help() {
-        System.out.println("+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Action    | Format                                | Example                         |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Help      | help                                  | help                            |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |\n" +
-                "|           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
-                "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| List      | list                                  | list                            |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |\n" +
-                "|           | find NRIC [KEYWORDS] OR               |                                 |\n" +
-                "|           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |\n" +
-                "|           | find DIAGNOSIS [KEYWORDS] OR          |                                 |\n" +
-                "|           | find MEDICATION [KEYWORDS] OR         |                                 |\n" +
-                "|           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |\n" +
-                "|           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Delete    | delete NRIC                           | delete S9534567A                |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Save      | save(automatic)                       | save                            |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Retrieve/ | retrieve or import                    | retrieve                        |\n" +
-                "| Import    | (automatic)                           |                                 |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n" +
-                "| Exit      | exit                                  | exit                            |\n" +
-                "+-----------+---------------------------------------+---------------------------------+\n");
+        System.out.println("""
+                +-----------+---------------------------------------+---------------------------------+
+                | Action    | Format                                | Example                         |
+                +-----------+---------------------------------------+---------------------------------+
+                | Help      | help                                  | help                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |
+                +-----------+---------------------------------------+---------------------------------+
+                | List      | list                                  | list                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |
+                |           | find NRIC [KEYWORDS] OR               |                                 |
+                |           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |
+                |           | find DIAGNOSIS [KEYWORDS] OR          |                                 |
+                |           | find MEDICATION [KEYWORDS] OR         |                                 |
+                |           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |
+                |           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |
+                +-----------+---------------------------------------+---------------------------------+
+                | Delete    | delete NRIC                           | delete S9534567A                |
+                +-----------+---------------------------------------+---------------------------------+
+                | Save      | save(automatic)                       | save                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Retrieve/ | retrieve or import                    | retrieve                        |
+                | Import    | (automatic)                           |                                 |
+                +-----------+---------------------------------------+---------------------------------+
+                | Exit      | exit                                  | exit                            |
+                +-----------+---------------------------------------+---------------------------------+""");
     }
 
     public void add(String input, Records records) {
         String name = "";
-        String NRIC = "";
+        String nric = "";
         String dateOfBirth = "";
         String phoneNumber = "";
         String homeAddress = "";
@@ -51,9 +52,9 @@ public class CommandHandler {
 
         // Extract name
         int nameStart = input.indexOf("n/");
-        int NRICStart = input.indexOf("ic/");
-        if (nameStart != -1 && NRICStart != -1) {
-            name = input.substring(nameStart + 2, NRICStart).trim();
+        int nricStart = input.indexOf("ic/");
+        if (nameStart != -1 && nricStart != -1) {
+            name = input.substring(nameStart + 2, nricStart).trim();
         } else if (nameStart != -1) { // Handle case where only name is provided
             name = input.substring(nameStart + 2).trim();
             System.out.println("Please provide the NRIC for the patient named " + name +
@@ -63,10 +64,10 @@ public class CommandHandler {
 
         // Extract NRIC
         int phoneStart = input.indexOf("p/");
-        if (NRICStart != -1 && phoneStart != -1) {
-            NRIC = input.substring(NRICStart + 3, phoneStart).trim();
-        } else if (NRICStart != -1) { // Handle case where there is no phone number
-            NRIC = input.substring(NRICStart + 3).trim();
+        if (nricStart != -1 && phoneStart != -1) {
+            nric = input.substring(nricStart + 3, phoneStart).trim();
+        } else if (nricStart != -1) { // Handle case where there is no phone number
+            nric = input.substring(nricStart + 3).trim();
         }
 
         // Extract phone number
@@ -115,7 +116,7 @@ public class CommandHandler {
             dateOfBirth = input.substring(dobStart + 4).trim();
         }
 
-        Patient patient = new Patient(name, NRIC);
+        Patient patient = new Patient(name, nric);
         patient.setPhoneNumber(phoneNumber);
         patient.setDiagnosis(diagnosis);
         patient.setHomeAddress(homeAddress);
@@ -123,7 +124,7 @@ public class CommandHandler {
         patient.setMedication(medications);
 
         records.addPatient(patient);
-        System.out.println("Patient " + name + " with NRIC " + NRIC + " added.");
+        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
     // Utility method to find the start of the next field or the end of the input string
