@@ -70,7 +70,7 @@ public class BookBobTest {
     @Test
     void testAdd() {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
-        assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
+        assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class BookBobTest {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         command.delete("S9534567A", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
-                "Patient James-Ho, S9534567A, has been deleted.", outputStreamCaptor.toString().trim());
+                "Patient James-Ho, S9534567A, has been deleted.", outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class BookBobTest {
         command.list(records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
                 "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Diagnosis: Asthma, Medication: [Albuterol], " +
-                "Address: NUS-PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
+                "Address: NUS-PGPR, DOB: 13121995", outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
 }
