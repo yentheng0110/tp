@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("BookBob.Main")
+    mainClass.set("bookbob.Main")
 }
 
 shadowJar {
