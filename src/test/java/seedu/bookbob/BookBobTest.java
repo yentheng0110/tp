@@ -91,5 +91,4 @@ public class BookBobTest {
                 "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Diagnosis: Asthma, Medication: [Albuterol], " +
                 "Address: NUS-PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
-
 }

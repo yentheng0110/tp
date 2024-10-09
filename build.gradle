@@ -29,11 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("BookBob.Main")
+    mainClass.set("bookbob.Main")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("Main")
     archiveClassifier.set("")
 }
 
