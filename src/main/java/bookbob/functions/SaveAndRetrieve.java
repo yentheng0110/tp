@@ -11,28 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileHandler {
-
-    private final static String filePath = "data" + File.separator + "bookbob_data.txt";
+public class SaveAndRetrieve {
 
     public static void initFile(Records records){
         try {
-
-            String directoryName = "data";
-            String currentDirectory = System.getProperty("user.dir");
-            String directory = currentDirectory + File.separator + directoryName;
-            File directoryFile = new File(directory);
-
-            if(directoryFile.mkdirs()) {           //directory was not created
-                File file = new File(filePath);
-                file.createNewFile();              //create new data file
-            } else {                               //directory already created
-                File file = new File(filePath);
-                if(file.createNewFile()) {         //file was not created
-                }
-                else {
-                    retrieveData(records);
-                }
+            File file = new File("bookbob_data.txt");
+            if(file.createNewFile()) {
+            } else {
+                retrieveData(records);
             }
         } catch(Exception e){
             System.out.println("An error occured");
@@ -40,7 +26,7 @@ public class FileHandler {
         }
     }
 
-    public static String convertPatientToOutputText(Patient patient) {
+    private static String convertPatientToOutputText(Patient patient) {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
@@ -55,10 +41,14 @@ public class FileHandler {
 
     public static void autosave(Records records) throws IOException {
         List<Patient> patients = records.getPatients();
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter("bookbob_data.txt");
         for(int i = 0; i < patients.size(); i++) {
             Patient currPatient = patients.get(i);
-            String toWrite = convertPatientToOutputText(patients.get(i));
+            String toWrite = convertPatientToOutputText(currPatient);
+
+            //for test
+            System.out.println(toWrite);
+
             fw.write(toWrite + "\n");
         }
         fw.close();
@@ -66,7 +56,7 @@ public class FileHandler {
 
     public static void retrieveData(Records records){
         try {
-            File file = new File(filePath);
+            File file = new File("bookbob_data.txt");
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
