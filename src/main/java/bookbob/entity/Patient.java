@@ -94,8 +94,9 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Name: " + getName() + ", NRIC: " + getNric() + ", DOB: " + getDateOfBirth() +
-                ", Phone: " + getPhoneNumber() + ", Address: " + getHomeAddress() +
-                ", Diagnosis: " + getDiagnosis() + ", Medication: " + getMedication();
+        return "Name: " + getName() + ", NRIC: " + getNric() +
+                ", Phone: " + getPhoneNumber() + ", Diagnosis: " + getDiagnosis() +
+                ", Medication: " + getMedication() + ", Address: " + getHomeAddress() +
+                ", DOB: " + getDateOfBirth();
     }
 }
