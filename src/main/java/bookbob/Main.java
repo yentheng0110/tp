@@ -1,16 +1,18 @@
 package bookbob;
 import bookbob.entity.Records;
 import bookbob.functions.CommandHandler;
-import bookbob.functions.SaveAndRetrieve;
+import bookbob.functions.FileHandler;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
 
         Scanner in = new Scanner(System.in);
         Records records = new Records();
-        SaveAndRetrieve.initFile(records);
+        FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
 
         boolean isRunning = true;
