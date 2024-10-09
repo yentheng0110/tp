@@ -3,10 +3,15 @@ package bookbob.functions;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CommandHandler {
+    private Scanner scanner;
+
+    public CommandHandler() {
+        this.scanner = new Scanner(System.in);
+    }
 
     // Prints output for help command
     public void help() {
@@ -18,17 +23,17 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+
                 | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
                 +-----------+---------------------------------------+---------------------------------+
                 | List      | list                                  | list                            |
                 +-----------+---------------------------------------+---------------------------------+
-                | Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |
-                |           | find NRIC [KEYWORDS] OR               |                                 |
-                |           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |
-                |           | find DIAGNOSIS [KEYWORDS] OR          |                                 |
-                |           | find MEDICATION [KEYWORDS] OR         |                                 |
-                |           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |
-                |           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |
+                | Find      | find n/NAME          OR               | find n/John Doe                 |
+                |           | find ic/NRIC         OR               | find ic/S1234                   |
+                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |           | find m/MEDICATION    OR               | find m/Panadol                  |
+                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
                 +-----------+---------------------------------------+---------------------------------+
                 | Delete    | delete NRIC                           | delete S9534567A                |
                 +-----------+---------------------------------------+---------------------------------+
@@ -148,12 +153,10 @@ public class CommandHandler {
             return;
         }
         for (Patient patient : patients) {
-            System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
-                    ", Phone: " + patient.getPhoneNumber() + ", Diagnosis: " + patient.getDiagnosis() +
-                    ", Medication: " + patient.getMedication() + ", Address: " + patient.getHomeAddress() +
-                    ", DOB: " + patient.getDateOfBirth());
+            System.out.println(patient);
         }
     }
+
 
     public void delete(String nric, Records records) {
         List<Patient> patients = records.getPatients();
@@ -180,6 +183,78 @@ public class CommandHandler {
     public void exit(String input) {
         if(input.equalsIgnoreCase("exit")) {
             System.exit(0);
+        }
+    }
+    public void find(String input, Records records) {
+        Map<String, String> searchParams = extractSearchParams(input);
+
+        if (searchParams.isEmpty()) {
+            System.out.println("Invalid search parameters. Please use the format: find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            return;
+        }
+
+        List<Patient> matchedPatients = records.getPatients().stream()
+                .filter(patient -> matchesSearchCriteria(patient, searchParams))
+                .collect(Collectors.toList());
+
+        displayResults(matchedPatients);
+    }
+
+    private Map<String, String> extractSearchParams(String input) {
+        Map<String, String> params = new HashMap<>();
+        String[] parts = input.split("\\s+");
+        for (String part : parts) {
+            if (part.contains("/")) {
+                String[] keyValue = part.split("/", 2);
+                if (keyValue.length == 2 && !keyValue[1].trim().isEmpty()) {
+                    String key = keyValue[0].trim();
+                    if (isValidSearchKey(key)) {
+                        params.put(key, keyValue[1].toLowerCase().trim());
+                    }
+                }
+            }
+        }
+        return params;
+    }
+
+    private boolean isValidSearchKey(String key) {
+        return Arrays.asList("n", "ic", "p", "d", "m", "ha", "dob").contains(key);
+    }
+
+    private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
+        return searchParams.entrySet().stream().allMatch(entry -> {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            switch (key) {
+                case "n":
+                    return patient.getName().toLowerCase().contains(value);
+                case "ic":
+                    return patient.getNric().toLowerCase().contains(value);
+                case "p":
+                    return patient.getPhoneNumber().toLowerCase().contains(value);
+                case "d":
+                    return patient.getDiagnosis().toLowerCase().contains(value);
+                case "m":
+                    return patient.getMedication().stream()
+                            .anyMatch(med -> med.toLowerCase().contains(value));
+                case "ha":
+                    return patient.getHomeAddress().toLowerCase().contains(value);
+                case "dob":
+                    return patient.getDateOfBirth().toLowerCase().contains(value);
+                default:
+                    return false;
+            }
+        });
+    }
+
+    private void displayResults(List<Patient> patients) {
+        if (patients.isEmpty()) {
+            System.out.println("No matching patients found.");
+        } else {
+            System.out.println("Matching patients:");
+            for (Patient patient : patients) {
+                System.out.println(patient);
+            }
         }
     }
 }
