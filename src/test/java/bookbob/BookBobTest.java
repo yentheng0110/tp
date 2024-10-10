@@ -239,7 +239,14 @@ public class BookBobTest {
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
-
+  
+    //@@author yentheng0110
+    @Test
+    void testList_emptyList_noPatientFoundMessage() {
+        command.list(records);
+        String expectedOutput = "No patients found.";
+    }
+  
     //@@author yentheng0110
     @Test
     void testAdd_addPatientWithoutNRIC_patientNotAdded() throws IOException {
