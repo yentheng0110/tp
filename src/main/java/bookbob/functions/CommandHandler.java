@@ -51,7 +51,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+""");
     }
 
-    public void add(String input, Records records) throws IOException {
+    public void add(String input, Records records) {
         String name = "";
         String nric = "";
         String dateOfBirth = "";
@@ -135,8 +135,6 @@ public class CommandHandler {
 
         records.addPatient(patient);
 
-        fileHandler.autosave(records);
-
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
@@ -168,7 +166,8 @@ public class CommandHandler {
         }
     }
 
-    public void delete(String nric, Records records) throws IOException {
+    // @@Author G13nd0n
+    public void delete(String nric, Records records) {
         List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
         if (initialPatientSize == 0) {
@@ -187,7 +186,6 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
-        fileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
