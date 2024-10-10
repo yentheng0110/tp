@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class CommandHandler {
     private Scanner scanner;
+    FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
     }
 
-    FileHandler fileHandler = new FileHandler();
 
     // Prints output for help command
     public void help() {
@@ -52,7 +52,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+""");
     }
 
-    public void add(String input, Records records) {
+    public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
         String dateOfBirth = "";
@@ -135,9 +135,9 @@ public class CommandHandler {
         patient.setMedication(medications);
 
         records.addPatient(patient);
+        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
 
         FileHandler.autosave(records);
-        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
     // Utility method to find the start of the next field or the end of the input string
@@ -169,7 +169,7 @@ public class CommandHandler {
     }
 
     // @@Author G13nd0n
-    public void delete(String nric, Records records) {
+    public void delete(String nric, Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
         if (initialPatientSize == 0) {
@@ -188,6 +188,8 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
+
+        FileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
@@ -200,7 +202,8 @@ public class CommandHandler {
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
-            System.out.println("Invalid search parameters. Please use the format: find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            System.out.println("Invalid search parameters. Please use the format: find " +
+                    "n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
         }
 
@@ -237,23 +240,23 @@ public class CommandHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
-                case "n":
-                    return patient.getName().toLowerCase().contains(value);
-                case "ic":
-                    return patient.getNric().toLowerCase().contains(value);
-                case "p":
-                    return patient.getPhoneNumber().toLowerCase().contains(value);
-                case "d":
-                    return patient.getDiagnosis().toLowerCase().contains(value);
-                case "m":
-                    return patient.getMedication().stream()
-                            .anyMatch(med -> med.toLowerCase().contains(value));
-                case "ha":
-                    return patient.getHomeAddress().toLowerCase().contains(value);
-                case "dob":
-                    return patient.getDateOfBirth().toLowerCase().contains(value);
-                default:
-                    return false;
+            case "n":
+                return patient.getName().toLowerCase().contains(value);
+            case "ic":
+                return patient.getNric().toLowerCase().contains(value);
+            case "p":
+                return patient.getPhoneNumber().toLowerCase().contains(value);
+            case "d":
+                return patient.getDiagnosis().toLowerCase().contains(value);
+            case "m":
+                return patient.getMedication().stream()
+                        .anyMatch(med -> med.toLowerCase().contains(value));
+            case "ha":
+                return patient.getHomeAddress().toLowerCase().contains(value);
+            case "dob":
+                return patient.getDateOfBirth().toLowerCase().contains(value);
+            default:
+                return false;
             }
         });
     }

@@ -76,13 +76,13 @@ public class BookBobTest {
     }
 
     @Test
-    void testAdd() {
+    void testAdd() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
     }
 
     @Test
-    void testDelete() {
+    void testDelete() throws IOException{
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         command.delete("S9534567A", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
@@ -90,7 +90,7 @@ public class BookBobTest {
     }
 
     @Test
-    void testList() {
+    void testList() throws IOException{
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         command.list(records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
@@ -99,7 +99,7 @@ public class BookBobTest {
     }
 
     @Test
-    void testFindName() {
+    void testFindName() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("n/james", records);
@@ -111,7 +111,7 @@ public class BookBobTest {
     }
 
     @Test
-    void testFindIc() {
+    void testFindIc() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("ic/S1234567Z", records);
@@ -123,7 +123,7 @@ public class BookBobTest {
     }
 
     @Test
-    void testFindPhoneNumber() {
+    void testFindPhoneNumber() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("p/91234567", records);
@@ -134,7 +134,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
     @Test
-    void testFindDiagnosis() {
+    void testFindDiagnosis() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("d/Asthma", records);
@@ -145,7 +145,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
     @Test
-    void testFindMedication() {
+    void testFindMedication() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("m/Albuterol", records);
@@ -156,7 +156,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
     @Test
-    void testFindHomeAddress() {
+    void testFindHomeAddress() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("ha/NUS PGPR", records);
@@ -167,7 +167,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
     @Test
-    void testFindDateOfBirth() {
+    void testFindDateOfBirth() throws IOException{
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995", records);
         command.find("dob/13121995", records);
@@ -184,7 +184,7 @@ public class BookBobTest {
 
     // @@ Author G13nd0n
     @Test
-    void add_onePatient_onePatientInRecord() {
+    void add_onePatient_onePatientInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
                 records);
         assertEquals(1, records.getPatients().size());
@@ -192,7 +192,7 @@ public class BookBobTest {
 
     // @@Author G13nd0n
     @Test
-    void delete_onePatient_twoPatientInRecord() {
+    void delete_onePatient_twoPatientInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
                 records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
@@ -205,7 +205,7 @@ public class BookBobTest {
 
     // @@Author G13nd0n
     @Test
-    void testList_twoInputs_twoPatientsInRecord() {
+    void testList_twoInputs_twoPatientsInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
                 records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
@@ -222,7 +222,7 @@ public class BookBobTest {
 
     // @@Author G13nd0n
     @Test
-    void testFind() {
+    void testFind() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
                 records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
