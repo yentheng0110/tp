@@ -53,6 +53,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+""");
     }
 
+    //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
@@ -141,6 +142,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
+    //@@author yentheng0110
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentFieldEnd) {
         int nextFieldStart = input.length(); // Default to end of string
@@ -154,6 +156,7 @@ public class CommandHandler {
         return nextFieldStart;
     }
 
+    //@author yentheng0110
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
