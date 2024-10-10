@@ -229,8 +229,8 @@ public class BookBobTest {
                 records);
         command.find("ic/S7654321B", records);
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
-                "added.\n" + "Matching patients:\nName: Will Smith, NRIC: S7654321B, DOB: 18-06-2003, " +
-                "Phone: 91234567, Address: CAPT, Diagnosis: AIDS, Medication: [Paracetamol]";
+                "added.\n" + "Matching patients:\nName: Will Smith, NRIC: S7654321B, " +
+                "Phone: 91234567, Diagnosis: AIDS, Medication: [Paracetamol], Address: CAPT, DOB: 18-06-2003";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
