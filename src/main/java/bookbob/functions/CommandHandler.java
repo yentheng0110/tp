@@ -3,6 +3,9 @@ package bookbob.functions;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,6 +15,8 @@ public class CommandHandler {
     public CommandHandler() {
         this.scanner = new Scanner(System.in);
     }
+
+    FileHandler fileHandler = new FileHandler();
 
     // Prints output for help command
     public void help() {
@@ -46,7 +51,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+""");
     }
 
-    public void add(String input, Records records) {
+    public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
         String dateOfBirth = "";
@@ -129,6 +134,9 @@ public class CommandHandler {
         patient.setMedication(medications);
 
         records.addPatient(patient);
+
+        fileHandler.autosave(records);
+
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
@@ -160,7 +168,7 @@ public class CommandHandler {
         }
     }
 
-    public void delete(String nric, Records records) {
+    public void delete(String nric, Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
         if (initialPatientSize == 0) {
@@ -179,6 +187,7 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
+        fileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
