@@ -249,6 +249,15 @@ public class BookBobTest {
   
     //@@author yentheng0110
     @Test
+    void testDelete_deleteNonExistingPatient_recordsSizeRemainsTheSame() throws IOException {
+        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon ha/Bukit Gombak dob/06071997",
+                records);
+        command.delete("S9587690H", records);
+        assertEquals(1, records.getPatients().size());
+    }
+  
+    //@@author yentheng0110
+    @Test
     void testAdd_addPatientWithoutNRIC_patientNotAdded() throws IOException {
         command.add("add n/Jane Tan", records);
         String expectedOutput =
