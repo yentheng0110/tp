@@ -37,35 +37,36 @@ public class BookBobTest {
     @Test
     void testHelp() {
         command.help();
-        assertEquals("+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Action    | Format                                | Example                         |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Help      | help                                  | help                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |\n" +
-                        "|           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
-                        "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| List      | list                                  | list                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |\n" +
-                        "|           | find NRIC [KEYWORDS] OR               |                                 |\n" +
-                        "|           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |\n" +
-                        "|           | find DIAGNOSIS [KEYWORDS] OR          |                                 |\n" +
-                        "|           | find MEDICATION [KEYWORDS] OR         |                                 |\n" +
-                        "|           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |\n" +
-                        "|           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Delete    | delete NRIC                           | delete S9534567A                |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Save      | save(automatic)                       | save                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Retrieve/ | retrieve or import                    | retrieve                        |\n" +
-                        "| Import    | (automatic)                           |                                 |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Exit      | exit                                  | exit                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n"
-                                .trim(), outputStreamCaptor.toString().trim());
+        assertEquals("""
+                +-----------+---------------------------------------+---------------------------------+
+                | Action    | Format                                | Example                         |
+                +-----------+---------------------------------------+---------------------------------+
+                | Help      | help                                  | help                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
+                +-----------+---------------------------------------+---------------------------------+
+                | List      | list                                  | list                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Find      | find n/NAME          OR               | find n/John Doe                 |
+                |           | find ic/NRIC         OR               | find ic/S1234                   |
+                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |           | find m/MEDICATION    OR               | find m/Panadol                  |
+                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
+                +-----------+---------------------------------------+---------------------------------+
+                | Delete    | delete NRIC                           | delete S9534567A                |
+                +-----------+---------------------------------------+---------------------------------+
+                | Save      | save(automatic)                       | save                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Retrieve/ | retrieve or import                    | retrieve                        |
+                | Import    | (automatic)                           |                                 |
+                +-----------+---------------------------------------+---------------------------------+
+                | Exit      | exit                                  | exit                            |
+                +-----------+---------------------------------------+---------------------------------+""",
+                outputStreamCaptor.toString().trim());
     }
 
     @AfterEach
