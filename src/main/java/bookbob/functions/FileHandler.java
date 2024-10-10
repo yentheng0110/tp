@@ -11,14 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class SaveAndRetrieve {
+public class FileHandler {
+
+    private final static String filePath = "data" + File.separator + "bookbob_data.txt";
 
     public static void initFile(Records records){
         try {
-            File file = new File("bookbob_data.txt");
-            if(file.createNewFile()) {
-            } else {
-                retrieveData(records);
+
+            String directoryName = "data";
+            String currentDirectory = System.getProperty("user.dir");
+            String directory = currentDirectory + File.separator + directoryName;
+            File directoryFile = new File(directory);
+
+            if(directoryFile.mkdirs()) {           //directory was not created
+                File file = new File(filePath);
+                file.createNewFile();              //create new data file
+            } else {                               //directory already created
+                File file = new File(filePath);
+                if(file.createNewFile()) {         //file was not created
+                }
+                else {
+                    retrieveData(records);
+                }
             }
         } catch(Exception e){
             System.out.println("An error occured");
@@ -26,29 +40,24 @@ public class SaveAndRetrieve {
         }
     }
 
-    private static String convertPatientToOutputText(Patient patient) {
+    public static String convertPatientToOutputText(Patient patient) {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
                 + " | " + "Home Address: " + patient.getHomeAddress() + " | "
                 + "Diagnosis: " + patient.getDiagnosis() + " | " + "Medication: ";
         List<String> medications = patient.getMedication();
-        for(int i = 0; i < medications.size(); i++) {
-            output += medications.get(i) + ";";
+        for (String medication : medications) {
+            output += medication + ";";
         }
         return output;
     }
 
     public static void autosave(Records records) throws IOException {
         List<Patient> patients = records.getPatients();
-        FileWriter fw = new FileWriter("bookbob_data.txt");
-        for(int i = 0; i < patients.size(); i++) {
-            Patient currPatient = patients.get(i);
+        FileWriter fw = new FileWriter(filePath);
+        for (Patient currPatient : patients) {
             String toWrite = convertPatientToOutputText(currPatient);
-
-            //for test
-            System.out.println(toWrite);
-
             fw.write(toWrite + "\n");
         }
         fw.close();
@@ -56,19 +65,19 @@ public class SaveAndRetrieve {
 
     public static void retrieveData(Records records){
         try {
-            File file = new File("bookbob_data.txt");
+            File file = new File(filePath);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 String[] data = line.split("\\|");
-                String name = data[0].trim();
-                String nric = data[1].trim();
-                String phoneNumber = data[2].trim();
-                String dateOfBirth = data[3].trim();
-                String homeAddress = data[4].trim();
-                String diagnosis = data[5].trim();
+                String name = data[0].substring(6).trim();
+                String nric = data[1].substring(6).trim();
+                String phoneNumber = data[2].substring(15).trim();
+                String dateOfBirth = data[3].substring(16).trim();
+                String homeAddress = data[4].substring(15).trim();
+                String diagnosis = data[5].substring(12).trim();
                 ArrayList<String> medications = new ArrayList<>();
-                String[] rawMedications = data[6].trim().split(";");
+                String[] rawMedications = data[6].substring(12).trim().split(";");
                 for(int i = 0; i < rawMedications.length; i++) {
                     medications.add(rawMedications[i].trim());
                 }
