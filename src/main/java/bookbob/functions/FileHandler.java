@@ -47,8 +47,8 @@ public class FileHandler {
                 + " | " + "Home Address: " + patient.getHomeAddress() + " | "
                 + "Diagnosis: " + patient.getDiagnosis() + " | " + "Medication: ";
         List<String> medications = patient.getMedication();
-        for(int i = 0; i < medications.size(); i++) {
-            output += medications.get(i) + ";";
+        for (String medication : medications) {
+            output += medication + ";";
         }
         return output;
     }
@@ -56,9 +56,8 @@ public class FileHandler {
     public static void autosave(Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         FileWriter fw = new FileWriter(filePath);
-        for(int i = 0; i < patients.size(); i++) {
-            Patient currPatient = patients.get(i);
-            String toWrite = convertPatientToOutputText(patients.get(i));
+        for (Patient currPatient : patients) {
+            String toWrite = convertPatientToOutputText(currPatient);
             fw.write(toWrite + "\n");
         }
         fw.close();
@@ -71,14 +70,14 @@ public class FileHandler {
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 String[] data = line.split("\\|");
-                String name = data[0].trim();
-                String nric = data[1].trim();
-                String phoneNumber = data[2].trim();
-                String dateOfBirth = data[3].trim();
-                String homeAddress = data[4].trim();
-                String diagnosis = data[5].trim();
+                String name = data[0].substring(6).trim();
+                String nric = data[1].substring(6).trim();
+                String phoneNumber = data[2].substring(15).trim();
+                String dateOfBirth = data[3].substring(16).trim();
+                String homeAddress = data[4].substring(15).trim();
+                String diagnosis = data[5].substring(12).trim();
                 ArrayList<String> medications = new ArrayList<>();
-                String[] rawMedications = data[6].trim().split(";");
+                String[] rawMedications = data[6].substring(12).trim().split(";");
                 for(int i = 0; i < rawMedications.length; i++) {
                     medications.add(rawMedications[i].trim());
                 }
