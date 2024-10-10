@@ -248,4 +248,17 @@ public class BookBobTest {
         command.delete("S9587690H", records);
         assertEquals(1, records.getPatients().size());
     }
+
+    //@@author yentheng0110
+    @Test
+    void testFind_invalidSearchFormat_expectAnErrorMessageWithGuidance() throws IOException {
+        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon ha/Bukit Gombak dob/06071997",
+                records);
+        command.find("Jack", records);
+        String expectedOutput = "Patient Jack Wong with NRIC S9765432T added.\nInvalid search parameters. " +
+                "Please use the format: find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] " +
+                "[m/MEDICATION] [ha/ADDRESS] [dob/DOB]";
+        assertEquals(expectedOutput,
+                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    }
 }
