@@ -1,4 +1,4 @@
-package seedu.bookbob;
+package bookbob;
 
 import bookbob.entity.Records;
 import org.junit.jupiter.api.AfterEach;
