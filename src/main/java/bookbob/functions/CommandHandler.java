@@ -13,13 +13,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    private Scanner scanner;
-    private FileHandler fileHandler;
-
-    public CommandHandler() throws IOException {
-        this.scanner = new Scanner(System.in);
-        this.fileHandler = new FileHandler();
-    }
+    private Scanner scanner = new Scanner(System.in);
+    private FileHandler fileHandler = new FileHandler();
 
     // Prints output for help command
     public void help() {
