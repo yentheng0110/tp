@@ -2,17 +2,19 @@ package bookbob.functions;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
-import bookbob.functions.FileHandler;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
     private Scanner scanner;
-    FileHandler fileHandler = new FileHandler();
+    private FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
