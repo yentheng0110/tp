@@ -248,4 +248,14 @@ public class BookBobTest {
         command.delete("S9587690H", records);
         assertEquals(1, records.getPatients().size());
     }
+  
+    //@@author yentheng0110
+    @Test
+    void testAdd_addPatientWithoutNRIC_patientNotAdded() throws IOException {
+        command.add("add n/Jane Tan", records);
+        String expectedOutput =
+                "Please provide the NRIC for the patient named Jane Tan, then add the patient record again.";
+        assertEquals(expectedOutput,
+                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    }
 }
