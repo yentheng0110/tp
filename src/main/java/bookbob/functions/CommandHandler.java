@@ -2,22 +2,24 @@ package bookbob.functions;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
-import bookbob.functions.FileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.*;
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
     private Scanner scanner;
+    private FileHandler fileHandler;
 
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
+        this.fileHandler = new FileHandler();
     }
-
-    FileHandler fileHandler = new FileHandler();
 
     // Prints output for help command
     public void help() {
@@ -201,7 +203,8 @@ public class CommandHandler {
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
-            System.out.println("Invalid search parameters. Please use the format: find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            System.out.println("Invalid search parameters. Please use the format: "
+                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
         }
 
@@ -238,23 +241,23 @@ public class CommandHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
-                case "n":
-                    return patient.getName().toLowerCase().contains(value);
-                case "ic":
-                    return patient.getNric().toLowerCase().contains(value);
-                case "p":
-                    return patient.getPhoneNumber().toLowerCase().contains(value);
-                case "d":
-                    return patient.getDiagnosis().toLowerCase().contains(value);
-                case "m":
-                    return patient.getMedication().stream()
-                            .anyMatch(med -> med.toLowerCase().contains(value));
-                case "ha":
-                    return patient.getHomeAddress().toLowerCase().contains(value);
-                case "dob":
-                    return patient.getDateOfBirth().toLowerCase().contains(value);
-                default:
-                    return false;
+            case "n":
+                return patient.getName().toLowerCase().contains(value);
+            case "ic":
+                return patient.getNric().toLowerCase().contains(value);
+            case "p":
+                return patient.getPhoneNumber().toLowerCase().contains(value);
+            case "d":
+                return patient.getDiagnosis().toLowerCase().contains(value);
+            case "m":
+                return patient.getMedication().stream()
+                        .anyMatch(med -> med.toLowerCase().contains(value));
+            case "ha":
+                return patient.getHomeAddress().toLowerCase().contains(value);
+            case "dob":
+                return patient.getDateOfBirth().toLowerCase().contains(value);
+            default:
+                return false;
             }
         });
     }
