@@ -4,12 +4,12 @@ import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
@@ -19,8 +19,7 @@ public class CommandHandler {
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
     }
-
-
+  
     // Prints output for help command
     public void help() {
         System.out.println("""
@@ -204,8 +203,8 @@ public class CommandHandler {
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
-            System.out.println("Invalid search parameters. Please use the format: find " +
-                    "n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            System.out.println("Invalid search parameters. Please use the format: "
+                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
         }
 
