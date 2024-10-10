@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-    private static final String filePath = "data" + File.separator + "bookbob_data.txt";
+    private static String filePath = "data" + File.separator + "bookbob_data.txt";
 
     public static void initFile(Records records){
         try {

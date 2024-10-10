@@ -13,8 +13,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private FileHandler fileHandler = new FileHandler();
+
+    public CommandHandler() throws IOException {
+        this.scanner = new Scanner(System.in);
+    }
 
     // Prints output for help command
     public void help() {
@@ -132,10 +136,9 @@ public class CommandHandler {
         patient.setMedication(medications);
 
         records.addPatient(patient);
+        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
 
         FileHandler.autosave(records);
-
-        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
     // Utility method to find the start of the next field or the end of the input string
@@ -185,7 +188,8 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
-        fileHandler.autosave(records);
+
+        FileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
