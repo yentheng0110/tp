@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-    private final static String filePath = "data" + File.separator + "bookbob_data.txt";
+    private static String filePath = "data" + File.separator + "bookbob_data.txt";
 
     public static void initFile(Records records){
         try {
@@ -29,8 +29,7 @@ public class FileHandler {
             } else {                               //directory already created
                 File file = new File(filePath);
                 if(file.createNewFile()) {         //file was not created
-                }
-                else {
+                } else {
                     retrieveData(records);
                 }
             }
