@@ -53,7 +53,7 @@ public class FileHandler {
         return output;
     }
 
-    public static void save(Records records) throws IOException {
+    public static void autosave(Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         FileWriter fw = new FileWriter(filePath);
         for (Patient currPatient : patients) {

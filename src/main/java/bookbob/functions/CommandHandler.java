@@ -136,7 +136,7 @@ public class CommandHandler {
 
         records.addPatient(patient);
 
-        FileHandler.save(records);
+        FileHandler.autosave(records);
 
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
@@ -188,7 +188,7 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
-        fileHandler.save(records);
+        fileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
