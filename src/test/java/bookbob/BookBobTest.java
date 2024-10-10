@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BookBobTest {
     CommandHandler command = new CommandHandler();
     Records records = new Records();
+
+    public BookBobTest() throws IOException {
+    }
 
     @Test
     public void sampleTest() {
