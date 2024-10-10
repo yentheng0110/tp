@@ -154,7 +154,6 @@ public class CommandHandler {
         return nextFieldStart;
     }
 
-
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
