@@ -61,7 +61,8 @@ public class BookBobTest {
                         "| Import    | (automatic)                           |                                 |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Exit      | exit                                  | exit                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n".trim(),
+                        "+-----------+---------------------------------------+---------------------------------+\n"
+                                .trim(),
                 outputStreamCaptor.toString().trim());
     }
 
@@ -169,7 +170,8 @@ public class BookBobTest {
         assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
-                        "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Diagnosis: Asthma, Medication: [Albuterol], " +
+                        "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Diagnosis: Asthma," +
+                        " Medication: [Albuterol], " +
                         "Address: NUS PGPR, DOB: 13121995" + System.lineSeparator() +
                         "Name: John Doe, NRIC: S1234567Z, Phone: 97654321, Diagnosis: Fever, Medication: [Panadol], " +
                         "Address: Hougang Green, DOB: 13121995",
