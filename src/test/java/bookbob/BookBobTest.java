@@ -45,17 +45,17 @@ public class BookBobTest {
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |\n" +
                         "|           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
-                        "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |\n" +
+                        "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| List      | list                                  | list                            |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |\n" +
-                        "|           | find NRIC [KEYWORDS] OR               |                                 |\n" +
-                        "|           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |\n" +
-                        "|           | find DIAGNOSIS [KEYWORDS] OR          |                                 |\n" +
-                        "|           | find MEDICATION [KEYWORDS] OR         |                                 |\n" +
-                        "|           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |\n" +
-                        "|           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |\n" +
+                        "| Find      | find n/NAME          OR               | find n/John Doe                 |\n" +
+                        "|           | find ic/NRIC         OR               | find ic/S1234                   |\n" +
+                        "|           | find p/PHONE_NUMBER  OR               | find p/91234567                 |\n" +
+                        "|           | find d/DIAGNOSIS     OR               | find d/Fever                    |\n" +
+                        "|           | find m/MEDICATION    OR               | find m/Panadol                  |\n" +
+                        "|           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |\n" +
+                        "|           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Delete    | delete NRIC                           | delete S9534567A                |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
