@@ -212,7 +212,7 @@ public class BookBobTest {
 
     // @@ Author kaboomzxc
     @Test
-    void testAdd_SinglePatient() throws IOException {
+    void testAdd_singlePatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Orch Rd dob/01-01-1990",
                 records);
 
@@ -222,7 +222,7 @@ public class BookBobTest {
 
     // @@ Author kaboomzxc
     @Test
-    void testDelete_ExistingPatient() throws IOException {
+    void testDelete_existingPatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Orch Rd dob/01-01-1990",
                 records);
         outputStreamCaptor.reset();
@@ -235,7 +235,7 @@ public class BookBobTest {
 
     // @@ Author kaboomzxc
     @Test
-    void testList_EmptyRecords() {
+    void testList_emptyRecords() {
         command.list(records);
 
         assertEquals("No patients found.", outputStreamCaptor.toString().trim());
@@ -243,7 +243,7 @@ public class BookBobTest {
 
     // @@ Author kaboomzxc
     @Test
-    void testList_MultiplePatients() throws IOException {
+    void testList_multiplePatients() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Main St dob/01-01-1990",
                 records);
         command.add("add n/Jane Smith ic/S7654321B p/87654321 d/Cough m/Cough Syrup ha/456 Oak Ave dob/02-02-1995",
