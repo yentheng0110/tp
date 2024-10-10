@@ -19,7 +19,7 @@ public class CommandHandler {
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
     }
-
+  
     // Prints output for help command
     public void help() {
         System.out.println("""
@@ -169,6 +169,7 @@ public class CommandHandler {
         }
     }
 
+    // @@Author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
