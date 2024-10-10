@@ -2,6 +2,7 @@ package bookbob.functions;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
+import bookbob.functions.FileHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class CommandHandler {
     private Scanner scanner;
 
-    public CommandHandler() {
+    public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
     }
 
@@ -135,7 +136,7 @@ public class CommandHandler {
 
         records.addPatient(patient);
 
-        fileHandler.autosave(records);
+        FileHandler.save(records);
 
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
@@ -187,7 +188,7 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
-        fileHandler.autosave(records);
+        fileHandler.save(records);
     }
 
     // Takes in an input string and determines whether to exit the program
