@@ -22,8 +22,6 @@ public class BookBobTest {
 
     public BookBobTest() throws IOException {
     }
-
-    //@@author coraleaf0602
     @Test
     public void sampleTest() {
         assertTrue(true);
@@ -31,13 +29,13 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @BeforeEach
-    public void setUp() {
+    public void set_up_for_help_command() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     //@@author coraleaf0602
     @Test
-    void testHelp() {
+    void test_help_output() {
         command.help();
         assertEquals("+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Action    | Format                                | Example                         |\n" +
@@ -73,20 +71,20 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @AfterEach
-    public void tearDown() {
+    public void tear_down_for_help_command() {
         System.setOut(standardOut);
     }
 
     //@@author coraleaf0602
     @Test
-    void testAdd() throws IOException {
+    void test_add_one_patient_to_empty_record() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
     }
 
     //@@author coraleaf0602
     @Test
-    void testDelete() throws IOException {
+    void test_delete_patient_in_record() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         command.delete("S9534567A", records);
         String expectedOutput = "Patient James-Ho with NRIC S9534567A added.\n" +
@@ -97,7 +95,7 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @Test
-    void testList() throws IOException {
+    void test_list_one_patient_in_record() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995",
                 records);
         command.list(records);
