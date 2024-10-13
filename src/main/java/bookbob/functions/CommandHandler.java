@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    private Scanner scanner;
-    private FileHandler fileHandler = new FileHandler();
+    private final Scanner scanner;
+    private final FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
@@ -196,10 +196,15 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
+    //@@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
         if(input.equalsIgnoreCase("exit")) {
-            System.exit(0);
+            try {
+                System.exit(0);
+            } catch (Exception e) {
+                System.err.println("Error occurred during exit");
+            }
         }
     }
 
