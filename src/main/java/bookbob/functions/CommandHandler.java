@@ -31,17 +31,17 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+
                 | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
                 +-----------+---------------------------------------+---------------------------------+
                 | List      | list                                  | list                            |
                 +-----------+---------------------------------------+---------------------------------+
-                | Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |
-                |           | find NRIC [KEYWORDS] OR               |                                 |
-                |           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |
-                |           | find DIAGNOSIS [KEYWORDS] OR          |                                 |
-                |           | find MEDICATION [KEYWORDS] OR         |                                 |
-                |           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |
-                |           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |
+                | Find      | find n/NAME          OR               | find n/John Doe                 |
+                |           | find ic/NRIC         OR               | find ic/S1234                   |
+                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |           | find m/MEDICATION    OR               | find m/Panadol                  |
+                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
                 +-----------+---------------------------------------+---------------------------------+
                 | Delete    | delete NRIC                           | delete S9534567A                |
                 +-----------+---------------------------------------+---------------------------------+
