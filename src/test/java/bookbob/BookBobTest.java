@@ -1,6 +1,8 @@
 package bookbob;
 
+import bookbob.entity.Patient;
 import bookbob.entity.Records;
+import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
 
 import bookbob.functions.CommandHandler;
@@ -10,12 +12,16 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class BookBobTest {
     CommandHandler command = new CommandHandler();
+    FileHandler fileHandler;
     Records records = new Records();
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final PrintStream standardOut = System.out;
@@ -350,5 +356,40 @@ public class BookBobTest {
                 "Please provide the NRIC for the patient named Jane Tan, then add the patient record again.";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    }
+
+    //@@author PrinceCatt
+    @Test
+    void testTextConverterFullInformation() {
+        List<String> medications = new ArrayList<>();
+        medications.add("Gaviscon");
+        Patient patient = new Patient("John", "S9765432T", "06071997", "87658976",
+                "Bukit Gombak", "Gastric", medications);
+        String output = fileHandler.convertPatientToOutputText(patient);
+        assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
+                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Diagnosis: Gastric | Medication: Gaviscon;");
+    }
+
+    //@@author PrinceCatt
+    @Test
+    void testTextConverterPartialInformation() {
+        List<String> medications = new ArrayList<>();
+        Patient patient = new Patient("John", "S9765432T");
+        String output = fileHandler.convertPatientToOutputText(patient);
+        assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
+                "Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication: ");
+    }
+
+    @Test
+    void testFileInitialization() throws IOException {
+        Records records = new Records();            //initialize a new record to clear file content
+        fileHandler.autosave(records);
+        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon ha/Bukit Gombak dob/06071997",
+                records);
+        Patient patient = records.getPatients().get(0);
+        fileHandler.autosave(records);
+        fileHandler.initFile(records);
+        Patient newPatient = records.getPatients().get(0);
+        assertEquals(patient,newPatient);
     }
 }
