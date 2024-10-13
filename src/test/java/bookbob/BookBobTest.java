@@ -356,4 +356,11 @@ public class BookBobTest {
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
+
+    //@@author coraleaf0602
+    @Test
+    void test_exit_command() throws IOException {
+        command.exit("exit");
+
+    }
 }
