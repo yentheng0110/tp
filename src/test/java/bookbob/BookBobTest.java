@@ -23,16 +23,19 @@ public class BookBobTest {
     public BookBobTest() throws IOException {
     }
 
+    //@@author coraleaf0602
     @Test
     public void sampleTest() {
         assertTrue(true);
     }
 
+    //@@author coraleaf0602
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    //@@author coraleaf0602
     @Test
     void testHelp() {
         command.help();
@@ -68,17 +71,20 @@ public class BookBobTest {
                 outputStreamCaptor.toString().trim());
     }
 
+    //@@author coraleaf0602
     @AfterEach
     public void tearDown() {
         System.setOut(standardOut);
     }
 
+    //@@author coraleaf0602
     @Test
     void testAdd() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
     }
 
+    //@@author coraleaf0602
     @Test
     void testDelete() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
@@ -89,6 +95,7 @@ public class BookBobTest {
                 "\n"));
     }
 
+    //@@author coraleaf0602
     @Test
     void testList() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995",

@@ -21,6 +21,7 @@ public class CommandHandler {
     }
   
     // Prints output for help command
+    //@@author coraleaf0602
     public void help() {
         System.out.println("""
                 +-----------+---------------------------------------+---------------------------------+
