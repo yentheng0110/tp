@@ -29,7 +29,7 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @BeforeEach
-    public void set_up_for_help_command() {
+    public void setUp_for_helpCommand() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
@@ -71,20 +71,20 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @AfterEach
-    public void tear_down_for_help_command() {
+    public void tearDown_for_helpCommand() {
         System.setOut(standardOut);
     }
 
     //@@author coraleaf0602
     @Test
-    void test_add_one_patient_to_empty_record() throws IOException {
+    void test_addOnePatient_toEmptyRecord() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
     }
 
     //@@author coraleaf0602
     @Test
-    void test_delete_patient_in_record() throws IOException {
+    void test_deletePatient_inRecord() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         command.delete("S9534567A", records);
         String expectedOutput = "Patient James-Ho with NRIC S9534567A added.\n" +
@@ -95,7 +95,7 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @Test
-    void test_list_one_patient_in_record() throws IOException {
+    void test_listOnePatient_inRecord() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995",
                 records);
         command.list(records);
@@ -355,12 +355,5 @@ public class BookBobTest {
                 "Please provide the NRIC for the patient named Jane Tan, then add the patient record again.";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
-    }
-
-    //@@author coraleaf0602
-    @Test
-    void test_exit_command() throws IOException {
-        command.exit("exit");
-
     }
 }
