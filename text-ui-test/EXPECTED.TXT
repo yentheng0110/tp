@@ -1,1 +1,2 @@
 Welcome to BookBob, Dr. Bob!
+Unknown command. Type 'help' for a list of commands.

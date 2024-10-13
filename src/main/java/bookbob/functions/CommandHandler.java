@@ -4,12 +4,22 @@ import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    FileHandler fileHandler = new FileHandler();
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
+    private FileHandler fileHandler = new FileHandler();
+
+    public CommandHandler() throws IOException {
+        this.scanner = new Scanner(System.in);
+    }
+
 
     // Prints output for help command
     public void help() {
@@ -21,17 +31,17 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+
                 | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/13121995        |
                 +-----------+---------------------------------------+---------------------------------+
                 | List      | list                                  | list                            |
                 +-----------+---------------------------------------+---------------------------------+
-                | Find      | find n/NAME          OR               | find n/John Doe                 |
-                |           | find ic/NRIC         OR               | find ic/S1234                   |
-                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |           | find m/MEDICATION    OR               | find m/Panadol                  |
-                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
+                | Find      | find NAME [KEYWORDS] OR               | find NRIC S1234                 |
+                |           | find NRIC [KEYWORDS] OR               |                                 |
+                |           | find PHONE_NUMBER [KEYWORDS] OR       |                                 |
+                |           | find DIAGNOSIS [KEYWORDS] OR          |                                 |
+                |           | find MEDICATION [KEYWORDS] OR         |                                 |
+                |           | find HOME_ADDRESS [KEYWORDS] OR       |                                 |
+                |           | find DATE_OF_BIRTH [KEYWORDS]         |                                 |
                 +-----------+---------------------------------------+---------------------------------+
                 | Delete    | delete NRIC                           | delete S9534567A                |
                 +-----------+---------------------------------------+---------------------------------+
@@ -127,10 +137,9 @@ public class CommandHandler {
         patient.setMedication(medications);
 
         records.addPatient(patient);
+        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
 
         FileHandler.autosave(records);
-
-        System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
     // Utility method to find the start of the next field or the end of the input string
@@ -161,6 +170,7 @@ public class CommandHandler {
         }
     }
 
+    // @@Author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         List<Patient> patients = records.getPatients();
         int initialPatientSize = patients.size();
@@ -180,7 +190,8 @@ public class CommandHandler {
         if (patients.size() == initialPatientSize) {
             System.out.println("Patient " + nric + " not found");
         }
-        fileHandler.autosave(records);
+
+        FileHandler.autosave(records);
     }
 
     // Takes in an input string and determines whether to exit the program
@@ -193,7 +204,8 @@ public class CommandHandler {
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
-            System.out.println("Invalid search parameters. Please use the format: find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            System.out.println("Invalid search parameters. Please use the format: find " +
+                    "n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
         }
 
@@ -230,23 +242,23 @@ public class CommandHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
-                case "n":
-                    return patient.getName().toLowerCase().contains(value);
-                case "ic":
-                    return patient.getNric().toLowerCase().contains(value);
-                case "p":
-                    return patient.getPhoneNumber().toLowerCase().contains(value);
-                case "d":
-                    return patient.getDiagnosis().toLowerCase().contains(value);
-                case "m":
-                    return patient.getMedication().stream()
-                            .anyMatch(med -> med.toLowerCase().contains(value));
-                case "ha":
-                    return patient.getHomeAddress().toLowerCase().contains(value);
-                case "dob":
-                    return patient.getDateOfBirth().toLowerCase().contains(value);
-                default:
-                    return false;
+            case "n":
+                return patient.getName().toLowerCase().contains(value);
+            case "ic":
+                return patient.getNric().toLowerCase().contains(value);
+            case "p":
+                return patient.getPhoneNumber().toLowerCase().contains(value);
+            case "d":
+                return patient.getDiagnosis().toLowerCase().contains(value);
+            case "m":
+                return patient.getMedication().stream()
+                        .anyMatch(med -> med.toLowerCase().contains(value));
+            case "ha":
+                return patient.getHomeAddress().toLowerCase().contains(value);
+            case "dob":
+                return patient.getDateOfBirth().toLowerCase().contains(value);
+            default:
+                return false;
             }
         });
     }
