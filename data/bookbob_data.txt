@@ -1,2 +1,6 @@
+Name: James Allen | NRIC: S8976543A | Phone Number:  | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication: ;
+Name: James-Ho | NRIC: S9534567A | Phone Number: 13121995 | Date_Of_Birth: 91234567 | Home Address: NUS-PGPR | Diagnosis: Asthma | Medication: Albuterol;
+Name: y-t | NRIC: T0367489A | Phone Number:  | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication: ;
+Name: glenda tan | NRIC: T0987653A | Phone Number:  | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication: 
 Name: James Ho | NRIC: S9534567A | Phone Number: 91234567 | Date_Of_Birth: 13121995 | Home Address: NUS PGPR | Diagnosis: Asthma | Medication: Albuterol;
 Name: John Doe | NRIC: S1234567Z | Phone Number: 97654321 | Date_Of_Birth: 13121995 | Home Address: Hougang Green | Diagnosis: Fever | Medication: Panadol;

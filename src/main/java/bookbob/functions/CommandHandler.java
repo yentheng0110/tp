@@ -4,12 +4,12 @@ import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
@@ -19,8 +19,7 @@ public class CommandHandler {
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
     }
-
-
+  
     // Prints output for help command
     public void help() {
         System.out.println("""
@@ -54,6 +53,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+""");
     }
 
+    //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
@@ -142,6 +142,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
+    //@@author yentheng0110
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentFieldEnd) {
         int nextFieldStart = input.length(); // Default to end of string
@@ -155,7 +156,7 @@ public class CommandHandler {
         return nextFieldStart;
     }
 
-
+    //@author yentheng0110
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
@@ -200,12 +201,14 @@ public class CommandHandler {
             System.exit(0);
         }
     }
+
+    // @@Author kaboomzxc
     public void find(String input, Records records) {
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
-            System.out.println("Invalid search parameters. Please use the format: find " +
-                    "n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            System.out.println("Invalid search parameters. Please use the format: "
+                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
         }
 
