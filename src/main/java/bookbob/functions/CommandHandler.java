@@ -67,50 +67,41 @@ public class CommandHandler {
         // Extract name
         int nameStart = input.indexOf("n/");
         int nricStart = input.indexOf("ic/");
-        if (nameStart != -1 && nricStart != -1) {
-            name = input.substring(nameStart + 2, nricStart).trim();
-        } else if (nameStart != -1) { // Handle case where only name is provided
-            name = input.substring(nameStart + 2).trim();
-            System.out.println("Please provide the NRIC for the patient named " + name +
-                    ", then add the patient record again.");
-            return; // Exit the method until user provides NRIC
+        if (nameStart == -1) {
+            System.out.println("Please provide the patient's name.");
+            return;
         }
 
-        // Extract NRIC
-        int phoneStart = input.indexOf("p/");
-        if (nricStart != -1 && phoneStart != -1) {
-            nric = input.substring(nricStart + 3, phoneStart).trim();
-        } else if (nricStart != -1) { // Handle case where there is no phone number
-            nric = input.substring(nricStart + 3).trim();
+        int nameEnd = findNextFieldStart(input, nameStart + 2);
+        name = input.substring(nameStart + 2, nameEnd).trim();
+
+        if (nricStart == -1) {
+            System.out.println("Please provide the patient's NRIC.");
+            return;
         }
+
+        int nricEnd = findNextFieldStart(input, nricStart + 3);
+        nric = input.substring(nricStart + 3, nricEnd).trim();
 
         // Extract phone number
-        int diagnosisStart = input.indexOf("d/");
-        if (phoneStart != -1 && diagnosisStart != -1) {
-            phoneNumber = input.substring(phoneStart + 2, diagnosisStart).trim();
-        } else if (phoneStart != -1) { // Handle case where there is no diagnosis
-            int nextFieldStart = findNextFieldStart(input, phoneStart);
-            phoneNumber = input.substring(phoneStart + 2, nextFieldStart).trim();
+        int phoneStart = input.indexOf("p/");
+        if (phoneStart != -1) {
+            int phoneEnd = findNextFieldStart(input, phoneStart + 2);
+            phoneNumber = input.substring(phoneStart + 2, phoneEnd).trim();
         }
 
         // Extract diagnosis
-        int medicationStart = input.indexOf("m/");
-        if (diagnosisStart != -1 && medicationStart != -1) {
-            diagnosis = input.substring(diagnosisStart + 2, medicationStart).trim();
-        } else if (diagnosisStart != -1) { // Handle case where there is no medication
-            diagnosis = input.substring(diagnosisStart + 2).trim();
+        int diagnosisStart = input.indexOf("d/");
+        if (diagnosisStart != -1) {
+            int diagnosisEnd = findNextFieldStart(input, diagnosisStart + 2);
+            diagnosis = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
         }
 
         // Extract medications (split by comma)
-        int homeAddressStart = input.indexOf("ha/");
-        if (medicationStart != -1 && homeAddressStart != -1) {
-            String meds = input.substring(medicationStart + 2, homeAddressStart).trim();
-            String[] medsArray = meds.split(",\\s*");
-            for (String med : medsArray) {
-                medications.add(med.trim());
-            }
-        } else if (medicationStart != -1) { // Handle case where there is no home address
-            String meds = input.substring(medicationStart + 2).trim();
+        int medicationStart = input.indexOf("m/");
+        if (medicationStart != -1) {
+            int medicationEnd = findNextFieldStart(input, medicationStart + 2);
+            String meds = input.substring(medicationStart + 2, medicationEnd).trim();
             String[] medsArray = meds.split(",\\s*");
             for (String med : medsArray) {
                 medications.add(med.trim());
@@ -118,24 +109,25 @@ public class CommandHandler {
         }
 
         // Extract home address
-        int dobStart = input.indexOf("dob/");
-        if (homeAddressStart != -1 && dobStart != -1) {
-            homeAddress = input.substring(homeAddressStart + 3, dobStart).trim();
-        } else if (homeAddressStart != -1) { // Handle case where there is no DOB
-            homeAddress = input.substring(homeAddressStart + 3).trim();
+        int homeAddressStart = input.indexOf("ha/");
+        if (homeAddressStart != -1) {
+            int homeAddressEnd = findNextFieldStart(input, homeAddressStart + 3);
+            homeAddress = input.substring(homeAddressStart + 3, homeAddressEnd).trim();
         }
 
         // Extract date of birth
+        int dobStart = input.indexOf("dob/");
         if (dobStart != -1) {
-            dateOfBirth = input.substring(dobStart + 4).trim();
+            int dobEnd = findNextFieldStart(input, dobStart + 4);
+            dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
 
         Patient patient = new Patient(name, nric);
         patient.setPhoneNumber(phoneNumber);
         patient.setDiagnosis(diagnosis);
+        patient.setMedication(medications);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
-        patient.setMedication(medications);
 
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
@@ -145,16 +137,16 @@ public class CommandHandler {
 
     //@@author yentheng0110
     // Utility method to find the start of the next field or the end of the input string
-    private int findNextFieldStart(String input, int currentFieldEnd) {
-        int nextFieldStart = input.length(); // Default to end of string
-        String[] fieldPrefixes = {"d/", "m/", "ha/", "dob/"};
-        for (String prefix : fieldPrefixes) {
-            int prefixStart = input.indexOf(prefix, currentFieldEnd);
-            if (prefixStart != -1 && prefixStart < nextFieldStart) {
-                nextFieldStart = prefixStart;
+    private int findNextFieldStart(String input, int currentIndex) {
+        int nextIndex = input.length(); // Default to end of input
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/"};
+        for (String prefix : prefixes) {
+            int index = input.indexOf(prefix, currentIndex);
+            if (index != -1 && index < nextIndex) {
+                nextIndex = index;
             }
         }
-        return nextFieldStart;
+        return nextIndex;
     }
 
     //@author yentheng0110
@@ -172,40 +164,37 @@ public class CommandHandler {
         }
     }
 
-    // @@Author G13nd0n
+    // @@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
+        assert nric != null:
+                "Please provide a valid NRIC";
+
         List<Patient> patients = records.getPatients();
-        int initialPatientSize = patients.size();
-        if (initialPatientSize == 0) {
-            System.out.println("There are no patients in the record currently.");
+        double initialSize = patients.size();
+        if (patients.isEmpty()) {
+            System.out.println("No patients found.");
             return;
         }
         for (int i = 0; i < patients.size(); i++) {
-            Patient currentPatient = patients.get(i);
-            String patientNRIC = currentPatient.getNric();
-            if (patientNRIC.equals(nric)) {
+            Patient patient = patients.get(i);
+            if (patient.getNric().equals(nric)) {
                 patients.remove(i);
-                System.out.println("Patient " + currentPatient.getName() + ", " + patientNRIC + ", has been deleted.");
+                System.out.println("Patient " + patient.getName() + ", " + nric + ", has been deleted.");
                 break;
             }
         }
-        if (patients.size() == initialPatientSize) {
-            System.out.println("Patient " + nric + " not found");
-        }
 
+        if (patients.size() == initialSize) {
+            System.out.println("Patient with " + nric + " not found");
+        }
         FileHandler.autosave(records);
     }
 
-    //@@author coraleaf0602
+
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
-        assert input != null && !input.isEmpty() : "Input to the exit command cannot be null or empty";
         if(input.equalsIgnoreCase("exit")) {
-            try {
-                System.exit(0);
-            } catch (Exception e) {
-                System.err.println("Error occurred during exit");
-            }
+            System.exit(0);
         }
     }
 
