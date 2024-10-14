@@ -363,7 +363,7 @@ public class BookBobTest {
     void testTextConverterFullInformation() {
         List<String> medications = new ArrayList<>();
         medications.add("Gaviscon");
-        Patient patient = new Patient("John", "S9765432T", "06071997", "87658976",
+        Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
                 "Bukit Gombak", "Gastric", medications);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
