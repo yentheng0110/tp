@@ -186,7 +186,7 @@ public class CommandHandler {
             Patient patient = patients.get(i);
             if (patient.getNric().equals(nric)) {
                 patients.remove(i);
-                System.out.println("Patient with NRIC " + nric + " has been deleted.");
+                System.out.println("Patient " + patient.getName() + " with NRIC " + nric + " has been deleted.");
                 break;
             }
         }
