@@ -288,8 +288,8 @@ public class CommandHandler {
                 return patient.getHomeAddress().toLowerCase().contains(value);
             case "dob":
                 return patient.getDateOfBirth().toLowerCase().contains(value);
-        default:
-            return false;
+            default:
+                return false;
             }
         });
 

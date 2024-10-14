@@ -46,7 +46,7 @@ public class Main {
                 try{
                     commandHandler.exit(input);
                     logger.log(Level.INFO, "End of processing exit command");
-            }   catch (Exception e) {
+                } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing exit", e);
                 }
                 break;
