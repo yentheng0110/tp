@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BookBobTest {
     CommandHandler command = new CommandHandler();
@@ -390,12 +390,10 @@ public class BookBobTest {
     
     //@@author yentheng0110
     @Test
-    void testAdd_addPatientWithoutNRIC_patientNotAdded() throws IOException {
-        command.add("add n/Jane Tan", records);
-        String expectedOutput =
-                "Please provide the patient's NRIC.";
-        assertEquals(expectedOutput,
-                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    void testAdd_addPatientWithoutNRIC_expectAssertionError() throws IOException {
+        AssertionError error = assertThrows(AssertionError.class, () -> {
+            command.add("add n/Jane Tan", records);
+        });
     }
 
     //@@author PrinceCatt
