@@ -1,0 +1,11 @@
+Name: John Doe | NRIC: S9534567A | Phone Number: 98765432 | Date_Of_Birth: 13121995 | Home Address: NUS-PGPR | Diagnosis: Hypertension | Medication: Lisinopril;
+Name: James-Ho | NRIC: S9534567A | Phone Number: 13121995 | Date_Of_Birth: 91234567 | Home Address: NUS-PGPR | Diagnosis: Asthma | Medication: Albuterol;
+Name: James Ho | NRIC: S78654321A | Phone Number:  | Date_Of_Birth:  | Home Address:  | Diagnosis: Asthma | Medication: ;
+Name: Joyce Teng | NRIC: S7854321A | Phone Number: 13121995 | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication: ;
+Name: Joyce Teng | NRIC: S7854321A | Phone Number: 13121995 | Date_Of_Birth:  | Home Address: Orchard Road | Diagnosis:  | Medication: ;
+Name: Joyce Teng | NRIC: S7854321A | Phone Number:  | Date_Of_Birth: 13121995 | Home Address: Orchard Road | Diagnosis:  | Medication:
+Name: Patrick | NRIC: T09876543B | Phone Number: 98765432 | Date_Of_Birth:  | Home Address:  | Diagnosis:  | Medication:
+Name: Patrick | NRIC: T09876543B | Phone Number:  | Date_Of_Birth: 01102009 | Home Address:  | Diagnosis: Gastric | Medication:
+Name: Mabel Mah | NRIC: T09876543H | Phone Number:  | Date_Of_Birth: 09072009 | Home Address: Farrer Road | Diagnosis: Asthma | Medication: Panadol;
+Name: Chan Wai Yin | NRIC: T0789675G | Phone Number: 98743789 | Date_Of_Birth: 03072006 | Home Address:  | Diagnosis:  | Medication: ;
+Name: Tan Ah Teck | NRIC: S9876543H | Phone Number: 87654320 | Date_Of_Birth: 09121998 | Home Address:  | Diagnosis:  | Medication:
