@@ -46,7 +46,13 @@ public class Main {
                 break;
 
             case "list":
-                commandHandler.list(records);
+                logger.log(Level.INFO, "Processing list command");
+                try{
+                    commandHandler.list(records);
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing list", e);
+                    System.out.println("Error in listing patient record, specific error: " + e.getMessage());
+                }
                 break;
 
             case "delete":
