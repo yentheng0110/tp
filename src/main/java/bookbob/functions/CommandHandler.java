@@ -82,6 +82,11 @@ public class CommandHandler {
         int nricEnd = findNextFieldStart(input, nricStart + 3);
         nric = input.substring(nricStart + 3, nricEnd).trim();
 
+        assert !name.isEmpty() :
+                "Please provide a valid patient name.";
+        assert !nric.isEmpty() :
+                "Please provide a valid patient NRIC.";
+
         // Extract phone number
         int phoneStart = input.indexOf("p/");
         if (phoneStart != -1) {
