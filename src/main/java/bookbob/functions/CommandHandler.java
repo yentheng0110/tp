@@ -10,8 +10,12 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class CommandHandler {
+    private static final Logger logger = Logger.getLogger(CommandHandler.class.getName());
     private final FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
@@ -204,20 +208,36 @@ public class CommandHandler {
 
     // @@author kaboomzxc
     public void find(String input, Records records) {
-        Map<String, String> searchParams = extractSearchParams(input);
+        logger.log(Level.INFO, "Starting 'find' command processing.");
 
-        if (searchParams.isEmpty()) {
-            System.out.println("Invalid search parameters. Please use the format: "
-                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
-            return;
+        // Assertion to ensure input is not null
+        assert input != null : "Input cannot be null";
+
+        try {
+            Map<String, String> searchParams = extractSearchParams(input);
+
+            if (searchParams.isEmpty()) {
+                logger.log(Level.WARNING, "No valid search parameters provided.");
+                System.out.println("Invalid search parameters. Please use the format: "
+                        + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+                return;
+            }
+
+            List<Patient> matchedPatients = records.getPatients().stream()
+                    .filter(patient -> matchesSearchCriteria(patient, searchParams))
+                    .collect(Collectors.toList());
+
+            displayResults(matchedPatients);
+            logger.log(Level.INFO, "Successfully processed 'find' command.");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error occurred while processing 'find' command.", e);
+            System.out.println("An error occurred while processing the find command: " + e.getMessage());
         }
 
-        List<Patient> matchedPatients = records.getPatients().stream()
-                .filter(patient -> matchesSearchCriteria(patient, searchParams))
-                .collect(Collectors.toList());
-
-        displayResults(matchedPatients);
+        logger.log(Level.INFO, "End of 'find' command processing.");
     }
+
+
 
     private Map<String, String> extractSearchParams(String input) {
         Map<String, String> params = new HashMap<>();
@@ -241,30 +261,36 @@ public class CommandHandler {
     }
 
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
-        return searchParams.entrySet().stream().allMatch(entry -> {
+        logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
+
+        boolean matches = searchParams.entrySet().stream().allMatch(entry -> {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
-            case "n":
-                return patient.getName().toLowerCase().contains(value);
-            case "ic":
-                return patient.getNric().toLowerCase().contains(value);
-            case "p":
-                return patient.getPhoneNumber().toLowerCase().contains(value);
-            case "d":
-                return patient.getDiagnosis().toLowerCase().contains(value);
-            case "m":
-                return patient.getMedication().stream()
-                        .anyMatch(med -> med.toLowerCase().contains(value));
-            case "ha":
-                return patient.getHomeAddress().toLowerCase().contains(value);
-            case "dob":
-                return patient.getDateOfBirth().toLowerCase().contains(value);
-            default:
-                return false;
+                case "n":
+                    return patient.getName().toLowerCase().contains(value);
+                case "ic":
+                    return patient.getNric().toLowerCase().contains(value);
+                case "p":
+                    return patient.getPhoneNumber().toLowerCase().contains(value);
+                case "d":
+                    return patient.getDiagnosis().toLowerCase().contains(value);
+                case "m":
+                    return patient.getMedication().stream()
+                            .anyMatch(med -> med.toLowerCase().contains(value));
+                case "ha":
+                    return patient.getHomeAddress().toLowerCase().contains(value);
+                case "dob":
+                    return patient.getDateOfBirth().toLowerCase().contains(value);
+                default:
+                    return false;
             }
         });
+
+        logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
+        return matches;
     }
+
 
     private void displayResults(List<Patient> patients) {
         if (patients.isEmpty()) {

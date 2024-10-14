@@ -27,18 +27,33 @@ public class Main {
 
             switch (command) {
             case "find":
-                commandHandler.find(input, records);
+                logger.log(Level.INFO, "Processing find command");
+                try {
+                    if (input == null || input.trim().isEmpty()) {
+                        throw new IllegalArgumentException("Input cannot be null or empty");
+                    }
+
+                    commandHandler.find(input, records);
+                    logger.log(Level.INFO, "Successfully processed find command");
+                } catch (IllegalArgumentException e) {
+                    logger.log(Level.WARNING, "Invalid input for find command: {0}", e.getMessage());
+                    System.out.println("Invalid input: " + e.getMessage());
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Error processing find command", e);
+                    System.out.println("An error occurred while processing the find command: " + e.getMessage());
+                }
+                logger.log(Level.INFO, "End of processing find command");
                 break;
 
             case "exit":
-                logger.log(Level.INFO, "Processing exit command");
-                try{
-                    commandHandler.exit(input);
-                    logger.log(Level.INFO, "End of processing exit command");
-                } catch (Exception e) {
-                    logger.log(Level.WARNING, "Error processing exit", e);
-                }
-                break;
+            logger.log(Level.INFO, "Processing exit command");
+            try{
+                commandHandler.exit(input);
+                logger.log(Level.INFO, "End of processing exit command");
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Error processing exit", e);
+            }
+            break;
 
             case "add":
                 commandHandler.add(input, records);
