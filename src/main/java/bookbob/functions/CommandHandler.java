@@ -10,8 +10,12 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class CommandHandler {
+    private static final Logger logger = Logger.getLogger(CommandHandler.class.getName());
     private final FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
@@ -204,9 +208,22 @@ public class CommandHandler {
 
     // @@author kaboomzxc
     public void find(String input, Records records) {
+
+        // Assertion to ensure input is not null
+        assert input != null : "Input cannot be null";
+
+        logger.log(Level.INFO, "Starting 'find' command processing.");
+
+        // Input validation
+        if (input == null || input.trim().isEmpty()) {
+            logger.log(Level.WARNING, "Input cannot be null or empty");
+            throw new IllegalArgumentException("Input cannot be null or empty");
+        }
+
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
+            logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: "
                     + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
@@ -217,6 +234,8 @@ public class CommandHandler {
                 .collect(Collectors.toList());
 
         displayResults(matchedPatients);
+        logger.log(Level.INFO, "Successfully processed 'find' command.");
+        logger.log(Level.INFO, "End of 'find' command processing.");
     }
 
     private Map<String, String> extractSearchParams(String input) {
@@ -227,8 +246,12 @@ public class CommandHandler {
                 String[] keyValue = part.split("/", 2);
                 if (keyValue.length == 2 && !keyValue[1].trim().isEmpty()) {
                     String key = keyValue[0].trim();
+                    String value = keyValue[1].trim();
                     if (isValidSearchKey(key)) {
-                        params.put(key, keyValue[1].toLowerCase().trim());
+                        params.put(key, value.toLowerCase().trim());
+                    } else {
+                        logger.log(Level.WARNING, "Invalid search key encountered: {0}", key);
+                        throw new IllegalArgumentException("Invalid search key: " + key);
                     }
                 }
             }
@@ -241,7 +264,9 @@ public class CommandHandler {
     }
 
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
-        return searchParams.entrySet().stream().allMatch(entry -> {
+        logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
+
+        boolean matches = searchParams.entrySet().stream().allMatch(entry -> {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
@@ -264,6 +289,9 @@ public class CommandHandler {
                 return false;
             }
         });
+
+        logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
+        return matches;
     }
 
     private void displayResults(List<Patient> patients) {
