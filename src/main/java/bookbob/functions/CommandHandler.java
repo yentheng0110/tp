@@ -222,9 +222,6 @@ public class CommandHandler {
 
         Map<String, String> searchParams = extractSearchParams(input);
 
-        // Assertion to ensure at least one valid search parameter is found
-        assert !searchParams.isEmpty() : "No valid search parameters found in input";
-
         if (searchParams.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: "
