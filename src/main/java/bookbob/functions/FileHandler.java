@@ -32,17 +32,17 @@ public class FileHandler {
                 logger.log(Level.INFO, "File created, at: " + file.getAbsolutePath());
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
-                logger.log(Level.INFO, "Directory exsited, creating new file");
+                logger.log(Level.INFO, "Directory exists");
                 File file = new File(filePath);
                 if(file.createNewFile()) {         //file was not created
-                    logger.log(Level.INFO, "Directory exsited, creating new file");
+                    logger.log(Level.INFO, "Directory exists, creating new file");
                 } else {
                     logger.log(Level.INFO, "Retrieving data from bookbob_data.txt");
                     retrieveData(records);
                 }
             }
         } catch(Exception e){
-            logger.log(Level.WARNING, "Error initializing file", e);
+            logger.log(Level.WARNING, "Error initialising file", e);
             e.printStackTrace();
         }
     }
@@ -68,7 +68,7 @@ public class FileHandler {
             fw.write(toWrite + "\n");
         }
         fw.close();
-        logger.log(Level.INFO, "Autosavd successfully");
+        logger.log(Level.INFO, "Autosaved successfully");
     }
 
     public static void retrieveData(Records records){
@@ -93,7 +93,7 @@ public class FileHandler {
                         dateOfBirth, homeAddress, diagnosis, medications);
                 records.addPatient(patient);
             }
-            logger.log(Level.INFO, "Retrieved successfully");
+            logger.log(Level.INFO, "Data retrieved successfully");
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "File not found", e);
             throw new RuntimeException(e);
