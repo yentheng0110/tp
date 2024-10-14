@@ -163,29 +163,32 @@ public class CommandHandler {
         }
     }
 
-    // @@Author G13nd0n
+    // @@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
+        assert nric != null:
+                "Please provide a valid NRIC";
+
         List<Patient> patients = records.getPatients();
-        int initialPatientSize = patients.size();
-        if (initialPatientSize == 0) {
-            System.out.println("There are no patients in the record currently.");
+        double initialSize = patients.size();
+        if (patients.isEmpty()) {
+            System.out.println("No patients found.");
             return;
         }
         for (int i = 0; i < patients.size(); i++) {
-            Patient currentPatient = patients.get(i);
-            String patientNRIC = currentPatient.getNric();
-            if (patientNRIC.equals(nric)) {
+            Patient patient = patients.get(i);
+            if (patient.getNric().equals(nric)) {
                 patients.remove(i);
-                System.out.println("Patient " + currentPatient.getName() + ", " + patientNRIC + ", has been deleted.");
+                System.out.println("Patient " + patient.getName() + ", " + nric + ", has been deleted.");
                 break;
             }
         }
-        if (patients.size() == initialPatientSize) {
-            System.out.println("Patient " + nric + " not found");
-        }
 
+        if (patients.size() == initialSize) {
+            System.out.println("Patient with " + nric + " not found");
+        }
         FileHandler.autosave(records);
     }
+
 
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
