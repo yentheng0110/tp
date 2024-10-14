@@ -24,7 +24,7 @@ public class Patient {
     }
 
     // constructor used in retrieving data
-    public Patient(String name, String nric, String dateOfBirth, String phoneNumber, String homeAddress,
+    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
                    String diagnosis, List<String> medications) {
         this.name = name;
         this.nric = nric;
