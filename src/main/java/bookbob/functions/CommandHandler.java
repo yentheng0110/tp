@@ -67,6 +67,10 @@ public class CommandHandler {
         // Extract name
         int nameStart = input.indexOf("n/");
         int nricStart = input.indexOf("ic/");
+
+        assert nameStart != -1 :
+                "Please provide a valid patient name.";
+
         if (nameStart == -1) {
             System.out.println("Please provide the patient's name.");
             return;
@@ -74,6 +78,9 @@ public class CommandHandler {
 
         int nameEnd = findNextFieldStart(input, nameStart + 2);
         name = input.substring(nameStart + 2, nameEnd).trim();
+
+        assert nricStart != -1 :
+                "Please provide a valid patient NRIC.";
 
         if (nricStart == -1) {
             System.out.println("Please provide the patient's NRIC.");
