@@ -27,14 +27,16 @@ public class FileHandler {
                 File file = new File(filePath);
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
+                logger.log(Level.INFO, "Directory exists");
                 File file = new File(filePath);
                 if(file.createNewFile()) {         //file was not created
+                    logger.log(Level.INFO, "Directory exists, creating new file");
                 } else {
                     retrieveData(records);
                 }
             }
         } catch(Exception e){
-            System.out.println("An error occured");
+            logger.log(Level.WARNING, "Error initialising file", e);
             e.printStackTrace();
         }
     }
@@ -60,6 +62,7 @@ public class FileHandler {
             fw.write(toWrite + "\n");
         }
         fw.close();
+        logger.log(Level.INFO, "Autosaved successfully");
     }
 
     public static void retrieveData(Records records){
@@ -84,6 +87,7 @@ public class FileHandler {
                         dateOfBirth, homeAddress, diagnosis, medications);
                 records.addPatient(patient);
             }
+            logger.log(Level.INFO, "Data retrieved successfully");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
