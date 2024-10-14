@@ -236,7 +236,7 @@ public class BookBobTest {
         command.delete("S1234567A", records);
 
         assertEquals(0, records.getPatients().size());
-        assertEquals("Patient John Doe,S1234567A, has been deleted.", outputStreamCaptor.toString().trim());
+        assertEquals("Patient John Doe, S1234567A, has been deleted.", outputStreamCaptor.toString().trim());
     }
 
     // @@ Author kaboomzxc
