@@ -321,7 +321,7 @@ public class BookBobTest {
 
     //@@author G13nd0n
     @Test
-    void testFindName_MultipleOutputs() throws IOException {
+    void testFindName_multipleOutputs() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
                 records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
@@ -341,7 +341,7 @@ public class BookBobTest {
 
     //@@author G13nd0n
     @Test
-    void testFindAddress_MultipleOutputs() throws IOException {
+    void testFindAddress_multipleOutputs() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
                 records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
