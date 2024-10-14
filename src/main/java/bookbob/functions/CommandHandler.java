@@ -208,36 +208,38 @@ public class CommandHandler {
 
     // @@author kaboomzxc
     public void find(String input, Records records) {
-        logger.log(Level.INFO, "Starting 'find' command processing.");
 
         // Assertion to ensure input is not null
         assert input != null : "Input cannot be null";
 
-        try {
-            Map<String, String> searchParams = extractSearchParams(input);
+        logger.log(Level.INFO, "Starting 'find' command processing.");
 
-            if (searchParams.isEmpty()) {
-                logger.log(Level.WARNING, "No valid search parameters provided.");
-                System.out.println("Invalid search parameters. Please use the format: "
-                        + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
-                return;
-            }
-
-            List<Patient> matchedPatients = records.getPatients().stream()
-                    .filter(patient -> matchesSearchCriteria(patient, searchParams))
-                    .collect(Collectors.toList());
-
-            displayResults(matchedPatients);
-            logger.log(Level.INFO, "Successfully processed 'find' command.");
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error occurred while processing 'find' command.", e);
-            System.out.println("An error occurred while processing the find command: " + e.getMessage());
+        // Input validation
+        if (input == null || input.trim().isEmpty()) {
+            logger.log(Level.WARNING, "Input cannot be null or empty");
+            throw new IllegalArgumentException("Input cannot be null or empty");
         }
 
+        Map<String, String> searchParams = extractSearchParams(input);
+
+        // Assertion to ensure at least one valid search parameter is found
+        assert !searchParams.isEmpty() : "No valid search parameters found in input";
+
+        if (searchParams.isEmpty()) {
+            logger.log(Level.WARNING, "No valid search parameters provided.");
+            System.out.println("Invalid search parameters. Please use the format: "
+                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+            return;
+        }
+
+        List<Patient> matchedPatients = records.getPatients().stream()
+                .filter(patient -> matchesSearchCriteria(patient, searchParams))
+                .collect(Collectors.toList());
+
+        displayResults(matchedPatients);
+        logger.log(Level.INFO, "Successfully processed 'find' command.");
         logger.log(Level.INFO, "End of 'find' command processing.");
     }
-
-
 
     private Map<String, String> extractSearchParams(String input) {
         Map<String, String> params = new HashMap<>();
@@ -247,8 +249,12 @@ public class CommandHandler {
                 String[] keyValue = part.split("/", 2);
                 if (keyValue.length == 2 && !keyValue[1].trim().isEmpty()) {
                     String key = keyValue[0].trim();
+                    String value = keyValue[1].trim();
                     if (isValidSearchKey(key)) {
-                        params.put(key, keyValue[1].toLowerCase().trim());
+                        params.put(key, value.toLowerCase().trim());
+                    } else {
+                        logger.log(Level.WARNING, "Invalid search key encountered: {0}", key);
+                        throw new IllegalArgumentException("Invalid search key: " + key);
                     }
                 }
             }
@@ -290,7 +296,6 @@ public class CommandHandler {
         logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
         return matches;
     }
-
 
     private void displayResults(List<Patient> patients) {
         if (patients.isEmpty()) {

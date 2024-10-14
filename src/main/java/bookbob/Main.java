@@ -19,7 +19,6 @@ public class Main {
         FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
 
-
         while (true) {
             String input = in.nextLine();
             String[] inputArr = input.split(" ", 2);
@@ -29,15 +28,12 @@ public class Main {
             case "find":
                 logger.log(Level.INFO, "Processing find command");
                 try {
-                    if (input == null || input.trim().isEmpty()) {
-                        throw new IllegalArgumentException("Input cannot be null or empty");
-                    }
-
                     commandHandler.find(input, records);
                     logger.log(Level.INFO, "Successfully processed find command");
                 } catch (IllegalArgumentException e) {
                     logger.log(Level.WARNING, "Invalid input for find command: {0}", e.getMessage());
                     System.out.println("Invalid input: " + e.getMessage());
+                    e.printStackTrace(); // prints the stack trace to the console
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error processing find command", e);
                     System.out.println("An error occurred while processing the find command: " + e.getMessage());
