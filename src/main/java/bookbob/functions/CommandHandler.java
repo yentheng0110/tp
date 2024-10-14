@@ -13,14 +13,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    private Scanner scanner;
-    private FileHandler fileHandler = new FileHandler();
+    private final Scanner scanner;
+    private final FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
         this.scanner = new Scanner(System.in);
     }
   
     // Prints output for help command
+    //@@author coraleaf0602
     public void help() {
         System.out.println("""
                 +-----------+---------------------------------------+---------------------------------+
@@ -81,6 +82,11 @@ public class CommandHandler {
 
         int nricEnd = findNextFieldStart(input, nricStart + 3);
         nric = input.substring(nricStart + 3, nricEnd).trim();
+
+        assert !name.isEmpty() :
+                "Please provide a valid patient name.";
+        assert !nric.isEmpty() :
+                "Please provide a valid patient NRIC.";
 
         // Extract phone number
         int phoneStart = input.indexOf("p/");
@@ -190,10 +196,16 @@ public class CommandHandler {
     }
 
 
+    //@@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
+        assert input != null && !input.isEmpty() : "Input to the exit command cannot be null or empty";
         if(input.equalsIgnoreCase("exit")) {
-            System.exit(0);
+            try {
+                System.exit(0);
+            } catch (Exception e) {
+                System.err.println("Error occurred during exit");
+            }
         }
     }
 

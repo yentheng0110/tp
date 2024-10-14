@@ -34,13 +34,15 @@ public class BookBobTest {
         assertTrue(true);
     }
 
+    //@@author coraleaf0602
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    //@@author coraleaf0602
     @Test
-    void testHelp() {
+    void test_help_output() {
         command.help();
         assertEquals("+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Action    | Format                                | Example                         |\n" +
@@ -74,19 +76,22 @@ public class BookBobTest {
                 outputStreamCaptor.toString().trim());
     }
 
+    //@@author coraleaf0602
     @AfterEach
-    public void tearDown() {
+    public void tearDown_for_helpCommand() {
         System.setOut(standardOut);
     }
 
+    //@@author coraleaf0602
     @Test
-    void testAdd() throws IOException {
+    void test_addOnePatient_toEmptyRecord() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
     }
 
+    //@@author coraleaf0602
     @Test
-    void testDelete() throws IOException {
+    void test_deletePatient_inRecord() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995", records);
         command.delete("S9534567A", records);
         String expectedOutput = "Patient James-Ho with NRIC S9534567A added.\n" +
@@ -95,8 +100,9 @@ public class BookBobTest {
                 "\n"));
     }
 
+    //@@author coraleaf0602
     @Test
-    void testList() throws IOException {
+    void test_listOnePatient_inRecord() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995",
                 records);
         command.list(records);
@@ -358,7 +364,7 @@ public class BookBobTest {
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
-  
+
     //@@author yentheng0110
     @Test
     void testList_emptyList_noPatientFoundMessage() {
@@ -387,7 +393,7 @@ public class BookBobTest {
         assertEquals(expectedOutput,
                   outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
-    
+
     //@@author yentheng0110
     @Test
     void testAdd_addPatientWithoutNRIC_patientNotAdded() throws IOException {
