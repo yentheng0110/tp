@@ -19,8 +19,8 @@ public class Main {
         FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
 
-        boolean isRunning = true;
-        while (isRunning) {
+
+        while (true) {
             String input = in.nextLine();
             String[] inputArr = input.split(" ", 2);
             String command = inputArr[0];
@@ -33,12 +33,11 @@ public class Main {
             case "exit":
                 logger.log(Level.INFO, "Processing exit command");
                 try{
-                    isRunning = false;  // This will cause the loop to exit
                     commandHandler.exit(input);
+                    logger.log(Level.INFO, "End of processing exit command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing exit", e);
                 }
-                logger.log(Level.INFO, "End of processing exit command");
                 break;
 
             case "add":
@@ -87,6 +86,5 @@ public class Main {
                 break;
             }
         }
-        in.close();  // Close the scanner when done
     }
 }
