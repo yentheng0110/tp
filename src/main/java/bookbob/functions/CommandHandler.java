@@ -7,17 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CommandHandler {
-    private final Scanner scanner;
     private final FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
-        this.scanner = new Scanner(System.in);
     }
   
     // Prints output for help command
@@ -205,7 +202,7 @@ public class CommandHandler {
         }
     }
 
-    // @@Author kaboomzxc
+    // @@author kaboomzxc
     public void find(String input, Records records) {
         Map<String, String> searchParams = extractSearchParams(input);
 
