@@ -112,6 +112,55 @@ public class BookBobTest {
                 "\n"));
     }
 
+    //@@author coraleaf0602
+    @Test
+    void test_findName_doesNotExist() {
+        command.find("n/james", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author coraleaf0602
+    @Test
+    void test_findIC_doesNotExist() {
+        command.find("ic/S1234567Z", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author coraleaf0602
+    @Test
+    void test_findPhoneNumber_doesNotExist() {
+        command.find("p/82529790", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author coraleaf0602
+    @Test
+    void test_findDiagnosis_doesNotExist() {
+        command.find("d/Cancer", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author coraleaf0602
+    @Test
+    void test_findMedication_doesNotExist() {
+        command.find("m/Panadol", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author coraleaf0602
+    @Test
+    void test_findHomeAddress_doesNotExist() {
+        command.find("d/NUS Utown", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author coraleaf0602
+    @Test
+    void test_findDateOfBirth_doesNotExist() {
+        command.find("d/13122005", records);
+        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
+    }
+
     // @@ Author kaboomzxc
     @Test
     void testFindName() throws IOException {
