@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
-
     private static final Logger logger = Logger.getLogger( "Main.class" );
+
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
 
@@ -18,7 +18,6 @@ public class Main {
         Records records = new Records();
         FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
-
 
         boolean isRunning = true;
         while (isRunning) {
@@ -43,13 +42,7 @@ public class Main {
                 break;
 
             case "add":
-                logger.log(Level.INFO, "Processing patient record addition");
-                try {
-                    commandHandler.add(input, records);
-                } catch (Exception e) {
-                    logger.log(Level.WARNING, "Error processing addition");
-                    System.out.println("Error in adding patient record, specific error: " + e.getMessage());
-                }
+                commandHandler.add(input, records);
                 break;
 
             case "list":
