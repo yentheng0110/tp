@@ -191,10 +191,16 @@ public class CommandHandler {
     }
 
 
+    //@@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
+        assert input != null && !input.isEmpty() : "Input to the exit command cannot be null or empty";
         if(input.equalsIgnoreCase("exit")) {
-            System.exit(0);
+            try {
+                System.exit(0);
+            } catch (Exception e) {
+                System.err.println("Error occurred during exit");
+            }
         }
     }
 

@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
-    private static final Logger logger = Logger.getLogger("Main.class");
 
+    private static final Logger logger = Logger.getLogger( "Main.class" );
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
 
@@ -18,6 +18,7 @@ public class Main {
         Records records = new Records();
         FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
+
 
         boolean isRunning = true;
         while (isRunning) {
