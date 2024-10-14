@@ -161,7 +161,7 @@ public class BookBobTest {
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindName() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
@@ -176,7 +176,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindIc() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
@@ -191,7 +191,7 @@ public class BookBobTest {
                 "Address: Hougang Green, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindPhoneNumber() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
@@ -206,7 +206,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindDiagnosis() throws IOException {
 
@@ -222,7 +222,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindMedication() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
@@ -237,7 +237,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindHomeAddress() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
@@ -252,7 +252,7 @@ public class BookBobTest {
                 "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testFindDateOfBirth() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
@@ -271,7 +271,7 @@ public class BookBobTest {
                 outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testAdd_singlePatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Orch Rd dob/01-01-1990",
@@ -281,7 +281,7 @@ public class BookBobTest {
         assertEquals("Patient John Doe with NRIC S1234567A added.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testDelete_existingPatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Orch Rd dob/01-01-1990",
@@ -294,7 +294,7 @@ public class BookBobTest {
         assertEquals("Patient John Doe, S1234567A, has been deleted.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testList_emptyRecords() {
         command.list(records);
@@ -302,12 +302,12 @@ public class BookBobTest {
         assertEquals("No patients found.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ Author kaboomzxc
+    // @@ author kaboomzxc
     @Test
     void testList_multiplePatients() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Main St dob/01-01-1990",
                 records);
-        command.add("add n/Jane Smith ic/S7654321B p/87654321 d/Cough m/Cough Syrup ha/456 Oak Ave dob/02-02-1995",
+        command.add("add n/Jane Smith ic/S7654321B p/87654321 d/Cough m/Cough Syrup ha/Haji Lane dob/02-02-1995",
                 records);
         outputStreamCaptor.reset();
 
@@ -317,7 +317,7 @@ public class BookBobTest {
                 "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Diagnosis: Flu, Medication: [Paracetamol], " +
                         "Address: 123 Main St, DOB: 01-01-1990\n" +
                         "Name: Jane Smith, NRIC: S7654321B, Phone: 87654321, Diagnosis: Cough, Medication: [Cough " +
-                        "Syrup], Address: 456 Oak Ave, DOB: 02-02-1995";
+                        "Syrup], Address: Haji Lane, DOB: 02-02-1995";
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
