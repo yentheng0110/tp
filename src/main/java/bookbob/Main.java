@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
-    private static final Logger logger = Logger.getLogger("Main.class");
 
+    private static final Logger logger = Logger.getLogger( "Main.class" );
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
 
@@ -18,6 +18,7 @@ public class Main {
         Records records = new Records();
         FileHandler.initFile(records);
         CommandHandler commandHandler = new CommandHandler();
+
 
         boolean isRunning = true;
         while (isRunning) {
@@ -31,8 +32,14 @@ public class Main {
                 break;
 
             case "exit":
-                isRunning = false;  // This will cause the loop to exit
-                commandHandler.exit(input);
+                logger.log(Level.INFO, "Processing exit command");
+                try{
+                    isRunning = false;  // This will cause the loop to exit
+                    commandHandler.exit(input);
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing exit", e);
+                }
+                logger.log(Level.INFO, "End of processing exit command");
                 break;
 
             case "add":
@@ -67,7 +74,13 @@ public class Main {
                 break;
 
             case "help":
-                commandHandler.help();
+                logger.log(Level.INFO, "Processing help command");
+                try{
+                    commandHandler.help();
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing help", e);
+                }
+                logger.log(Level.INFO, "End of processing help command");
                 break;
 
             default:
