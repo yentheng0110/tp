@@ -24,14 +24,10 @@ public class FileHandler {
             String directoryName = "data";
             String currentDirectory = System.getProperty("user.dir");
             String directory = currentDirectory + File.separator + directoryName;
-
-            logger.log(Level.INFO, "Processing directory creation");
             File directoryFile = new File(directory);
 
             if(directoryFile.mkdirs()) {           //directory was not created
-                logger.log(Level.INFO, "Directory created, at: " + directory);
                 File file = new File(filePath);
-                logger.log(Level.INFO, "File created, at: " + file.getAbsolutePath());
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
                 logger.log(Level.INFO, "Directory exsited, creating new file");
@@ -39,7 +35,6 @@ public class FileHandler {
                 if(file.createNewFile()) {         //file was not created
                     logger.log(Level.INFO, "Directory exsited, creating new file");
                 } else {
-                    logger.log(Level.INFO, "Retrieving data from bookbob_data.txt");
                     retrieveData(records);
                 }
             }
