@@ -36,7 +36,13 @@ public class Main {
                 break;
 
             case "add":
-                commandHandler.add(input, records);
+                logger.log(Level.INFO, "Processing patient record addition");
+                try {
+                    commandHandler.add(input, records);
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing addition");
+                    System.out.println("Error in adding patient record, specific error: " + e.getMessage());
+                }
                 break;
 
             case "list":
