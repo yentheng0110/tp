@@ -10,33 +10,39 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileHandler {
 
+    private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
     private static String filePath = "data" + File.separator + "bookbob_data.txt";
 
     public static void initFile(Records records){
         try {
-
             String directoryName = "data";
             String currentDirectory = System.getProperty("user.dir");
             String directory = currentDirectory + File.separator + directoryName;
-            File directoryFile = new File(directory);
 
+            logger.log(Level.INFO, "Processing directory creation");
+            File directoryFile = new File(directory);
             if(directoryFile.mkdirs()) {           //directory was not created
+                logger.log(Level.INFO, "Directory created, at: " + directory);
                 File file = new File(filePath);
+                logger.log(Level.INFO, "File created, at: " + file.getAbsolutePath());
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
-                logger.log(Level.INFO, "Directory exists");
+                logger.log(Level.INFO, "Directory exsited, creating new file");
                 File file = new File(filePath);
                 if(file.createNewFile()) {         //file was not created
-                    logger.log(Level.INFO, "Directory exists, creating new file");
+                    logger.log(Level.INFO, "Directory exsited, creating new file");
                 } else {
+                    logger.log(Level.INFO, "Retrieving data from bookbob_data.txt");
                     retrieveData(records);
                 }
             }
         } catch(Exception e){
-            logger.log(Level.WARNING, "Error initialising file", e);
+            logger.log(Level.WARNING, "Error initializing file", e);
             e.printStackTrace();
         }
     }
@@ -62,7 +68,7 @@ public class FileHandler {
             fw.write(toWrite + "\n");
         }
         fw.close();
-        logger.log(Level.INFO, "Autosaved successfully");
+        logger.log(Level.INFO, "Autosavd successfully");
     }
 
     public static void retrieveData(Records records){
@@ -87,8 +93,9 @@ public class FileHandler {
                         dateOfBirth, homeAddress, diagnosis, medications);
                 records.addPatient(patient);
             }
-            logger.log(Level.INFO, "Data retrieved successfully");
+            logger.log(Level.INFO, "Retrieved successfully");
         } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "File not found", e);
             throw new RuntimeException(e);
         }
     }
