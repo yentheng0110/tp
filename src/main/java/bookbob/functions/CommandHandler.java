@@ -273,23 +273,23 @@ public class CommandHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
-                case "n":
-                    return patient.getName().toLowerCase().contains(value);
-                case "ic":
-                    return patient.getNric().toLowerCase().contains(value);
-                case "p":
-                    return patient.getPhoneNumber().toLowerCase().contains(value);
-                case "d":
-                    return patient.getDiagnosis().toLowerCase().contains(value);
-                case "m":
-                    return patient.getMedication().stream()
-                            .anyMatch(med -> med.toLowerCase().contains(value));
-                case "ha":
-                    return patient.getHomeAddress().toLowerCase().contains(value);
-                case "dob":
-                    return patient.getDateOfBirth().toLowerCase().contains(value);
-                default:
-                    return false;
+            case "n":
+                return patient.getName().toLowerCase().contains(value);
+            case "ic":
+                return patient.getNric().toLowerCase().contains(value);
+            case "p":
+                return patient.getPhoneNumber().toLowerCase().contains(value);
+            case "d":
+                return patient.getDiagnosis().toLowerCase().contains(value);
+            case "m":
+                return patient.getMedication().stream()
+                        .anyMatch(med -> med.toLowerCase().contains(value));
+            case "ha":
+                return patient.getHomeAddress().toLowerCase().contains(value);
+            case "dob":
+                return patient.getDateOfBirth().toLowerCase().contains(value);
+        default:
+            return false;
             }
         });
 

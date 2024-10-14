@@ -42,14 +42,14 @@ public class Main {
                 break;
 
             case "exit":
-            logger.log(Level.INFO, "Processing exit command");
-            try{
-                commandHandler.exit(input);
-                logger.log(Level.INFO, "End of processing exit command");
-            } catch (Exception e) {
-                logger.log(Level.WARNING, "Error processing exit", e);
-            }
-            break;
+                logger.log(Level.INFO, "Processing exit command");
+                try{
+                    commandHandler.exit(input);
+                    logger.log(Level.INFO, "End of processing exit command");
+            }   catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing exit", e);
+                }
+                break;
 
             case "add":
                 commandHandler.add(input, records);
