@@ -58,13 +58,13 @@ public class Main {
 
                     if (nameStart == -1) {
                         System.out.println("Please provide the patient's name.");
-                        logger.log(Level.INFO, "Name of the patient is not provided.");
+                        logger.log(Level.INFO, "Name of the patient is not provided");
                         break;
                     }
 
                     if (nricStart == -1) {
                         System.out.println("Please provide the patient's NRIC.");
-                        logger.log(Level.INFO, "NRIC of the patient is not provided.");
+                        logger.log(Level.INFO, "NRIC of the patient is not provided");
                         break;
                     }
                     commandHandler.add(input, records);
@@ -95,7 +95,7 @@ public class Main {
                         logger.log(Level.INFO, "Successfully processed delete command");
                     } else {
                         System.out.println("Please specify an NRIC to delete.");
-                        logger.log(Level.INFO, "Empty NRIC inputted.");
+                        logger.log(Level.INFO, "Empty NRIC inputted");
                     }
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing deletion");
