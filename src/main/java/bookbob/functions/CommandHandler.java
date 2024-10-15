@@ -32,7 +32,7 @@ public class CommandHandler {
                 +-----------+---------------------------------------+---------------------------------+
                 | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
                 +-----------+---------------------------------------+---------------------------------+
                 | List      | list                                  | list                            |
                 +-----------+---------------------------------------+---------------------------------+
@@ -42,13 +42,13 @@ public class CommandHandler {
                 |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
                 |           | find m/MEDICATION    OR               | find m/Panadol                  |
                 |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
+                |           | find dob/DATE_OF_BIRTH                | find dob/01011990               |
                 +-----------+---------------------------------------+---------------------------------+
                 | Delete    | delete NRIC                           | delete S9534567A                |
                 +-----------+---------------------------------------+---------------------------------+
-                | Save      | save(automatic)                       | save                            |
+                | Save      | save(automatic)                       |                                 |
                 +-----------+---------------------------------------+---------------------------------+
-                | Retrieve/ | retrieve or import                    | retrieve                        |
+                | Retrieve/ | retrieve or import                    |                                 |
                 | Import    | (automatic)                           |                                 |
                 +-----------+---------------------------------------+---------------------------------+
                 | Exit      | exit                                  | exit                            |
@@ -69,8 +69,7 @@ public class CommandHandler {
         int nameStart = input.indexOf("n/");
         int nricStart = input.indexOf("ic/");
 
-        assert nameStart != -1 :
-                "Please provide a valid patient name.";
+        assert nameStart != -1 : "Please provide a valid patient name.";
 
         if (nameStart == -1) {
             System.out.println("Please provide the patient's name.");
@@ -80,8 +79,7 @@ public class CommandHandler {
         int nameEnd = findNextFieldStart(input, nameStart + 2);
         name = input.substring(nameStart + 2, nameEnd).trim();
 
-        assert nricStart != -1 :
-                "Please provide a valid patient NRIC.";
+        assert nricStart != -1 : "Please provide a valid patient NRIC.";
 
         if (nricStart == -1) {
             System.out.println("Please provide the patient's NRIC.");
@@ -174,8 +172,7 @@ public class CommandHandler {
 
     // @@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
-        assert nric != null:
-                "Please provide a valid NRIC";
+        assert nric != null : "Please provide a valid NRIC";
 
         List<Patient> patients = records.getPatients();
         double initialSize = patients.size();
@@ -212,8 +209,6 @@ public class CommandHandler {
         // Assertion to ensure input is not null
         assert input != null : "Input cannot be null";
 
-        logger.log(Level.INFO, "Starting 'find' command processing.");
-
         // Input validation
         if (input == null || input.trim().isEmpty()) {
             logger.log(Level.WARNING, "Input cannot be null or empty");
@@ -234,8 +229,6 @@ public class CommandHandler {
                 .collect(Collectors.toList());
 
         displayResults(matchedPatients);
-        logger.log(Level.INFO, "Successfully processed 'find' command.");
-        logger.log(Level.INFO, "End of 'find' command processing.");
     }
 
     private Map<String, String> extractSearchParams(String input) {
@@ -305,4 +298,3 @@ public class CommandHandler {
         }
     }
 }
-
