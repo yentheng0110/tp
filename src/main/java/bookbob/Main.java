@@ -87,7 +87,7 @@ public class Main {
                 break;
 
             case "delete":
-                logger.log(Level.INFO, "Processing patient record deletion");
+                logger.log(Level.INFO, "Processing delete command");
                 try {
                     if (inputArr.length > 1) {
                         String nric = inputArr[1].trim();
