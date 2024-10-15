@@ -51,7 +51,7 @@ public class BookBobTest {
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |\n" +
                         "|           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
-                        "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |\n" +
+                        "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| List      | list                                  | list                            |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
@@ -61,13 +61,13 @@ public class BookBobTest {
                         "|           | find d/DIAGNOSIS     OR               | find d/Fever                    |\n" +
                         "|           | find m/MEDICATION    OR               | find m/Panadol                  |\n" +
                         "|           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |\n" +
-                        "|           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |\n" +
+                        "|           | find dob/DATE_OF_BIRTH                | find dob/01011990               |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Delete    | delete NRIC                           | delete S9534567A                |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Save      | save(automatic)                       | save                            |\n" +
+                        "| Save      | save(automatic)                       |                                 |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Retrieve/ | retrieve or import                    | retrieve                        |\n" +
+                        "| Retrieve/ | retrieve or import                    |                                 |\n" +
                         "| Import    | (automatic)                           |                                 |\n" +
                         "+-----------+---------------------------------------+---------------------------------+\n" +
                         "| Exit      | exit                                  | exit                            |\n" +
