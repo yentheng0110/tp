@@ -1,5 +1,7 @@
 package bookbob.functions;
 
+import bookbob.entity.Appointment;
+import bookbob.entity.AppointmentRecord;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 
@@ -24,34 +26,49 @@ public class CommandHandler {
     //@@author coraleaf0602
     public void help() {
         System.out.println("""
-                +-----------+---------------------------------------+---------------------------------+
-                | Action    | Format                                | Example                         |
-                +-----------+---------------------------------------+---------------------------------+
-                | Help      | help                                  | help                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
-                |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
-                +-----------+---------------------------------------+---------------------------------+
-                | List      | list                                  | list                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Find      | find n/NAME          OR               | find n/John Doe                 |
-                |           | find ic/NRIC         OR               | find ic/S1234                   |
-                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |           | find m/MEDICATION    OR               | find m/Panadol                  |
-                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |           | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
-                +-----------+---------------------------------------+---------------------------------+
-                | Delete    | delete NRIC                           | delete S9534567A                |
-                +-----------+---------------------------------------+---------------------------------+
-                | Save      | save(automatic)                       | save                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Retrieve/ | retrieve or import                    | retrieve                        |
-                | Import    | (automatic)                           |                                 |
-                +-----------+---------------------------------------+---------------------------------+
-                | Exit      | exit                                  | exit                            |
-                +-----------+---------------------------------------+---------------------------------+""");
+                +-------------+---------------------------------------+---------------------------------+
+                | Action      | Format                                | Example                         |
+                +-------------+---------------------------------------+---------------------------------+
+                | Help        | help                                  | help                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
+                +-------------+---------------------------------------+---------------------------------+
+                | List        | list                                  | list                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | find n/NAME          OR               | find n/John Doe                 |
+                |             | find ic/NRIC         OR               | find ic/S1234                   |
+                |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |             | find m/MEDICATION    OR               | find m/Panadol                  |
+                |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |             | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
+                +-------------+---------------------------------------+---------------------------------+
+                | Delete      | delete NRIC                           | delete S9534567A                |
+                +-------------+---------------------------------------+---------------------------------+
+                | Save        | save(automatic)                       | save                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Retrieve/   | retrieve or import                    | retrieve                        |
+                | Import      | (automatic)                           |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Exit        | exit                                  | exit                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add         | appointmetn n/NAME ic/NRIC date/DATE  | appointment n/James Ho          |
+                | Appointment | time/TIME                             | ic/S9534567A date/2024-09-18    |
+                |             |                                       | time/18:00                      |
+                +-------------+---------------------------------------+---------------------------------+
+                | List        | listAppointment                       | listAppointment                 |
+                | Appointment |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | find n/NAME          OR               | findAppointment n/John Doe      |
+                | Appointment | find ic/NRIC         OR               | findAppointment ic/S1234        |
+                |             | find date/DATE       OR               | findAppointment date/2024-09-18 |
+                |             | find time/TIME       OR               | findAppointment time/18:00      |
+                +-------------+---------------------------------------+---------------------------------+
+                | Delete      | deleteAppointment ic/NRIC date/DATE   | deleteAppointment ic/S9534567A  |
+                | Appointment | time/TIME                             | date/2024-09-18 time/18:00      |
+                +-------------+---------------------------------------+---------------------------------+""");
     }
 
     //@@author yentheng0110
@@ -171,7 +188,7 @@ public class CommandHandler {
         }
     }
 
-    // @@author G13nd0n
+    //@@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         assert nric != null:
                 "Please provide a valid NRIC";
@@ -279,5 +296,37 @@ public class CommandHandler {
             }
         }
     }
+
+    //@@author G13nd0n
+    public void appointment(Patient patient, String dateTime, AppointmentRecord appointmentRecord) {
+        Appointment appointment = new Appointment(patient, dateTime);
+        appointmentRecord.addAppointment(appointment);
+
+        System.out.println("Appointment on " + appointment.getDateTime() + " with Patient " + patient.getName() +
+                ", " + patient.getNric() + " has been added.");
+    }
+
+    public void deleteAppointment(String input, AppointmentRecord appointmentRecord) {
+        appointmentRecord.deletesAppointment(input);
+    }
+
+    public void listAppointments(AppointmentRecord appointmentRecord) {
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
+    public void findAppointment(String input, AppointmentRecord appointmentRecord) {
+        List<Appointment> appointments = appointmentRecord.findAppointments(input);
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
 }
 
