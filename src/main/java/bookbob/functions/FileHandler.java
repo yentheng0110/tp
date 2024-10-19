@@ -2,11 +2,14 @@ package bookbob.functions;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
+import bookbob.entity.AppointmentRecord;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +20,7 @@ public class FileHandler {
 
     private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
     private static String filePath = "data" + File.separator + "bookbob_data.txt";
+    private static String appointmentFilePath = "data" + File.separator + "bookbob_appointment.txt";
 
     public static void initFile(Records records){
         try {
@@ -89,6 +93,74 @@ public class FileHandler {
                 Patient patient = new Patient(name, nric, phoneNumber,
                         dateOfBirth, homeAddress, diagnosis, medications);
                 records.addPatient(patient);
+            }
+            logger.log(Level.INFO, "Retrieved successfully");
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "File not found", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void initFile(AppointmentRecord appointmentRecord){
+        try {
+            String directoryName = "data";
+            String currentDirectory = System.getProperty("user.dir");
+            String directory = currentDirectory + File.separator + directoryName;
+            File directoryFile = new File(directory);
+
+            if(directoryFile.mkdirs()) {           //directory was not created
+                File file = new File(filePath);
+                file.createNewFile();              //create new data file
+            } else {                               //directory already created
+                logger.log(Level.INFO, "Directory exsited, creating new file");
+                File file = new File(appointmentFilePath);
+                if(file.createNewFile()) {         //file was not created
+                    logger.log(Level.INFO, "Directory exsited, creating new file");
+                } else {
+                    retrieveData(appointmentRecord);
+                }
+            }
+        } catch(Exception e){
+            logger.log(Level.WARNING, "Error initializing file", e);
+            e.printStackTrace();
+        }
+    }
+
+    public static String convertPatientToOutputText(Appointment appointment) {
+        String patientName = appointment.getPatientName();
+        String patientNric = appointment.getPatientNric();
+        String date = appointment.getDate().toString();
+        String time = appointment.getTime().toString();
+        String output = "";
+        output += "Name: " + patientName + "|" + "NRIC: " + patientNric + "|"
+                + "Date : " + date  + "|" + "Time: " + time;
+        return output;
+    }
+
+    public static void autosave(AppointmentRecord appointmentRecord) throws IOException {
+        List<Appointment> patients = appointmentRecord.getAppointments();
+        FileWriter fw = new FileWriter(appointmentFilePath);
+        for (Appointment appointment : appointments) {
+            String toWrite = convertPatientToOutputText(appointment);
+            fw.write(toWrite + "\n");
+        }
+        fw.close();
+        logger.log(Level.INFO, "Autosaved appointments successfully");
+    }
+
+    public static void retrieveData(AppointmentRecord appointmentRecords){
+        try {
+            File file = new File(appointmentFilePath);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] data = line.split("\\|");
+                String name = data[0].substring(6).trim();
+                String nric = data[1].substring(6).trim();
+                String date = data[2].substring(6).trim();
+                String time = data[3].substring(6).trim();
+                Appointment appointment = new Appointment(name, nric, date, time);
+                appointmentRecord.addAppointment(appointment);
             }
             logger.log(Level.INFO, "Retrieved successfully");
         } catch (FileNotFoundException e) {
