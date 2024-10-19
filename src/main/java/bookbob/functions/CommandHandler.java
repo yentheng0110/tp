@@ -9,66 +9,53 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class CommandHandler {
-    private final Scanner scanner;
+    private static final Logger logger = Logger.getLogger(CommandHandler.class.getName());
     private final FileHandler fileHandler = new FileHandler();
 
     public CommandHandler() throws IOException {
-        this.scanner = new Scanner(System.in);
     }
   
     // Prints output for help command
     //@@author coraleaf0602
     public void help() {
         System.out.println("""
-                +-------------+---------------------------------------+---------------------------------+
-                | Action      | Format                                | Example                         |
-                +-------------+---------------------------------------+---------------------------------+
-                | Help        | help                                  | help                            |
-                +-------------+---------------------------------------+---------------------------------+
-                | Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
-                |             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/1990-01-01      |
-                +-------------+---------------------------------------+---------------------------------+
-                | List        | list                                  | list                            |
-                +-------------+---------------------------------------+---------------------------------+
-                | Find        | find n/NAME          OR               | find n/John Doe                 |
-                |             | find ic/NRIC         OR               | find ic/S1234                   |
-                |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |             | find m/MEDICATION    OR               | find m/Panadol                  |
-                |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |             | find dob/DATE_OF_BIRTH                | find dob/1990-01-01             |
-                +-------------+---------------------------------------+---------------------------------+
-                | Delete      | delete NRIC                           | delete S9534567A                |
-                +-------------+---------------------------------------+---------------------------------+
-                | Save        | save(automatic)                       | save                            |
-                +-------------+---------------------------------------+---------------------------------+
-                | Retrieve/   | retrieve or import                    | retrieve                        |
-                | Import      | (automatic)                           |                                 |
-                +-------------+---------------------------------------+---------------------------------+
-                | Exit        | exit                                  | exit                            |
-                +-------------+---------------------------------------+---------------------------------+
-                | Add         | appointmetn n/NAME ic/NRIC date/DATE  | appointment n/James Ho          |
-                | Appointment | time/TIME                             | ic/S9534567A date/2024-09-18    |
-                |             |                                       | time/18:00                      |
-                +-------------+---------------------------------------+---------------------------------+
-                | List        | listAppointment                       | listAppointment                 |
-                | Appointment |                                       |                                 |
-                +-------------+---------------------------------------+---------------------------------+
-                | Find        | find n/NAME          OR               | findAppointment n/John Doe      |
-                | Appointment | find ic/NRIC         OR               | findAppointment ic/S1234        |
-                |             | find date/DATE       OR               | findAppointment date/2024-09-18 |
-                |             | find time/TIME       OR               | findAppointment time/18:00      |
-                +-------------+---------------------------------------+---------------------------------+
-                | Delete      | deleteAppointment ic/NRIC date/DATE   | deleteAppointment ic/S9534567A  |
-                | Appointment | time/TIME                             | date/2024-09-18 time/18:00      |
-                +-------------+---------------------------------------+---------------------------------+""");
+
+                +-----------+---------------------------------------+---------------------------------+
+                | Action    | Format                                | Example                         |
+                +-----------+---------------------------------------+---------------------------------+
+                | Help      | help                                  | help                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+                +-----------+---------------------------------------+---------------------------------+
+                | List      | list                                  | list                            |
+                +-----------+---------------------------------------+---------------------------------+
+                | Find      | find n/NAME          OR               | find n/John Doe                 |
+                |           | find ic/NRIC         OR               | find ic/S1234                   |
+                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |           | find m/MEDICATION    OR               | find m/Panadol                  |
+                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |           | find dob/DATE_OF_BIRTH                | find dob/01011990               |
+                +-----------+---------------------------------------+---------------------------------+
+                | Delete    | delete NRIC                           | delete S9534567A                |
+                +-----------+---------------------------------------+---------------------------------+
+                | Save      | save(automatic)                       |                                 |
+                +-----------+---------------------------------------+---------------------------------+
+                | Retrieve/ | retrieve or import                    |                                 |
+                | Import    | (automatic)                           |                                 |
+                +-----------+---------------------------------------+---------------------------------+
+                | Exit      | exit                                  | exit                            |
+                +-----------+---------------------------------------+---------------------------------+""");
     }
 
     //@@author yentheng0110
@@ -85,8 +72,7 @@ public class CommandHandler {
         int nameStart = input.indexOf("n/");
         int nricStart = input.indexOf("ic/");
 
-        assert nameStart != -1 :
-                "Please provide a valid patient name.";
+        assert nameStart != -1 : "Please provide a valid patient name.";
 
         if (nameStart == -1) {
             System.out.println("Please provide the patient's name.");
@@ -96,8 +82,7 @@ public class CommandHandler {
         int nameEnd = findNextFieldStart(input, nameStart + 2);
         name = input.substring(nameStart + 2, nameEnd).trim();
 
-        assert nricStart != -1 :
-                "Please provide a valid patient NRIC.";
+        assert nricStart != -1 : "Please provide a valid patient NRIC.";
 
         if (nricStart == -1) {
             System.out.println("Please provide the patient's NRIC.");
@@ -190,8 +175,7 @@ public class CommandHandler {
 
     //@@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
-        assert nric != null:
-                "Please provide a valid NRIC";
+        assert nric != null : "Please provide a valid NRIC";
 
         List<Patient> patients = records.getPatients();
         double initialSize = patients.size();
@@ -222,11 +206,22 @@ public class CommandHandler {
         }
     }
 
-    // @@Author kaboomzxc
+    // @@author kaboomzxc
     public void find(String input, Records records) {
+
+        // Assertion to ensure input is not null
+        assert input != null : "Input cannot be null";
+
+        // Input validation
+        if (input == null || input.trim().isEmpty()) {
+            logger.log(Level.WARNING, "Input cannot be null or empty");
+            throw new IllegalArgumentException("Input cannot be null or empty");
+        }
+
         Map<String, String> searchParams = extractSearchParams(input);
 
         if (searchParams.isEmpty()) {
+            logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: "
                     + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
             return;
@@ -247,8 +242,12 @@ public class CommandHandler {
                 String[] keyValue = part.split("/", 2);
                 if (keyValue.length == 2 && !keyValue[1].trim().isEmpty()) {
                     String key = keyValue[0].trim();
+                    String value = keyValue[1].trim();
                     if (isValidSearchKey(key)) {
-                        params.put(key, keyValue[1].toLowerCase().trim());
+                        params.put(key, value.toLowerCase().trim());
+                    } else {
+                        logger.log(Level.WARNING, "Invalid search key encountered: {0}", key);
+                        throw new IllegalArgumentException("Invalid search key: " + key);
                     }
                 }
             }
@@ -261,7 +260,9 @@ public class CommandHandler {
     }
 
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
-        return searchParams.entrySet().stream().allMatch(entry -> {
+        logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
+
+        boolean matches = searchParams.entrySet().stream().allMatch(entry -> {
             String key = entry.getKey();
             String value = entry.getValue();
             switch (key) {
@@ -284,6 +285,9 @@ public class CommandHandler {
                 return false;
             }
         });
+
+        logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
+        return matches;
     }
 
     private void displayResults(List<Patient> patients) {
@@ -329,4 +333,3 @@ public class CommandHandler {
     }
 
 }
-
