@@ -51,6 +51,7 @@ public class Main {
             case "exit":
                 logger.log(Level.INFO, "Processing exit command");
                 try{
+                    commandHandler.removePastAppointments(appointmentRecord);
                     commandHandler.exit(input);
                     logger.log(Level.INFO, "Successfully processed exit command");
                 } catch (Exception e) {

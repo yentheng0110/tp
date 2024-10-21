@@ -88,7 +88,7 @@ public class FileHandler {
         String time = appointment.getTime().toString();
         String output = "";
         output += "Name: " + patientName + "|" + "NRIC: " + patientNric + "|"
-                + "Date : " + date  + "|" + "Time: " + time;
+                + "Date: " + date  + "|" + "Time: " + time;
         return output;
     }
 

@@ -19,7 +19,6 @@ public class Appointment implements Comparable<Appointment> {
         this.patientNric = patientNric;
         this.date = LocalDate.parse(date, formatter);
         this.time = LocalTime.parse(time);
-
     }
 
     //@@author G13nd0n
@@ -60,14 +59,12 @@ public class Appointment implements Comparable<Appointment> {
         LocalDate patient2Date = other.date;
         LocalTime patient1Time = this.time;
         LocalTime patient2Time = other.time;
-        if (patient1Time.isBefore(patient2Time) && patient1Date.isBefore(patient2Date)) {
-            return 1;
-        } else if (patient1Time.isBefore(patient2Time) && patient1Date.isAfter(patient2Date)) {
+        if (patient1Date.isBefore(patient2Date)) {
             return -1;
-        } else if (patient1Time.isAfter(patient2Time) && patient1Date.isAfter(patient2Date)) {
+        } else if (patient1Date.equals(patient2Date) && patient1Time.isBefore(patient2Time)) {
             return -1;
         } else {
-            return 0;
+            return 1;
         }
 
     }

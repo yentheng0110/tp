@@ -452,6 +452,22 @@ public class CommandHandler {
         }
     }
 
+    //@@author G13nd0n
+    public void removePastAppointments(AppointmentRecord appointmentRecord) throws IOException {
+        LocalDate today = LocalDate.now();
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        List<Appointment> updatedAppointments = new ArrayList<Appointment>();
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment currentAppointment = appointments.get(i);
+            LocalDate appointmentDate = currentAppointment.getDate();
+            if (appointmentDate.isAfter(today)) {
+                updatedAppointments.add(currentAppointment);
+            }
+        }
+        appointmentRecord.setAppointments(updatedAppointments);
+        FileHandler.autosave(appointmentRecord);
+    }
+
     // @@author coraleaf
     // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
     // the associated appointments for a patient

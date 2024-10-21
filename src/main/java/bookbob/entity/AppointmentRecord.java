@@ -73,7 +73,7 @@ public class AppointmentRecord {
 
     //@@author G13nd0n
     private void sort() {
-        Collections.sort(appointments);
+        Collections.sort(this.appointments);
     }
 
     //@@author G13nd0n
@@ -85,24 +85,25 @@ public class AppointmentRecord {
     public void appointmentNotice() {
         if (appointments.size() == 0) {
             System.out.println("No appointments scheduled for today");
+            System.out.println("Empty");
             return;
         }
+
         LocalDate firstAppointmentDate = appointments.get(0).getDate();
         LocalDate today = LocalDate.now();
 
         if (firstAppointmentDate.isAfter(today)) {
             System.out.println("No appointments scheduled for today");
+            System.out.println("Non-empty");
             return;
         }
-
+        System.out.println("Appointment scheduled for today:");
         for (Appointment appointment : appointments) {
             String appointmentDate = appointment.getDate().format(formatter);
             String todayDate = LocalDate.now().format(formatter);
             if (appointmentDate.equals(todayDate)) {
-                System.out.println("Appointment scheduled for today:");
                 System.out.println(appointment);
             }
-            System.out.println(appointment);
         }
     }
 
