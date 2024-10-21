@@ -6,6 +6,8 @@ import bookbob.functions.FileHandler;
 
 import java.io.IOException;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -61,6 +63,7 @@ public class Main {
                 try{
                     int nameStart = input.indexOf("n/");
                     int nricStart = input.indexOf("ic/");
+                    int visitStart = input.indexOf("v/");
 
                     if (nameStart == -1) {
                         System.out.println("Please provide the patient's name.");
@@ -73,6 +76,18 @@ public class Main {
                         logger.log(Level.INFO, "NRIC of the patient is not provided");
                         break;
                     }
+
+                    String visitDateString = input.substring(visitStart + 2).trim();
+                    try {
+                        // Attempt to parse using a standard formatter
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                        LocalDateTime time = LocalDateTime.parse(visitDateString, formatter);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
+                        logger.log(Level.INFO, "Invalid visit date format provided");
+                        break;
+                    }
+
                     commandHandler.add(input, records);
                     logger.log(Level.INFO, "Successfully processed add command");
                 } catch (Exception e) {
