@@ -37,10 +37,10 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+
                 | Help        | help                                  | help                            |
                 +-------------+---------------------------------------+---------------------------------+
-                | Add        | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
-                |            | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |            | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
-                |            | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |
+                | Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+                |             | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
