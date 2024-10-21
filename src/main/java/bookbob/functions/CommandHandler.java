@@ -142,13 +142,11 @@ public class CommandHandler {
             // Attempt to parse using a standard formatter
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             visitTime = LocalDateTime.parse(visitDateString, formatter);
-            visit = new Visit(visitTime);
+            visit = new Visit(visitTime, diagnosis, medications);
             visits.add(visit);
         }
         Patient patient = new Patient(name, nric);
         patient.setPhoneNumber(phoneNumber);
-        patient.setDiagnosis(diagnosis);
-        patient.setMedication(medications);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
         patient.setVisit(visits);
@@ -182,8 +180,7 @@ public class CommandHandler {
         }
         for (Patient patient : patients) {
             System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
-                    ", Phone: " + patient.getPhoneNumber() + ", Diagnosis: " + patient.getDiagnosis() +
-                    ", Medication: " + patient.getMedication() + ", Address: " + patient.getHomeAddress() +
+                    ", Phone: " + patient.getPhoneNumber() + ", Address: " + patient.getHomeAddress() +
                     ", DOB: " + patient.getDateOfBirth());
         }
     }
@@ -288,11 +285,6 @@ public class CommandHandler {
                 return patient.getNric().toLowerCase().contains(value);
             case "p":
                 return patient.getPhoneNumber().toLowerCase().contains(value);
-            case "d":
-                return patient.getDiagnosis().toLowerCase().contains(value);
-            case "m":
-                return patient.getMedication().stream()
-                        .anyMatch(med -> med.toLowerCase().contains(value));
             case "ha":
                 return patient.getHomeAddress().toLowerCase().contains(value);
             case "dob":
