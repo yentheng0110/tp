@@ -11,6 +11,7 @@ public class Patient {
     private String homeAddress;
     private String diagnosis;
     private List<String> medication;
+    private List<Visit> visits;
 
     // default constructor only takes in name and NRIC
     public Patient(String name, String nric) {
@@ -21,6 +22,7 @@ public class Patient {
         this.homeAddress = "";
         this.diagnosis = "";
         this.medication = new ArrayList<>();
+        this.visits = new ArrayList<>();
     }
 
     // constructor used in retrieving data
@@ -90,6 +92,19 @@ public class Patient {
 
     public void setMedication(List<String> medication) {
         this.medication = medication;
+    }
+
+    public List<Visit> getVisit() {
+        return visits;
+    }
+
+    public void setVisit(List<Visit> visits) {
+        this.visits = visits;
+    }
+
+    public void deleteVisit(Visit dateToRemove) {
+        this.visits.remove(dateToRemove);
+        System.out.println(dateToRemove + " deleted from " + this.toString() + " visits");
     }
 
     @Override
