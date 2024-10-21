@@ -137,7 +137,7 @@ public class CommandHandler {
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
         Visit visit = null;
-        if(visitStart != -1) {
+        if (visitStart != -1) {
             String visitDateString = input.substring(visitStart + 2).trim();
             // Attempt to parse using a standard formatter
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -172,7 +172,7 @@ public class CommandHandler {
         return nextIndex;
     }
 
-    //@author yentheng0110
+    //@@author yentheng0110
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
@@ -184,6 +184,77 @@ public class CommandHandler {
                     ", Phone: " + patient.getPhoneNumber() + ", Address: " + patient.getHomeAddress() +
                     ", DOB: " + patient.getDateOfBirth());
         }
+    }
+
+    //@@author yentheng0110
+    public void edit(String input, Records records) throws IOException {
+        // Extract name and NRIC from the input command
+        String nric = extractValue(input, "ic/");
+
+        Patient patientToBeEdited = null;
+
+        // Search for the patient with matching name and NRIC
+        for (Patient patient : records.getPatients()) {
+            if (patient.getNric().equalsIgnoreCase(nric)) {
+                patientToBeEdited = patient;
+                break;  // Stop searching once the patient is found
+            }
+        }
+
+        if (patientToBeEdited == null) {
+            System.out.println("No patient found.");
+            return;
+        }
+        records.getPatients().remove(patientToBeEdited);
+
+        // Extract optional fields for updating
+        String newPhoneNumber = extractValue(input, "p/");
+        String newHomeAddress = extractValue(input, "ha/");
+        String newDob = extractValue(input, "dob/");
+
+        // Update patient details only if new values are provided
+        if (!newPhoneNumber.isBlank()) {
+            patientToBeEdited.setPhoneNumber(newPhoneNumber);
+        }
+        if (!newHomeAddress.isBlank()) {
+            patientToBeEdited.setHomeAddress(newHomeAddress);
+        }
+        if (!newDob.isBlank()) {
+            patientToBeEdited.setDateOfBirth(newDob);
+        }
+
+        // Confirm the updated details
+        System.out.println("Patient record updated successfully.");
+        System.out.println("Updated patient details:");
+        System.out.println(patientToBeEdited);
+
+        records.addPatient(patientToBeEdited);
+        FileHandler.autosave(records);
+    }
+
+    //@@author yentheng0110
+    // Helper method to extract values between prefixes
+    private String extractValue(String input, String prefix) {
+        int startIndex = input.indexOf(prefix);
+        if (startIndex == -1) return "";
+
+        int nextPrefixIndex = findNextPrefixIndex(input, startIndex + prefix.length());
+        return input.substring(startIndex + prefix.length(), nextPrefixIndex).trim();
+    }
+
+    //@@author yentheng0110
+    // Helper method to find the index of the next prefix (or end of string)
+    private int findNextPrefixIndex(String input, int currentIndex) {
+        String[] prefixes = { "n/", "ic/", "p/", "ha/", "dob/", "d/", "m/" };
+        int minIndex = input.length();  // Default to the end of the input
+
+        for (String prefix : prefixes) {
+            int prefixIndex = input.indexOf(prefix, currentIndex);
+            if (prefixIndex != -1) {
+                minIndex = Math.min(minIndex, prefixIndex);
+            }
+        }
+        return minIndex;
     }
 
     // @@author G13nd0n

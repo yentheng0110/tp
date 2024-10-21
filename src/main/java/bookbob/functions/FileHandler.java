@@ -47,7 +47,7 @@ public class FileHandler {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
-                + " | " + "Home Address: " + patient.getHomeAddress() + ";";
+                + " | " + "Home Address: " + patient.getHomeAddress();
         return output;
     }
 
