@@ -236,7 +236,9 @@ public class CommandHandler {
     // Helper method to extract values between prefixes
     private String extractValue(String input, String prefix) {
         int startIndex = input.indexOf(prefix);
-        if (startIndex == -1) return "";
+        if (startIndex == -1) {
+            return "";
+        }
 
         int nextPrefixIndex = findNextPrefixIndex(input, startIndex + prefix.length());
         return input.substring(startIndex + prefix.length(), nextPrefixIndex).trim();
