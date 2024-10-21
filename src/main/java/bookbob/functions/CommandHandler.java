@@ -145,6 +145,7 @@ public class CommandHandler {
             visit = new Visit(visitTime, diagnosis, medications);
             visits.add(visit);
         }
+
         Patient patient = new Patient(name, nric);
         patient.setPhoneNumber(phoneNumber);
         patient.setHomeAddress(homeAddress);
