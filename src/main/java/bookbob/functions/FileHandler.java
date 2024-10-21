@@ -3,13 +3,13 @@ package bookbob.functions;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 import bookbob.entity.AppointmentRecord;
+import bookbob.entity.Appointment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -127,9 +127,10 @@ public class FileHandler {
     }
 
     public static String convertPatientToOutputText(Appointment appointment) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String patientName = appointment.getPatientName();
         String patientNric = appointment.getPatientNric();
-        String date = appointment.getDate().toString();
+        String date = appointment.getDate().format(formatter);
         String time = appointment.getTime().toString();
         String output = "";
         output += "Name: " + patientName + "|" + "NRIC: " + patientNric + "|"
@@ -138,7 +139,7 @@ public class FileHandler {
     }
 
     public static void autosave(AppointmentRecord appointmentRecord) throws IOException {
-        List<Appointment> patients = appointmentRecord.getAppointments();
+        List<Appointment> appointments = appointmentRecord.getAppointments();
         FileWriter fw = new FileWriter(appointmentFilePath);
         for (Appointment appointment : appointments) {
             String toWrite = convertPatientToOutputText(appointment);
@@ -148,7 +149,7 @@ public class FileHandler {
         logger.log(Level.INFO, "Autosaved appointments successfully");
     }
 
-    public static void retrieveData(AppointmentRecord appointmentRecords){
+    public static void retrieveData(AppointmentRecord appointmentRecord){
         try {
             File file = new File(appointmentFilePath);
             Scanner reader = new Scanner(file);
