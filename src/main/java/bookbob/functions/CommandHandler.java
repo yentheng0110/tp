@@ -1,10 +1,14 @@
 package bookbob.functions;
 
+import bookbob.entity.Appointment;
+import bookbob.entity.AppointmentRecord;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 import bookbob.entity.Visit;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,35 +32,55 @@ public class CommandHandler {
     //@@author coraleaf0602
     public void help() {
         System.out.println("""
-                +-----------+---------------------------------------+---------------------------------+
-                | Action    | Format                                | Example                         |
-                +-----------+---------------------------------------+---------------------------------+
-                | Help      | help                                  | help                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
-                |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
-                |           | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |
-                +-----------+---------------------------------------+---------------------------------+
-                | List      | list                                  | list                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Find      | find n/NAME          OR               | find n/John Doe                 |
-                |           | find ic/NRIC         OR               | find ic/S1234                   |
-                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |           | find m/MEDICATION    OR               | find m/Panadol                  |
-                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |           | find dob/DATE_OF_BIRTH                | find dob/01011990               |
-                +-----------+---------------------------------------+---------------------------------+
-                | Delete    | delete NRIC                           | delete S9534567A                |
-                +-----------+---------------------------------------+---------------------------------+
-                | Save      | save(automatic)                       |                                 |
-                +-----------+---------------------------------------+---------------------------------+
-                | Retrieve/ | retrieve or import                    |                                 |
-                | Import    | (automatic)                           |                                 |
-                +-----------+---------------------------------------+---------------------------------+
-                | Exit      | exit                                  | exit                            |
-                +-----------+---------------------------------------+---------------------------------+""");
+                +-------------+---------------------------------------+---------------------------------+
+                | Action      | Format                                | Example                         |
+                +-------------+---------------------------------------+---------------------------------+
+                | Help        | help                                  | help                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add        | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |            | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |            | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+                |            | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |
+                +-------------+---------------------------------------+---------------------------------+
+                | List        | list                                  | list                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | find n/NAME          OR               | find n/John Doe                 |
+                |             | find ic/NRIC         OR               | find ic/S1234                   |
+                |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |             | find m/MEDICATION    OR               | find m/Panadol                  |
+                |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |             | find dob/DATE_OF_BIRTH                | find dob/01011990               |
+                +-------------+---------------------------------------+---------------------------------+
+                | Delete      | delete NRIC                           | delete S9534567A                |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add         | appointment n/NAME ic/NRIC            | add n/James Ho ic/S9534567A     |
+                | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | List        | listAppointments                      | list                            |
+                | Appointment |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | findAppointment n/NAME          OR    | findAppointment n/John Doe      |
+                | Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234        |
+                |             | findAppointment date/DATE       OR    | findAppointment date/01-04-2025 |
+                |             | findAppointment time/TIME       OR    | findAppointment time/12:00      |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Delete      | deleteAppointment NRIC                | deleteAppointment S9534567A     |
+                | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Save        | save(automatic)                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Retrieve/   | retrieve or import                    |                                 |
+                | Import      | (automatic)                           |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Exit        | exit                                  | exit                            |
+                +-------------+---------------------------------------+---------------------------------+""");
     }
 
     //@@author yentheng0110
@@ -162,7 +186,7 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "date/", "time/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -186,7 +210,7 @@ public class CommandHandler {
         }
     }
 
-    // @@author G13nd0n
+    //@@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         assert nric != null : "Please provide a valid NRIC";
 
@@ -307,6 +331,124 @@ public class CommandHandler {
             for (Patient patient : patients) {
                 System.out.println(patient);
             }
+        }
+    }
+
+    //@@author G13nd0n
+    public void appointment(String input, AppointmentRecord appointmentRecord) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String name = "";
+        String nric = "";
+        String date = "";
+        String time = "";
+
+        int nameStart = input.indexOf("n/");
+        int nricStart = input.indexOf("ic/");
+        int dateStart = input.indexOf("date/");
+        int timeStart = input.indexOf("time/");
+
+        int nameEnd = findNextFieldStart(input, nameStart + 2);
+        name = input.substring(nameStart + 2, nameEnd).trim();
+        int nricEnd = findNextFieldStart(input, nricStart + 2);
+        nric = input.substring(nricStart + 3, nricEnd).trim();
+        int dateEnd = findNextFieldStart(input, dateStart + 2);
+        date = input.substring(dateStart + 5, dateEnd).trim();
+        int timeEnd = findNextFieldStart(input, timeStart + 2);
+        time = input.substring(timeStart + 5, timeEnd).trim();
+        LocalDate availableDate = LocalDate.parse(date, formatter);
+        LocalTime availableTime = LocalTime.parse(time);
+
+        LocalTime nextAvailableTime= appointmentRecord.checkAvailability(availableDate, availableTime);
+
+        if (nextAvailableTime == availableTime) {
+            Appointment appointment = new Appointment(name, nric, date, time);
+            appointmentRecord.addAppointment(appointment);
+
+            System.out.println("Appointment on " + appointment.getDate().format(formatter) + " " +
+                    appointment.getTime() + " with Patient " + appointment.getPatientName() + ", " +
+                    appointment.getPatientNric() + " has been added.");
+        } else {
+            System.out.println("There is already an appointment at the given timeslot. " +
+                    "The next available timeslot is: " + nextAvailableTime.toString());
+        }
+        FileHandler.autosave(appointmentRecord);
+    }
+
+    //@@author G13nd0n
+    public void deleteAppointment(String input, AppointmentRecord appointmentRecord) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String nric = "";
+        String date = "";
+        String time = "";
+
+        int nricStart = input.indexOf("ic/");
+        int dateStart = input.indexOf("date/");
+        int timeStart = input.indexOf("time/");
+
+        if (nricStart == -1 || dateStart == -1 || timeStart == -1) {
+            throw new IllegalArgumentException();
+        }
+
+        int nricEnd = findNextFieldStart(input, nricStart + 2);
+        nric = input.substring(nricStart + 3, nricEnd).trim();
+        int dateEnd = findNextFieldStart(input, dateStart + 2);
+        date = input.substring(dateStart + 5, dateEnd).trim();
+        int timeEnd = findNextFieldStart(input, timeStart + 2);
+        time = input.substring(timeStart + 5, timeEnd).trim();
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        String patientName = "";
+
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment appointment = appointments.get(i);
+            patientName = appointment.getPatientName();
+            String patientNric = appointment.getPatientNric();
+            String patientDate = appointment.getDate().format(formatter);
+            String patientTime = appointment.getTime().toString();
+            if (!patientNric.equals(nric)) {
+                System.out.println("Appointment with Patient of " + nric + " does not exist.");
+                continue;
+            }
+            if (!patientDate.equals(date)) {
+                System.out.println("Appointment with Patient of " + nric + " on " + date + "" +
+                        "does not exist.");
+                continue;
+            }
+            if (!patientTime.equals(time)) {
+                System.out.println("Appointment with Patient of " + nric + " on " + date + " " + time +
+                        "does not exist.");
+                continue;
+            }
+            appointments.remove(i);
+            break;
+        }
+        appointmentRecord.setAppointments(appointments);
+        System.out.println("Appointment on " + date + " " + time + " with Patient " + patientName + ", " +
+                nric + " has been deleted.");
+
+        FileHandler.autosave(appointmentRecord);
+    }
+
+    //@@author G13nd0n
+    public void listAppointments(AppointmentRecord appointmentRecord) {
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
+    //@@author G13nd0n
+    public void findAppointment(String input, AppointmentRecord appointmentRecord) {
+        List<Appointment> appointments = appointmentRecord.findAppointments(input);
+        if (appointments.isEmpty()) {
+            System.out.println("No matching appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
         }
     }
 

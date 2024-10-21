@@ -1,0 +1,74 @@
+package bookbob.entity;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+//@@author G13nd0n
+public class Appointment implements Comparable<Appointment> {
+    private String patientName;
+    private String patientNric;
+    private LocalTime time;
+    private LocalDate date;
+    private long consultationDuration = 30;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    //@@author G13nd0n
+    public Appointment(String patientName, String patientNric, String date, String time) {
+        this.patientName = patientName;
+        this.patientNric = patientNric;
+        this.date = LocalDate.parse(date, formatter);
+        this.time = LocalTime.parse(time);
+
+    }
+
+    //@@author G13nd0n
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public String getPatientNric() {
+        return patientNric;
+    }
+
+    //@@author G13nd0n
+    public LocalDate getDate() {
+        return date;
+    }
+
+    //@@author G13nd0n
+    public LocalTime getTime() {
+        return time;
+    }
+
+    //@@author G13nd0n
+    public long getConsultationDuration() {
+        return consultationDuration;
+    }
+
+    //@@author G13nd0n
+    @Override
+    public String toString() {
+        return "Appointment on " + date.format(formatter) + " " + time + " with Patient " + patientName + ", " +
+                patientNric + ".";
+    }
+
+    //@@author G13nd0n
+    @Override
+    public int compareTo(Appointment other) {
+        LocalDate patient1Date = this.date;
+        LocalDate patient2Date = other.date;
+        LocalTime patient1Time = this.time;
+        LocalTime patient2Time = other.time;
+        if (patient1Time.isBefore(patient2Time) && patient1Date.isBefore(patient2Date)) {
+            return 1;
+        } else if (patient1Time.isBefore(patient2Time) && patient1Date.isAfter(patient2Date)) {
+            return -1;
+        } else if (patient1Time.isAfter(patient2Time) && patient1Date.isAfter(patient2Date)) {
+            return -1;
+        } else {
+            return 0;
+        }
+
+    }
+}
