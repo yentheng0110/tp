@@ -9,8 +9,6 @@ public class Patient {
     private String dateOfBirth;
     private String phoneNumber;
     private String homeAddress;
-    private String diagnosis;
-    private List<String> medication;
     private List<Visit> visits;
 
     // default constructor only takes in name and NRIC
@@ -20,21 +18,16 @@ public class Patient {
         this.dateOfBirth = "";
         this.phoneNumber = "";
         this.homeAddress = "";
-        this.diagnosis = "";
-        this.medication = new ArrayList<>();
         this.visits = new ArrayList<>();
     }
 
     // constructor used in retrieving data
-    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
-                   String diagnosis, List<String> medications) {
+    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
-        this.diagnosis = diagnosis;
-        this.medication = medications;
     }
 
     // getters and setters
@@ -78,22 +71,6 @@ public class Patient {
         this.homeAddress = homeAddress;
     }
 
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public List<String> getMedication() {
-        return medication;
-    }
-
-    public void setMedication(List<String> medication) {
-        this.medication = medication;
-    }
-
     public List<Visit> getVisit() {
         return visits;
     }
@@ -102,16 +79,10 @@ public class Patient {
         this.visits = visits;
     }
 
-    public void deleteVisit(Visit dateToRemove) {
-        this.visits.remove(dateToRemove);
-        System.out.println(dateToRemove + " deleted from " + this.toString() + " visits");
-    }
-
     @Override
     public String toString() {
         return "Name: " + getName() + ", NRIC: " + getNric() +
-                ", Phone: " + getPhoneNumber() + ", Diagnosis: " + getDiagnosis() +
-                ", Medication: " + getMedication() + ", Address: " + getHomeAddress() +
+                ", Phone: " + getPhoneNumber() +  ", Address: " + getHomeAddress() +
                 ", DOB: " + getDateOfBirth();
     }
 }
