@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -48,12 +47,7 @@ public class FileHandler {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
-                + " | " + "Home Address: " + patient.getHomeAddress() + " | "
-                + "Diagnosis: " + patient.getDiagnosis() + " | " + "Medication: ";
-        List<String> medications = patient.getMedication();
-        for (String medication : medications) {
-            output += medication + ";";
-        }
+                + " | " + "Home Address: " + patient.getHomeAddress() + ";";
         return output;
     }
 
@@ -80,14 +74,7 @@ public class FileHandler {
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirth = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
-                String diagnosis = data[5].substring(12).trim();
-                ArrayList<String> medications = new ArrayList<>();
-                String[] rawMedications = data[6].substring(12).trim().split(";");
-                for(int i = 0; i < rawMedications.length; i++) {
-                    medications.add(rawMedications[i].trim());
-                }
-                Patient patient = new Patient(name, nric, phoneNumber,
-                        dateOfBirth, homeAddress, diagnosis, medications);
+                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress);
                 records.addPatient(patient);
             }
             logger.log(Level.INFO, "Data retrieved successfully");
