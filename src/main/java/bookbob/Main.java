@@ -99,12 +99,23 @@ public class Main {
 
             case "list":
                 logger.log(Level.INFO, "Processing list command");
-                try{
+                try {
                     commandHandler.list(records);
                     logger.log(Level.INFO, "Successfully processed list command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing list", e);
                     System.out.println("Error in listing patient record, specific error: " + e.getMessage());
+                }
+                break;
+
+            case "edit":
+                logger.log(Level.INFO, "Processing edit command");
+                try {
+                    commandHandler.edit(input, records);
+                    logger.log(Level.INFO, "Successfully processed edit command");
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing edit", e);
+                    System.out.println("Error in editing patient record, specific error: " + e.getMessage());
                 }
                 break;
 

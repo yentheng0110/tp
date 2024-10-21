@@ -449,7 +449,7 @@ public class BookBobTest {
                 "Bukit Gombak");
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
-                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak;");
+                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak");
     }
 
     //@@author PrinceCatt
@@ -459,7 +459,7 @@ public class BookBobTest {
         Patient patient = new Patient("John", "S9765432T");
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
-                "Date_Of_Birth:  | Home Address: ;");
+                "Date_Of_Birth:  | Home Address: ");
     }
 
     @Test
