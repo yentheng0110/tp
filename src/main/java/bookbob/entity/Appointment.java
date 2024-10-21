@@ -2,19 +2,22 @@ package bookbob.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 //@@author G13nd0n
 public class Appointment implements Comparable<Appointment> {
     private String patientName;
-    private String patientNric
+    private String patientNric;
     private LocalTime time;
     private LocalDate date;
+    private long consultationDuration = 30;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     //@@author G13nd0n
     public Appointment(String patientName, String patientNric, String date, String time) {
         this.patientName = patientName;
         this.patientNric = patientNric;
-        this.date = LocalDate.parse(date);
+        this.date = LocalDate.parse(date, formatter);
         this.time = LocalTime.parse(time);
 
     }
@@ -39,9 +42,14 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     //@@author G13nd0n
+    public long getConsultationDuration() {
+        return consultationDuration;
+    }
+
+    //@@author G13nd0n
     @Override
     public String toString() {
-        return "Appointment on " + date + time + " with Patient " + patientName + ", " +
+        return "Appointment on " + date.format(formatter) + " " + time + " with Patient " + patientName + ", " +
                 patientNric + ".";
     }
 
@@ -52,14 +60,6 @@ public class Appointment implements Comparable<Appointment> {
         LocalDate patient2Date = other.date;
         LocalTime patient1Time = this.time;
         LocalTime patient2Time = other.time;
-        /*    Patient patient2 = other.patient;
-        String patient1Name = this.patient.getName();
-        String patient2Name = patient2.getName();
-        String patient1Nric = this.patient.getNric();
-        String patient2Nric = patient2.getName();
-        LocalDateTime patient1Time = this.dateTime;
-        LocalDateTime patient2Time = other.dateTime;
-        */
         if (patient1Time.isBefore(patient2Time) && patient1Date.isBefore(patient2Date)) {
             return 1;
         } else if (patient1Time.isBefore(patient2Time) && patient1Date.isAfter(patient2Date)) {
