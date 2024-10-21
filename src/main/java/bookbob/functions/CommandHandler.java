@@ -2,8 +2,11 @@ package bookbob.functions;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
+import bookbob.entity.Visit;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +36,7 @@ public class CommandHandler {
                 | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
                 |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+                |           | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |
                 +-----------+---------------------------------------+---------------------------------+
                 | List      | list                                  | list                            |
                 +-----------+---------------------------------------+---------------------------------+
@@ -64,6 +68,7 @@ public class CommandHandler {
         String homeAddress = "";
         String diagnosis = "";
         List<String> medications = new ArrayList<>();
+        List<Visit> visits = new ArrayList<>();
 
         // Extract name
         int nameStart = input.indexOf("n/");
@@ -128,12 +133,25 @@ public class CommandHandler {
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
 
+        // Extract visit date
+        int visitStart = input.indexOf("v/");
+        LocalDateTime visitTime = null;
+        Visit visit = null;
+        if(visitStart != -1) {
+            String visitDateString = input.substring(visitStart + 2).trim();
+            // Attempt to parse using a standard formatter
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            visitTime = LocalDateTime.parse(visitDateString, formatter);
+            visit = new Visit(visitTime);
+            visits.add(visit);
+        }
         Patient patient = new Patient(name, nric);
         patient.setPhoneNumber(phoneNumber);
         patient.setDiagnosis(diagnosis);
         patient.setMedication(medications);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
+        patient.setVisit(visits);
 
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
@@ -196,6 +214,7 @@ public class CommandHandler {
     }
 
 
+    // @@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
         if(input.equalsIgnoreCase("exit")) {
@@ -294,6 +313,20 @@ public class CommandHandler {
             System.out.println("Matching patients:");
             for (Patient patient : patients) {
                 System.out.println(patient);
+            }
+        }
+    }
+
+    // @@author coraleaf
+    // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
+    // the associated appointments for a patient
+    public void printVisits(Patient patient) {
+        if (patient.getVisit().isEmpty()) {
+            System.out.println("No visits found for patient: " + patient.getName());
+        } else {
+            System.out.println("Visits for patient: " + patient.getName());
+            for (Visit visit : patient.getVisit()) {
+                System.out.println(visit.toString());
             }
         }
     }
