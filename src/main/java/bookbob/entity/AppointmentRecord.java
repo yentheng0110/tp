@@ -1,6 +1,9 @@
 package bookbob.entity;
 
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +11,7 @@ import java.util.List;
 //@@author G13nd0n
 public class AppointmentRecord {
     private List<Appointment> appointments;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     //@@author G13nd0n
     public AppointmentRecord() {
@@ -18,31 +22,6 @@ public class AppointmentRecord {
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
         this.sort();
-    }
-
-    //@@author G13nd0n
-    public void deletesAppointment(String input) {
-        String[] inputs = input.split("\\|");
-        String nric = inputs[0].substring(2);
-        String date = inputs[1].substring(5);
-        String time = inputs[2].substring(5);
-        for (int i = 0; i < appointments.size(); i++) {
-            Appointment appointment = appointments.get(i);
-            String patientNric = appointment.getPatientName();
-            String patientDate = appointment.getDate().toString();
-            String patientTime = appointment.getTime().toString();
-            if (!patientNric.equals(nric)) {
-                continue;
-            }
-            if (!patientDate.equals(date)) {
-                continue;
-            }
-            if (!patientTime.equals(time)) {
-                continue;
-            }
-            appointments.remove(i);
-            break;
-        }
     }
 
     //@@author G13nd0n
@@ -100,6 +79,52 @@ public class AppointmentRecord {
     //@@author G13nd0n
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    //@@author G13nd0n
+    public void appointmentNotice() {
+        if (appointments.size() == 0) {
+            System.out.println("No appointments scheduled for today");
+            return;
+        }
+        LocalDate firstAppointmentDate = appointments.get(0).getDate();
+        LocalDate today = LocalDate.now();
+
+        if (firstAppointmentDate.isAfter(today)) {
+            System.out.println("No appointments scheduled for today");
+            return;
+        }
+
+        for (Appointment appointment : appointments) {
+            String appointmentDate = appointment.getDate().format(formatter);
+            String todayDate = LocalDate.now().format(formatter);
+            if (appointmentDate.equals(todayDate)) {
+                System.out.println("Appointment scheduled for today:");
+                System.out.println(appointment);
+            }
+            System.out.println(appointment);
+        }
+    }
+
+    //@@author G13nd0n
+    public LocalTime checkAvailability(LocalDate date, LocalTime time) {
+        LocalTime nextAvailableTime = time;
+        for (Appointment appointment : appointments) {
+            LocalDate appointmentDate = appointment.getDate();
+            LocalTime appointmentTime = appointment.getTime();
+            long consultationDuration = appointment.getConsultationDuration();
+            LocalTime appointmentEndTime = appointmentTime.plusMinutes(consultationDuration);
+            if (appointmentDate.equals(date) && appointmentTime.equals(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+            } else if (appointmentDate.isAfter(date) && appointmentTime.isAfter(nextAvailableTime)
+                    && appointmentEndTime.isBefore(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+            }
+            if (appointmentDate.isAfter(date)) {
+                break;
+            }
+        }
+        return nextAvailableTime;
     }
 }
 
