@@ -7,29 +7,29 @@ import java.util.List;
 
 public class Visit {
     private LocalDateTime visitDate;
-    private String diagnosis;
-    private List<String> medication;
+    private List<String> diagnosis;
+    private List<String> medications;
 
     public Visit(LocalDateTime visitDate, String diagnosis, List<String> medication) {
         this.visitDate = visitDate;
-        this.diagnosis = "";
-        this.medication = new ArrayList<>();
+        this.diagnosis = new ArrayList<>();
+        this.medications = new ArrayList<>();
     }
 
-    public String getDiagnosis() {
+    public List<String> getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(String diagnosis) {
+    public void setDiagnosis(List<String> diagnosis) {
         this.diagnosis = diagnosis;
     }
 
-    public List<String> getMedication() {
-        return medication;
+    public List<String> getMedications() {
+        return medications;
     }
 
-    public void setMedication(List<String> medication) {
-        this.medication = medication;
+    public void setMedication(List<String> medications) {
+        this.medications = medications;
     }
 
     public LocalDateTime getVisitDate() {
@@ -44,6 +44,6 @@ public class Visit {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "Visited the clinic on: " + this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnosis() +
-                ", Medication: " + getMedication();
+                ", Medications: " + getMedications();
     }
 }
