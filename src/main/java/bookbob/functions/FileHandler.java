@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -48,47 +47,6 @@ public class FileHandler {
         }
     }
 
-    public static String convertPatientToOutputText(Patient patient) {
-        String output = "";
-        output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
-                + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
-                + " | " + "Home Address: " + patient.getHomeAddress() + ";";
-        return output;
-    }
-
-    public static void autosave(Records records) throws IOException {
-        List<Patient> patients = records.getPatients();
-        FileWriter fw = new FileWriter(filePath);
-        for (Patient currPatient : patients) {
-            String toWrite = convertPatientToOutputText(currPatient);
-            fw.write(toWrite + "\n");
-        }
-        fw.close();
-        logger.log(Level.INFO, "Autosaved successfully");
-    }
-
-    public static void retrieveData(Records records){
-        try {
-            File file = new File(filePath);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
-                String line = reader.nextLine();
-                String[] data = line.split("\\|");
-                String name = data[0].substring(6).trim();
-                String nric = data[1].substring(6).trim();
-                String phoneNumber = data[2].substring(15).trim();
-                String dateOfBirth = data[3].substring(16).trim();
-                String homeAddress = data[4].substring(15).trim();
-                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress);
-                records.addPatient(patient);
-            }
-            logger.log(Level.INFO, "Data retrieved successfully");
-        } catch (FileNotFoundException e) {
-            logger.log(Level.WARNING, "File not found", e);
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void initFile(AppointmentRecord appointmentRecord){
         try {
             String directoryName = "data";
@@ -114,6 +72,14 @@ public class FileHandler {
         }
     }
 
+    public static String convertPatientToOutputText(Patient patient) {
+        String output = "";
+        output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
+                + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
+                + " | " + "Home Address: " + patient.getHomeAddress() + ";";
+        return output;
+    }
+
     public static String convertPatientToOutputText(Appointment appointment) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String patientName = appointment.getPatientName();
@@ -126,6 +92,17 @@ public class FileHandler {
         return output;
     }
 
+    public static void autosave(Records records) throws IOException {
+        List<Patient> patients = records.getPatients();
+        FileWriter fw = new FileWriter(filePath);
+        for (Patient currPatient : patients) {
+            String toWrite = convertPatientToOutputText(currPatient);
+            fw.write(toWrite + "\n");
+        }
+        fw.close();
+        logger.log(Level.INFO, "Autosaved successfully");
+    }
+
     public static void autosave(AppointmentRecord appointmentRecord) throws IOException {
         List<Appointment> appointments = appointmentRecord.getAppointments();
         FileWriter fw = new FileWriter(appointmentFilePath);
@@ -135,6 +112,28 @@ public class FileHandler {
         }
         fw.close();
         logger.log(Level.INFO, "Autosaved appointments successfully");
+    }
+
+    public static void retrieveData(Records records){
+        try {
+            File file = new File(filePath);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] data = line.split("\\|");
+                String name = data[0].substring(6).trim();
+                String nric = data[1].substring(6).trim();
+                String phoneNumber = data[2].substring(15).trim();
+                String dateOfBirth = data[3].substring(16).trim();
+                String homeAddress = data[4].substring(15).trim();
+                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress);
+                records.addPatient(patient);
+            }
+            logger.log(Level.INFO, "Data retrieved successfully");
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "File not found", e);
+            throw new RuntimeException(e);
+        }
     }
 
     public static void retrieveData(AppointmentRecord appointmentRecord){
@@ -157,5 +156,4 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
     }
-
 }
