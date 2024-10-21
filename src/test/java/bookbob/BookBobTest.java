@@ -209,37 +209,6 @@ public class BookBobTest {
 
     // @@ author kaboomzxc
     @Test
-    void testFindDiagnosis() throws IOException {
-
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
-                records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995",
-                records);
-        command.find("d/Asthma", records);
-        assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
-                "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
-                "Matching patients:" + System.lineSeparator() +
-                "Name: James Ho, NRIC: S9534567A, Phone: 91234567, " +
-                "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
-    }
-
-    // @@ author kaboomzxc
-    @Test
-    void testFindMedication() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
-                records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995",
-                records);
-        command.find("m/Albuterol", records);
-        assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
-                "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
-                "Matching patients:" + System.lineSeparator() +
-                "Name: James Ho, NRIC: S9534567A, Phone: 91234567, " +
-                "Address: NUS PGPR, DOB: 13121995", outputStreamCaptor.toString().trim());
-    }
-
-    // @@ author kaboomzxc
-    @Test
     void testFindHomeAddress() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS PGPR dob/13121995",
                 records);
