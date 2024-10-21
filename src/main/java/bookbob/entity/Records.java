@@ -7,6 +7,7 @@ public class Records {
     private List<Patient> patients;
 
     // default constructor: empty
+    //@@author G13nd0n
     public Records() {
         this.patients = new ArrayList<>();
     }

@@ -12,6 +12,7 @@ public class Patient {
     private List<Visit> visits;
 
     // default constructor only takes in name and NRIC
+    //@@author G13nd0n
     public Patient(String name, String nric) {
         this.name = name;
         this.nric = nric;
@@ -22,6 +23,7 @@ public class Patient {
     }
 
     // constructor used in retrieving data
+    // @@author G13nd0n
     public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress) {
         this.name = name;
         this.nric = nric;
