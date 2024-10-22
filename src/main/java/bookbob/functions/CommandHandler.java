@@ -165,7 +165,7 @@ public class CommandHandler {
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
         /*
-        // @@author
+        // @@author coraleaf0602
         // Extract visit date
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
@@ -337,7 +337,7 @@ public class CommandHandler {
         return minIndex;
     }
 
-    // @@author
+    // @@author coraleaf0602
     public void delete(String nric, Records records) throws IOException {
         assert nric != null : "Please provide a valid NRIC";
 
@@ -601,7 +601,7 @@ public class CommandHandler {
         FileHandler.autosave(appointmentRecord);
     }
 
-    // @@author coraleaf
+    // @@author coraleaf0602
     // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
     // the associated appointments for a patient
     public void printVisits(Patient patient) {
