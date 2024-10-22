@@ -9,6 +9,9 @@ public class Patient {
     private String dateOfBirth;
     private String phoneNumber;
     private String homeAddress;
+    private String gender;
+    private List<String> allergy;
+    private List<String> medicalHistory;
     private List<Visit> visits;
 
     // default constructor only takes in name and NRIC
@@ -22,9 +25,41 @@ public class Patient {
         this.visits = new ArrayList<>();
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public List<String> getAllergy() {
+        return allergy;
+    }
+
+    public void setAllergy(List<String> allergy) {
+        this.allergy = allergy;
+    }
+
+    public List<String> getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(List<String> medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
+
     // constructor used in retrieving data
     // @@author G13nd0n
-    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress) {
+    public Patient(String name, String nric, String dateOfBirth, String phoneNumber, String homeAddress) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
