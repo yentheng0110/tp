@@ -52,7 +52,7 @@ public class Main {
 
                 case "exit":
                     logger.log(Level.INFO, "Processing exit command");
-                    try {
+                    try{
                         commandHandler.removePastAppointments(appointmentRecord);
                         commandHandler.exit(input);
                         logger.log(Level.INFO, "Successfully processed exit command");
@@ -63,7 +63,7 @@ public class Main {
 
                 case "add":
                     logger.log(Level.INFO, "Processing add command");
-                    try {
+                    try{
                         int nameStart = input.indexOf("n/");
                         int nricStart = input.indexOf("ic/");
                         int visitStart = input.indexOf("v/");
@@ -156,7 +156,7 @@ public class Main {
 
                 case "help":
                     logger.log(Level.INFO, "Processing help command");
-                    try {
+                    try{
                         commandHandler.help();
                         logger.log(Level.INFO, "Successfully processed help command");
                     } catch (Exception e) {
@@ -211,7 +211,7 @@ public class Main {
 
                 case "listAppointments":
                     logger.log(Level.INFO, "Processing list appointments command");
-                    try {
+                    try{
                         commandHandler.listAppointments(appointmentRecord);
                         logger.log(Level.INFO, "Successfully processed list appointments command");
                     } catch (DateTimeParseException e) {
@@ -292,6 +292,7 @@ public class Main {
                     } catch (Exception e) {
                         logger.log(Level.WARNING, "Error processing find diagnosis command", e);
                     }
+                    break;
 
                 default:
                     System.out.println("Unknown command. Type 'help' for a list of commands.");
