@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -163,8 +164,8 @@ public class CommandHandler {
             int dobEnd = findNextFieldStart(input, dobStart + 4);
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
-
-        // @@author G13nd0n
+        /*
+        // @@author
         // Extract visit date
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
@@ -174,6 +175,24 @@ public class CommandHandler {
             // Attempt to parse using a standard formatter
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             visitTime = LocalDateTime.parse(visitDateString, formatter);
+            visit = new Visit(visitTime, diagnosis, medications);
+            visits.add(visit);
+        } */
+
+        // @@author kaboomzxc
+        // Extract visit date
+        int visitStart = input.indexOf("v/");
+        LocalDateTime visitTime = null;
+        Visit visit = null;
+        if (visitStart != -1) {
+            int visitEnd = findNextFieldStart(input, visitStart + 2);
+            String visitDateString = input.substring(visitStart + 2, visitEnd).trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            try {
+                visitTime = LocalDateTime.parse(visitDateString, formatter);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
+            }
             visit = new Visit(visitTime, diagnosis, medications);
             visits.add(visit);
         }
@@ -219,7 +238,7 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "date/", "time/", "al/", "s/", "mh/"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "date/", "time/", "al/", "s/", "mh/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -228,6 +247,7 @@ public class CommandHandler {
         }
         return nextIndex;
     }
+
 
     //@@author yentheng0110 & kaboomzxc
     public void list(Records records) {
@@ -317,7 +337,7 @@ public class CommandHandler {
         return minIndex;
     }
 
-    // @@author G13nd0n
+    // @@author
     public void delete(String nric, Records records) throws IOException {
         assert nric != null : "Please provide a valid NRIC";
 
