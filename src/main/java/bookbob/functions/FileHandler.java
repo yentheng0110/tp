@@ -58,10 +58,10 @@ public class FileHandler {
                 File file = new File(filePath);
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
-                logger.log(Level.INFO, "Directory exsited, creating new file");
+                logger.log(Level.INFO, "Directory existed, creating new file");
                 File file = new File(appointmentFilePath);
                 if(file.createNewFile()) {         //file was not created
-                    logger.log(Level.INFO, "Directory exsited, creating new file");
+                    logger.log(Level.INFO, "Directory existed, creating new file");
                 } else {
                     retrieveData(appointmentRecord);
                 }
@@ -76,7 +76,9 @@ public class FileHandler {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
-                + " | " + "Home Address: " + patient.getHomeAddress();
+                + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Allergy: " + patient.getAllergy()
+                + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistory();
+
         return output;
     }
 
@@ -126,7 +128,11 @@ public class FileHandler {
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirth = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
-                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress);
+                String allergy = data[5].substring(9).trim();
+                String sex = data[6].substring(5).trim();
+                String medicalHistory = data[7].substring(17).trim();
+                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, allergy,
+                        sex, medicalHistory);
                 records.addPatient(patient);
             }
             logger.log(Level.INFO, "Data retrieved successfully");
