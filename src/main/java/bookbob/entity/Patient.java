@@ -22,12 +22,13 @@ public class Patient {
     }
 
     // constructor used in retrieving data
-    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress) {
+    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress, List<Visit> visits) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
+        this.visits = visits;
     }
 
     // getters and setters
@@ -83,6 +84,6 @@ public class Patient {
     public String toString() {
         return "Name: " + getName() + ", NRIC: " + getNric() +
                 ", Phone: " + getPhoneNumber() +  ", Address: " + getHomeAddress() +
-                ", DOB: " + getDateOfBirth();
+                ", DOB: " + getDateOfBirth() + getVisit();
     }
 }
