@@ -66,7 +66,7 @@ public class CommandHandler {
         String dateOfBirth = "";
         String phoneNumber = "";
         String homeAddress = "";
-        String diagnosis = "";
+        List<String> diagnosis = new ArrayList<>();
         List<String> medications = new ArrayList<>();
         List<Visit> visits = new ArrayList<>();
 
@@ -105,7 +105,11 @@ public class CommandHandler {
         int diagnosisStart = input.indexOf("d/");
         if (diagnosisStart != -1) {
             int diagnosisEnd = findNextFieldStart(input, diagnosisStart + 2);
-            diagnosis = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String diagnosisInput = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String[] diagnosisArray = diagnosisInput.split(",\\s*");
+            for (String symptom : diagnosisArray) {
+                diagnosis.add(symptom.trim());
+            }
         }
 
         // Extract medications (split by comma)
