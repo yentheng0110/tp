@@ -14,16 +14,15 @@ public class Patient {
     private String sex;
     private String medicalHistory;
 
-    // default constructor only takes in name and NRIC
-    //@@author G13nd0n and kaboomzxc
-    public Patient(String name, String nric) {
+    // default constructor only takes in name and NRIC and visits - mandatory fields
+    //@@author G13nd0n and kaboomzxc and coraleaf0602
+    public Patient(String name, String nric, List<Visit> visits) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = "";
         this.phoneNumber = "";
         this.homeAddress = "";
-        this.visits = new ArrayList<>();
-        this.allergy = "";
+        this.visits = visits;
         this.sex = "";
         this.medicalHistory = "";
     }
