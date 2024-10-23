@@ -14,7 +14,7 @@ public class FindVisit {
         boolean isFound = false;
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
-                List<Visit> visits = patient.getVisit();
+                List<Visit> visits = patient.getVisits();
                 isFound = true;
 
                 for (Visit visit : visits) {
@@ -32,9 +32,9 @@ public class FindVisit {
         List<Patient> patientList = records.getPatients();
         boolean found = false;
         for (Patient patient : patientList) {
-            List<Visit> visits = patient.getVisit();
+            List<Visit> visits = patient.getVisits();
             for (Visit visit : visits) {
-                if (visit.getDiagnosis().contains(symptom) || patient.getMedicalHistory().contains(symptom)) {
+                if (visit.getDiagnoses().contains(symptom) || patient.getMedicalHistories().contains(symptom)) {
                     System.out.println("---------------------------------");
                     System.out.println(patient.toString());
                     System.out.println(visit.toString());
@@ -53,7 +53,7 @@ public class FindVisit {
         List<Patient> patientList = records.getPatients();
         boolean isFound = false;
         for (Patient patient : patientList) {
-            List<Visit> visits = patient.getVisit();
+            List<Visit> visits = patient.getVisits();
             for (Visit visit : visits) {
                 if (visit.getMedications().contains(medication)) {
                     System.out.println("---------------------------------");

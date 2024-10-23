@@ -185,10 +185,6 @@ public class CommandHandler {
             throw new IllegalArgumentException("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
         }
 
-        // Add the visit date, diagnoses and medications to a Visit object
-        Visit visit = new Visit(visitDate, diagnoses, medications);
-        visits.add(visit);
-
         // Extract diagnoses (split by comma)
         int diagnosisStart = input.indexOf("d/");
         if (diagnosisStart != -1) {
@@ -210,7 +206,8 @@ public class CommandHandler {
                 medications.add(med.trim());
             }
         }
-        Visit visit = new Visit(visitTime, diagnosis, medications);
+
+        Visit visit = new Visit(visitDate, diagnoses, medications);
         visits.add(visit);
 
         // Extract allergies (split by comma)

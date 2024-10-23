@@ -36,7 +36,7 @@ public class Visit {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return "this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnosis() +
+        return this.getVisitDate().format(formatter) + " Diagnosis: " + getDiagnoses() +
                 ", Medications: " + getMedications();
     }
 }
