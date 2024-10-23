@@ -252,7 +252,8 @@ public class BookBobTest {
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13121995, Allergy: Pollen, Sex: Male, Medical History: Diabetes\n" +
+                        "DOB: 13121995, Allergy: Pollen, Sex: Male, " +
+                        "Medical History: Diabetes" + System.lineSeparator() +
                         "Name: John Doe, NRIC: S1234567Z, Phone: 97654321, " +
                         "Address: Hougang Green, DOB: 13121995, Allergy: Pollen, " +
                         "Sex: Male, Medical History: Chronic Migraine",
