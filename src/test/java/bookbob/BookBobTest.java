@@ -2,6 +2,7 @@ package bookbob;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
+import bookbob.entity.Visit;
 import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,35 +47,55 @@ public class BookBobTest {
     @Test
     void test_help_output() {
         command.help();
-        assertEquals("+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Action    | Format                                | Example                         |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Help      | help                                  | help                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |\n" +
-                        "|           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
-                        "|           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |\n" +
-                        "|           | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| List      | list                                  | list                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Find      | find n/NAME          OR               | find n/John Doe                 |\n" +
-                        "|           | find ic/NRIC         OR               | find ic/S1234                   |\n" +
-                        "|           | find p/PHONE_NUMBER  OR               | find p/91234567                 |\n" +
-                        "|           | find d/DIAGNOSIS     OR               | find d/Fever                    |\n" +
-                        "|           | find m/MEDICATION    OR               | find m/Panadol                  |\n" +
-                        "|           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |\n" +
-                        "|           | find dob/DATE_OF_BIRTH                | find dob/01011990               |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Delete    | delete NRIC                           | delete S9534567A                |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Save      | save(automatic)                       |                                 |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Retrieve/ | retrieve or import                    |                                 |\n" +
-                        "| Import    | (automatic)                           |                                 |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n" +
-                        "| Exit      | exit                                  | exit                            |\n" +
-                        "+-----------+---------------------------------------+---------------------------------+\n"
+        assertEquals("+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Action      | Format                                | Example                         |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Help        | help                                  | help                            |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |\n" +
+                        "|             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
+                        "|             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |\n" +
+                        "|             | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| List        | list                                  | list                            |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | find n/NAME          OR               | find n/John Doe                 |\n" +
+                        "|             | find ic/NRIC         OR               | find ic/S1234                   |\n" +
+                        "|             | find p/PHONE_NUMBER  OR               | find p/91234567                 |\n" +
+                        "|             | find d/DIAGNOSIS     OR               | find d/Fever                    |\n" +
+                        "|             | find m/MEDICATION    OR               | find m/Panadol                  |\n" +
+                        "|             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |\n" +
+                        "|             | find dob/DATE_OF_BIRTH                | find dob/01011990               |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Delete      | delete NRIC                           | delete S9534567A                |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Add         | appointment n/NAME ic/NRIC            | add n/James Ho ic/S9534567A     |\n" +
+                        "| Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |\n" +
+                        "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
+                        "|             | TIME format: HH:mm                    |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| List        | listAppointments                      | list                            |\n" +
+                        "| Appointment |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findAppointment n/NAME          OR    | findAppointment n/John Doe      |\n" +
+                        "| Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234        |\n" +
+                        "|             | findAppointment date/DATE       OR    | findAppointment date/01-04-2025 |\n" +
+                        "|             | findAppointment time/TIME       OR    | findAppointment time/12:00      |\n" +
+                        "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
+                        "|             | TIME format: HH:mm                    |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Delete      | deleteAppointment NRIC                | deleteAppointment S9534567A     |\n" +
+                        "| Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |\n" +
+                        "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
+                        "|             | TIME format: HH:mm                    |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Save        | save(automatic)                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Retrieve/   | retrieve or import                    |                                 |\n" +
+                        "| Import      | (automatic)                           |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Exit        | exit                                  | exit                            |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+"
                                 .trim(),
                 outputStreamCaptor.toString().trim());
     }
@@ -136,22 +159,8 @@ public class BookBobTest {
 
     //@@author coraleaf0602
     @Test
-    void test_findDiagnosis_doesNotExist() {
-        command.find("d/Cancer", records);
-        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
-    }
-
-    //@@author coraleaf0602
-    @Test
-    void test_findMedication_doesNotExist() {
-        command.find("m/Panadol", records);
-        assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
-    }
-
-    //@@author coraleaf0602
-    @Test
     void test_findHomeAddress_doesNotExist() {
-        command.find("d/NUS Utown", records);
+        command.find("ha/NUS Utown", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
@@ -289,7 +298,7 @@ public class BookBobTest {
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
-    // @@ Author G13nd0n
+    // @@ author G13nd0n
     @Test
     void add_onePatient_onePatientInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
@@ -297,20 +306,20 @@ public class BookBobTest {
         assertEquals(1, records.getPatients().size());
     }
 
-    // @@Author G13nd0n
+    // @@author G13nd0n
     @Test
     void delete_onePatient_twoPatientInRecord() throws IOException{
-        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
-                records);
-        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
-                records);
-        command.add("add n/Shawn Knowles ic/S2468013C p/87654321 d/Fever m/Aspirin ha/Tembusu dob/23-11-1998",
-                records);
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                "v/15-10-2024 11:53", records);
+        command.add("add n/Shawn Knowles ic/S2468013C p/87654321 d/Fever m/Aspirin ha/Tembusu dob/23-11-1998" +
+                "v/02-04-2024 09:45", records);
         command.delete("S2468013C", records);
         assertEquals(2, records.getPatients().size());
     }
 
-    // @@Author G13nd0n
+    // @@author G13nd0n
     @Test
     void testList_twoInputs_twoPatientsInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
@@ -318,22 +327,25 @@ public class BookBobTest {
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
                 records);
         command.list(records);
-        String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
-                "added.\nName: John Doe, NRIC: S1234567A, Phone: 98765432," +
-                " Address: RC4, DOB: 13-04-2000\n" +
-                "Name: Will Smith, NRIC: S7654321B, Phone: 91234567," +
-                " Address: CAPT, DOB: 18-06-2003";
+        String expectedOutput = """
+                Patient John Doe with NRIC S1234567A added.
+                Patient Will Smith with NRIC S7654321B \
+                added.
+                Name: John Doe, NRIC: S1234567A, Phone: 98765432,\
+                 Address: RC4, DOB: 13-04-2000
+                Name: Will Smith, NRIC: S7654321B, Phone: 91234567,\
+                 Address: CAPT, DOB: 18-06-2003""";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
-    // @@Author G13nd0n
+    // @@author G13nd0n
     @Test
     void testFind() throws IOException{
-        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000",
-                records);
-        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003",
-                records);
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                        "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                        "v/21-10-2024 15:30", records);
         command.find("ic/S7654321B", records);
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Matching patients:\nName: Will Smith, NRIC: S7654321B, " +
@@ -419,26 +431,36 @@ public class BookBobTest {
         });
     }
 
-    //@@author PrinceCatt
+    //@@author PrinceCatt & kaboomzxc
     @Test
     void testTextConverterFullInformation() {
+        List<String> diagnosis = new ArrayList<>();
+        diagnosis.add("Tummy bug");
         List<String> medications = new ArrayList<>();
         medications.add("Gaviscon");
-        Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
-                "Bukit Gombak");
+        String dateTimeString = "2024-10-21 15:48";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
+        List<Visit> visits = new ArrayList<>();
+        visits.add(new Visit(visitDateTime, diagnosis, medications));
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
-                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak;");
+                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: Peanuts " +
+                "| Sex: Male | Medical History: History of gastritis", output);
     }
 
-    //@@author PrinceCatt
+    //@@author PrinceCatt and coraleaf0602
     @Test
     void testTextConverterPartialInformation() {
-        List<String> medications = new ArrayList<>();
-        Patient patient = new Patient("John", "S9765432T");
+        String dateTimeString = "2024-10-21 15:48";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
+        List<Visit> visits = new ArrayList<>();
+        visits.add(new Visit(visitDateTime));
+        Patient patient = new Patient("John", "S9765432T", visits);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
-                "Date_Of_Birth:  | Home Address: ;");
+                "Date_Of_Birth:  | Home Address: ");
     }
 
     @Test
