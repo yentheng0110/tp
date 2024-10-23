@@ -11,22 +11,18 @@ public class FindVisit {
     //find visit by nric and print all visits to terminal
     public static void findVisitByIc(String nric, Records records) {
         List<Patient> patientList = records.getPatients();
-        boolean found = false;
+        boolean isFound = false;
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
                 List<Visit> visits = patient.getVisit();
-                found = true;
-
-                if (visits == null) {
-                    System.out.println("No visits found for " + nric + ". Please update accordingly");
-                }
+                isFound = true;
 
                 for (Visit visit : visits) {
                     System.out.println(visit.toString());
                 }
             }
         }
-        if (!found) {
+        if (!isFound) {
             System.out.println("No patient visit record found with NRIC: " + nric);
         }
     }
@@ -55,7 +51,7 @@ public class FindVisit {
     //find visit by medication and print all visits to terminal
     public static void findVisitByMedication(String medication, Records records) {
         List<Patient> patientList = records.getPatients();
-        boolean found = false;
+        boolean isFound = false;
         for (Patient patient : patientList) {
             List<Visit> visits = patient.getVisit();
             for (Visit visit : visits) {
@@ -64,11 +60,11 @@ public class FindVisit {
                     System.out.println(patient.toString());
                     System.out.println(visit.toString());
                     System.out.println("---------------------------------");
-                    found = true;
+                    isFound = true;
                 }
             }
         }
-        if (!found) {
+        if (!isFound) {
             System.out.println("No patient found with symptom: " + medication);
         }
     }

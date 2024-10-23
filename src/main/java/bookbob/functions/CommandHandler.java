@@ -79,6 +79,15 @@ public class CommandHandler {
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
+                | Find        | findVisit NRIC                        | findVisit S9534567A             |
+                | Visits      |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | findDiagnosis diagnosis               | findDiagnosis fever             |
+                | Diagnosis   |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | findMedication medication             | findMedication Panadol          |
+                | Medication  |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
                 | Save        | save(automatic)                       |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Retrieve/   | retrieve or import                    |                                 |
@@ -217,7 +226,6 @@ public class CommandHandler {
         patient.setAllergy(allergy);
         patient.setSex(sex);
         patient.setMedicalHistory(medicalHistory);
-
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
 
