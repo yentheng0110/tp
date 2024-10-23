@@ -5,7 +5,6 @@ import bookbob.entity.Records;
 import bookbob.entity.AppointmentRecord;
 import bookbob.entity.Appointment;
 import bookbob.entity.Visit;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -82,7 +81,6 @@ public class FileHandler {
                 + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Allergy: " + patient.getAllergies()
                 + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistories()
                 + " | " + "Visit: " + patient.getVisits() + ";";
-
         return output;
     }
 
@@ -95,6 +93,7 @@ public class FileHandler {
         String output = "";
         output += "Name: " + patientName + "|" + "NRIC: " + patientNric + "|"
                 + "Date: " + date  + "|" + "Time: " + time;
+
         return output;
     }
 
@@ -199,7 +198,7 @@ public class FileHandler {
 
         // Parse date and time
         String dateTimeString = components[0].trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
 
         // Parse diagnosis

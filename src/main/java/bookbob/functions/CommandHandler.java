@@ -78,6 +78,15 @@ public class CommandHandler {
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
+                | Find        | findVisit NRIC                        | findVisit S9534567A             |
+                | Visits      |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | findDiagnosis diagnosis               | findDiagnosis fever             |
+                | Diagnosis   |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | findMedication medication             | findMedication Panadol          |
+                | Medication  |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
                 | Save        | save(automatic)                       |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Retrieve/   | retrieve or import                    |                                 |
@@ -201,6 +210,8 @@ public class CommandHandler {
                 medications.add(med.trim());
             }
         }
+        Visit visit = new Visit(visitTime, diagnosis, medications);
+        visits.add(visit);
 
         // Extract allergies (split by comma)
         int allergyStart = input.indexOf("al/");
@@ -231,7 +242,6 @@ public class CommandHandler {
         patient.setHomeAddress(homeAddress);
         patient.setAllergies(allergies);
         patient.setMedicalHistories(medicalHistories);
-
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
 

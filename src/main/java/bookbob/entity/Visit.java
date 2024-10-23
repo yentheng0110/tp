@@ -8,7 +8,6 @@ public class Visit {
     private final LocalDateTime visitDate;
     private final ArrayList<String> diagnoses;
     private final ArrayList<String> medications;
-
     public Visit(LocalDateTime visitDate) {
         this.visitDate = visitDate;
         this.diagnoses = new ArrayList<>();
@@ -36,8 +35,8 @@ public class Visit {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnoses() +
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return "this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnosis() +
                 ", Medications: " + getMedications();
     }
 }
