@@ -153,19 +153,6 @@ public class FileHandler {
         }
     }
 
-    //@@author yentheng0110
-    private static ArrayList<String> parseList(String input) {
-        ArrayList<String> list = new ArrayList<>();
-        if (!input.isEmpty()) {
-            // Split the input by commas and trim spaces around each element
-            String[] items = input.split(",");
-            for (String item : items) {
-                list.add(item.trim());
-            }
-        }
-        return list;
-    }
-
     public static void retrieveData(AppointmentRecord appointmentRecord){
         try {
             File file = new File(appointmentFilePath);
@@ -185,6 +172,19 @@ public class FileHandler {
             logger.log(Level.WARNING, "File not found", e);
             throw new RuntimeException(e);
         }
+    }
+
+    //@@author yentheng0110
+    private static ArrayList<String> parseList(String input) {
+        ArrayList<String> list = new ArrayList<>();
+        if (!input.isEmpty()) {
+            // Split the input by commas and trim spaces around each element
+            String[] items = input.split(",");
+            for (String item : items) {
+                list.add(item.trim());
+            }
+        }
+        return list;
     }
 
     //@@author coraleaf0602

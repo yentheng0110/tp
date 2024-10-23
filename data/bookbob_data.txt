@@ -1,2 +1,1 @@
-Name: John Doe | NRIC: S1234567A | Phone Number: 98765432 | Date_Of_Birth: 13-04-2000 | Home Address: RC4 | Allergy:  | Sex:  | Medical History: 
-Name: James-Ho | NRIC: S9534567A | Phone Number: 91234567 | Date_Of_Birth: 13121995 | Home Address: NUS-PGPR | Allergy: Panadol | Sex: Male | Medical History: None
+Name: James Ho | NRIC: S9534567A | Phone Number: 91234567 | Date_Of_Birth: 01011990 | Home Address: NUS-PGPR | Allergy: [Pollen] | Sex: Female | Medical History: [Diabetes] | Visit: [2024-10-21 15:48, Diagnosis: [Asthma], Medications: [Albuterol]];
