@@ -475,7 +475,7 @@ public class BookBobTest {
         Patient patient = new Patient("John", "S9765432T", visits);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
-                "Date_Of_Birth:  | Home Address:  | Allergy: null | Sex:  | Medical History:  | " +
+                "Date_Of_Birth:  | Home Address:  | Allergy:  | Sex:  | Medical History:  | " +
                 "Visit: [2024-10-21 15:48, Diagnosis: [], Medications: []];");
     }
 
