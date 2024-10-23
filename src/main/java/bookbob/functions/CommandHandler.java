@@ -168,26 +168,20 @@ public class CommandHandler {
             int dobEnd = findNextFieldStart(input, dobStart + 4);
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
-        /*
-        // @@author coraleaf0602
-        // Extract visit date
-        int visitStart = input.indexOf("v/");
-        LocalDateTime visitTime = null;
-        Visit visit = null;
-        if (visitStart != -1) {
-            String visitDateString = input.substring(visitStart + 2).trim();
-            // Attempt to parse using a standard formatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            visitTime = LocalDateTime.parse(visitDateString, formatter);
-            visit = new Visit(visitTime, diagnosis, medications);
-            visits.add(visit);
-        } */
 
-        // @@author kaboomzxc
+        // @@author kaboomzxc & coraleaf0602
         // Extract visit date
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
         Visit visit = null;
+
+        assert visitStart != -1 : "Please provide a date for patient visit";
+
+        if (visitStart == -1) {
+            System.out.println("Please provide a date for patient visit.");
+            return;
+        }
+
         if (visitStart != -1) {
             int visitEnd = findNextFieldStart(input, visitStart + 2);
             String visitDateString = input.substring(visitStart + 2, visitEnd).trim();
@@ -223,11 +217,10 @@ public class CommandHandler {
             medicalHistory = input.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
         }
 
-        Patient patient = new Patient(name, nric);
+        Patient patient = new Patient(name, nric, visits);
         patient.setPhoneNumber(phoneNumber);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
-        patient.setVisit(visits);
         patient.setAllergy(allergy);
         patient.setSex(sex);
         patient.setMedicalHistory(medicalHistory);
