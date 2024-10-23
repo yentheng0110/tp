@@ -248,8 +248,7 @@ public class CommandHandler {
         return nextIndex;
     }
 
-
-    //@@author yentheng0110 & kaboomzxc
+    //@@author yentheng0110
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
@@ -361,7 +360,6 @@ public class CommandHandler {
         }
         FileHandler.autosave(records);
     }
-
 
     // @@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
