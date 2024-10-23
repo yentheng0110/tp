@@ -30,7 +30,7 @@ public class CommandHandler {
     }
   
     // Prints output for help command
-    //@@author coraleaf0602 &yentheng0110 &G13nd0n &kaboomzxc
+    //@@author coraleaf0602
     public void help() {
         System.out.println("""
                 +-------------+---------------------------------------+---------------------------------+
@@ -95,7 +95,7 @@ public class CommandHandler {
         String dateOfBirth = "";
         String phoneNumber = "";
         String homeAddress = "";
-        String diagnosis = "";
+        List<String> diagnosis = new ArrayList<>();
         List<String> medications = new ArrayList<>();
         List<Visit> visits = new ArrayList<>();
         String allergy = "";
@@ -137,7 +137,11 @@ public class CommandHandler {
         int diagnosisStart = input.indexOf("d/");
         if (diagnosisStart != -1) {
             int diagnosisEnd = findNextFieldStart(input, diagnosisStart + 2);
-            diagnosis = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String diagnosisInput = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String[] diagnosisArray = diagnosisInput.split(",\\s*");
+            for (String symptom : diagnosisArray) {
+                diagnosis.add(symptom.trim());
+            }
         }
 
         // Extract medications (split by comma)
@@ -165,11 +169,19 @@ public class CommandHandler {
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
 
-        // @@author kaboomzxc
+        // @@author kaboomzxc & coraleaf0602
         // Extract visit date
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
         Visit visit = null;
+
+        assert visitStart != -1 : "Please provide a date for patient visit";
+
+        if (visitStart == -1) {
+            System.out.println("Please provide a date for patient visit.");
+            return;
+        }
+
         if (visitStart != -1) {
             int visitEnd = findNextFieldStart(input, visitStart + 2);
             String visitDateString = input.substring(visitStart + 2, visitEnd).trim();
@@ -205,11 +217,10 @@ public class CommandHandler {
             medicalHistory = input.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
         }
 
-        Patient patient = new Patient(name, nric);
+        Patient patient = new Patient(name, nric, visits);
         patient.setPhoneNumber(phoneNumber);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
-        patient.setVisit(visits);
         patient.setAllergy(allergy);
         patient.setSex(sex);
         patient.setMedicalHistory(medicalHistory);
