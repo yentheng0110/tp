@@ -201,15 +201,20 @@ public class FileHandler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
 
-        // Parse diagnosis
-        String diagnosisString = components[1].trim();
         ArrayList<String> diagnosisList = new ArrayList<>();
-        diagnosisList.addAll(Arrays.asList(diagnosisString.split(",\\s*")));
-
-        // Parse medications
-        String medicationsString = components[2].trim();
         ArrayList<String> medicationsList = new ArrayList<>();
-        medicationsList.addAll(Arrays.asList(medicationsString.split(",\\s*")));
+
+        // Check if diagnosis and medication are included in visit details
+        if(components.length > 1) {
+            // Parse diagnosis
+            String diagnosisString = components[1].trim();
+            diagnosisList.addAll(Arrays.asList(diagnosisString.split(",\\s*")));
+
+            // Parse medications
+            String medicationsString = components[2].trim();
+            medicationsList.addAll(Arrays.asList(medicationsString.split(",\\s*")));
+        }
+
         return new Visit(visitDateTime, diagnosisList, medicationsList);
     }
 }
