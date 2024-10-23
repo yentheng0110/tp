@@ -191,7 +191,7 @@ public class FileHandler {
     public static Visit parseVisitInputString(String visitString) {
         int visitStartIndex = visitString.indexOf("[") + 1;
         int visitEndIndex = visitString.lastIndexOf("]");
-        String visitDetails = visitString.substring(visitStartIndex, visitEndIndex);
+        String visitDetails = visitString.substring(visitStartIndex, visitEndIndex).trim();
 
         // Split visit details into individual components
         String[] components = visitDetails.split(", Diagnosis: \\[|\\], Medications: \\[|\\]");

@@ -4,17 +4,17 @@ import bookbob.entity.Patient;
 import bookbob.entity.Records;
 import bookbob.entity.Visit;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class FindVisit {
 
     //find visit by nric and print all visits to terminal
     public static void findVisitByIc(String nric, Records records) {
-        List<Patient> patientList = records.getPatients();
+        ArrayList<Patient> patientList = records.getPatients();
         boolean isFound = false;
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
-                List<Visit> visits = patient.getVisit();
+                ArrayList<Visit> visits = patient.getVisits();
                 isFound = true;
 
                 for (Visit visit : visits) {
@@ -29,12 +29,12 @@ public class FindVisit {
 
     //find patient by diagnosis and print the specific patient and visit to terminal
     public static void findVisitByDiagnosis(String symptom, Records records) {
-        List<Patient> patientList = records.getPatients();
+        ArrayList<Patient> patientList = records.getPatients();
         boolean found = false;
         for (Patient patient : patientList) {
-            List<Visit> visits = patient.getVisit();
+            ArrayList<Visit> visits = patient.getVisits();
             for (Visit visit : visits) {
-                if (visit.getDiagnosis().contains(symptom) || patient.getMedicalHistory().contains(symptom)) {
+                if (visit.getDiagnoses().contains(symptom) || patient.getMedicalHistories().contains(symptom)) {
                     System.out.println("---------------------------------");
                     System.out.println(patient.toString());
                     System.out.println(visit.toString());
@@ -50,10 +50,10 @@ public class FindVisit {
 
     //find visit by medication and print all visits to terminal
     public static void findVisitByMedication(String medication, Records records) {
-        List<Patient> patientList = records.getPatients();
+        ArrayList<Patient> patientList = records.getPatients();
         boolean isFound = false;
         for (Patient patient : patientList) {
-            List<Visit> visits = patient.getVisit();
+            ArrayList<Visit> visits = patient.getVisits();
             for (Visit visit : visits) {
                 if (visit.getMedications().contains(medication)) {
                     System.out.println("---------------------------------");

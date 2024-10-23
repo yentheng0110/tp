@@ -210,8 +210,6 @@ public class CommandHandler {
                 medications.add(med.trim());
             }
         }
-        Visit visit = new Visit(visitTime, diagnosis, medications);
-        visits.add(visit);
 
         // Extract allergies (split by comma)
         int allergyStart = input.indexOf("al/");
@@ -412,6 +410,109 @@ public class CommandHandler {
         System.out.println(patientToBeEdited);
 
         records.addPatient(patientToBeEdited);
+        FileHandler.autosave(records);
+    }
+
+    public void editVisit(String input, Records records) throws IOException {
+        // Extract NRIC from input command
+        int nricStart = input.indexOf("ic/");
+        assert nricStart != -1 : "Please provide a valid patient NRIC in the records.";
+        if (nricStart == -1) {
+            System.out.println("Please provide a valid patient NRIC.");
+            return;
+        }
+        int nricEnd = findNextFieldStart(input, nricStart + 3);
+        String nric = input.substring(nricStart + 3, nricEnd).trim();
+
+        Patient patient = null;
+
+        // Search for the patient by NRIC
+        for (Patient p : records.getPatients()) {
+            if (p.getNric().trim().replaceAll("\\s+", "")
+                    .equalsIgnoreCase(nric.replaceAll("\\s+", "").trim())) {
+                patient = p;
+                break;
+            }
+        }
+
+        if (patient == null) {
+            System.out.println("No patient found with the given NRIC.");
+            return;
+        }
+
+        // Extract visit date from input command
+        int dateStart = input.indexOf("date/");
+        assert dateStart != -1 : "Please provide a valid visit date.";
+        if (dateStart == -1) {
+            System.out.println("Please provide a valid visit date.");
+            return;
+        }
+        int dateEnd = findNextFieldStart(input, dateStart + 5);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime visitDate = LocalDateTime.parse(input.substring(dateStart + 5, dateEnd).trim(), formatter);
+
+        Visit visitToBeEdited = null;
+
+        // Search for the visit with the matching date
+        for (Visit visit : patient.getVisits()) {
+            if (visit.getVisitDate().equals(visitDate)) {
+                visitToBeEdited = visit;
+                break;
+            }
+        }
+
+        if (visitToBeEdited == null) {
+            System.out.println("No visit found on the given date.");
+            return;
+        }
+
+        // Extract optional updates for visit
+        int newDateStart = input.indexOf("newDate/");
+        LocalDateTime newDate = null;
+        if (newDateStart != -1) {
+            int newDateEnd = findNextFieldStart(input, newDateStart + 8);
+            newDate = LocalDateTime.parse(input.substring(newDateStart + 8, newDateEnd).trim(), formatter);
+        }
+
+        int diagnosesStart = input.indexOf("d/");
+        ArrayList<String> newDiagnoses = null;
+        if (diagnosesStart != -1) {
+            int diagnosesEnd = findNextFieldStart(input, diagnosesStart + 2);
+            String diagnosesInput = input.substring(diagnosesStart + 2, diagnosesEnd).trim();
+            String[] diagnosesArray = diagnosesInput.split(",\\s*");
+            for (String diagnosis : diagnosesArray) {
+                newDiagnoses.add(diagnosis.trim());
+            }
+        }
+
+        int medicationStart = input.indexOf("m/");
+        ArrayList<String> newMedications = null;
+        if (medicationStart != -1) {
+            int medicationEnd = findNextFieldStart(input, medicationStart + 2);
+            String medicationsInput = input.substring(medicationStart + 2, medicationEnd).trim();
+            String[] medicationsArray = medicationsInput.split(",\\s*");
+            for (String medication : medicationsArray) {
+                newMedications.add(medication.trim());
+            }
+        }
+
+        // Update visit details if new values are provided
+        if (newDate != null) {
+            visitToBeEdited.setVisitDate(newDate);
+        }
+        if (newDiagnoses != null) {
+            visitToBeEdited.setDiagnoses(newDiagnoses);
+        }
+        if (newMedications != null) {
+            visitToBeEdited.setMedications(newMedications);
+        }
+
+        // Confirm the updated visit details
+        System.out.println("Visit record updated successfully.");
+        System.out.println("Updated visit details:");
+        System.out.println(visitToBeEdited);
+
+        // Save changes
         FileHandler.autosave(records);
     }
 
