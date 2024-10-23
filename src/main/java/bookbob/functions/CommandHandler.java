@@ -210,8 +210,6 @@ public class CommandHandler {
                 medications.add(med.trim());
             }
         }
-        Visit visit = new Visit(visitTime, diagnosis, medications);
-        visits.add(visit);
 
         // Extract allergies (split by comma)
         int allergyStart = input.indexOf("al/");
