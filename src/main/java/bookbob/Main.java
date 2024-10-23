@@ -137,6 +137,17 @@ public class Main {
                     }
                     break;
 
+                case "editVisit":
+                    logger.log(Level.INFO, "Processing editVisit command");
+                    try {
+                        commandHandler.editVisit(input, records);
+                        logger.log(Level.INFO, "Successfully processed editVisit command");
+                    } catch (Exception e) {
+                        logger.log(Level.WARNING, "Error processing editVisit", e);
+                        System.out.println("Error in editing patient visit, specific error: " + e.getMessage());
+                    }
+                    break;
+
                 case "delete":
                     logger.log(Level.INFO, "Processing delete command");
                     try {

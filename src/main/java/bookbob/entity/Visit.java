@@ -5,9 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Visit {
-    private final LocalDateTime visitDate;
-    private final ArrayList<String> diagnoses;
-    private final ArrayList<String> medications;
+    private LocalDateTime visitDate;
+    private ArrayList<String> diagnoses;
+    private ArrayList<String> medications;
+
     public Visit(LocalDateTime visitDate) {
         this.visitDate = visitDate;
         this.diagnoses = new ArrayList<>();
@@ -25,12 +26,24 @@ public class Visit {
         return diagnoses;
     }
 
+    public void setDiagnoses(ArrayList<String> diagnoses) {
+        this.diagnoses = diagnoses;
+    }
+
     public ArrayList<String> getMedications() {
         return medications;
     }
 
+    public void setMedications(ArrayList<String> medications) {
+        this.medications = medications;
+    }
+
     public LocalDateTime getVisitDate() {
         return visitDate;
+    }
+
+    public void setVisitDate(LocalDateTime visitDate) {
+        this.visitDate = visitDate;
     }
 
     @Override
