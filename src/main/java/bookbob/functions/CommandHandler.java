@@ -164,20 +164,6 @@ public class CommandHandler {
             int dobEnd = findNextFieldStart(input, dobStart + 4);
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
-        /*
-        // @@author coraleaf0602
-        // Extract visit date
-        int visitStart = input.indexOf("v/");
-        LocalDateTime visitTime = null;
-        Visit visit = null;
-        if (visitStart != -1) {
-            String visitDateString = input.substring(visitStart + 2).trim();
-            // Attempt to parse using a standard formatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            visitTime = LocalDateTime.parse(visitDateString, formatter);
-            visit = new Visit(visitTime, diagnosis, medications);
-            visits.add(visit);
-        } */
 
         // @@author kaboomzxc
         // Extract visit date
@@ -234,11 +220,11 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
-    //@@author yentheng0110 & kaboomzxc
+    //@@author yentheng0110
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "date/", "time/", "al/", "s/", "mh/"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "date/", "time/", "al/", "s/", "mh/", "/to"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -265,16 +251,24 @@ public class CommandHandler {
 
     //@@author yentheng0110
     public void edit(String input, Records records) throws IOException {
-        // Extract name and NRIC from the input command
-        String nric = extractValue(input, "ic/");
+        // Extract NRIC from the input command
+        int nricStart = input.indexOf("ic/");
+        assert nricStart != -1 : "Please provide a valid patient NRIC in the records.";
+        if (nricStart == -1) {
+            System.out.println("Please provide a valid patient NRIC in the records.");
+            return;
+        }
+        int nricEnd = findNextFieldStart(input, nricStart + 3);
+        String nric = input.substring(nricStart + 3, nricEnd).trim();
 
         Patient patientToBeEdited = null;
 
         // Search for the patient with matching name and NRIC
         for (Patient patient : records.getPatients()) {
-            if (patient.getNric().equalsIgnoreCase(nric)) {
+            if (patient.getNric().trim().replaceAll("\\s+", "")
+                    .equalsIgnoreCase(nric.replaceAll("\\s+", "").trim())) {
                 patientToBeEdited = patient;
-                break;  // Stop searching once the patient is found
+                break;
             }
         }
 
@@ -282,22 +276,98 @@ public class CommandHandler {
             System.out.println("No patient found.");
             return;
         }
+
         records.getPatients().remove(patientToBeEdited);
 
-        // Extract optional fields for updating
-        String newPhoneNumber = extractValue(input, "p/");
-        String newHomeAddress = extractValue(input, "ha/");
-        String newDob = extractValue(input, "dob/");
+        String[] parts = input.split("/to", 2);
+        if (parts.length < 2) {
+            System.out.println("No fields provided to update.");
+            return;
+        }
+
+        String updates = parts[1].trim();  // Get everything after "/to"
+
+        // Extract optional fields for updating if provided by the user
+        int nameStart = updates.indexOf("n/");
+        String newName = null;
+        if (nameStart != -1) {
+            int nameEnd = findNextFieldStart(updates, nameStart + 2);
+            newName = updates.substring(nameStart + 2, nameEnd).trim();
+        }
+
+        int newNRICStart = updates.indexOf("newic/");
+        String newNRIC = null;
+        if (newNRICStart != -1) {
+            int newNRICEnd = findNextFieldStart(updates, newNRICStart + 6);
+            newNRIC = updates.substring(newNRICStart + 6, newNRICEnd).trim();
+        }
+
+        int phoneStart = updates.indexOf("p/");
+        String newPhone = null;
+        if (phoneStart != -1) {
+            int phoneEnd = findNextFieldStart(updates, phoneStart + 2);
+            newPhone = updates.substring(phoneStart + 2, phoneEnd).trim();
+        }
+
+        int homeAddressStart = updates.indexOf("ha/");
+        String newHomeAddress = null;
+        if (homeAddressStart != -1) {
+            int homeAddressEnd = findNextFieldStart(updates, homeAddressStart + 3);
+            newHomeAddress = updates.substring(homeAddressStart + 3, homeAddressEnd).trim();
+        }
+
+        int dobStart = updates.indexOf("dob/");
+        String newDob = null;
+        if (dobStart != -1) {
+            int dobEnd = findNextFieldStart(updates, dobStart + 4);
+            newDob = updates.substring(dobStart + 4, dobEnd).trim();
+        }
+
+        int allergyStart = updates.indexOf("al/");
+        String newAllergy = null;
+        if (allergyStart != -1) {
+            int allergyEnd = findNextFieldStart(updates, allergyStart + 3);
+            newAllergy = updates.substring(allergyStart + 3, allergyEnd).trim();
+        }
+
+        int sexStart = updates.indexOf("s/");
+        String newSex = null;
+        if (sexStart != -1) {
+            int sexEnd = findNextFieldStart(updates, sexStart + 2);
+            newSex = updates.substring(sexStart + 2, sexEnd).trim();
+        }
+
+        int medicalHistoryStart = updates.indexOf("mh/");
+        String newMedicalHistory = null;
+        if (medicalHistoryStart != -1) {
+            int medicalHistoryEnd = findNextFieldStart(updates, medicalHistoryStart + 3);
+            newMedicalHistory = updates.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
+        }
 
         // Update patient details only if new values are provided
-        if (!newPhoneNumber.isBlank()) {
-            patientToBeEdited.setPhoneNumber(newPhoneNumber);
+        if (newName != null) {
+            patientToBeEdited.setName(newName);
         }
-        if (!newHomeAddress.isBlank()) {
+        if (newNRIC != null) {
+            patientToBeEdited.setNric(newNRIC);
+        }
+        if (newPhone != null) {
+            patientToBeEdited.setPhoneNumber(newPhone);
+        }
+        if (newHomeAddress != null) {
             patientToBeEdited.setHomeAddress(newHomeAddress);
         }
-        if (!newDob.isBlank()) {
+        if (newDob != null) {
             patientToBeEdited.setDateOfBirth(newDob);
+        }
+        if (newAllergy != null) {
+            patientToBeEdited.setAllergy(newAllergy);
+        }
+        if (newSex != null) {
+            patientToBeEdited.setSex(newSex);
+        }
+        if (newMedicalHistory != null) {
+            patientToBeEdited.setMedicalHistory(newMedicalHistory);
         }
 
         // Confirm the updated details
@@ -307,33 +377,6 @@ public class CommandHandler {
 
         records.addPatient(patientToBeEdited);
         FileHandler.autosave(records);
-    }
-
-    //@@author yentheng0110
-    // Helper method to extract values between prefixes
-    private String extractValue(String input, String prefix) {
-        int startIndex = input.indexOf(prefix);
-        if (startIndex == -1) {
-            return "";
-        }
-
-        int nextPrefixIndex = findNextPrefixIndex(input, startIndex + prefix.length());
-        return input.substring(startIndex + prefix.length(), nextPrefixIndex).trim();
-    }
-
-    //@@author yentheng0110
-    // Helper method to find the index of the next prefix (or end of string)
-    private int findNextPrefixIndex(String input, int currentIndex) {
-        String[] prefixes = { "n/", "ic/", "p/", "ha/", "dob/", "d/", "m/" };
-        int minIndex = input.length();  // Default to the end of the input
-
-        for (String prefix : prefixes) {
-            int prefixIndex = input.indexOf(prefix, currentIndex);
-            if (prefixIndex != -1) {
-                minIndex = Math.min(minIndex, prefixIndex);
-            }
-        }
-        return minIndex;
     }
 
     // @@author coraleaf0602
