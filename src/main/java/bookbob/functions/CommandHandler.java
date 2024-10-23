@@ -30,7 +30,7 @@ public class CommandHandler {
     }
   
     // Prints output for help command
-    //@@author coraleaf0602 &yentheng0110 &G13nd0n &kaboomzxc
+    //@@author coraleaf0602
     public void help() {
         System.out.println("""
                 +-------------+---------------------------------------+---------------------------------+
@@ -234,7 +234,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
-    //@@author yentheng0110 & kaboomzxc
+    //@@author yentheng0110
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
