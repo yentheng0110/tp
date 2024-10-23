@@ -1,1 +1,1 @@
-Name: JohnDoe2 | NRIC: S456 | Phone Number: 91234567 | Date_Of_Birth: 01-02-1990 | Home Address: PGPR | Allergy: grass | Sex: female | Medical History: diabetes
+Name: n | NRIC: ic | Phone Number: p | Date_Of_Birth: dob | Home Address:  | Allergy: al | Sex: s | Medical History: mh | 23-10-2024 12:30( Diagnosis: [d]) ( Medications: [m1, m2])

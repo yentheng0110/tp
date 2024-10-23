@@ -10,10 +10,10 @@ public class Visit {
     private List<String> diagnosis;
     private List<String> medications;
 
-    public Visit(LocalDateTime visitDate, String diagnosis, List<String> medication) {
+    public Visit(LocalDateTime visitDate, List<String> diagnosis, List<String> medication) {
         this.visitDate = visitDate;
-        this.diagnosis = new ArrayList<>();
-        this.medications = new ArrayList<>();
+        this.diagnosis = diagnosis;
+        this.medications = medication;
     }
 
     public List<String> getDiagnosis() {
@@ -42,8 +42,14 @@ public class Visit {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return "Visited the clinic on: " + this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnosis() +
                 ", Medications: " + getMedications();
+    }
+
+    public String toFile() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return  this.getVisitDate().format(formatter) + "( Diagnosis: " + getDiagnosis() +
+                ") ( Medications: " + getMedications() + ")";
     }
 }

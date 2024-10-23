@@ -16,6 +16,11 @@ public class FindVisit {
             if (patient.getNric().equals(nric)) {
                 List<Visit> visits = patient.getVisit();
                 found = true;
+
+                if (visits == null) {
+                    System.out.println("No visits found for " + nric + ". Please update accordingly");
+                }
+
                 for (Visit visit : visits) {
                     System.out.println(visit.toString());
                 }

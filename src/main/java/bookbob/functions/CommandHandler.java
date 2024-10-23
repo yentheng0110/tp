@@ -95,7 +95,7 @@ public class CommandHandler {
         String dateOfBirth = "";
         String phoneNumber = "";
         String homeAddress = "";
-        String diagnosis = "";
+        List<String> diagnosis = new ArrayList<>();
         List<String> medications = new ArrayList<>();
         List<Visit> visits = new ArrayList<>();
         String allergy = "";
@@ -137,7 +137,11 @@ public class CommandHandler {
         int diagnosisStart = input.indexOf("d/");
         if (diagnosisStart != -1) {
             int diagnosisEnd = findNextFieldStart(input, diagnosisStart + 2);
-            diagnosis = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String diags = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String[] diagnosisArr = diags.split(",");
+            for (String diag : diagnosisArr) {
+                diagnosis.add(diag.trim());
+            }
         }
 
         // Extract medications (split by comma)
@@ -164,26 +168,11 @@ public class CommandHandler {
             int dobEnd = findNextFieldStart(input, dobStart + 4);
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
-        /*
-        // @@author coraleaf0602
-        // Extract visit date
-        int visitStart = input.indexOf("v/");
-        LocalDateTime visitTime = null;
-        Visit visit = null;
-        if (visitStart != -1) {
-            String visitDateString = input.substring(visitStart + 2).trim();
-            // Attempt to parse using a standard formatter
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            visitTime = LocalDateTime.parse(visitDateString, formatter);
-            visit = new Visit(visitTime, diagnosis, medications);
-            visits.add(visit);
-        } */
 
         // @@author kaboomzxc
         // Extract visit date
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
-        Visit visit = null;
         if (visitStart != -1) {
             int visitEnd = findNextFieldStart(input, visitStart + 2);
             String visitDateString = input.substring(visitStart + 2, visitEnd).trim();
@@ -193,9 +182,10 @@ public class CommandHandler {
             } catch (DateTimeParseException e) {
                 throw new IllegalArgumentException("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
             }
-            visit = new Visit(visitTime, diagnosis, medications);
-            visits.add(visit);
         }
+        Visit visit = new Visit(visitTime, diagnosis, medications);
+        visits.add(visit);
+        System.out.println(visit);
 
         // @@author kaboomzxc
         // Extract allergy
