@@ -1,12 +1,17 @@
 package bookbob.functions;
 
+import bookbob.entity.Appointment;
+import bookbob.entity.AppointmentRecord;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 import bookbob.entity.Visit;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,35 +33,59 @@ public class CommandHandler {
     //@@author coraleaf0602
     public void help() {
         System.out.println("""
-                +-----------+---------------------------------------+---------------------------------+
-                | Action    | Format                                | Example                         |
-                +-----------+---------------------------------------+---------------------------------+
-                | Help      | help                                  | help                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Add       | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
-                |           | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |           | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
-                |           | [v/VISIT_DATE_TIME]                   | v/21-10-2024 15:48              |
-                +-----------+---------------------------------------+---------------------------------+
-                | List      | list                                  | list                            |
-                +-----------+---------------------------------------+---------------------------------+
-                | Find      | find n/NAME          OR               | find n/John Doe                 |
-                |           | find ic/NRIC         OR               | find ic/S1234                   |
-                |           | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |           | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |           | find m/MEDICATION    OR               | find m/Panadol                  |
-                |           | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-                |           | find dob/DATE_OF_BIRTH                | find dob/01011990               |
-                +-----------+---------------------------------------+---------------------------------+
-                | Delete    | delete NRIC                           | delete S9534567A                |
-                +-----------+---------------------------------------+---------------------------------+
-                | Save      | save(automatic)                       |                                 |
-                +-----------+---------------------------------------+---------------------------------+
-                | Retrieve/ | retrieve or import                    |                                 |
-                | Import    | (automatic)                           |                                 |
-                +-----------+---------------------------------------+---------------------------------+
-                | Exit      | exit                                  | exit                            |
-                +-----------+---------------------------------------+---------------------------------+""");
+                +-------------+---------------------------------------+---------------------------------+
+                | Action      | Format                                | Example                         |
+                +-------------+---------------------------------------+---------------------------------+
+                | Help        | help                                  | help                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
+                |             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
+                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+                |             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |
+                |             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |
+                +-------------+---------------------------------------+---------------------------------+
+                | List        | list                                  | list                            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | find n/NAME          OR               | find n/John Doe                 |
+                |             | find ic/NRIC         OR               | find ic/S1234                   |
+                |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
+                |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
+                |             | find m/MEDICATION    OR               | find m/Panadol                  |
+                |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                |             | find dob/DATE_OF_BIRTH OR             | find dob/01011990               |
+                |             | find al/ALLERGY      OR               | find al/Peanuts                 |
+                |             | find find s/SEX      OR               | find find s/Female              |
+                |             | find mh/MEDICAL_HISTORY               | find mh/Diabetes                |
+                +-------------+---------------------------------------+---------------------------------+
+                | Delete      | delete NRIC                           | delete S9534567A                |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add         | appointment n/NAME ic/NRIC            | add n/James Ho ic/S9534567A     |
+                | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | List        | listAppointments                      | list                            |
+                | Appointment |                                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Find        | findAppointment n/NAME          OR    | findAppointment n/John Doe      |
+                | Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234        |
+                |             | findAppointment date/DATE       OR    | findAppointment date/01-04-2025 |
+                |             | findAppointment time/TIME       OR    | findAppointment time/12:00      |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Delete      | deleteAppointment NRIC                | deleteAppointment S9534567A     |
+                | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Save        | save(automatic)                       |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Retrieve/   | retrieve or import                    |                                 |
+                | Import      | (automatic)                           |                                 |
+                +-------------+---------------------------------------+---------------------------------+
+                | Exit        | exit                                  | exit                            |
+                +-------------+---------------------------------------+---------------------------------+""");
     }
 
     //@@author yentheng0110
@@ -66,9 +95,12 @@ public class CommandHandler {
         String dateOfBirth = "";
         String phoneNumber = "";
         String homeAddress = "";
-        String diagnosis = "";
+        List<String> diagnosis = new ArrayList<>();
         List<String> medications = new ArrayList<>();
         List<Visit> visits = new ArrayList<>();
+        String allergy = "";
+        String sex = "";
+        String medicalHistory = "";
 
         // Extract name
         int nameStart = input.indexOf("n/");
@@ -105,7 +137,11 @@ public class CommandHandler {
         int diagnosisStart = input.indexOf("d/");
         if (diagnosisStart != -1) {
             int diagnosisEnd = findNextFieldStart(input, diagnosisStart + 2);
-            diagnosis = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String diagnosisInput = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+            String[] diagnosisArray = diagnosisInput.split(",\\s*");
+            for (String symptom : diagnosisArray) {
+                diagnosis.add(symptom.trim());
+            }
         }
 
         // Extract medications (split by comma)
@@ -133,24 +169,61 @@ public class CommandHandler {
             dateOfBirth = input.substring(dobStart + 4, dobEnd).trim();
         }
 
+        // @@author kaboomzxc & coraleaf0602
         // Extract visit date
         int visitStart = input.indexOf("v/");
         LocalDateTime visitTime = null;
         Visit visit = null;
+
+        assert visitStart != -1 : "Please provide a date for patient visit";
+
+        if (visitStart == -1) {
+            System.out.println("Please provide a date for patient visit.");
+            return;
+        }
+
         if (visitStart != -1) {
-            String visitDateString = input.substring(visitStart + 2).trim();
-            // Attempt to parse using a standard formatter
+            int visitEnd = findNextFieldStart(input, visitStart + 2);
+            String visitDateString = input.substring(visitStart + 2, visitEnd).trim();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            visitTime = LocalDateTime.parse(visitDateString, formatter);
+            try {
+                visitTime = LocalDateTime.parse(visitDateString, formatter);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
+            }
             visit = new Visit(visitTime, diagnosis, medications);
             visits.add(visit);
         }
 
-        Patient patient = new Patient(name, nric);
+        // @@author kaboomzxc
+        // Extract allergy
+        int allergyStart = input.indexOf("al/");
+        if (allergyStart != -1) {
+            int allergyEnd = findNextFieldStart(input, allergyStart + 3);
+            allergy = input.substring(allergyStart + 3, allergyEnd).trim();
+        }
+        // @@author kaboomzxc
+        // Extract sex
+        int sexStart = input.indexOf("s/");
+        if (sexStart != -1) {
+            int sexEnd = findNextFieldStart(input, sexStart + 2);
+            sex = input.substring(sexStart + 2, sexEnd).trim();
+        }
+        // @@author kaboomzxc
+        // Extract medical history
+        int medicalHistoryStart = input.indexOf("mh/");
+        if (medicalHistoryStart != -1) {
+            int medicalHistoryEnd = findNextFieldStart(input, medicalHistoryStart + 3);
+            medicalHistory = input.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
+        }
+
+        Patient patient = new Patient(name, nric, visits);
         patient.setPhoneNumber(phoneNumber);
         patient.setHomeAddress(homeAddress);
         patient.setDateOfBirth(dateOfBirth);
-        patient.setVisit(visits);
+        patient.setAllergy(allergy);
+        patient.setSex(sex);
+        patient.setMedicalHistory(medicalHistory);
 
         records.addPatient(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
@@ -162,7 +235,7 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "date/", "time/", "al/", "s/", "mh/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -182,7 +255,8 @@ public class CommandHandler {
         for (Patient patient : patients) {
             System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
                     ", Phone: " + patient.getPhoneNumber() + ", Address: " + patient.getHomeAddress() +
-                    ", DOB: " + patient.getDateOfBirth());
+                    ", DOB: " + patient.getDateOfBirth() + ", Allergy: " + patient.getAllergy() +
+                    ", Sex: " + patient.getSex() + ", Medical History: " + patient.getMedicalHistory());
         }
     }
 
@@ -259,7 +333,7 @@ public class CommandHandler {
         return minIndex;
     }
 
-    // @@author G13nd0n
+    // @@author coraleaf0602
     public void delete(String nric, Records records) throws IOException {
         assert nric != null : "Please provide a valid NRIC";
 
@@ -283,7 +357,6 @@ public class CommandHandler {
         }
         FileHandler.autosave(records);
     }
-
 
     // @@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
@@ -310,7 +383,7 @@ public class CommandHandler {
         if (searchParams.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: "
-                    + "find n/NAME ic/NRIC [p/PHONE] [d/DIAGNOSIS] [m/MEDICATION] [ha/ADDRESS] [dob/DOB]");
+                    + "find n/NAME ic/NRIC [p/PHONE] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]");
             return;
         }
 
@@ -343,7 +416,7 @@ public class CommandHandler {
     }
 
     private boolean isValidSearchKey(String key) {
-        return Arrays.asList("n", "ic", "p", "d", "m", "ha", "dob").contains(key);
+        return Arrays.asList("n", "ic", "p", "ha", "dob", "al", "s", "mh").contains(key);
     }
 
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
@@ -363,6 +436,12 @@ public class CommandHandler {
                 return patient.getHomeAddress().toLowerCase().contains(value);
             case "dob":
                 return patient.getDateOfBirth().toLowerCase().contains(value);
+            case "al":
+                return patient.getAllergy().toLowerCase().contains(value);
+            case "s":
+                return patient.getSex().toLowerCase().contains(value);
+            case "mh":
+                return patient.getMedicalHistory().toLowerCase().contains(value);
             default:
                 return false;
             }
@@ -383,7 +462,141 @@ public class CommandHandler {
         }
     }
 
-    // @@author coraleaf
+    //@@author G13nd0n
+    public void appointment(String input, AppointmentRecord appointmentRecord) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String name = "";
+        String nric = "";
+        String date = "";
+        String time = "";
+
+        int nameStart = input.indexOf("n/");
+        int nricStart = input.indexOf("ic/");
+        int dateStart = input.indexOf("date/");
+        int timeStart = input.indexOf("time/");
+
+        int nameEnd = findNextFieldStart(input, nameStart + 2);
+        name = input.substring(nameStart + 2, nameEnd).trim();
+        int nricEnd = findNextFieldStart(input, nricStart + 2);
+        nric = input.substring(nricStart + 3, nricEnd).trim();
+        int dateEnd = findNextFieldStart(input, dateStart + 2);
+        date = input.substring(dateStart + 5, dateEnd).trim();
+        int timeEnd = findNextFieldStart(input, timeStart + 2);
+        time = input.substring(timeStart + 5, timeEnd).trim();
+        LocalDate availableDate = LocalDate.parse(date, formatter);
+        LocalTime availableTime = LocalTime.parse(time);
+
+        LocalTime nextAvailableTime= appointmentRecord.checkAvailability(availableDate, availableTime);
+
+        if (nextAvailableTime == availableTime) {
+            Appointment appointment = new Appointment(name, nric, date, time);
+            appointmentRecord.addAppointment(appointment);
+
+            System.out.println("Appointment on " + appointment.getDate().format(formatter) + " " +
+                    appointment.getTime() + " with Patient " + appointment.getPatientName() + ", " +
+                    appointment.getPatientNric() + " has been added.");
+        } else {
+            System.out.println("There is already an appointment at the given timeslot. " +
+                    "The next available timeslot is: " + nextAvailableTime.toString());
+        }
+        FileHandler.autosave(appointmentRecord);
+    }
+
+    //@@author G13nd0n
+    public void deleteAppointment(String input, AppointmentRecord appointmentRecord) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String nric = "";
+        String date = "";
+        String time = "";
+
+        int nricStart = input.indexOf("ic/");
+        int dateStart = input.indexOf("date/");
+        int timeStart = input.indexOf("time/");
+
+        if (nricStart == -1 || dateStart == -1 || timeStart == -1) {
+            throw new IllegalArgumentException();
+        }
+
+        int nricEnd = findNextFieldStart(input, nricStart + 2);
+        nric = input.substring(nricStart + 3, nricEnd).trim();
+        int dateEnd = findNextFieldStart(input, dateStart + 2);
+        date = input.substring(dateStart + 5, dateEnd).trim();
+        int timeEnd = findNextFieldStart(input, timeStart + 2);
+        time = input.substring(timeStart + 5, timeEnd).trim();
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        String patientName = "";
+
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment appointment = appointments.get(i);
+            patientName = appointment.getPatientName();
+            String patientNric = appointment.getPatientNric();
+            String patientDate = appointment.getDate().format(formatter);
+            String patientTime = appointment.getTime().toString();
+            if (!patientNric.equals(nric)) {
+                System.out.println("Appointment with Patient of " + nric + " does not exist.");
+                continue;
+            }
+            if (!patientDate.equals(date)) {
+                System.out.println("Appointment with Patient of " + nric + " on " + date + "" +
+                        "does not exist.");
+                continue;
+            }
+            if (!patientTime.equals(time)) {
+                System.out.println("Appointment with Patient of " + nric + " on " + date + " " + time +
+                        "does not exist.");
+                continue;
+            }
+            appointments.remove(i);
+            break;
+        }
+        appointmentRecord.setAppointments(appointments);
+        System.out.println("Appointment on " + date + " " + time + " with Patient " + patientName + ", " +
+                nric + " has been deleted.");
+
+        FileHandler.autosave(appointmentRecord);
+    }
+
+    //@@author G13nd0n
+    public void listAppointments(AppointmentRecord appointmentRecord) {
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
+    //@@author G13nd0n
+    public void findAppointment(String input, AppointmentRecord appointmentRecord) {
+        List<Appointment> appointments = appointmentRecord.findAppointments(input);
+        if (appointments.isEmpty()) {
+            System.out.println("No matching appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
+    //@@author G13nd0n
+    public void removePastAppointments(AppointmentRecord appointmentRecord) throws IOException {
+        LocalDate today = LocalDate.now();
+        List<Appointment> appointments = appointmentRecord.getAppointments();
+        List<Appointment> updatedAppointments = new ArrayList<Appointment>();
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment currentAppointment = appointments.get(i);
+            LocalDate appointmentDate = currentAppointment.getDate();
+            if (appointmentDate.isAfter(today)) {
+                updatedAppointments.add(currentAppointment);
+            }
+        }
+        appointmentRecord.setAppointments(updatedAppointments);
+        FileHandler.autosave(appointmentRecord);
+    }
+
+    // @@author coraleaf0602
     // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
     // the associated appointments for a patient
     public void printVisits(Patient patient) {
