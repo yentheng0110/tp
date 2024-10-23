@@ -1,4 +1,4 @@
-package bookbob;
+package BookBob;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
