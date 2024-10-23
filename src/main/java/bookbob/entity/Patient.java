@@ -22,6 +22,7 @@ public class Patient {
         this.phoneNumber = "";
         this.homeAddress = "";
         this.visits = visits;
+        this.allergy = "";
         this.sex = "";
         this.medicalHistory = "";
     }
