@@ -267,11 +267,20 @@ public class CommandHandler {
             System.out.println("No patients found.");
             return;
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
         for (Patient patient : patients) {
+            String visitDateStr = "";
+            if (!patient.getVisits().isEmpty()) {
+                visitDateStr = patient.getVisits().get(0).getVisitDate().format(formatter);
+            }
+
             System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
                     ", Phone: " + patient.getPhoneNumber() + ", Home Address: " + patient.getHomeAddress() +
                     ", DOB: " + patient.getDateOfBirth() + ", Allergies: " + patient.getAllergies() +
-                    ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
+                    ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories()+
+                    ", Visit Date: " + visitDateStr);
         }
     }
 
