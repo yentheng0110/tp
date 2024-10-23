@@ -50,7 +50,7 @@ public class Visit {
     public String toString() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return "Visited the clinic on: " + this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnosis() +
+        return "this.getVisitDate().format(formatter) + ", Diagnosis: " + getDiagnosis() +
                 ", Medications: " + getMedications();
     }
 }
