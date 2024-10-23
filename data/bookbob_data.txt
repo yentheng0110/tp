@@ -1,2 +1,0 @@
-Name: JohnDoe2 | NRIC: S456 | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy:  | Sex:  | Medical History: 
-Name: JohnDoe2 | NRIC: S456 | Phone Number: 91234567 | Date_Of_Birth: 01-02-1990 | Home Address: PGPR | Allergy: grass | Sex: female | Medical History: diabetes
