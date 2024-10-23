@@ -203,7 +203,6 @@ public class CommandHandler {
         }
         Visit visit = new Visit(visitTime, diagnosis, medications);
         visits.add(visit);
-        System.out.println(visit);
 
         // @@author kaboomzxc
         // Extract allergy
