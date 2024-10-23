@@ -1,4 +1,4 @@
-package bookbob;
+package BookBob;
 
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
@@ -443,6 +443,8 @@ public class BookBobTest {
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
         List<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime, diagnosis, medications));
+        Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
+                "Bukit Gombak", "Peanuts", "Male", "History of gastritis", visits);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
                 "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: Peanuts " +

@@ -13,7 +13,7 @@ public class Visit {
     public Visit(LocalDateTime visitDate) {
         this.visitDate = visitDate;
         this.diagnosis = new ArrayList<>();
-        this.medications = new ArrayList<>();
+        this.medications= new ArrayList<>();
     }
 
     // Constructor for retrieving data
