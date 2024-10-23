@@ -8,8 +8,6 @@ import bookbob.functions.FindVisit;
 
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -86,26 +84,6 @@ public class Main {
                             break;
                         }
 
-                        String[] fieldIndicators = { "p/", "ha/", "dob/", "al/", "s/", "mh/" };
-                        int minIndex = input.length();
-
-                        for (String fieldIndicator : fieldIndicators) {
-                            int index = input.indexOf(fieldIndicator, visitStart + 2);
-                            if (index != -1 && index > visitStart + 2 && index < minIndex) {
-                                minIndex = index;
-                            }
-                        }
-
-                        String visitDateString = input.substring(visitStart + 2, minIndex).trim();
-                        try {
-                            // Attempt to parse using a standard formatter
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-                            LocalDateTime time = LocalDateTime.parse(visitDateString, formatter);
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
-                            logger.log(Level.INFO, "Invalid visit date format provided");
-                            break;
-                        }
 
                         commandHandler.add(input, records);
                         logger.log(Level.INFO, "Successfully processed add command");
