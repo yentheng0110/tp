@@ -26,13 +26,12 @@ public class FileHandler {
 
     public static void initFile(Records records){
         try {
-
             String directoryName = "data";
             String currentDirectory = System.getProperty("user.dir");
             String directory = currentDirectory + File.separator + directoryName;
             File directoryFile = new File(directory);
 
-            if(directoryFile.mkdirs()) {           //directory was not created
+            if (directoryFile.mkdirs()) {           //directory was not created
                 File file = new File(filePath);
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
@@ -61,10 +60,10 @@ public class FileHandler {
                 File file = new File(filePath);
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
-                logger.log(Level.INFO, "Directory existed, creating new file");
+                logger.log(Level.INFO, "Directory for appointments exists");
                 File file = new File(appointmentFilePath);
-                if(file.createNewFile()) {         //file was not created
-                    logger.log(Level.INFO, "Directory existed, creating new file");
+                if (file.createNewFile()) {         //file was not created
+                    logger.log(Level.INFO, "Directory for appointments exists, creating new file");
                 } else {
                     retrieveData(appointmentRecord);
                 }
@@ -79,9 +78,9 @@ public class FileHandler {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
-                + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Allergy: " + patient.getAllergy()
-                + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistory()
-                + " | " + "Visit: " + patient.getVisit() + ";";
+                + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Allergy: " + patient.getAllergies()
+                + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistories()
+                + " | " + "Visit: " + patient.getVisits() + ";";
         return output;
     }
 
@@ -99,7 +98,7 @@ public class FileHandler {
     }
 
     public static void autosave(Records records) throws IOException {
-        List<Patient> patients = records.getPatients();
+        ArrayList<Patient> patients = records.getPatients();
         FileWriter fw = new FileWriter(filePath);
         for (Patient currPatient : patients) {
             String toWrite = convertPatientToOutputText(currPatient);
@@ -132,16 +131,18 @@ public class FileHandler {
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirth = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
-                String allergy = data[5].substring(9).trim();
                 String sex = data[6].substring(5).trim();
-                String medicalHistory = data[7].substring(17).trim();
-                String visitDetails = data[8];
+                String visitDetails = data[8].trim();
+
+                ArrayList<String> allergies = parseList(data[5].substring(9).trim());
+                ArrayList<String> medicalHistories = parseList(data[7].substring(17).trim());
+
                 // Parse the visit information
-                List<Visit> visits = new ArrayList<>();
+                ArrayList<Visit> visits = new ArrayList<>();
                 Visit visit = parseVisitInputString(visitDetails);
                 visits.add(visit);
-                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, allergy,
-                        sex, medicalHistory, visits);
+                Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, allergies,
+                        sex, medicalHistories, visits);
                 records.addPatient(patient);
             }
             logger.log(Level.INFO, "Data retrieved successfully");
@@ -172,6 +173,19 @@ public class FileHandler {
         }
     }
 
+    //@@author yentheng0110
+    private static ArrayList<String> parseList(String input) {
+        ArrayList<String> list = new ArrayList<>();
+        if (!input.isEmpty()) {
+            // Split the input by commas and trim spaces around each element
+            String[] items = input.split(",");
+            for (String item : items) {
+                list.add(item.trim());
+            }
+        }
+        return list;
+    }
+
     //@@author coraleaf0602
     // Parses string with visit details and creates visit object
     public static Visit parseVisitInputString(String visitString) {
@@ -189,12 +203,12 @@ public class FileHandler {
 
         // Parse diagnosis
         String diagnosisString = components[1].trim();
-        List<String> diagnosisList = new ArrayList<>();
+        ArrayList<String> diagnosisList = new ArrayList<>();
         diagnosisList.addAll(Arrays.asList(diagnosisString.split(",\\s*")));
 
         // Parse medications
         String medicationsString = components[2].trim();
-        List<String> medicationsList = new ArrayList<>();
+        ArrayList<String> medicationsList = new ArrayList<>();
         medicationsList.addAll(Arrays.asList(medicationsString.split(",\\s*")));
         return new Visit(visitDateTime, diagnosisList, medicationsList);
     }
