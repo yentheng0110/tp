@@ -78,7 +78,23 @@ public class Main {
                         break;
                     }
 
-                    String visitDateString = input.substring(visitStart + 2).trim();
+                    if (visitStart == -1) {
+                        System.out.println("Please provide the visit date.");
+                        logger.log(Level.INFO, "Visit date is not provided");
+                        break;
+                    }
+
+                    String[] fieldIndicators = { "p/", "ha/", "dob/", "al/", "s/", "mh/" };
+                    int minIndex = input.length();
+
+                    for (String fieldIndicator : fieldIndicators) {
+                        int index = input.indexOf(fieldIndicator, visitStart + 2);
+                        if (index != -1 && index > visitStart + 2 && index < minIndex) {
+                            minIndex = index;
+                        }
+                    }
+
+                    String visitDateString = input.substring(visitStart + 2, minIndex).trim();
                     try {
                         // Attempt to parse using a standard formatter
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
