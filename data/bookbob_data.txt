@@ -1,1 +1,1 @@
-Name: n | NRIC: ic | Phone Number: p | Date_Of_Birth: dob | Home Address:  | Allergy: al | Sex: s | Medical History: mh | 23-10-2024 12:30( Diagnosis: [d]) ( Medications: [m1, m2])
+
