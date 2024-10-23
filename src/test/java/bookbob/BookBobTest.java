@@ -440,7 +440,7 @@ public class BookBobTest {
         });
     }
 
-    //@@author PrinceCatt & kaboomzxc
+    //@@author PrinceCatt
     @Test
     void testTextConverterFullInformation() {
         List<String> medications = new ArrayList<>();
