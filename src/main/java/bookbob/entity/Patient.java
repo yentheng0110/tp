@@ -1,45 +1,46 @@
 package bookbob.entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Patient {
     private String name;
     private String nric;
+    private String sex;
     private String dateOfBirth;
     private String phoneNumber;
     private String homeAddress;
-    private List<Visit> visits;
-    private String allergy;
-    private String sex;
-    private String medicalHistory;
+    private ArrayList<Visit> visits;
+    private ArrayList<String> allergies;
+    private ArrayList<String> medicalHistories;
 
-    // default constructor only takes in name and NRIC and visits - mandatory fields
+    // default constructor only takes in name, NRIC and visits - mandatory fields
     //@@author G13nd0n and kaboomzxc and coraleaf0602
-    public Patient(String name, String nric, List<Visit> visits) {
+    public Patient(String name, String nric, ArrayList<Visit> visits) {
         this.name = name;
         this.nric = nric;
+        this.sex = "";
         this.dateOfBirth = "";
         this.phoneNumber = "";
         this.homeAddress = "";
         this.visits = visits;
-        this.allergy = "";
-        this.sex = "";
-        this.medicalHistory = "";
+        this.allergies = new ArrayList<>();
+        this.medicalHistories = new ArrayList<>();
     }
 
     // constructor used in retrieving data
     // @@author G13nd0n and kaboomzxc
     public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
-                   String allergy, String sex, String medicalHistory, List<Visit> visits) {
+                   ArrayList<String> allergies, String sex, ArrayList<String> medicalHistories,
+                   ArrayList<Visit> visits) {
         this.name = name;
         this.nric = nric;
+        this.sex = sex;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
-        this.allergy = allergy;
-        this.sex = sex;
-        this.medicalHistory = medicalHistory;
         this.visits = visits;
+        this.allergies = allergies;
+        this.medicalHistories = medicalHistories;
     }
 
     // getters and setters
@@ -83,21 +84,21 @@ public class Patient {
         this.homeAddress = homeAddress;
     }
 
-    public List<Visit> getVisit() {
+    public ArrayList<Visit> getVisits() {
         return visits;
     }
 
-    public void setVisit(List<Visit> visits) {
+    public void setVisits(ArrayList<Visit> visits) {
         this.visits = visits;
     }
 
     // @@author kaboomzxc
-    public String getAllergy() {
-        return allergy;
+    public ArrayList<String> getAllergies() {
+        return allergies;
     }
     // @@author kaboomzxc
-    public void setAllergy(String allergy) {
-        this.allergy = allergy;
+    public void setAllergies(ArrayList<String> allergies) {
+        this.allergies = allergies;
     }
     // @@author kaboomzxc
     public String getSex() {
@@ -108,20 +109,19 @@ public class Patient {
         this.sex = sex;
     }
     // @@author kaboomzxc
-    public String getMedicalHistory() {
-        return medicalHistory;
+    public ArrayList<String> getMedicalHistories() {
+        return medicalHistories;
     }
     // @@author kaboomzxc
-    public void setMedicalHistory(String medicalHistory) {
-        this.medicalHistory = medicalHistory;
+    public void setMedicalHistories(ArrayList<String> medicalHistories) {
+        this.medicalHistories = medicalHistories;
     }
-
 
     @Override
     public String toString() {
         return "Name: " + getName() + ", NRIC: " + getNric() +
                 ", Phone: " + getPhoneNumber() +  ", Address: " + getHomeAddress() +
-                ", DOB: " + getDateOfBirth() + ", Allergy: " + getAllergy() +
-                ", Sex: " + getSex() + ", Medical History: " + getMedicalHistory();
+                ", DOB: " + getDateOfBirth() + ", Allergy: " + getAllergies() +
+                ", Sex: " + getSex() + ", Medical History: " + getMedicalHistories();
     }
 }

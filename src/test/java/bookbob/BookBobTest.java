@@ -446,14 +446,14 @@ public class BookBobTest {
     //@@author PrinceCatt
     @Test
     void testTextConverterFullInformation() {
-        List<String> diagnosis = new ArrayList<>();
+        ArrayList<String> diagnosis = new ArrayList<>();
         diagnosis.add("Tummy bug");
-        List<String> medications = new ArrayList<>();
+        ArrayList<String> medications = new ArrayList<>();
         medications.add("Gaviscon");
         String dateTimeString = "2024-10-21 15:48";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
-        List<Visit> visits = new ArrayList<>();
+        ArrayList<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime, diagnosis, medications));
         Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
                 "Bukit Gombak", "Peanuts", "Male", "History of gastritis", visits);

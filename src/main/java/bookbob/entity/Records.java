@@ -1,10 +1,9 @@
 package bookbob.entity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Records {
-    private List<Patient> patients;
+    private final ArrayList<Patient> patients;
 
     // default constructor: empty
     //@@author G13nd0n
@@ -17,12 +16,8 @@ public class Records {
         patients.add(patient);
     }
 
-    // setter and getters
-    public List<Patient> getPatients() {
+    // getter
+    public ArrayList<Patient> getPatients() {
         return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
     }
 }
