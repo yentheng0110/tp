@@ -81,7 +81,7 @@ public class FileHandler {
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
                 + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Allergy: " + patient.getAllergy()
                 + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistory()
-                + "Visit: " + patient.getVisit() + ";";
+                + " | " + "Visit: " + patient.getVisit() + ";";
 
         return output;
     }
@@ -151,6 +151,27 @@ public class FileHandler {
         }
     }
 
+    public static void retrieveData(AppointmentRecord appointmentRecord){
+        try {
+            File file = new File(appointmentFilePath);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] data = line.split("\\|");
+                String name = data[0].substring(6).trim();
+                String nric = data[1].substring(6).trim();
+                String date = data[2].substring(6).trim();
+                String time = data[3].substring(6).trim();
+                Appointment appointment = new Appointment(name, nric, date, time);
+                appointmentRecord.addAppointment(appointment);
+            }
+            logger.log(Level.INFO, "Retrieved successfully");
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "File not found", e);
+            throw new RuntimeException(e);
+        }
+    }
+
     //@@author coraleaf0602
     // Parses string with visit details and creates visit object
     public static Visit parseVisitInputString(String visitString) {
@@ -180,26 +201,5 @@ public class FileHandler {
             medicationsList.add(medication);
         }
         return new Visit(visitDateTime, diagnosisList, medicationsList);
-    }
-
-    public static void retrieveData(AppointmentRecord appointmentRecord){
-        try {
-            File file = new File(appointmentFilePath);
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()) {
-                String line = reader.nextLine();
-                String[] data = line.split("\\|");
-                String name = data[0].substring(6).trim();
-                String nric = data[1].substring(6).trim();
-                String date = data[2].substring(6).trim();
-                String time = data[3].substring(6).trim();
-                Appointment appointment = new Appointment(name, nric, date, time);
-                appointmentRecord.addAppointment(appointment);
-            }
-            logger.log(Level.INFO, "Retrieved successfully");
-        } catch (FileNotFoundException e) {
-            logger.log(Level.WARNING, "File not found", e);
-            throw new RuntimeException(e);
-        }
     }
 }
