@@ -1,7 +1,10 @@
 package bookbob.functions;
 
-import bookbob.entity.*;
-
+import bookbob.entity.Patient;
+import bookbob.entity.Records;
+import bookbob.entity.AppointmentRecord;
+import bookbob.entity.Appointment;
+import bookbob.entity.Visit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -76,12 +80,8 @@ public class FileHandler {
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
                 + "Phone Number: " + patient.getPhoneNumber() + " | " + "Date_Of_Birth: " + patient.getDateOfBirth()
                 + " | " + "Home Address: " + patient.getHomeAddress() + " | " + "Allergy: " + patient.getAllergy()
-                + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistory();
-        List<Visit> visits = patient.getVisit();
-        for(Visit visit: visits){
-            String currVisit = visit.toFile();
-            output += " | " + currVisit;
-        }
+                + " | " + "Sex: " + patient.getSex() + " | " + "Medical History: " + patient.getMedicalHistory()
+                + " | " + "Visit: " + patient.getVisit() + ";";
         return output;
     }
 
@@ -135,37 +135,13 @@ public class FileHandler {
                 String allergy = data[5].substring(9).trim();
                 String sex = data[6].substring(5).trim();
                 String medicalHistory = data[7].substring(17).trim();
+                String visitDetails = data[8];
+                // Parse the visit information
                 List<Visit> visits = new ArrayList<>();
-                for (int i = 8; i < data.length; i++) {
-                    String visit = data[i];
-                    String timeString = visit.substring(0,17).trim();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-                    LocalDateTime time = LocalDateTime.parse(timeString, formatter);
-
-                    String diagnosisString = visit.substring(visit.indexOf("[") + 1, visit.indexOf("]"));
-                    String tempString = visit.substring(visit.indexOf("]") + 1);
-                    String medicationsString = tempString.substring(18, tempString.length() - 2);
-
-                    String[] diaArray = diagnosisString.split(",");
-                    String[] medArray = medicationsString.split(",");
-
-                    List<String> diagnosis = new ArrayList<>();
-                    List<String> medications = new ArrayList<>();
-
-                    for (String diag : diaArray) {
-                        diagnosis.add(diag);
-                    }
-
-                    for (String med : medArray) {
-                        medications.add(med);
-                    }
-
-                    Visit currVisit = new Visit(time, diagnosis, medications);
-                    visits.add(currVisit);
-                }
+                Visit visit = parseVisitInputString(visitDetails);
+                visits.add(visit);
                 Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, allergy,
-                        sex, medicalHistory);
-                patient.setVisit(visits);
+                        sex, medicalHistory, visits);
                 records.addPatient(patient);
             }
             logger.log(Level.INFO, "Data retrieved successfully");
@@ -194,5 +170,32 @@ public class FileHandler {
             logger.log(Level.WARNING, "File not found", e);
             throw new RuntimeException(e);
         }
+    }
+
+    //@@author coraleaf0602
+    // Parses string with visit details and creates visit object
+    public static Visit parseVisitInputString(String visitString) {
+        int visitStartIndex = visitString.indexOf("[") + 1;
+        int visitEndIndex = visitString.lastIndexOf("]");
+        String visitDetails = visitString.substring(visitStartIndex, visitEndIndex);
+
+        // Split visit details into individual components
+        String[] components = visitDetails.split(", Diagnosis: \\[|\\], Medications: \\[|\\]");
+
+        // Parse date and time
+        String dateTimeString = components[0].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
+
+        // Parse diagnosis
+        String diagnosisString = components[1].trim();
+        List<String> diagnosisList = new ArrayList<>();
+        diagnosisList.addAll(Arrays.asList(diagnosisString.split(",\\s*")));
+
+        // Parse medications
+        String medicationsString = components[2].trim();
+        List<String> medicationsList = new ArrayList<>();
+        medicationsList.addAll(Arrays.asList(medicationsString.split(",\\s*")));
+        return new Visit(visitDateTime, diagnosisList, medicationsList);
     }
 }

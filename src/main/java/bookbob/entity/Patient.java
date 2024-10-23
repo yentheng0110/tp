@@ -1,6 +1,5 @@
 package bookbob.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Patient {
@@ -14,15 +13,15 @@ public class Patient {
     private String sex;
     private String medicalHistory;
 
-    // default constructor only takes in name and NRIC
-    //@@author G13nd0n and kaboomzxc
-    public Patient(String name, String nric) {
+    // default constructor only takes in name and NRIC and visits - mandatory fields
+    //@@author G13nd0n and kaboomzxc and coraleaf0602
+    public Patient(String name, String nric, List<Visit> visits) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = "";
         this.phoneNumber = "";
         this.homeAddress = "";
-        this.visits = new ArrayList<>();
+        this.visits = visits;
         this.allergy = "";
         this.sex = "";
         this.medicalHistory = "";
@@ -31,7 +30,7 @@ public class Patient {
     // constructor used in retrieving data
     // @@author G13nd0n and kaboomzxc
     public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
-                   String allergy, String sex, String medicalHistory) {
+                   String allergy, String sex, String medicalHistory, List<Visit> visits) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
@@ -40,6 +39,7 @@ public class Patient {
         this.allergy = allergy;
         this.sex = sex;
         this.medicalHistory = medicalHistory;
+        this.visits = visits;
     }
 
     // getters and setters
