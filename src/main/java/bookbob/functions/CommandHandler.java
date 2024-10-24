@@ -285,7 +285,7 @@ public class CommandHandler {
                             ", Medications: " + visit.getMedications());
                 }
             } else {
-                System.out.println("    No visits recorded");
+                System.out.println("No visits recorded");
             }
             System.out.println(); // Add blank line between patients
         }
