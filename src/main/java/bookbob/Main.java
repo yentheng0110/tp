@@ -18,7 +18,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
-
         Scanner in = new Scanner(System.in);
         Records records = new Records();
         AppointmentRecord appointmentRecord = new AppointmentRecord();
@@ -61,6 +60,7 @@ public class Main {
 
             case "add":
                 logger.log(Level.INFO, "Processing add command");
+
                 try {
                     int nameStart = input.indexOf("n/");
                     int nricStart = input.indexOf("ic/");
@@ -76,6 +76,7 @@ public class Main {
                         System.out.println("Please provide the patient's NRIC.");
                         logger.log(Level.INFO, "NRIC of the patient is not provided");
                         break;
+
                     }
 
                     if (visitStart == -1) {
