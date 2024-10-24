@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Welcome to BookBob, Dr. Bob!");
-
         Scanner in = new Scanner(System.in);
         Records records = new Records();
         FileHandler.initFile(records);
