@@ -60,7 +60,8 @@ public class Main {
 
             case "add":
                 logger.log(Level.INFO, "Processing add command");
-                try{
+
+                try {
                     int nameStart = input.indexOf("n/");
                     int nricStart = input.indexOf("ic/");
                     int visitStart = input.indexOf("v/");
@@ -75,6 +76,7 @@ public class Main {
                         System.out.println("Please provide the patient's NRIC.");
                         logger.log(Level.INFO, "NRIC of the patient is not provided");
                         break;
+
                     }
 
                     if (visitStart == -1) {
@@ -82,6 +84,7 @@ public class Main {
                         logger.log(Level.INFO, "Visit date is not provided");
                         break;
                     }
+
                     commandHandler.add(input, records);
                     logger.log(Level.INFO, "Successfully processed add command");
                 } catch (Exception e) {
