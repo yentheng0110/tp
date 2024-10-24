@@ -100,6 +100,7 @@ public class BookBobTest {
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Find        | findMedication medication             | findMedication Panadol          |\n" +
                         "| Medication  |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Save        | save(automatic)                       |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Retrieve/   | retrieve or import                    |                                 |\n" +
@@ -351,7 +352,7 @@ public class BookBobTest {
                 Patient Will Smith with NRIC S7654321B \
                 added.
                 Name: John Doe, NRIC: S1234567A, Phone: 98765432, Home Address: RC4, \
-                DOB: 13-04-2000, Allergies: [], Sex: , Medical Histories: [], Visit Date: 23-11-2024 12:29\
+                DOB: 13-04-2000, Allergies: [], Sex: , Medical Histories: [], Visit Date: 23-11-2024 12:29 
                 Name: Will Smith, NRIC: S7654321B, Phone: 91234567, Home Address: CAPT, \
                 DOB: 18-06-2003, Allergies: [], Sex: , Medical Histories: [], Visit Date: 15-10-2024 11:53""";
         assertEquals(expectedOutput,
@@ -385,9 +386,9 @@ public class BookBobTest {
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
                 "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
-                "Address: CAPT, DOB: 18-06-2003, Allergy: , Sex: , Medical History: \n" +
+                "Address: CAPT, DOB: 18-06-2003, Allergy: [], Sex: , Medical History: []\n" +
                 "Name: John Smith, NRIC: S2468024A, Phone: 87654321, Address: CAPT, " +
-                "DOB: 13-04-2002, Allergy: , Sex: , Medical History:";
+                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
         command.find("n/Smith", records);
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -481,16 +482,16 @@ public class BookBobTest {
     //@@author PrinceCatt and coraleaf0602
     @Test
     void testTextConverterPartialInformation() {
-        String dateTimeString = "2024-10-21 15:48";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String dateTimeString = "21-10-2024 15:48";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
         ArrayList<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime));
         Patient patient = new Patient("John", "S9765432T", visits);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
-                "Date_Of_Birth:  | Home Address:  | Allergy:  | Sex:  | Medical History:  | " +
-                "Visit: [2024-10-21 15:48, Diagnosis: [], Medications: []];");
+                "Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | " +
+                "Visit: [21-10-2024 15:48, Diagnosis: [], Medications: []];");
     }
 
     @Test
