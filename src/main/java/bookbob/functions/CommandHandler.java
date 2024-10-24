@@ -29,7 +29,7 @@ public class CommandHandler {
     }
   
     // Prints output for help command
-    //@@author coraleaf0602
+    //@@author coraleaf0602 and yentheng0110 and G13nd0n and PrinceCatt and kaboomzxc
     public void help() {
         System.out.println("""
                 +-------------+---------------------------------------+---------------------------------+
@@ -42,6 +42,11 @@ public class CommandHandler {
                 |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
                 |             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |
                 |             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
+                |             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |
+                |             |                                       | d/Fever,Headache,Flu            |
+                |             |                                       | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
