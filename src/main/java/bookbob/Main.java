@@ -283,6 +283,32 @@ public class Main {
                 }
                 break;
 
+            case "addVisit":
+                logger.log(Level.INFO, "Processing addVisit command");
+                try {
+                    // Check for required fields
+                    int nricStart = input.indexOf("ic/");
+                    int visitStart = input.indexOf("v/");
+
+                    if (nricStart == -1) {
+                        System.out.println("Please provide the patient's NRIC.");
+                        logger.log(Level.INFO, "NRIC not provided");
+                        break;
+                    }
+
+                    if (visitStart == -1) {
+                        System.out.println("Please provide the visit date and time.");
+                        logger.log(Level.INFO, "Visit date/time not provided");
+                        break;
+                    }
+
+                    commandHandler.addVisit(input, records);
+                    logger.log(Level.INFO, "Successfully processed addVisit command");
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing addVisit command", e);
+                    System.out.println("Error processing addVisit command: " + e.getMessage());
+                }
+                break;
             default:
                 System.out.println("Unknown command. Type 'help' for a list of commands.");
                 break;
