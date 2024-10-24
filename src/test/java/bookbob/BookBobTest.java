@@ -16,7 +16,6 @@ import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -313,7 +312,8 @@ public class BookBobTest {
         String expectedOutput = "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Home Address: 123 Main St, " +
                 "DOB: 01-01-1990, Allergies: [], Sex: , Medical Histories: [], Visit Date: 21-10-2024 15:27\n" +
                 "Name: Jane Smith, NRIC: S7654321B, Phone: 87654321, " +
-                "Home Address: Haji Lane, DOB: 02-02-1995, Allergies: [], Sex: , Medical Histories: [], Visit Date: 23-10-2024 14:31";
+                "Home Address: Haji Lane, DOB: 02-02-1995, Allergies: [], Sex: ," +
+                " Medical Histories: [], Visit Date: 23-10-2024 14:31";
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
