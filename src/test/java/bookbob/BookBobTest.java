@@ -57,6 +57,11 @@ public class BookBobTest {
                         "|             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |\n" +
                         "|             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |\n" +
+                        "|             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |\n" +
+                        "|             |                                       | d/Fever,Headache,Flu            |\n" +
+                        "|             |                                       | m/Paracetamol,Ibuprofen         |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| List        | list                                  | list                            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Find        | find n/NAME          OR               | find n/John Doe                 |\n" +
