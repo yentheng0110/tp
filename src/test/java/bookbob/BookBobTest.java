@@ -16,7 +16,6 @@ import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -93,6 +92,15 @@ public class BookBobTest {
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findVisit NRIC                        | findVisit S9534567A             |\n" +
+                        "| Visits      |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findDiagnosis diagnosis               | findDiagnosis fever             |\n" +
+                        "| Diagnosis   |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findMedication medication             | findMedication Panadol          |\n" +
+                        "| Medication  |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Save        | save(automatic)                       |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Retrieve/   | retrieve or import                    |                                 |\n" +
@@ -137,8 +145,8 @@ public class BookBobTest {
                         "v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes", records);
         command.list(records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
-                        "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, DOB: 13121995, " +
-                        "Allergy: Pollen, Sex: Female, Medical History: Diabetes",
+                        "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 13121995, " +
+                        "Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes], Visit Date: 21-10-2024 15:48",
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
@@ -189,7 +197,7 @@ public class BookBobTest {
                 "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                 "Matching patients:" + System.lineSeparator() +
                 "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, DOB: 13121995, " +
-                "Allergy: Pollen, Sex: Male, Medical History: Diabetes", outputStreamCaptor.toString().trim());
+                "Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]", outputStreamCaptor.toString().trim());
     }
 
     // @@ author kaboomzxc
