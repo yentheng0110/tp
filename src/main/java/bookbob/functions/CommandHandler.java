@@ -255,7 +255,8 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "date/", "time/", "al/", "s/", "mh/", "/to"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/",
+                             "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -493,10 +494,11 @@ public class CommandHandler {
         if (newDateStart != -1) {
             int newDateEnd = findNextFieldStart(input, newDateStart + 8);
             newDate = LocalDateTime.parse(input.substring(newDateStart + 8, newDateEnd).trim(), formatter);
+            visitToBeEdited.setVisitDate(newDate);
         }
 
         int diagnosesStart = input.indexOf("d/");
-        ArrayList<String> newDiagnoses = null;
+        ArrayList<String> newDiagnoses = new ArrayList<>();
         if (diagnosesStart != -1) {
             int diagnosesEnd = findNextFieldStart(input, diagnosesStart + 2);
             String diagnosesInput = input.substring(diagnosesStart + 2, diagnosesEnd).trim();
@@ -504,10 +506,11 @@ public class CommandHandler {
             for (String diagnosis : diagnosesArray) {
                 newDiagnoses.add(diagnosis.trim());
             }
+            visitToBeEdited.setDiagnoses(newDiagnoses);
         }
 
         int medicationStart = input.indexOf("m/");
-        ArrayList<String> newMedications = null;
+        ArrayList<String> newMedications = new ArrayList<>();
         if (medicationStart != -1) {
             int medicationEnd = findNextFieldStart(input, medicationStart + 2);
             String medicationsInput = input.substring(medicationStart + 2, medicationEnd).trim();
@@ -515,16 +518,6 @@ public class CommandHandler {
             for (String medication : medicationsArray) {
                 newMedications.add(medication.trim());
             }
-        }
-
-        // Update visit details if new values are provided
-        if (newDate != null) {
-            visitToBeEdited.setVisitDate(newDate);
-        }
-        if (newDiagnoses != null) {
-            visitToBeEdited.setDiagnoses(newDiagnoses);
-        }
-        if (newMedications != null) {
             visitToBeEdited.setMedications(newMedications);
         }
 
