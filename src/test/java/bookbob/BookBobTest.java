@@ -471,7 +471,7 @@ public class BookBobTest {
         String dateTimeString = "2024-10-21 15:48";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
-        List<Visit> visits = new ArrayList<>();
+        ArrayList<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime));
         Patient patient = new Patient("John", "S9765432T", visits);
         String output = fileHandler.convertPatientToOutputText(patient);
