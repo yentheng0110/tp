@@ -8,8 +8,6 @@ import bookbob.functions.FindVisit;
 
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -185,7 +183,6 @@ public class Main {
                         logger.log(Level.INFO, "Time of the appointment is not provided");
                         break;
                     }
-
                     commandHandler.appointment(input, appointmentRecord);
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
