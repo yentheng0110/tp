@@ -61,7 +61,7 @@ public class Main {
 
             case "add":
                 logger.log(Level.INFO, "Processing add command");
-                try{
+                try {
                     int nameStart = input.indexOf("n/");
                     int nricStart = input.indexOf("ic/");
                     int visitStart = input.indexOf("v/");
@@ -86,11 +86,11 @@ public class Main {
 
                     commandHandler.add(input, records);
                     logger.log(Level.INFO, "Successfully processed add command");
-                    } catch (Exception e) {
+                } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing add command", e);
                     System.out.println("Error in adding patient record, specific error: " + e.getMessage());
-                    }
-                    break;
+                }
+                break;
 
             case "list":
                 logger.log(Level.INFO, "Processing list command");
@@ -183,6 +183,7 @@ public class Main {
                         logger.log(Level.INFO, "Time of the appointment is not provided");
                         break;
                     }
+
                     commandHandler.appointment(input, appointmentRecord);
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
