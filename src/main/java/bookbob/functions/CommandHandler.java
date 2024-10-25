@@ -530,7 +530,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
-    // @@author coraleaf0602
+    // @@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         assert nric != null : "Please provide a valid NRIC";
 
