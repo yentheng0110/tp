@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Patient {
+-name: String
+-nric: String
+-sex: String
+-dateOfBirth: String
+-phoneNumber: String
+-homeAddress: String
+-visits: ArrayList<Visit>
+-allergies: ArrayList<String>
+-medicalHistories: ArrayList<String>
++Patient (name: String, nric: String, visits: ArrayList<Visit>)
++Patient (name: String, nric: String, phoneNumber: String, dateOfBirth: String, homeAddress: String,
+allergies: ArrayList<String> , sex: String, medicalHistories: ArrayList<String>, visits: ArrayList<Visit>)
++getName(): String
++setName(name: String): void
++getNric(): String
++setNric(nric: String): void
++getDateOfBirth(): String
++setDateOfBirth(dateOfBirth: String): void
++getPhoneNumber(): String
++setPhoneNumber(phoneNumber: String): void
++getHomeAddress(): String
++setHomeAddress(homeAddress: String): void
++getVisits(): ArrayList<Visit>
++setVisits(visits: ArrayList<Visit>): void
++getAllergies(): ArrayList<String>
++setAllergies(allergies: ArrayList<String>): void
++getSex(): String
++setSex(sex: String): void
++getMedicalHistories(): ArrayList<String>
++setMedicalHistories(medicalHistories: ArrayList<String>): void
++toString(): String
+}
+
+@enduml
