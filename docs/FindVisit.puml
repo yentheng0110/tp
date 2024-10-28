@@ -7,4 +7,14 @@ class FindVisit {
   +{static} findVisitByMedication(Medication, records): void
 }
 
+class Patient {}
+class Visit {}
+class Main {}
+class Records {}
+
+Main --> FindVisit : calls >
+FindVisit --> Visit : searches >
+Records "1" *-- "many" Patient
+Patient *-- "many" Visit
+
 @enduml
