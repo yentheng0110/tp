@@ -1,1 +1,1 @@
-Name: name | NRIC: nric | Phone Number: phone | Date_Of_Birth: dob | Home Address: ha | Allergy: [al] | Sex: male | Medical History: [na] | Visit: [23-10-2024 11:23, Diagnosis: [d1, d2], Medications: [m1, m2]];
+Name: Patricia Chan | NRIC: S9089087U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [26-10-2024 18:00, Diagnosis: [Asthma, Cough], Medications: [Panadol, Antibiotics]];

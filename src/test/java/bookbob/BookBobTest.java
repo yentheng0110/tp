@@ -16,7 +16,6 @@ import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -58,6 +57,11 @@ public class BookBobTest {
                         "|             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |\n" +
                         "|             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |\n" +
+                        "|             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |\n" +
+                        "|             |                                       | d/Fever,Headache,Flu            |\n" +
+                        "|             |                                       | m/Paracetamol,Ibuprofen         |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| List        | list                                  | list                            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Find        | find n/NAME          OR               | find n/John Doe                 |\n" +
@@ -92,6 +96,15 @@ public class BookBobTest {
                         "| Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |\n" +
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findVisit NRIC                        | findVisit S9534567A             |\n" +
+                        "| Visits      |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findDiagnosis diagnosis               | findDiagnosis fever             |\n" +
+                        "| Diagnosis   |                                       |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Find        | findMedication medication             | findMedication Panadol          |\n" +
+                        "| Medication  |                                       |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Save        | save(automatic)                       |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
@@ -137,8 +150,9 @@ public class BookBobTest {
                         "v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes", records);
         command.list(records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
-                        "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, DOB: 13121995, " +
-                        "Allergy: Pollen, Sex: Female, Medical History: Diabetes",
+                        "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 13121995, " +
+                        "Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]\n" +
+                        "    Visit Date: 21-10-2024 15:48, Diagnosis: [Asthma], Medications: [Albuterol]",
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
@@ -177,7 +191,7 @@ public class BookBobTest {
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testFindName() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
@@ -189,10 +203,10 @@ public class BookBobTest {
                 "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                 "Matching patients:" + System.lineSeparator() +
                 "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, DOB: 13121995, " +
-                "Allergy: Pollen, Sex: Male, Medical History: Diabetes", outputStreamCaptor.toString().trim());
+                "Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]", outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testFindIc() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
@@ -204,11 +218,11 @@ public class BookBobTest {
                 "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                 "Matching patients:" + System.lineSeparator() +
                 "Name: John Doe, NRIC: S1234567Z, Phone: 97654321, " +
-                "Address: Hougang Green, DOB: 13121995, Allergy: Pollen, " +
-                "Sex: Male, Medical History: Chronic Migraine", outputStreamCaptor.toString().trim());
+                "Address: Hougang Green, DOB: 13121995, Allergy: [Pollen], " +
+                "Sex: Male, Medical History: [Chronic Migraine]", outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testFindPhoneNumber() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
@@ -220,11 +234,11 @@ public class BookBobTest {
                 "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                 "Matching patients:" + System.lineSeparator() +
                 "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                "DOB: 13121995, Allergy: Pollen, Sex: Male, Medical History: Diabetes",
+                "DOB: 13121995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
                 outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testFindHomeAddress() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
@@ -236,11 +250,11 @@ public class BookBobTest {
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13121995, Allergy: Pollen, Sex: Male, Medical History: Diabetes",
+                        "DOB: 13121995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
                 outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testFindDateOfBirth() throws IOException {
         command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
@@ -252,15 +266,15 @@ public class BookBobTest {
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13121995, Allergy: Pollen, Sex: Male, " +
-                        "Medical History: Diabetes" + System.lineSeparator() +
+                        "DOB: 13121995, Allergy: [Pollen], Sex: Male, " +
+                        "Medical History: [Diabetes]" + System.lineSeparator() +
                         "Name: John Doe, NRIC: S1234567Z, Phone: 97654321, " +
-                        "Address: Hougang Green, DOB: 13121995, Allergy: Pollen, " +
-                        "Sex: Male, Medical History: Chronic Migraine",
+                        "Address: Hougang Green, DOB: 13121995, Allergy: [Pollen], " +
+                        "Sex: Male, Medical History: [Chronic Migraine]",
                 outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testAdd_singlePatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Orch Rd dob/01-01-1990 " +
@@ -270,7 +284,7 @@ public class BookBobTest {
         assertEquals("Patient John Doe with NRIC S1234567A added.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testDelete_existingPatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Orch Rd dob/01-01-1990 " +
@@ -283,7 +297,7 @@ public class BookBobTest {
         assertEquals("Patient John Doe, S1234567A, has been deleted.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testList_emptyRecords() {
         command.list(records);
@@ -291,7 +305,7 @@ public class BookBobTest {
         assertEquals("No patients found.", outputStreamCaptor.toString().trim());
     }
 
-    // @@ author kaboomzxc
+    //@@author kaboomzxc
     @Test
     void testList_multiplePatients() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/Flu m/Paracetamol ha/123 Main St dob/01-01-1990" +
@@ -302,11 +316,16 @@ public class BookBobTest {
 
         command.list(records);
 
-        String expectedOutput = "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Address: 123 Main St, " +
-                "DOB: 01-01-1990, Allergy: , Sex: , Medical History: \n" +
-                "Name: Jane Smith, NRIC: S7654321B, Phone: 87654321, " +
-                "Address: Haji Lane, DOB: 02-02-1995, Allergy: , Sex: , Medical History:";
-        assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+        String expectedOutput = "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Home Address: 123 Main St, " +
+                "DOB: 01-01-1990, Allergies: [], Sex: , Medical Histories: []\n" +
+                "    Visit Date: 21-10-2024 15:27, Diagnosis: [Flu], Medications: [Paracetamol]\n" +
+                "Name: Jane Smith, NRIC: S7654321B, Phone: 87654321, Home Address: Haji Lane, DOB: 02-02-1995, " +
+                "Allergies: [], Sex: , Medical Histories: []\n" +
+                "    Visit Date: 23-10-2024 14:31, Diagnosis: [Cough], Medications: [Cough Syrup]";
+
+        String normalizedExpected = expectedOutput.replaceAll("\\s+\n", "\n");
+        String normalizedActual = outputStreamCaptor.toString().trim().replaceAll("\\s+\n", "\n");
+        assertEquals(normalizedExpected, normalizedActual);
     }
 
     // @@ author G13nd0n
@@ -332,22 +351,25 @@ public class BookBobTest {
 
     // @@author G13nd0n
     @Test
-    void testList_twoInputs_twoPatientsInRecord() throws IOException{
+    void testList_twoInputs_twoPatientsInRecord() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
                 "v/23-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
                 "v/15-10-2024 11:53", records);
         command.list(records);
-        String expectedOutput = """
-                Patient John Doe with NRIC S1234567A added.
-                Patient Will Smith with NRIC S7654321B \
-                added.
-                Name: John Doe, NRIC: S1234567A, Phone: 98765432, Address: RC4, \
-                DOB: 13-04-2000, Allergy: , Sex: , Medical History:\s
-                Name: Will Smith, NRIC: S7654321B, Phone: 91234567, Address: CAPT, \
-                DOB: 18-06-2003, Allergy: , Sex: , Medical History:""";
-        assertEquals(expectedOutput,
-                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+
+        String expectedOutput = "Patient John Doe with NRIC S1234567A added.\n" +
+                "Patient Will Smith with NRIC S7654321B added.\n" +
+                "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Home Address: RC4, " +
+                "DOB: 13-04-2000, Allergies: [], Sex: , Medical Histories: []\n" +
+                "    Visit Date: 23-11-2024 12:29, Diagnosis: [COVID-19], Medications: [Paracetamol]\n" +
+                "Name: Will Smith, NRIC: S7654321B, Phone: 91234567, Home Address: CAPT, " +
+                "DOB: 18-06-2003, Allergies: [], Sex: , Medical Histories: []\n" +
+                "    Visit Date: 15-10-2024 11:53, Diagnosis: [AIDS], Medications: [Paracetamol]";
+
+        String normalizedExpected = expectedOutput.replaceAll("\\s+\n", "\n");
+        String normalizedActual = outputStreamCaptor.toString().trim().replaceAll("\\s+\n", "\n");
+        assertEquals(normalizedExpected, normalizedActual);
     }
 
     // @@author G13nd0n
@@ -356,11 +378,11 @@ public class BookBobTest {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
                         "v/23-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
-                        "v/21-10-2024 15:30", records);
+                        "v/21-10-2024 15:30 al/peanuts s/male mh/diabetes", records);
         command.find("ic/S7654321B", records);
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, Address: CAPT, " +
-                "DOB: 18-06-2003, Allergy: , Sex: , Medical History:";
+                "DOB: 18-06-2003, Allergy: [peanuts], Sex: male, Medical History: [diabetes]";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
@@ -377,9 +399,9 @@ public class BookBobTest {
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
                 "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
-                "Address: CAPT, DOB: 18-06-2003, Allergy: , Sex: , Medical History: \n" +
+                "Address: CAPT, DOB: 18-06-2003, Allergy: [], Sex: , Medical History: []\n" +
                 "Name: John Smith, NRIC: S2468024A, Phone: 87654321, Address: CAPT, " +
-                "DOB: 13-04-2002, Allergy: , Sex: , Medical History:";
+                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
         command.find("n/Smith", records);
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -398,9 +420,9 @@ public class BookBobTest {
                 "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
                 "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
                 "Address: CAPT, DOB: 18-06-2003, " +
-                "Allergy: , Sex: , Medical History: \nName: John Smith, NRIC: S2468024A, " +
+                "Allergy: [], Sex: , Medical History: []\nName: John Smith, NRIC: S2468024A, " +
                 "Phone: 87654321, Address: CAPT, " +
-                "DOB: 13-04-2002, Allergy: , Sex: , Medical History:";
+                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
         command.find("ha/CAPT", records);
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -450,34 +472,39 @@ public class BookBobTest {
         diagnosis.add("Tummy bug");
         ArrayList<String> medications = new ArrayList<>();
         medications.add("Gaviscon");
-        String dateTimeString = "2024-10-21 15:48";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String dateTimeString = "21-10-2024 15:48";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
         ArrayList<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime, diagnosis, medications));
+        ArrayList<String> allergies = new ArrayList<>();
+        allergies.add("Peanuts");
+        ArrayList<String> medicalHistory = new ArrayList<>();
+        medicalHistory.add("History of gastritis");
+
         Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
-                "Bukit Gombak", "Peanuts", "Male", "History of gastritis", visits);
+                "Bukit Gombak", allergies, "Male", medicalHistory, visits);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
-                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: Peanuts " +
-                "| Sex: Male | Medical History: History of gastritis | Visit: " +
-                "[2024-10-21 15:48, Diagnosis: [Tummy bug], " +
+                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: [Peanuts] " +
+                "| Sex: Male | Medical History: [History of gastritis] | Visit: " +
+                "[21-10-2024 15:48, Diagnosis: [Tummy bug], " +
                 "Medications: [Gaviscon]];", output);
     }
 
     //@@author PrinceCatt and coraleaf0602
     @Test
     void testTextConverterPartialInformation() {
-        String dateTimeString = "2024-10-21 15:48";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String dateTimeString = "21-10-2024 15:48";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
-        List<Visit> visits = new ArrayList<>();
+        ArrayList<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime));
         Patient patient = new Patient("John", "S9765432T", visits);
         String output = fileHandler.convertPatientToOutputText(patient);
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
-                "Date_Of_Birth:  | Home Address:  | Allergy:  | Sex:  | Medical History:  | " +
-                "Visit: [2024-10-21 15:48, Diagnosis: [], Medications: []];");
+                "Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | " +
+                "Visit: [21-10-2024 15:48, Diagnosis: [], Medications: []];");
     }
 
     @Test

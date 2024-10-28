@@ -29,7 +29,7 @@ public class CommandHandler {
     }
   
     // Prints output for help command
-    //@@author coraleaf0602
+    //@@author coraleaf0602 and yentheng0110 and G13nd0n and PrinceCatt and kaboomzxc
     public void help() {
         System.out.println("""
                 +-------------+---------------------------------------+---------------------------------+
@@ -42,6 +42,11 @@ public class CommandHandler {
                 |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
                 |             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |
                 |             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |
+                +-------------+---------------------------------------+---------------------------------+
+                | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
+                |             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |
+                |             |                                       | d/Fever,Headache,Flu            |
+                |             |                                       | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
@@ -250,7 +255,8 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "date/", "time/", "al/", "s/", "mh/", "/to"};
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/",
+                             "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -267,11 +273,27 @@ public class CommandHandler {
             System.out.println("No patients found.");
             return;
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
         for (Patient patient : patients) {
+            // Print patient information
             System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
                     ", Phone: " + patient.getPhoneNumber() + ", Home Address: " + patient.getHomeAddress() +
                     ", DOB: " + patient.getDateOfBirth() + ", Allergies: " + patient.getAllergies() +
                     ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
+
+            // Print all visits
+            if (!patient.getVisits().isEmpty()) {
+                for (Visit visit : patient.getVisits()) {
+                    System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
+                            ", Diagnosis: " + visit.getDiagnoses() +
+                            ", Medications: " + visit.getMedications());
+                }
+            } else {
+                System.out.println("No visits recorded");
+            }
+            System.out.println(); // Add blank line between patients
         }
     }
 
@@ -413,7 +435,102 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
-    // @@author coraleaf0602
+    public void editVisit(String input, Records records) throws IOException {
+        // Extract NRIC from input command
+        int nricStart = input.indexOf("ic/");
+        assert nricStart != -1 : "Please provide a valid patient NRIC in the records.";
+        if (nricStart == -1) {
+            System.out.println("Please provide a valid patient NRIC.");
+            return;
+        }
+        int nricEnd = findNextFieldStart(input, nricStart + 3);
+        String nric = input.substring(nricStart + 3, nricEnd).trim();
+
+        Patient patient = null;
+
+        // Search for the patient by NRIC
+        for (Patient p : records.getPatients()) {
+            if (p.getNric().trim().replaceAll("\\s+", "")
+                    .equalsIgnoreCase(nric.replaceAll("\\s+", "").trim())) {
+                patient = p;
+                break;
+            }
+        }
+
+        if (patient == null) {
+            System.out.println("No patient found with the given NRIC.");
+            return;
+        }
+
+        // Extract visit date from input command
+        int dateStart = input.indexOf("date/");
+        assert dateStart != -1 : "Please provide a valid visit date.";
+        if (dateStart == -1) {
+            System.out.println("Please provide a valid visit date.");
+            return;
+        }
+        int dateEnd = findNextFieldStart(input, dateStart + 5);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime visitDate = LocalDateTime.parse(input.substring(dateStart + 5, dateEnd).trim(), formatter);
+
+        Visit visitToBeEdited = null;
+
+        // Search for the visit with the matching date
+        for (Visit visit : patient.getVisits()) {
+            if (visit.getVisitDate().equals(visitDate)) {
+                visitToBeEdited = visit;
+                break;
+            }
+        }
+
+        if (visitToBeEdited == null) {
+            System.out.println("No visit found on the given date.");
+            return;
+        }
+
+        // Extract optional updates for visit
+        int newDateStart = input.indexOf("newDate/");
+        LocalDateTime newDate = null;
+        if (newDateStart != -1) {
+            int newDateEnd = findNextFieldStart(input, newDateStart + 8);
+            newDate = LocalDateTime.parse(input.substring(newDateStart + 8, newDateEnd).trim(), formatter);
+            visitToBeEdited.setVisitDate(newDate);
+        }
+
+        int diagnosesStart = input.indexOf("d/");
+        ArrayList<String> newDiagnoses = new ArrayList<>();
+        if (diagnosesStart != -1) {
+            int diagnosesEnd = findNextFieldStart(input, diagnosesStart + 2);
+            String diagnosesInput = input.substring(diagnosesStart + 2, diagnosesEnd).trim();
+            String[] diagnosesArray = diagnosesInput.split(",\\s*");
+            for (String diagnosis : diagnosesArray) {
+                newDiagnoses.add(diagnosis.trim());
+            }
+            visitToBeEdited.setDiagnoses(newDiagnoses);
+        }
+
+        int medicationStart = input.indexOf("m/");
+        ArrayList<String> newMedications = new ArrayList<>();
+        if (medicationStart != -1) {
+            int medicationEnd = findNextFieldStart(input, medicationStart + 2);
+            String medicationsInput = input.substring(medicationStart + 2, medicationEnd).trim();
+            String[] medicationsArray = medicationsInput.split(",\\s*");
+            for (String medication : medicationsArray) {
+                newMedications.add(medication.trim());
+            }
+            visitToBeEdited.setMedications(newMedications);
+        }
+
+        // Confirm the updated visit details
+        System.out.println("Visit record updated successfully.");
+        System.out.println("Updated visit details:");
+        System.out.println(visitToBeEdited);
+
+        // Save changes
+        FileHandler.autosave(records);
+    }
+
+    // @@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         assert nric != null : "Please provide a valid NRIC";
 
@@ -446,7 +563,7 @@ public class CommandHandler {
         }
     }
 
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public void find(String input, Records records) {
 
         // Assertion to ensure input is not null
@@ -679,6 +796,101 @@ public class CommandHandler {
         appointmentRecord.setAppointments(updatedAppointments);
         FileHandler.autosave(appointmentRecord);
     }
+
+    //@@author kaboomzxc
+    public void addVisit(String input, Records records) throws IOException {
+        try {
+            // Extract NRIC first (mandatory field)
+            int nricStart = input.indexOf("ic/");
+            if (nricStart == -1) {
+                System.out.println("Please provide the patient's NRIC.");
+                return;
+            }
+            int nricEnd = findNextFieldStart(input, nricStart + 3);
+            String nric = input.substring(nricStart + 3, nricEnd).trim();
+
+            // Find the patient with matching NRIC
+            Patient targetPatient = null;
+            for (Patient patient : records.getPatients()) {
+                if (patient.getNric().equals(nric)) {
+                    targetPatient = patient;
+                    break;
+                }
+            }
+
+            if (targetPatient == null) {
+                System.out.println("No patient found with NRIC: " + nric);
+                return;
+            }
+
+            // Extract visit date (mandatory field)
+            int visitStart = input.indexOf("v/");
+            if (visitStart == -1) {
+                System.out.println("Please provide the visit date and time.");
+                return;
+            }
+            int visitEnd = findNextFieldStart(input, visitStart + 2);
+            String visitDateString = input.substring(visitStart + 2, visitEnd).trim();
+
+            // Parse visit date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime visitDate;
+            try {
+                visitDate = LocalDateTime.parse(visitDateString, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use dd-MM-yyyy HH:mm format (e.g., 21-10-2024 15:48)");
+                return;
+            }
+
+            // Extract medications (optional, can be multiple)
+            ArrayList<String> medications = new ArrayList<>();
+            int medicationStart = input.indexOf("m/");
+            if (medicationStart != -1) {
+                int medicationEnd = findNextFieldStart(input, medicationStart + 2);
+                String medicationInput = input.substring(medicationStart + 2, medicationEnd).trim();
+                if (!medicationInput.isEmpty()) {
+                    String[] medsArray = medicationInput.split(",\\s*");
+                    medications.addAll(Arrays.asList(medsArray));
+                }
+            }
+
+            // Extract diagnoses (optional, can be multiple)
+            ArrayList<String> diagnoses = new ArrayList<>();
+            int diagnosisStart = input.indexOf("d/");
+            if (diagnosisStart != -1) {
+                int diagnosisEnd = findNextFieldStart(input, diagnosisStart + 2);
+                String diagnosisInput = input.substring(diagnosisStart + 2, diagnosisEnd).trim();
+                if (!diagnosisInput.isEmpty()) {
+                    String[] diagnosisArray = diagnosisInput.split(",\\s*");
+                    diagnoses.addAll(Arrays.asList(diagnosisArray));
+                }
+            }
+
+            // Create new visit with the collected data
+            Visit newVisit = new Visit(visitDate, diagnoses, medications);
+            targetPatient.getVisits().add(newVisit);
+
+            // Save the updated records
+            FileHandler.autosave(records);
+
+            // Print confirmation message with visit details
+            System.out.println("Visit added successfully for patient: " + targetPatient.getName());
+            System.out.println("Visit date: " + visitDate.format(formatter));
+            if (!diagnoses.isEmpty()) {
+                System.out.println("Diagnoses: " + String.join(", ", diagnoses));
+            }
+            if (!medications.isEmpty()) {
+                System.out.println("Medications: " + String.join(", ", medications));
+            }
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error adding visit", e);
+            System.out.println("Error adding visit: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
 
     // @@author coraleaf0602
     // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
