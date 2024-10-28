@@ -2,16 +2,27 @@
 'https://plantuml.com/class-diagram
 
 class FileHandler {
-  +initFile(Records): void
-  +initFile(AppointmentRecord): void
-  +convertPatientToOutputText(Records): String
-  +convertPatientToOutputText(AppointmentRecord): String
-  +autosave(Records): void
-  +autosave(AppointmentRecord): void
-  +retrieveData(Records): void
-  +retrieveData(AppointmentRecord): void
-  +parseVisitInputString(visitString): Visit
-  +parseList(input): ArrayList<String>
+  -{static} Logger logger
+  -{static} String filePath
+  -{static} String appointmentFilePath
+  +{static} initFile(Records): void
+  +{static} initFile(AppointmentRecord): void
+  +{static} convertPatientToOutputText(Records): String
+  +{static} convertPatientToOutputText(AppointmentRecord): String
+  +{static} autosave(Records): void
+  +{static} autosave(AppointmentRecord): void
+  +{static} retrieveData(Records): void
+  +{static} retrieveData(AppointmentRecord): void
+  +{static} parseVisitInputString(visitString): Visit
+  +{static} parseList(input): ArrayList<String>
 }
+
+class Main {}
+class CommandHandler {}
+
+CommandHandler --> FileHandler: calls autosave
+Main --> FileHandler: calls initFile
+FileHandler --> FileHandler: initFile calls retrieveData
+FileHandler --> FileHandler: retrieveData calls parseVisitInputString and parseList
 
 @enduml

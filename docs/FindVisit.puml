@@ -2,9 +2,19 @@
 'https://plantuml.com/class-diagram
 
 class FindVisit {
-  +findVisitByIc(nric, records): void
-  +findVisitByDiagnosis(Diagnosis, records): void
-  +findVisitByMedication(Medication, records): void
+  +{static} findVisitByIc(nric, records): void
+  +{static} findVisitByDiagnosis(Diagnosis, records): void
+  +{static} findVisitByMedication(Medication, records): void
 }
+
+class Patient {}
+class Visit {}
+class Main {}
+class Records {}
+
+Main --> FindVisit : calls >
+FindVisit --> Visit : searches >
+Records "1" *-- "many" Patient
+Patient *-- "many" Visit
 
 @enduml
