@@ -2,16 +2,16 @@
 'https://plantuml.com/class-diagram
 
 class FileHandler {
-  +initFile(Records): void
-  +initFile(AppointmentRecord): void
-  +convertPatientToOutputText(Records): String
-  +convertPatientToOutputText(AppointmentRecord): String
-  +autosave(Records): void
-  +autosave(AppointmentRecord): void
-  +retrieveData(Records): void
-  +retrieveData(AppointmentRecord): void
-  +parseVisitInputString(visitString): Visit
-  +parseList(input): ArrayList<String>
+  +{static} initFile(Records): void
+  +{static} initFile(AppointmentRecord): void
+  +{static} convertPatientToOutputText(Records): String
+  +{static} convertPatientToOutputText(AppointmentRecord): String
+  +{static} autosave(Records): void
+  +{static} autosave(AppointmentRecord): void
+  +{static} retrieveData(Records): void
+  +{static} retrieveData(AppointmentRecord): void
+  +{static} parseVisitInputString(visitString): Visit
+  +{static} parseList(input): ArrayList<String>
 }
 
 @enduml
