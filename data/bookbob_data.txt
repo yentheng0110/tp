@@ -1,0 +1,1 @@
+Name: name | NRIC: nric | Phone Number: phone | Date_Of_Birth: dob | Home Address: ha | Allergy: [al] | Sex: male | Medical History: [na] | Visit: [23-10-2024 11:23, Diagnosis: [d1, d2], Medications: [m1, m2]];
