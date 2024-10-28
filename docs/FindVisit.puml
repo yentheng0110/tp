@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class FindVisit {
+  +findVisitByIc(nric, records): void
+  +findVisitByDiagnosis(Diagnosis, records): void
+  +findVisitByMedication(Medication, records): void
+}
+
+@enduml

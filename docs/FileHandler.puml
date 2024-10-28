@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class FileHandler {
+  +initFile(Records): void
+  +initFile(AppointmentRecord): void
+  +convertPatientToOutputText(Records): String
+  +convertPatientToOutputText(AppointmentRecord): String
+  +autosave(Records): void
+  +autosave(AppointmentRecord): void
+  +retrieveData(Records): void
+  +retrieveData(AppointmentRecord): void
+  +parseVisitInputString(visitString): Visit
+  +parseList(input): ArrayList<String>
+}
+
+@enduml
