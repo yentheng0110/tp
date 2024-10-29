@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object "<u> :Main</u>" as Main
+object "<u> in:Scanner</u>" as Scanner
+object "<u> records:Records</u>" as Records
+object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
+object "<u> :FileHandler</u>" as FileHandler
+object "<u> commandHandler:CommandHandler</u>" as CommandHandler
+
+object "<u> newVisit:Visit</u>" as Visit {
+visitDate = 29-10-2024 10:00
+diagnoses = [Gastric]
+medications = [Gaviscon, Paracetamol]
+}
+
+Main --> Scanner
+Main --> Records
+Main --> AppointmentRecord
+Main --> FileHandler
+Main --> CommandHandler
+CommandHandler --> FileHandler
+CommandHandler --> Records
+CommandHandler --> Visit
+
+@enduml
