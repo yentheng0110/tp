@@ -66,21 +66,21 @@ Given below are instructions to test the app manually.
 | Retrieve/Import | retrieve or import (automatic) | - |
 | Exit | `exit` | `exit` |
 
-### Below are instructions to perform manual testing of Bookbob :
+### Below are instructions to perform manual testing of BookBob :
 
 ## Launch and Shutdown
 
 ### Initial Launch
 1. Verify that you have Java 17 in your computer by running `java --version`.
-2. Download the <u>latest</u> Bookbob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
+2. Download the <u>latest</u> BookBob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
 3. Copy the file to your desired folder where you would like to run it from.
-4. Using a command line tool, navigate to the path of Bookbob.jar:
+4. Using a command line tool, navigate to the path of BookBob.jar:
 - If your operating system is Windows, use Command Prompt
 - If your operating system is MacOS, use Terminal
 - Enter `cd path/to/file`
-5. Enter `java -jar Bookbob.jar` in your command line tool and press enter.
+5. Enter `java -jar BookBob.jar` in your command line tool and press enter.
 6. If the setup is correct, you should see the welcome message.
-7. Now Bookbob is ready for your use:
+7. Now BookBob is ready for your use:
 - Create your patient record and date of visit by entering command `add` and `addVisit` respectively. Name, NRIC and VisitDate are compulsory fields, other fields are optional.
 - Please reference from the above Command Summary Reference.
 - Try to see your list of records by entering command `list`
@@ -90,8 +90,8 @@ Given below are instructions to test the app manually.
        Expected: Welcome message "Welcome to BookBob, Dr. Bob!" is displayed. A new `data` directory and data files are created if they do not yet exist.
 
 ### Shutdown
-1. Enter `exit` to exit Bookbob. 
-2. Bookbob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
+1. Enter `exit` to exit BookBob. 
+2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
 
 3. Exit application
     1. Test Case: `exit` <br>
@@ -192,7 +192,7 @@ Given below are instructions to test the app manually.
 
 2. File Management
     1. Test case: Manually View saved data
-        - Action: Navigate to `data` folder (same directory as Bookbob.jar) and open `bookbob_data.txt`
+        - Action: Navigate to `data` folder (same directory as BookBob.jar) and open `bookbob_data.txt`
         - Note: Do not manually modify the file contents to prevent data corruption. Saving and loading data is automated as long as file is not corrupted.
 
     2. Test case: Delete data file and restart application
@@ -203,7 +203,7 @@ Given below are instructions to test the app manually.
 3. Error Handling
     1. Test case: Corrupt the data file manually, then start application
         - Expected: Error message is shown about invalid data
-        - Note: Bookbob will continue to function
+        - Note: BookBob will continue to function
         - Recovery options:
             * Option 1: Manually remove corrupted lines from `bookbob_data.txt`
             * Option 2: Delete `bookbob_data.txt` to start afresh
