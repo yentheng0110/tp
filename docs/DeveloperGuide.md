@@ -42,44 +42,45 @@ providing reminders of upcoming appointments at the start of each day.
 Given below are instructions to test the app manually.
 
 <div style="background-color: #E7F3FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A; font-weight: 500;">
-⚠️ <strong>Note :</strong> These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+⚠️ <b>Note :</b> These instructions only provide a starting point for testers to work on; testers are expected to do more <i>exploratory</i> testing.
 </div>
 
 ### Command Summary Reference :
-| Action | Format | Example |
-|--------|---------|---------|
-| Help | help | help |
-| Add | add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [v/VISIT_DATE_TIME] [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY] | add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes |
-| Add Visit | addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] | addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen |
-| List | list | list |
-| Find | find n/NAME OR<br>find ic/NRIC OR<br>find p/PHONE_NUMBER OR<br>find d/DIAGNOSIS OR<br>find m/MEDICATION OR<br>find ha/HOME_ADDRESS OR<br>find dob/DATE_OF_BIRTH OR<br>find al/ALLERGY OR<br>find s/SEX OR<br>find mh/MEDICAL_HISTORY | find n/John Doe<br>find ic/S1234<br>find p/91234567<br>find d/Fever<br>find m/Panadol<br>find ha/NUS PGPR<br>find dob/01011990<br>find al/Peanuts<br>find s/Female<br>find mh/Diabetes |
-| Delete | delete NRIC | delete S9534567A |
-| Add Appointment | appointment n/NAME ic/NRIC date/DATE time/TIME<br>DATE format: dd-mm-yyyy<br>TIME format: HH:mm | appointment n/James Ho ic/S9534567A date/01-04-2025 time/12:00 |
-| List Appointment | listAppointments | listAppointments |
-| Find Appointment | findAppointment n/NAME OR<br>findAppointment ic/NRIC OR<br>findAppointment date/DATE OR<br>findAppointment time/TIME<br>DATE format: dd-mm-yyyy<br>TIME format: HH:mm | findAppointment n/John Doe<br>findAppointment ic/S1234<br>findAppointment date/01-04-2025<br>findAppointment time/12:00 |
-| Delete Appointment | deleteAppointment NRIC date/DATE time/TIME<br>DATE format: dd-mm-yyyy<br>TIME format: HH:mm | deleteAppointment S9534567A date/01-04-2025 time/12:00 |
-| Find Visits | findVisit NRIC | findVisit S9534567A |
-| Find Diagnosis | findDiagnosis diagnosis | findDiagnosis fever |
-| Find Medication | findMedication medication | findMedication Panadol |
-| Save | save(automatic) | - |
-| Retrieve/Import | retrieve or import(automatic) | - |
-| Exit | exit | exit |
 
-### Below are instructions to perform manual testing of Bookbob :
+| Action | Format | Example |
+|---|---|---|
+| Help | `help` | `help` |
+| Add | `add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [v/VISIT_DATE_TIME] [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]` | `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes` |
+| Add Visit | `addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION]` | `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen` |
+| List | `list` | `list` |
+| Find | `find n/NAME` OR<br>`find ic/NRIC` OR<br>`find p/PHONE_NUMBER` OR<br>`find d/DIAGNOSIS` OR<br>`find m/MEDICATION` OR<br>`find ha/HOME_ADDRESS` OR<br>`find dob/DATE_OF_BIRTH` OR<br>`find al/ALLERGY` OR<br>`find s/SEX` OR<br>`find mh/MEDICAL_HISTORY` | `find n/John Doe`<br>`find ic/S1234`<br>`find p/91234567`<br>`find d/Fever`<br>`find m/Panadol`<br>`find ha/NUS PGPR`<br>`find dob/01011990`<br>`find al/Peanuts`<br>`find s/Female`<br>`find mh/Diabetes` |
+| Delete | `delete NRIC` | `delete S9534567A` |
+| Add Appointment | `appointment n/NAME ic/NRIC date/DATE time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm` | `appointment n/James Ho ic/S9534567A date/01-04-2025 time/12:00` |
+| List Appointment | `listAppointments` | `listAppointments` |
+| Find Appointment | `findAppointment n/NAME` OR<br>`findAppointment ic/NRIC` OR<br>`findAppointment date/DATE` OR<br>`findAppointment time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm` | `findAppointment n/John Doe`<br>`findAppointment ic/S1234`<br>`findAppointment date/01-04-2025`<br>`findAppointment time/12:00` |
+| Delete Appointment | `deleteAppointment NRIC date/DATE time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm` | `deleteAppointment S9534567A date/01-04-2025 time/12:00` |
+| Find Visits | `findVisit NRIC` | `findVisit S9534567A` |
+| Find Diagnosis | `findDiagnosis diagnosis` | `findDiagnosis fever` |
+| Find Medication | `findMedication medication` | `findMedication Panadol` |
+| Save | save (automatic) | - |
+| Retrieve/Import | retrieve or import (automatic) | - |
+| Exit | `exit` | `exit` |
+
+### Below are instructions to perform manual testing of BookBob :
 
 ## Launch and Shutdown
 
 ### Initial Launch
 1. Verify that you have Java 17 in your computer by running `java --version`.
-2. Download the <u>latest</u> Bookbob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
+2. Download the <u>latest</u> BookBob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
 3. Copy the file to your desired folder where you would like to run it from.
-4. Using a command line tool, navigate to the path of Bookbob.jar:
+4. Using a command line tool, navigate to the path of BookBob.jar:
 - If your operating system is Windows, use Command Prompt
 - If your operating system is MacOS, use Terminal
 - Enter `cd path/to/file`
-5. Enter `java -jar Bookbob.jar` in your command line tool and press enter.
+5. Enter `java -jar BookBob.jar` in your command line tool and press enter.
 6. If the setup is correct, you should see the welcome message.
-7. Now Bookbob is ready for your use:
+7. Now BookBob is ready for your use:
 - Create your patient record and date of visit by entering command `add` and `addVisit` respectively. Name, NRIC and VisitDate are compulsory fields, other fields are optional.
 - Please reference from the above Command Summary Reference.
 - Try to see your list of records by entering command `list`
@@ -89,8 +90,8 @@ Given below are instructions to test the app manually.
        Expected: Welcome message "Welcome to BookBob, Dr. Bob!" is displayed. A new `data` directory and data files are created if they do not yet exist.
 
 ### Shutdown
-1. Enter `exit` to exit Bookbob. 
-2. Bookbob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
+1. Enter `exit` to exit BookBob. 
+2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
 
 3. Exit application
     1. Test Case: `exit` <br>
@@ -191,7 +192,7 @@ Given below are instructions to test the app manually.
 
 2. File Management
     1. Test case: Manually View saved data
-        - Action: Navigate to `data` folder (same directory as Bookbob.jar) and open `bookbob_data.txt`
+        - Action: Navigate to `data` folder (same directory as BookBob.jar) and open `bookbob_data.txt`
         - Note: Do not manually modify the file contents to prevent data corruption. Saving and loading data is automated as long as file is not corrupted.
 
     2. Test case: Delete data file and restart application
@@ -202,7 +203,7 @@ Given below are instructions to test the app manually.
 3. Error Handling
     1. Test case: Corrupt the data file manually, then start application
         - Expected: Error message is shown about invalid data
-        - Note: Bookbob will continue to function
+        - Note: BookBob will continue to function
         - Recovery options:
             * Option 1: Manually remove corrupted lines from `bookbob_data.txt`
             * Option 2: Delete `bookbob_data.txt` to start afresh
