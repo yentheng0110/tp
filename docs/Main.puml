@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Main {
+-{static} logger: Logger {readOnly}
++{static} main(args: String[]): void
+}
+
+@enduml
