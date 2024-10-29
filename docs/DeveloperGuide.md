@@ -31,7 +31,8 @@
 
 ## Glossary
 
-* *glossary item* - Definition
+- Mainstream OS: Windows, Linux, Unix, MacOS
+- NRIC: Identification Number
 
 ## Instructions for manual testing
 
