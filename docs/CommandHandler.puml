@@ -12,12 +12,11 @@ class "Command Handler Class" {
 +find(input: String, records: Records): void
 +exit(input: String): void
 +addVisit(input: String, records: Records): void
-+appointment(input: String, appointmentRecord: AppointmentRecord): void
++Appointment(input: String, appointmentRecord: AppointmentRecord): void
 +deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
-+listAppointments(appointmentRecord: AppointmentRecord): void
++listAppointment(appointmentRecord: AppointmentRecord): void
 +findAppointment(input: String, appointmentRecord: AppointmentRecord): void
-+removePastAppointments(appointmentRecord: AppointmentRecord): void
-+printVisits(patient: Patient): void
++deleteAppointment(appointmentRecord: AppointmentRecord): void
 -findNextFieldStart(input: String, currentIndex: int): int
 }
 @enduml
