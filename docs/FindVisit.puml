@@ -14,7 +14,7 @@ class Records {}
 
 Main --> FindVisit : calls >
 FindVisit --> Visit : searches >
-Records "1" *-- "many" Patient
-Patient *-- "many" Visit
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
 
 @enduml

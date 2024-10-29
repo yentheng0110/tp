@@ -20,4 +20,15 @@ class "Appointment" as Appointment {
 + toString() : String
 + compareTo(other : Appointment) : int
 }
+
+class AppointmentRecord {}
+class Main {}
+class CommandHandler {}
+class AppointmentRecord {}
+
+
+CommandHandler --> Appointment : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
+Main --> CommandHandler : calls >
+
 @enduml

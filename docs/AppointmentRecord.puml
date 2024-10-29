@@ -14,4 +14,13 @@ class AppointmentRecord {
 + LocalTime checkAvailability(date : LocalDate, time : LocalTime )
 }
 
+class Main {}
+class CommandHandler {}
+class AppointmentRecord {}
+
+
+CommandHandler --> Appointment : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
+Main --> CommandHandler : calls >
+
 @enduml
