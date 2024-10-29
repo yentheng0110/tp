@@ -13,7 +13,7 @@ Main -> CommandHandler ** :
 Doctor -> Main : appointment("John Doe, S123A, 18-11-2024, 18:00")
 Main -> CommandHandler ++: commandHandler.appointment("John Doe, S123A, 18-11-2024, 18:00")
 CommandHandler -> AppointmentRecord ++ : appointmentRecord.checkAvailability("18-11-2024, 18:00")
-AppointmentRecord -> CommandHandler -- : nextAvailableTime = "18:00"
+AppointmentRecord -> CommandHandler -- : nextAvailableTime
 group alt [nextAvailableTime == "18:00"]
     CommandHandler -> Appointment **
     CommandHandler -> Appointment ++ : new Appointment("John Doe", "S123A", "18-11-2024", "18:00")
