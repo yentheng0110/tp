@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Doctor
+Doctor -> Main ++
+Main -> Record **
+Main -> AppointmentRecord **
+Main -> FileHandler ++ : initFile(records)
+FileHandler -> Main -- :
+Main -> FileHandler ++ : initFile(appointmentRecords)
+FileHandler -> Main -- :
+Main -> CommandHandler ** :
+Doctor -> Main : appointment("John Doe, S123A, 18-11-2024, 18:00")
+Main -> CommandHandler ++: commandHandler.appointment("John Doe, S123A, 18-11-2024, 18:00")
+CommandHandler -> AppointmentRecord ++ : appointmentRecord.checkAvailability("18-11-2024, 18:00")
+AppointmentRecord -> CommandHandler -- : nextAvailableTime = "18:00"
+group alt [nextAvailableTime == "18:00"]
+    CommandHandler -> Appointment **
+    CommandHandler -> Appointment ++ : new Appointment("John Doe", "S123A", "18-11-2024", "18:00")
+    Appointment -> CommandHandler -- : appointment
+
+    CommandHandler -> AppointmentRecord ++ : appointmentRecords.addAppointment(appointment)
+    AppointmentRecord -> CommandHandler --
+    else
+end
+CommandHandler -> FileHandler ++ : FileHandler.autosave(appointmentRecords)
+FileHandler -> CommandHandler --
+
+@enduml
