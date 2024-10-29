@@ -117,8 +117,8 @@ Given below are instructions to test the app manually.
        Expected: "No patients found." message.
 
 3. Finding patients
-    1. (Positive) Test Case (by NRIC): `find ic/S9876` <br>
-       Expected: Lists all patients whose NRIC contains "S9876".
+    1. (Positive) Test Case (by NRIC): `find ic/S1234567Z` <br>
+       Expected: Lists all patients whose NRIC contains "S1234567Z".
 
     2. (Positive) Test Case (by name): `find n/John` <br>
        Expected: Lists all patients whose names contain "John".
