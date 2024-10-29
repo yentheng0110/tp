@@ -29,13 +29,41 @@ providing reminders of upcoming appointments at the start of each day.
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
+# Implementation
+
+[Proposed] Appointment Feature
+
+The proposed appointment mechanism is facilitated by CommandHandler. It creates an appointment slot via the Appointment 
+class and recorded within the AppointmentRecord class. The appointment records will then be saved into the FileHandler
+
+- `CommandHandler.appointment(String input, AppointmentRecord appointmentRecord)` - check the input to check if valid
+- `FileHandler.initFile(AppointmentRecord appointmentRecord)` - loads any saved appointment records
+- `appointmentRecord.checkAvailability(LocalDate date, LocalTime time)` - check for availability at given time and date
+- `AppointmentRecord.addAppointment(Appointment appointment)` - add appointment to the appointment record
+- `Appointment(String name, String nric, String date, String time)` - creates appointment with the given name, nric,
+- date and time
+- `FileHandler.autosave(AppointmentRecord appointmentRecord)` - save the appointment records
+  
+
+Doctor starts up the application and executes `appointment n/John Doe ic/S123A date/18-11-2024 time/18:00`
+
+Object Diagram portray before execution of application feature:
+![img.png](BeforeExecutionOD.png)
+
+Object Diagram after execution of appointment feature:
+![img.png](AfterExecutionOD.png)
+
+The Sequence Diagram for the execution of the appointment feature:
+![img.png](NewAppointmentSD.png)
+
 ## Non-Functional Requirements
 
 {Give non-functional requirements}
 
 ## Glossary
 
-* *glossary item* - Definition
+- Mainstream OS: Windows, Linux, Unix, MacOS
+- NRIC: Identification Number
 
 ## Appendix A : Instructions for Manual Testing
 
