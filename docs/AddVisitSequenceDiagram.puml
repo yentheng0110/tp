@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Doctor
+
+Doctor -> ":Main" ++ : addVisit ic/S9870789B v/29-10-2024 10:00 d/Gastric m/Gaviscon, Paracetamol
+
+":Main" -> ":Scanner"**: new Scanner()
+activate ":Scanner"
+":Main" <-- ":Scanner": in:Scanner
+deactivate ":Scanner"
+
+":Main" -> ":Records"**: new Records()
+activate ":Records"
+":Main" <-- ":Records": records:Records
+deactivate ":Records"
+
+":Main" -> ":AppointmentRecord"**: new AppointmentRecord()
+activate ":AppointmentRecord"
+":Main" <-- ":AppointmentRecord": appointmentRecord:AppointmentRecord
+deactivate ":AppointmentRecord"
+
+participant ":FileHandler" as FileHandler <<class>>
+":Main" -> FileHandler ++: initFile(records)
+return
+
+":Main" -> FileHandler ++: initFile(appointmentRecord)
+return
+
+":Main" -> ":CommandHandler"**: new CommandHandler()
+activate ":CommandHandler"
+":Main" <-- ":CommandHandler": commandHandler:CommandHandler
+deactivate ":CommandHandler"
+
+":Main" -> ":AppointmentRecord" ++: appointmentNotice()
+return
+
+":Main" -> ":Scanner" ++: nextLine()
+return input
+
+":Main" -> ":CommandHandler" ++: addVisit(input, records)
+":CommandHandler" -> ":CommandHandler" ++: findNextFieldStart(...)
+return the endindex of next prefix
+
+":CommandHandler" -> ":Records" ++: getPatients()
+":CommandHandler" <-- ":Records": ArrayList<Patient>
+deactivate ":Records"
+
+loop for each patient in ArrayList<Patient> until the patient with the NRIC provided by the doctor (S9870789B) is found
+    ":CommandHandler" -> ":Patient"++: getNric()
+    return NRIC
+end
+
+participant "targetPatient:Patient"
+
+":CommandHandler" -> ":Visit"**: new Visit(visitDate, diagnoses, medications)
+activate ":Visit"
+":CommandHandler" <-- ":Visit": newVisit:Visit
+deactivate ":Visit"
+
+":CommandHandler" -> "targetPatient:Patient"++: getVisits()
+participant "visitList:ArrayList<Visit>"
+return visitList
+
+":CommandHandler" -> "visitList:ArrayList<Visit>"++: add(newVisit)
+return true
+
+":CommandHandler" -> FileHandler ++: autosave(records)
+return
+":Main" <-- ":CommandHandler"
+deactivate ":CommandHandler"
+
+Doctor <-- ":Main": a message with the visit details added
+deactivate ":Main"
+@enduml
