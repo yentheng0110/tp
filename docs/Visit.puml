@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Visit {
+-visitDate: LocalDateTime
+-diagnoses: ArrayList<String>
+-medications: ArrayList<String>
++Visit (visitDate: LocalDateTime)
++Visit (visitDate: LocalDateTime, diagnoses: ArrayList<String>, medications: ArrayList<String>);
++getDiagnoses( ): ArrayList<String>
++setDiagnoses(diagnoses: ArrayList<String>): void
++getMedications(): ArrayList<String>
++setMedications(medications: ArrayList<String>): void
++getVisitDate(): LocalDateTime
++setVisitDate((visitDate: LocalDateTime): void
++toString(): String
+}
+
+@enduml
