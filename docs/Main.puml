@@ -6,4 +6,20 @@ class Main {
 +{static} main(args: String[]): void
 }
 
+class Patient {}
+class Visit {}
+class Main {}
+class Records {}
+class CommandHandler {}
+class AppointmentRecord {}
+
+
+CommandHandler --> Appointment : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
+Main --> CommandHandler : calls >
+Main --> FindVisit : calls >
+CommandHandler --> Patient : searches and modifies >
+FindVisit --> Visit : searches >
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
 @enduml
