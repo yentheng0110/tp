@@ -58,7 +58,11 @@ The Sequence Diagram for the execution of the appointment feature:
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Should work on any mainstream OS (Windows, Linux, MacOS) as long as it has Java 17 or above installed.
+2. Should be able to hold up for long term use of a single doctor without cleaning of cache.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should be able to respond to any commands within 1 seconds under normal load
+5. Automated save of data should happen after every modification of data
 
 ## Glossary
 
