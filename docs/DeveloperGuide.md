@@ -1,20 +1,14 @@
-# Developer Guide
+# BookBob Developer Guide
 
 ## Acknowledgements
 
 Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
-## Design & implementation
-
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
-
 ## Product scope
 ### Target user profile
-Dr Bob is a General Practitioner running his own private clinic.
-He manages everything independently, attending to numerous patients with diverse health concerns each day.  
-The demanding workload and long hours often leave him exhausted and sleep-deprived.  
-On his work desk, he relies on a personal desktop computer for his work. 
+Dr Bob is a General Practitioner running his own private clinic. He manages everything independently, attending to 
+numerous patients with diverse health concerns each day. The demanding workload and long hours often leave him exhausted
+and sleep-deprived. On his work desk, he relies on a personal desktop computer for his work. 
 
 ### Value proposition
 BookBob assists Dr Bob in storing and retrieving his patients' information, including their name, NRIC, gender, date of 
@@ -29,12 +23,32 @@ providing reminders of upcoming appointments at the start of each day.
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
-# Implementation
+## Design & Implementation
+### 1. Managing Patient Visits and Records
+### a. Adding New Visits for Existing Patients
+The addVisit mechanism is handled by `CommandHandler`. It begins by scanning the patient records (`Records`) to locate 
+the patient with the specified NRIC. Once the target patient is found, a new `Visit` object is created using the 
+provided visit details. This new visit is then added to the patient's `ArrayList<Visit>`. Finally, the updated patient 
+records are saved using `FileHandler` to ensure they can be retrieved later.
 
-Appointment Feature
+**Doctor enters the command:** `addVisit ic/S9870789B v/29-10-2024 10:00 d/Gastric m/Gaviscon, Paracetamol`
 
-The appointment mechanism is facilitated by CommandHandler. It creates an appointment slot via the Appointment 
-class and recorded within the AppointmentRecord class. The appointment records will then be saved into the FileHandler
+> The Object Diagram before the execution of addVisit command:
+![img.png](ObjectDiagramBeforeAddVisit.png)
+
+ > The Object Diagram after the execution of addVisit command:
+![img.png](ObjectDiagramAfterAddVisit.png)
+
+> The Sequence Diagram for the execution of addVisit command:
+![img.png](AddVisitSequenceDiagram.png)
+
+### b. Adding New Patient to the Patient Records
+
+### c. Appointment Feature
+
+The appointment mechanism is facilitated by `CommandHandler`. It creates an appointment slot via the `Appointment` 
+class and records it within the `AppointmentRecord` class. The appointment records will then be saved into 
+`FileHandler`.
 
 - `CommandHandler.appointment(String input, AppointmentRecord appointmentRecord)` - check the input to check if valid
 - `FileHandler.initFile(AppointmentRecord appointmentRecord)` - loads any saved appointment records
@@ -43,34 +57,31 @@ class and recorded within the AppointmentRecord class. The appointment records w
 - `Appointment(String name, String nric, String date, String time)` - creates appointment with the given name, nric,
 - date and time
 - `FileHandler.autosave(AppointmentRecord appointmentRecord)` - save the appointment records
-  
 
-Doctor starts up the application and executes `appointment n/John Doe ic/S123A date/18-11-2024 time/18:00`
+**Doctor enters the command:** `appointment n/John Doe ic/S123A date/18-11-2024 time/18:00`
 
-Object Diagram portray before execution of application feature:
+> The Object Diagram before the execution of appointment command:
 ![img.png](BeforeExecutionOD.png)
 
-Object Diagram after execution of appointment feature:
+> The Object Diagram after the execution of appointment command:
 ![img.png](AfterExecutionOD.png)
 
-The Sequence Diagram for the execution of the appointment feature:
+> The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)
 
 ## Non-Functional Requirements
-
-1. Should work on any mainstream OS (Windows, Linux, MacOS) as long as it has Java 17 or above installed.
-2. Should be able to hold up for long term use of a single doctor without cleaning of cache.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. Should be able to respond to any commands within 1 seconds under normal load
-5. Automated save of data should happen after every modification of data
+1. Should work on any mainstream OS (Windows, Linux, Unix, MacOS) as long as it has Java 17 or above installed.
+2. Should be capable of supporting long-term use by a single doctor without requiring cache clearance.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) 
+should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should be able to respond to any commands within 1 second under normal load.
+5. Automated saving of data should happen after every modification of data.
 
 ## Glossary
-
 - Mainstream OS: Windows, Linux, Unix, MacOS
-- NRIC: Identification Number
+- NRIC: National Registration Identity Card (Identification Number)
 
 ## Appendix A : Instructions for Manual Testing
-
 Given below are instructions to test the app manually.
 
 <div style="background-color: #E7F3FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A; font-weight: 500;">

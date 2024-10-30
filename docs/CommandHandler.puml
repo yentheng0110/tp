@@ -26,7 +26,6 @@ class Main {}
 class Records {}
 class AppointmentRecord {}
 
-CommandHandler --> CommandHandler: calls >
 CommandHandler --> Appointment : searches and modifies >
 AppointmentRecord "1" o-- "many" Appointment
 Main --> CommandHandler : calls >

@@ -33,5 +33,6 @@ Main --> CommandHandler
 Patient --> Visit
 CommandHandler --> Records
 Records --> Patient
-
+FileHandler --> Records
+FileHandler --> AppointmentRecord
 @enduml
