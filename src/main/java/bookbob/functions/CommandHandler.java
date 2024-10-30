@@ -42,11 +42,13 @@ public class CommandHandler {
                 |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
                 |             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |
                 |             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
                 |             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |
-                |             |                                       | d/Fever,Headache,Flu            |
-                |             |                                       | m/Paracetamol,Ibuprofen         |
+                |             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |
+                |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
