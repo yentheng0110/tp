@@ -55,6 +55,7 @@ public class BookBobTest {
                         "|             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
                         "|             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |\n" +
                         "|             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |\n" +
+                        "|             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |\n" +
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
