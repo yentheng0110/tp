@@ -55,12 +55,13 @@ public class BookBobTest {
                         "|             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |\n" +
                         "|             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |\n" +
                         "|             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |\n" +
-                        "|             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |\n" +
+                        "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
+                        "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |\n" +
                         "|             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |\n" +
-                        "|             |                                       | d/Fever,Headache,Flu            |\n" +
-                        "|             |                                       | m/Paracetamol,Ibuprofen         |\n" +
+                        "|             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |\n" +
+                        "|             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| List        | list                                  | list                            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
