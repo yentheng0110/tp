@@ -101,6 +101,10 @@ dob/02092001 v/21-10-2024 18:00 al/fur s/Male mh/Diabetes`
 > The Sequence Diagram for the execution of addVisit command:
 
 
+
+The Sequence Diagram for the execution of "add" command:
+![img.png](NewPatientSequenceDiagram.png)
+
 ### c. Appointment Feature
 
 The appointment mechanism is facilitated by `CommandHandler`. It creates an appointment slot via the `Appointment` 
