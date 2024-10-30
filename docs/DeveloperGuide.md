@@ -67,6 +67,10 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 
 ### b. Adding New Patient to the Patient Records
 
+
+The Sequence Diagram for the execution of "add" command:
+![img.png](NewPatientSequenceDiagram.png)
+
 ### c. Appointment Feature
 
 The appointment mechanism is facilitated by `CommandHandler`. It creates an appointment slot via the `Appointment` 
