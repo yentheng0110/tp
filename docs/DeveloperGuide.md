@@ -30,6 +30,23 @@ providing reminders of upcoming appointments at the start of each day.
 
 
 ## Design & Implementation
+### Architecture 
+> Sequence Diagram on initialisation of BookBob:
+>![img.png](MainSequenceDiagram.png)
+> The Object Diagram on initialisation of BookBob:
+![img.png](MainObjectDiagram.png)
+
+The _**Architecture Diagram**_ given above explains the high-level design of BookBob. 
+Given below is a quick overview of main components and how they interact with each other. 
+**Main** components of the architecture 
+`Main` is in charge of the launch of BookBob and its shutdown. 
+- At application launch, it initialises other components in the correct sequence and connects them up with each other. 
+- At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
+
+The bulk of the BookBob's work is done by the following components: 
+- `CommandHandler`: The command executor.
+- `FileHandler`: Reads data from, and writes data to, the hard disk.
+
 ### 1. Managing Patient Visits and Records
 ### a. Adding New Visits for Existing Patients
 The addVisit mechanism is handled by `CommandHandler`. It begins by scanning the patient records (`Records`) to locate 
