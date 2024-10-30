@@ -1,7 +1,7 @@
 @startuml
 actor Doctor
 
-Doctor -> ":Main" ++: add n/Patricia Chan ic/S9870789B p/98097890 d/Cough\n m/Antibiotics ha/Bukit Batok East Avenue 3 dob/01111998\n v/21-10-2024 18:00 al/fur s/Female mh/Hypertension
+Doctor -> ":Main" ++: add n/Patricia Chan ic/S9870789B p/98097890 d/Cough\n m/Antibiotics ha/Bukit Batok East Avenue 3 dob/01111998\n v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension
 
 ":Main" -> ":Scanner"**: new Scanner()
 activate ":Scanner"

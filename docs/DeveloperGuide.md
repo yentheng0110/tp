@@ -114,7 +114,7 @@ visit is then added to the patient's `ArrayList<Visit>`. Finally, the new patien
 records (`Records`) which will be saved using `FileHandler` to ensure they can be retrieved later.
 
 **Doctor enters the command:** `add n/Patricia Chan ic/S9870789B p/98097890 d/Cough m/Antibiotics ha/Bukit Batok East Avenue 3 
-dob/01111998 v/21-10-2024 18:00 al/fur s/Female mh/Hypertension`
+dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
 
 > The Object Diagram before the execution of "add" command:
 ![img.png](ObejctDiagramBeforeAddPatient.png)
