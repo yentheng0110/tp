@@ -1,0 +1,45 @@
+@startuml
+actor Doctor
+
+Doctor -> ":Main" ++: initialises the application
+
+":Main" -> ":Scanner"**: new Scanner()
+activate ":Scanner"
+":Main" <-- ":Scanner": in:Scanner
+deactivate ":Scanner"
+
+":Main" -> ":Records"**: new Records()
+activate ":Records"
+":Main" <-- ":Records": records:Records
+deactivate ":Records"
+
+":Main" -> ":AppointmentRecord"**: new AppointmentRecord()
+activate ":AppointmentRecord"
+":Main" <-- ":AppointmentRecord": appointmentRecord:AppointmentRecord
+deactivate ":AppointmentRecord"
+
+":Main" -> ":FileHandler" ++: initFile(records)
+return
+
+":Main" -> ":FileHandler" ++: initFile(appointmentRecord)
+return
+
+":Main" -> ":CommandHandler"**: new CommandHandler()
+activate ":CommandHandler"
+":Main" <-- ":CommandHandler": commandHandler:CommandHandler
+deactivate ":CommandHandler"
+
+":Main" -> ":AppointmentRecord" ++: appointmentNotice()
+return
+
+loop always true
+    ":Main" -> ":Scanner" ++: in.nextLine()
+    deactivate ":Scanner"
+    ":Main" -> ":CommandHandler" ++: handleCommand(input)
+    return
+end
+
+Doctor <-- ":Main": a message with the specific command processed
+deactivate ":Main"
+
+@enduml
