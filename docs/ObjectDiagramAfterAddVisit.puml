@@ -40,5 +40,7 @@ Patient --> Visit1
 Patient --> Visit2
 CommandHandler --> Records
 Records --> Patient
+FileHandler --> Records
+FileHandler --> AppointmentRecord
 
 @enduml

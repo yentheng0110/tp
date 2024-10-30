@@ -2,7 +2,6 @@
 'https://plantuml.com/class-diagram
 
 class AppointmentRecord {
-- appointments : List<Appointment>
 - formatter : DateTimeFormatter = "dd-MM-yyyy"
 + AppointmentRecord()
 + addAppointment(appointment : Appointment)
