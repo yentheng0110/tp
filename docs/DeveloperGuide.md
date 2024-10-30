@@ -31,9 +31,9 @@ providing reminders of upcoming appointments at the start of each day.
 
 # Implementation
 
-[Proposed] Appointment Feature
+Appointment Feature
 
-The proposed appointment mechanism is facilitated by CommandHandler. It creates an appointment slot via the Appointment 
+The appointment mechanism is facilitated by CommandHandler. It creates an appointment slot via the Appointment 
 class and recorded within the AppointmentRecord class. The appointment records will then be saved into the FileHandler
 
 - `CommandHandler.appointment(String input, AppointmentRecord appointmentRecord)` - check the input to check if valid
