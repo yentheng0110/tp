@@ -8,7 +8,24 @@ object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
 object "<u> :FileHandler</u>" as FileHandler
 object "<u> commandHandler:CommandHandler</u>" as CommandHandler
 
-object "<u> newVisit:Visit</u>" as Visit {
+object "<u> targetPatient:Patient</u>" as Patient {
+name = Patricia Chan
+nric = S9870789B
+sex = Female
+dateOfBirth = 01111998
+phoneNumber = 98097890
+homeAddress = Bukit Batok East Avenue 3
+allergies = [Peanuts]
+medicalHistories = [Hypertension, Breast Cancer]
+}
+
+object "<u> existingVisit:Visit</u>" as Visit1 {
+visitDate = 22-10-2024 18:00
+diagnoses = [Asthma, Cough]
+medications = [Panadol, Antibiotics]
+}
+
+object "<u> newVisit:Visit</u>" as Visit2 {
 visitDate = 29-10-2024 10:00
 diagnoses = [Gastric]
 medications = [Gaviscon, Paracetamol]
@@ -19,8 +36,9 @@ Main --> Records
 Main --> AppointmentRecord
 Main --> FileHandler
 Main --> CommandHandler
-CommandHandler --> FileHandler
+Patient --> Visit1
+Patient --> Visit2
 CommandHandler --> Records
-CommandHandler --> Visit
+Records --> Patient
 
 @enduml
