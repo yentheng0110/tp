@@ -2,10 +2,19 @@
 'https://plantuml.com/class-diagram
 
 class Records {
--patients: ArrayList<Patient>
 +Records()
 +addPatient(patient: Patient): void
 +getPatients(): ArrayList<Patient>
 }
+
+class Patient {}
+class Main {}
+class Records {}
+class CommandHandler {}
+
+Main --> CommandHandler : calls >
+CommandHandler --> Patient : searches and modifies >
+Records "1" o-- "many" Patient
+
 
 @enduml

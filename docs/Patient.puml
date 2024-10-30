@@ -35,4 +35,17 @@ allergies: ArrayList<String> , sex: String, medicalHistories: ArrayList<String>,
 +toString(): String
 }
 
+class Patient {}
+class Visit {}
+class Main {}
+class Records {}
+class CommandHandler {}
+
+Main --> CommandHandler : calls >
+Main --> FindVisit : calls >
+CommandHandler --> Patient : searches and modifies >
+FindVisit --> Visit : searches >
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
+
 @enduml

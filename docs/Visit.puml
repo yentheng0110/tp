@@ -7,7 +7,7 @@ class Visit {
 -medications: ArrayList<String>
 +Visit (visitDate: LocalDateTime)
 +Visit (visitDate: LocalDateTime, diagnoses: ArrayList<String>, medications: ArrayList<String>);
-+getDiagnoses( ): ArrayList<String>
++getDiagnoses(): ArrayList<String>
 +setDiagnoses(diagnoses: ArrayList<String>): void
 +getMedications(): ArrayList<String>
 +setMedications(medications: ArrayList<String>): void
@@ -15,5 +15,19 @@ class Visit {
 +setVisitDate((visitDate: LocalDateTime): void
 +toString(): String
 }
+
+class Patient {}
+class Visit {}
+class Main {}
+class Records {}
+class CommandHandler {}
+
+
+Main --> CommandHandler : calls >
+Main --> FindVisit : calls >
+CommandHandler --> Patient : searches and modifies >
+FindVisit --> Visit : searches >
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
 
 @enduml
