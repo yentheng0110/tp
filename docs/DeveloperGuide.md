@@ -18,12 +18,35 @@ providing reminders of upcoming appointments at the start of each day.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a...  | I want to...                                                          | So that I can...                                                    |
+|---------|----------|-----------------------------------------------------------------------|---------------------------------------------------------------------|
+| v1.0    | new user | see usage instructions for BookBob                                    | quickly understand how to use the app                               |
+| v1.0    | new user | input a complex patient case                                          | test BookBob's capabilities thoroughly                              |
+| v1.0    | user     | quickly search for a patient record                                   | retrieve information efficiently during consultations               |
+| v1.0    | user     | delete case patient information                                       | retain patient information which I am still actively taking care of |
+| v1.0    | user     | set up automatic backups of my patient data                           | never lose important information due to technical issues            |
+| v2.0    | user     | view my daily appointments at a glance                                | prepare for my day efficiently                                      |
+| v2.0    | user     | easily refer to and update a patient's care plan over multiple visits | ensure consistent, long-term care                                   | |                                                                     |
+
 
 ## Design & Implementation
+### Architecture 
+> Sequence Diagram on initialisation of BookBob:
+>![img.png](MainSequenceDiagram.png)
+> The Object Diagram on initialisation of BookBob:
+![img.png](MainObjectDiagram.png)
+
+The _**Architecture Diagram**_ given above explains the high-level design of BookBob. 
+Given below is a quick overview of main components and how they interact with each other. 
+**Main** components of the architecture 
+`Main` is in charge of the launch of BookBob and its shutdown. 
+- At application launch, it initialises other components in the correct sequence and connects them up with each other. 
+- At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
+
+The bulk of the BookBob's work is done by the following components: 
+- `CommandHandler`: The command executor.
+- `FileHandler`: Reads data from, and writes data to, the hard disk.
+
 ### 1. Managing Patient Visits and Records
 ### a. Adding New Visits for Existing Patients
 The addVisit mechanism is handled by `CommandHandler`. It begins by scanning the patient records (`Records`) to locate 
