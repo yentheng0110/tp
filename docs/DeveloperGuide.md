@@ -39,13 +39,31 @@ providing reminders of upcoming appointments at the start of each day.
 The _**Architecture Diagram**_ given above explains the high-level design of BookBob. 
 Given below is a quick overview of main components and how they interact with each other. 
 **Main** components of the architecture 
-`Main` is in charge of the launch of BookBob and its shutdown. 
+`Main` is in charge of the launch of BookBob and its shutdown.
+![img.png](Main.png)
 - At application launch, it initialises other components in the correct sequence and connects them up with each other. 
 - At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
 
 The bulk of the BookBob's work is done by the following components: 
 - `CommandHandler`: The command executor.
+  ![img.png](CommandHandler.png)
 - `FileHandler`: Reads data from, and writes data to, the hard disk.
+  ![img.png](FileHandler.png)
+- `FindVisit`: The command executor handling visits related work.
+  ![img.png](FindVisit.png)
+
+The entities storing data are the following components:
+- `Records`: The list of patients.
+  ![img.png](Records.png)
+- `AppointmentRecord`: The list of appointments.
+  ![img.png](AppointmentRecord.png)
+- `Appointment` : Information of appointment.
+  ![img.png](Appointment.png)
+- `Visit`: The visit of patients.
+  ![img.png](Visit.png)
+- `Patient`: Personal information of patient.
+  ![img.png](Patient.png)
+
 
 ### 1. Managing Patient Visits and Records
 ### a. Adding New Visits for Existing Patients
@@ -66,6 +84,22 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 ![img.png](AddVisitSequenceDiagram.png)
 
 ### b. Adding New Patient to the Patient Records
+The addVisit mechanism is handled by `CommandHandler`. It begins by creating a new `Patient` obejct to store all related
+information from terminal input. A new `Visit` object is compulsory to be created with the `Patient` object. This new 
+visit is then added to the patient's `ArrayList<Visit>`. Finally, the new patient will be stored into the patient 
+records (`Records`) which will be saved using `FileHandler` to ensure they can be retrieved later.
+
+**Doctor enters the command:** `add n/Patricia Chan ic/S8971129B p/93809923 p/91234567 d/Cough m/Antibiotics ha/PGPR 
+dob/02092001 v/21-10-2024 18:00 al/fur s/Male mh/Diabetes`
+
+> The Object Diagram before the execution of addVisit command:
+![img.png](ObejctDiagramBeforeAddPatient.png)
+
+> The Object Diagram after the execution of addVisit command:
+![img.png](ObjectDiagramAfterAddPatient.png)
+
+> The Sequence Diagram for the execution of addVisit command:
+
 
 ### c. Appointment Feature
 
