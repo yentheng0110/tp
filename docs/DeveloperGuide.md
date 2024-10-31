@@ -1,5 +1,29 @@
 # BookBob Developer Guide
 
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+3. [User Stories](#user-stories)
+4. [Design & Implementation](#design--implementation)
+    - [Architecture](#architecture)
+    - [Managing Patient Visits and Records](#1-managing-patient-visits-and-records)
+        - [Adding New Visits for Existing Patients](#a-adding-new-visits-for-existing-patients)
+        - [Adding New Patient to the Patient Records](#b-adding-new-patient-to-the-patient-records)
+        - [Appointment Feature](#c-appointment-feature)
+5. [Non-Functional Requirements](#non-functional-requirements)
+6. [Glossary](#glossary)
+7. [Appendix A: Instructions for Manual Testing](#appendix-a--instructions-for-manual-testing)
+    - [Command Summary Reference](#command-summary-reference)
+    - [Launch and Shutdown](#launch-and-shutdown)
+        - [Initial Launch](#initial-launch)
+        - [Shutdown](#shutdown)
+    - [Patient Record Management](#patient-record-management)
+    - [Visit Management](#visit-management)
+    - [Appointment Management](#appointment-management)
+    - [Data Persistence (Saving and Loading)](#data-persistence-saving-and-loading)
+
 ## Acknowledgements
 
 Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
@@ -84,25 +108,21 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 ![img.png](AddVisitSequenceDiagram.png)
 
 ### b. Adding New Patient to the Patient Records
-The addVisit mechanism is handled by `CommandHandler`. It begins by creating a new `Patient` obejct to store all related
+The "add" command mechanism for New Patients(first visit to clinic) is handled by `CommandHandler`. It begins by creating a new `Patient` object to store all related
 information from terminal input. A new `Visit` object is compulsory to be created with the `Patient` object. This new 
 visit is then added to the patient's `ArrayList<Visit>`. Finally, the new patient will be stored into the patient 
 records (`Records`) which will be saved using `FileHandler` to ensure they can be retrieved later.
 
-**Doctor enters the command:** `add n/Patricia Chan ic/S8971129B p/93809923 p/91234567 d/Cough m/Antibiotics ha/PGPR 
-dob/02092001 v/21-10-2024 18:00 al/fur s/Male mh/Diabetes`
+**Doctor enters the command:** `add n/Patricia Chan ic/S9870789B p/98097890 d/Cough m/Antibiotics ha/Bukit Batok East Avenue 3 
+dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
 
-> The Object Diagram before the execution of addVisit command:
+> The Object Diagram before the execution of "add" command:
 ![img.png](ObejctDiagramBeforeAddPatient.png)
 
-> The Object Diagram after the execution of addVisit command:
+> The Object Diagram after the execution of "add" command:
 ![img.png](ObjectDiagramAfterAddPatient.png)
 
-> The Sequence Diagram for the execution of addVisit command:
-
-
-
-The Sequence Diagram for the execution of "add" command:
+> The Sequence Diagram for the execution of "add" command:
 ![img.png](NewPatientSequenceDiagram.png)
 
 ### c. Appointment Feature

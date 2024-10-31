@@ -1,7 +1,7 @@
 @startuml
 actor Doctor
 
-Doctor -> ":Main" ++: add n/James Ho ic/S9534567A p/91234567 d/Asthma\n m/Albuterol ha/NUS-PGPR dob/01011990\n v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes
+Doctor -> ":Main" ++: add n/Patricia Chan ic/S9870789B p/98097890 d/Cough\n m/Antibiotics ha/Bukit Batok East Avenue 3 dob/01111998\n v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension
 
 ":Main" -> ":Scanner"**: new Scanner()
 activate ":Scanner"
