@@ -215,7 +215,7 @@ Given below are instructions to test the app manually.
 
 ### Shutdown
 1. Enter `exit` to exit BookBob. 
-2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
+2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the BookBob.jar file.
 
 3. Exit application
     1. Test Case: `exit` <br>
@@ -312,7 +312,7 @@ Given below are instructions to test the app manually.
 1. Automatic Storage
     1. Test case: Add/edit/delete records, then restart application
         - Expected: All changes are preserved after restart
-        - Note: Data is automatically saved to `bookbob_data.txt` in the `data` folder (same directory as Bookbob.jar)
+        - Note: Data is automatically saved to `bookbob_data.txt` in the `data` folder (same directory as BookBob.jar)
 
 2. File Management
     1. Test case: Manually View saved data
