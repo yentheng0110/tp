@@ -117,7 +117,7 @@ records (`Records`) which will be saved using `FileHandler` to ensure they can b
 dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
 
 > The Object Diagram before the execution of "add" command:
-![img.png](ObejctDiagramBeforeAddPatient.png)
+![img.png](ObjectDiagramBeforeAddPatient.png)
 
 > The Object Diagram after the execution of "add" command:
 ![img.png](ObjectDiagramAfterAddPatient.png)
