@@ -1,4 +1,6 @@
 @startuml
+'https://plantuml.com/sequence-diagram
+
 actor Doctor
 
 participant ":CommandHandler"
