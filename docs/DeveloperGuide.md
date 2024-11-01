@@ -122,8 +122,28 @@ dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
 > The Object Diagram after the execution of "add" command:
 ![img.png](ObjectDiagramAfterAddPatient.png)
 
-> The Sequence Diagram for the execution of "add" command:
-![img.png](NewPatientSequenceDiagram.png)
+> The Sequence Diagram(s) for the execution of "add" command:
+
+There are two parts to the sequence diagrams; Part(1) shows the process for System Initialization and Input Processing, and Part(2)
+shows the Patient Creation and Data Storage processes. 
+
+Part(1) System Initialization and Input Processing :
+![img.png](NewPatientSequenceDiagram_1.png)
+This sequence diagram illustrates the initial phase of adding a new patient to the BookBob.
+When the Doctor inputs the "add" command with patient details, the system workflow begins :
+1. Initializes necessary components (Scanner, Records, FileHandler, CommandHandler).
+2. Processes the input command.
+3. Performs validation checks for required fields (Name, NRIC, Visit Date).
+4. Either returns an error message if validation fails, or proceeds to patient creation.
+
+Part (2) Patient Creation and Data Storage :
+![img.png](NewPatientSequenceDiagram_2.png)
+This sequence diagram shows the process of creating and storing a new patient's record after successful validation. The system workflow :
+1. Creating necessary data structures (ArrayLists for diagnoses, medications, visits).
+2. Constructing a new Visit object with the provided data.
+3. Creating a new Patient object (with core information i.e. name, NRIC).
+4. Setting additional patient attributes (phone number, home address, DOB, allergies, medical histories).
+5. Storing the patient record and auto-saves the data.
 
 ### c. Appointment Feature
 

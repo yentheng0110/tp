@@ -1,0 +1,54 @@
+@startuml
+actor Doctor
+
+participant ":CommandHandler"
+participant ":Records"
+participant ":FileHandler" as FileHandler <<class>>
+
+create "diagnoses:ArrayList<String>"
+":CommandHandler" -> "diagnoses:ArrayList<String>"**: new ArrayList<>()
+
+create "medications:ArrayList<String>"
+":CommandHandler" -> "medications:ArrayList<String>"**: new ArrayList<>()
+
+":CommandHandler" -> ":Visit"**: new Visit(visitDate, diagnoses, medications)
+activate ":Visit"
+":CommandHandler" <-- ":Visit": visit:Visit
+deactivate ":Visit"
+
+create "visits:ArrayList<Visit>"
+":CommandHandler" -> "visits:ArrayList<Visit>"**: new ArrayList<>()
+activate "visits:ArrayList<Visit>"
+"visits:ArrayList<Visit>" -> "visits:ArrayList<Visit>" ++: add(visit)
+return true
+deactivate "visits:ArrayList<Visit>"
+
+participant "patient:Patient"
+
+":CommandHandler" -> ":Patient"**: new Patient(name, nric, visits)
+activate ":Patient"
+":CommandHandler" <-- ":Patient": patient:Patient
+deactivate ":Patient"
+
+":CommandHandler" -> "patient:Patient" ++: setPhoneNumber(phoneNumber)
+return
+":CommandHandler" -> "patient:Patient" ++: setHomeAddress(homeAddress)
+return
+":CommandHandler" -> "patient:Patient" ++: setDateOfBirth(dateOfBirth)
+return
+":CommandHandler" -> "patient:Patient" ++: setAllergies(allergies)
+return
+":CommandHandler" -> "patient:Patient" ++: setSex(sex)
+return
+":CommandHandler" -> "patient:Patient" ++: setMedicalHistories(medicalHistories)
+return
+
+":CommandHandler" -> ":Records" ++: addPatient(patient)
+return
+
+":CommandHandler" -> FileHandler ++: autosave(records)
+return
+
+Doctor <-- ":CommandHandler": Patient details added successfully
+
+@enduml
