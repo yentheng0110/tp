@@ -21,6 +21,9 @@ class CommandHandler {
 +findAppointment(input: String, appointmentRecord: AppointmentRecord): void
 +deleteAppointment(appointmentRecord: AppointmentRecord): void
 -findNextFieldStart(input: String, currentIndex: int): int
++findVisitByIc(input: String, records: Records)
++findVisitByDiagnosis(input: String, records: Records)
++findVisitByMedication(input: String, records: Records)
 }
 
 class Patient {
@@ -43,7 +46,6 @@ AppointmentRecord "1" o-- "many" Appointment
 Main --> CommandHandler : calls >
 Main --> FindVisit : calls >
 CommandHandler --> Patient : searches and modifies >
-FindVisit --> Visit : searches >
 Records "1" o-- "many" Patient
 Patient "1" o-- "many" Visit
 

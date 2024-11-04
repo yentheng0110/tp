@@ -48,8 +48,6 @@ The bulk of the BookBob's work is done by the following components:
   ![img.png](CommandHandler.png)
 - `FileHandler`: Reads data from, and writes data to, the hard disk.
   ![img.png](FileHandler.png)
-- `FindVisit`: The command executor handling visits related work.
-  ![img.png](FindVisit.png)
 
 The entities storing data are the following components:
 - `Records`: The list of patients.
