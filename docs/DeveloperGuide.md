@@ -29,7 +29,7 @@ Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressboo
 
 
 ## Design & Implementation
-### Architecture 
+### Architecture
 > Sequence Diagram on initialisation of BookBob:
 >![img.png](MainSequenceDiagram.png)
 > The Object Diagram on initialisation of BookBob:
@@ -187,7 +187,7 @@ Given below are instructions to test the app manually.
 ⚠️ <b>Note :</b> These instructions only provide a starting point for testers to work on; testers are expected to do more <i>exploratory</i> testing.
 </div>
 
-### Command Summary Reference :
+### Command Summary Reference
 
 | Action | Format | Example |
 |---|---|---|
