@@ -45,10 +45,23 @@ public class CommandHandler {
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
+                | Edit        | edit ic/NRIC /to [n/NAME]             | edit ic/S9534567A /to p/80976890|
+                |             | [newic/NEW_NRIC]  [p/PHONE_NUMBER]    | mh/Diabetes, Hypertension       |
+                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] |                                 |
+                |             | [al/ALLERGY] [s/SEX]                  |                                 |
+                |             | [mh/MEDICALHISTORY]                   |                                 |
+                +-------------+---------------------------------------+---------------------------------+
                 | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
                 |             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |
                 |             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |
                 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
+                +-------------+---------------------------------------+---------------------------------+
+                | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
+                |             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
+                |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
+                |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
