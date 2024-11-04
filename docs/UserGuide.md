@@ -148,6 +148,8 @@ and optional fields with a different order as the format above.
 
 The examples above result in successful patient record additions, which are then saved automatically.
 
+---
+
 ## Listing All Patient Records
 Lists all patient records saved. <br>
 Format: `list`
@@ -163,6 +165,8 @@ Visit Date: 04-11-2024 09:00, Diagnosis: [], Medications: []
 Name: Jacky Cheung, NRIC: S7209876Y, Phone: 98765789, Home Address: Farrer Road, DOB: , Allergies: [], Sex: , Medical Histories: []
 Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 ```
+
+---
 
 ## Finding a Patient Record
 🚨 **NOTE :** this "find" command is to search for standard patient information and details. <br>
@@ -247,6 +251,8 @@ Additional examples:
 
 The examples above result in successful patient record updates, which are automatically saved.
 
+---
+
 ## Adding a Visit Record
 Adds a new visit record for an existing patient.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
@@ -298,6 +304,8 @@ Additional examples:
 patient with optional fields in a different order than the format shown above.
 
 The examples above result in successful visit record updates, which are automatically saved.
+
+---
 
 ## Adding a Patient Appointment
 Adds an appointment for a patient on the date and time\
