@@ -1,0 +1,98 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Doctor
+
+Doctor -> ":Main" ++: add n/Patricia Chan ic/S9870789B p/98097890 d/Cough\n m/Antibiotics ha/Bukit Batok East Avenue 3 dob/01111998\n v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension
+
+":Main" -> ":Scanner"**: new Scanner()
+activate ":Scanner"
+":Main" <-- ":Scanner": in:Scanner
+deactivate ":Scanner"
+
+":Main" -> ":Records"**: new Records()
+activate ":Records"
+":Main" <-- ":Records": records:Records
+deactivate ":Records"
+
+participant ":FileHandler" as FileHandler <<class>>
+
+":Main" -> FileHandler ++: initFile(records)
+return
+
+":Main" -> ":CommandHandler"**: new CommandHandler()
+activate ":CommandHandler"
+":Main" <-- ":CommandHandler": commandHandler:CommandHandler
+deactivate ":CommandHandler"
+
+":Main" -> ":Scanner" ++: nextLine()
+return input
+
+":Main" -> ":CommandHandler" ++: add(input, records)
+
+":CommandHandler" -> ":CommandHandler" ++: findNextFieldStart(...)
+return the endindex of next prefix
+
+":CommandHandler" -> ":Records" ++: getPatients()
+":CommandHandler" <-- ":Records": ArrayList<Patient>
+deactivate ":Records"
+
+alt Missing Name
+    ":CommandHandler" --> ":Main": "Please provide the patient's name"
+else Missing NRIC
+    ":CommandHandler" --> ":Main": "Please provide the patient's NRIC"
+else Missing Visit Date
+    ":CommandHandler" --> ":Main": "Please provide a date for the patient's visit"
+else Valid Input
+    create "diagnoses:ArrayList<String>"
+    ":CommandHandler" -> "diagnoses:ArrayList<String>"**: new ArrayList<>()
+
+    create "medications:ArrayList<String>"
+    ":CommandHandler" -> "medications:ArrayList<String>"**: new ArrayList<>()
+
+    ":CommandHandler" -> ":Visit"**: new Visit(visitDate, diagnoses, medications)
+    activate ":Visit"
+    ":CommandHandler" <-- ":Visit": visit:Visit
+    deactivate ":Visit"
+
+    create "visits:ArrayList<Visit>"
+    ":CommandHandler" -> "visits:ArrayList<Visit>"**: new ArrayList<>()
+    activate "visits:ArrayList<Visit>"
+    "visits:ArrayList<Visit>" -> "visits:ArrayList<Visit>" ++: add(visit)
+    return true
+    deactivate "visits:ArrayList<Visit>"
+
+    participant "patient:Patient"
+
+    ":CommandHandler" -> ":Patient"**: new Patient(name, nric, visits)
+    activate ":Patient"
+    ":CommandHandler" <-- ":Patient": patient:Patient
+    deactivate ":Patient"
+
+    ":CommandHandler" -> "patient:Patient" ++: setPhoneNumber(phoneNumber)
+    return
+    ":CommandHandler" -> "patient:Patient" ++: setHomeAddress(homeAddress)
+    return
+    ":CommandHandler" -> "patient:Patient" ++: setDateOfBirth(dateOfBirth)
+    return
+    ":CommandHandler" -> "patient:Patient" ++: setAllergies(allergies)
+    return
+    ":CommandHandler" -> "patient:Patient" ++: setSex(sex)
+    return
+    ":CommandHandler" -> "patient:Patient" ++: setMedicalHistories(medicalHistories)
+    return
+
+    ":CommandHandler" -> ":Records" ++: addPatient(patient)
+    return
+
+    ":CommandHandler" -> FileHandler ++: autosave(records)
+    return
+end
+
+":Main" <-- ":CommandHandler"
+deactivate ":CommandHandler"
+
+Doctor <-- ":Main": a message with the patient details added
+deactivate ":Main"
+
+@enduml

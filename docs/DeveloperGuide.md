@@ -1,5 +1,29 @@
 # BookBob Developer Guide
 
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+3. [User Stories](#user-stories)
+4. [Design & Implementation](#design--implementation)
+    - [Architecture](#architecture)
+    - [Managing Patient Visits and Records](#1-managing-patient-visits-and-records)
+        - [Adding New Visits for Existing Patients](#a-adding-new-visits-for-existing-patients)
+        - [Adding New Patient to the Patient Records](#b-adding-new-patient-to-the-patient-records)
+        - [Appointment Feature](#c-appointment-feature)
+5. [Non-Functional Requirements](#non-functional-requirements)
+6. [Glossary](#glossary)
+7. [Appendix A: Instructions for Manual Testing](#appendix-a--instructions-for-manual-testing)
+    - [Command Summary Reference](#command-summary-reference)
+    - [Launch and Shutdown](#launch-and-shutdown)
+        - [Initial Launch](#initial-launch)
+        - [Shutdown](#shutdown)
+    - [Patient Record Management](#patient-record-management)
+    - [Visit Management](#visit-management)
+    - [Appointment Management](#appointment-management)
+    - [Data Persistence (Saving and Loading)](#data-persistence-saving-and-loading)
+
 ## Acknowledgements
 
 Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
@@ -82,22 +106,42 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 ![img.png](AddVisitSequenceDiagram.png)
 
 ### b. Adding New Patient to the Patient Records
-The addVisit mechanism is handled by `CommandHandler`. It begins by creating a new `Patient` obejct to store all related
+The "add" command mechanism for New Patients(first visit to clinic) is handled by `CommandHandler`. It begins by creating a new `Patient` object to store all related
 information from terminal input. A new `Visit` object is compulsory to be created with the `Patient` object. This new 
 visit is then added to the patient's `ArrayList<Visit>`. Finally, the new patient will be stored into the patient 
 records (`Records`) which will be saved using `FileHandler` to ensure they can be retrieved later.
 
-**Doctor enters the command:** `add n/Patricia Chan ic/S8971129B p/93809923 p/91234567 d/Cough m/Antibiotics ha/PGPR 
-dob/02092001 v/21-10-2024 18:00 al/fur s/Male mh/Diabetes`
+**Doctor enters the command:** `add n/Patricia Chan ic/S9870789B p/98097890 d/Cough m/Antibiotics ha/Bukit Batok East Avenue 3 
+dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
 
-> The Object Diagram before the execution of addVisit command:
-![img.png](ObejctDiagramBeforeAddPatient.png)
+> The Object Diagram before the execution of "add" command:
+![img.png](ObjectDiagramBeforeAddPatient.png)
 
-> The Object Diagram after the execution of addVisit command:
+> The Object Diagram after the execution of "add" command:
 ![img.png](ObjectDiagramAfterAddPatient.png)
 
-> The Sequence Diagram for the execution of addVisit command:
+> The Sequence Diagram(s) for the execution of "add" command:
 
+There are two parts to the sequence diagrams; Part(1) shows the process for System Initialization and Input Processing, and Part(2)
+shows the Patient Creation and Data Storage processes. 
+
+Part(1) System Initialization and Input Processing :
+![img.png](NewPatientSequenceDiagram_1.png)
+This sequence diagram illustrates the initial phase of adding a new patient to the BookBob.
+When the Doctor inputs the "add" command with patient details, the system workflow begins :
+1. Initializes necessary components (Scanner, Records, FileHandler, CommandHandler).
+2. Processes the input command.
+3. Performs validation checks for required fields (Name, NRIC, Visit Date).
+4. Either returns an error message if validation fails, or proceeds to patient creation.
+
+Part (2) Patient Creation and Data Storage :
+![img.png](NewPatientSequenceDiagram_2.png)
+This sequence diagram shows the process of creating and storing a new patient's record after successful validation. The system workflow :
+1. Creating necessary data structures (ArrayLists for diagnoses, medications, visits).
+2. Constructing a new Visit object with the provided data.
+3. Creating a new Patient object (with core information i.e. name, NRIC).
+4. Setting additional patient attributes (phone number, home address, DOB, allergies, medical histories).
+5. Storing the patient record and auto-saves the data.
 
 ### c. Appointment Feature
 
@@ -189,7 +233,7 @@ Given below are instructions to test the app manually.
 
 ### Shutdown
 1. Enter `exit` to exit BookBob. 
-2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
+2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the BookBob.jar file.
 
 3. Exit application
     1. Test Case: `exit` <br>
@@ -286,7 +330,7 @@ Given below are instructions to test the app manually.
 1. Automatic Storage
     1. Test case: Add/edit/delete records, then restart application
         - Expected: All changes are preserved after restart
-        - Note: Data is automatically saved to `bookbob_data.txt` in the `data` folder (same directory as Bookbob.jar)
+        - Note: Data is automatically saved to `bookbob_data.txt` in the `data` folder (same directory as BookBob.jar)
 
 2. File Management
     1. Test case: Manually View saved data
