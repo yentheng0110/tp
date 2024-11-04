@@ -248,7 +248,7 @@ public class FileHandler {
         return list;
     }*/
 
-    //@@author kaboomzxc
+    //@@author yentheng0110 and kaboomzxc
     private static ArrayList<String> parseList(String input) {
         ArrayList<String> list = new ArrayList<>();
         // Remove any number of surrounding brackets
