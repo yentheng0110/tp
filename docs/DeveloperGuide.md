@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # BookBob Developer Guide
 
 ## Table of Contents
