@@ -3,6 +3,9 @@
 
 interface Comparable
 
+skinparam classAttributeIconSize 0
+hide circle
+
 Comparable <|... Appointment
 
 class "Appointment" as Appointment {
