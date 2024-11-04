@@ -47,8 +47,8 @@ The following output would be shown :
 ` Welcome to BookBob, Dr. Bob!`
 
 ---
-## Features 
-## Viewing Help 
+## Features
+## Viewing Help
 Shows the available list of commands and some guiding information.
 
 Format: `help`
