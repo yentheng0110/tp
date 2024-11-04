@@ -44,21 +44,32 @@ Given below is a quick overview of main components and how they interact with ea
 - At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
 
 The bulk of the BookBob's work is done by the following components: 
-- `CommandHandler`: The command executor.
+- `CommandHandler`: The command executor.<br>
   ![img.png](CommandHandler.png)
-- `FileHandler`: Reads data from, and writes data to, the hard disk.
+
+ ---
+- `FileHandler`: Reads data from, and writes data to, the hard disk.<br>
   ![img.png](FileHandler.png)
 
-The entities storing data are the following components:
-- `Records`: The list of patients.
+ ---
+The entities storing data are the following components: <br>
+- `Records`: The list of patients. <br>
   ![img.png](Records.png)
-- `AppointmentRecord`: The list of appointments.
+
+ ---
+- `AppointmentRecord`: The list of appointments. <br>
   ![img.png](AppointmentRecord.png)
-- `Appointment` : Information of appointment.
+
+ ---
+- `Appointment` : Information of appointment. <br>
   ![img.png](Appointment.png)
-- `Visit`: The visit of patients.
+
+ ---
+- `Visit`: The visit of patients. <br>
   ![img.png](Visit.png)
-- `Patient`: Personal information of patient.
+
+ ---
+- `Patient`: Personal information of patient. <br>
   ![img.png](Patient.png)
 
 
