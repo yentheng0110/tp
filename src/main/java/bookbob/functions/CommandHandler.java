@@ -437,6 +437,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
+    //@@author yentheng0110
     public void editVisit(String input, Records records) throws IOException {
         // Extract NRIC from input command
         int nricStart = input.indexOf("ic/");
