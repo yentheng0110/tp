@@ -4,7 +4,6 @@ import bookbob.entity.Records;
 import bookbob.entity.AppointmentRecord;
 import bookbob.functions.CommandHandler;
 import bookbob.functions.FileHandler;
-import bookbob.functions.FindVisit;
 
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -255,7 +254,7 @@ public class Main {
             case "findVisit":
                 logger.log(Level.INFO, "Processing find visit command");
                 try {
-                    FindVisit.findVisitByIc(inputArr[1], records);
+                    commandHandler.findVisitByIc(inputArr[1], records);
                     logger.log(Level.INFO, "Successfully processed find visit command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing find visit command", e);
@@ -265,7 +264,7 @@ public class Main {
             case "findMedication":
                 logger.log(Level.INFO, "Processing find medication command");
                 try {
-                    FindVisit.findVisitByMedication(inputArr[1], records);
+                    commandHandler.findVisitByMedication(inputArr[1], records);
                     logger.log(Level.INFO, "Successfully processed find medication command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing find medication command", e);
@@ -276,7 +275,7 @@ public class Main {
             case "findDiagnosis":
                 logger.log(Level.INFO, "Processing find diagnosis command");
                 try {
-                    FindVisit.findVisitByDiagnosis(inputArr[1], records);
+                    commandHandler.findVisitByDiagnosis(inputArr[1], records);
                     logger.log(Level.INFO, "Successfully processed find diagnosis command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing find diagnosis command", e);
