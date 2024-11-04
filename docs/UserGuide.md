@@ -2,8 +2,9 @@
 layout: default
 ---
 
-# User Guide
+# BookBob User Guide
 
+---
 ## Introduction
 BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. It facilitates the storage 
 and retrieval of patient information, including names, NRICs, genders, dates of birth, phone numbers, home addresses, 
@@ -11,6 +12,7 @@ allergies, medical histories and visit records with details on diagnoses and pre
 Dr Bob stay organised by tracking daily appointments and providing reminders each morning. Optimised for a Command Line 
 Interface (CLI), BookBob allows for efficient management of patient information and appointments.
 
+---
 ## Table of Contents
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -33,6 +35,7 @@ Interface (CLI), BookBob allows for efficient management of patient information 
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
+---
 ## Quick Start
 
 {Give steps to get started quickly}
@@ -44,8 +47,8 @@ Interface (CLI), BookBob allows for efficient management of patient information 
 The following output would be shown : 
 ` Welcome to BookBob, Dr. Bob!`
 
-
-## Features
+---
+# Features
 ## Viewing Help
 Shows the available list of commands and some guiding information.
 
@@ -124,6 +127,8 @@ Format: `help`
 
 ```
 
+---
+
 ## Adding a Patient Record
 Adds a new patient record to BookBob. <br>
 Format: add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY] <br>
@@ -169,8 +174,10 @@ Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 ---
 
 ## Finding a Patient Record
-🚨 **NOTE :** this "find" command is to search for standard patient information and details. <br>
-BookBob has dedicated commands namely findAppointment,findVisit, findMedication, findDiagnosis, which you can read about in the next sections below. <br>
+<div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
+🚨 <b>Note:</b> this "find" command is to search for standard patient information and details.<br><br>
+BookBob has dedicated commands namely findAppointment, findVisit, findMedication, findDiagnosis, which you can read about in the next sections below.
+</div>
 
 "find" Searches for patient records based on search parameters such as name, NRIC, phone number, home address, date of birth, allergies, sex, or medical history.<br>
 Format: find Prefix/Value where Prefix can be:
@@ -207,6 +214,7 @@ Note : <br>
 * "find" is case-insensitive, searching with either capital or non-capital letters is allowed and will work.
 * Multiple search parameters are allowed, and parameters entered in the input can be of any order.
 
+---
 ## Deleting a Patient Record
 Deletes the patient record based on the given NRIC number\
 The delete function will only work on the NRIC number and not the patient's name\
@@ -225,6 +233,8 @@ Example Output:
 
 Please provide the NRIC of the patient, not the name.
 ```
+
+---
 
 ## Editing a Patient Record
 Edits a current patient record saved in BookBob. <br>
@@ -273,11 +283,13 @@ Additional examples:
 * `addVisit ic/S9534567A v/22-10-2024 09:30 d/Cough m/Cough Syrup` - Adds a visit with single diagnosis and medication
 * `addVisit ic/S9534567A v/23-10-2024 14:00` - Adds a visit without diagnosis or medication
 
-Note : <br>
+    Note : <br>
 • The NRIC must belong to an existing patient in the system <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
 Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
+
+---
 
 ## Editing a Visit Record
 Edits a current visit record of a patient saved in BookBob. <br>
@@ -326,6 +338,7 @@ Example Output:
 
 There is already an appointment at the given timeslot. The next available timeslot is: 18:30
 ```
+---
 ## Deleting a Patient Appointment
 Delete an appointment for a patient on the date and time\
 Format: appointment ic/NRIC date/DATE time/TIME\
@@ -337,6 +350,8 @@ Example Output:
 
 Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been deleted.
 ```
+
+---
 ## List all Patient Appointments
 List all the appointments on the schedule\
 Format: listAppointments
@@ -349,6 +364,7 @@ Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
 Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
 ```
 
+---
 ## Finding a Patient Appointment
 Find an appointment with a patient based on the given name, nric, date or time\
 Format:
@@ -390,11 +406,13 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 
 ```
 
+---
 ## Exiting the Program
 Exits the program.
 
 Format: `exit`
 
+---
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -402,6 +420,8 @@ Format: `exit`
 **A**: Install the app on the other computer and overwrite the empty data file it generates with the data file from your
 previous BookBob home folder.
 
+
+---
 ## Command Summary
 
 | Action             | Format                                                                                                                                                                                                                                                   | Example                                                                                                                                                                                                    |

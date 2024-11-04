@@ -4,6 +4,7 @@ layout: default
 
 # BookBob Developer Guide
 
+ ---
 ## Table of Contents
 1. [Design & Implementation](#design--implementation)
     - [Architecture](#architecture)
@@ -27,10 +28,13 @@ layout: default
     - [Appointment Management](#appointment-management)
     - [Data Persistence (Saving and Loading)](#data-persistence-saving-and-loading)
 
+
+ ---
 ## Acknowledgements
 
 Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
+ ---
 
 ## Design & Implementation
 ### Architecture
@@ -47,6 +51,7 @@ Given below is a quick overview of main components and how they interact with ea
 - At application launch, it initialises other components in the correct sequence and connects them up with each other. 
 - At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
 
+ ---
 The bulk of the BookBob's work is done by the following components: 
 - `CommandHandler`: The command executor.<br>
   ![img.png](CommandHandler.png)
@@ -76,7 +81,7 @@ The entities storing data are the following components: <br>
 - `Patient`: Personal information of patient. <br>
   ![img.png](Patient.png)
 
-
+ ---
 ### 1. Managing Patient Visits and Records
 ### a. Adding New Visits for Existing Patients
 The addVisit mechanism is handled by `CommandHandler`. It begins by scanning the patient records (`Records`) to locate 
@@ -95,6 +100,7 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 > The Sequence Diagram for the execution of addVisit command:
 ![img.png](AddVisitSequenceDiagram.png)
 
+ ---
 ### b. Adding New Patient to the Patient Records
 The "add" command mechanism for New Patients(first visit to clinic) is handled by `CommandHandler`. It begins by creating a new `Patient` object to store all related
 information from terminal input. A new `Visit` object is compulsory to be created with the `Patient` object. This new 
@@ -112,19 +118,19 @@ dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
 
 > The Sequence Diagram(s) for the execution of "add" command:
 
-There are two parts to the sequence diagrams; Part(1) shows the process for System Initialization and Input Processing, and Part(2)
+• There are two parts to the sequence diagrams; Part(1) shows the process for System Initialization and Input Processing, and Part(2)
 shows the Patient Creation and Data Storage processes. 
 
-Part(1) System Initialization and Input Processing :
+<u>Part(1) System Initialization and Input Processing</u> :
 ![img.png](NewPatientSequenceDiagram_1.png)
-This sequence diagram illustrates the initial phase of adding a new patient to the BookBob.
+• This sequence diagram illustrates the initial phase of adding a new patient to the BookBob.
 When the Doctor inputs the "add" command with patient details, the system workflow begins :
 1. Initializes necessary components (Scanner, Records, FileHandler, CommandHandler).
 2. Processes the input command.
 3. Performs validation checks for required fields (Name, NRIC, Visit Date).
 4. Either returns an error message if validation fails, or proceeds to patient creation.
 
-Part (2) Patient Creation and Data Storage :
+<u>Part (2) Patient Creation and Data Storage</u> :
 ![img.png](NewPatientSequenceDiagram_2.png)
 This sequence diagram shows the process of creating and storing a new patient's record after successful validation. The system workflow :
 1. Creating necessary data structures (ArrayLists for diagnoses, medications, visits).
@@ -133,6 +139,7 @@ This sequence diagram shows the process of creating and storing a new patient's 
 4. Setting additional patient attributes (phone number, home address, DOB, allergies, medical histories).
 5. Storing the patient record and auto-saves the data.
 
+ ---
 ### c. Appointment Feature
 
 The appointment mechanism is facilitated by `CommandHandler`. It creates an appointment slot via the `Appointment` 
@@ -158,7 +165,7 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 > The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)
 
-
+---
 ## Appendix A : Product Scope
 ### Target user profile
 Dr Bob is a General Practitioner running his own private clinic. He manages everything independently, attending to
@@ -171,6 +178,7 @@ birth, phone number, home address, allergies, medical history and visit records 
 prescribed medications. Additionally, BookBob helps Dr Bob stay organised by tracking his daily appointments and
 providing reminders of upcoming appointments at the start of each day. BookBob is a CLI-Optimised program, allowing quicker and easier managing of patients records compared to a typical mouse/GUI driven app.
 
+---
 ## Appendix B : User Stories
 
 | Version | As a...  | I want to...                                                          | So that I can...                                                    |
@@ -183,6 +191,7 @@ providing reminders of upcoming appointments at the start of each day. BookBob i
 | v2.0    | user     | view my daily appointments at a glance                                | prepare for my day efficiently                                      |
 | v2.0    | user     | easily refer to and update a patient's care plan over multiple visits | ensure consistent, long-term care                                   |                                       
 
+---
 ## Appendix C : Non-Functional Requirements
 1. Should work on any mainstream OS (Windows, Linux, Unix, MacOS) as long as it has Java 17 or above installed.
 2. Should be capable of supporting long-term use by a single doctor without requiring cache clearance.
@@ -191,10 +200,12 @@ should be able to accomplish most of the tasks faster using commands than using 
 4. Should be able to respond to any commands within 1 second under normal load.
 5. Automated saving of data should happen after every modification of data.
 
+---
 ## Appendix D : Glossary
 - Mainstream OS: Windows, Linux, Unix, MacOS
 - NRIC: National Registration Identity Card (Identification Number)
 
+---
 ## Appendix E : Instructions for Manual Testing
 Given below are instructions to test the app manually.
 
@@ -223,6 +234,7 @@ Given below are instructions to test the app manually.
 | Retrieve/Import | retrieve or import (automatic) | - |
 | Exit | `exit` | `exit` |
 
+---
 ### Below are instructions to perform manual testing of BookBob :
 
 ## Launch and Shutdown
@@ -254,6 +266,7 @@ Given below are instructions to test the app manually.
     1. Test Case: `exit` <br>
        Expected: Application terminates, all data are saved.
 
+---
 ## Patient Record Management
 
 1. Adding a patient
@@ -297,6 +310,7 @@ Given below are instructions to test the app manually.
     2. (Negative) Test Case (non-existent NRIC): `delete S0000000X` <br>
        Expected: Error message that patient not found.
 
+---
 ### Visit Management
 
 1. Adding visits
@@ -316,6 +330,7 @@ Given below are instructions to test the app manually.
     3. (Positive) Test Case (by medication): `findMedication Paracetamol` <br>
        Expected: Lists all patients who were prescribed paracetamol.
 
+---
 ### Appointment Management
 
 1. Adding appointments
@@ -340,6 +355,7 @@ Given below are instructions to test the app manually.
     2. (Negative) Test Case (non-existent appointment): Delete appointment that doesn't exist <br>
        Expected: Error message that appointment doesn't exist.
 
+---
 ### Data Persistence (Saving and Loading)
 
 1. Automatic Storage
