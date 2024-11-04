@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # About us
 
 Display |    Name     |             Github Profile             | Portfolio 

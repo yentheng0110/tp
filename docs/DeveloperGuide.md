@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # BookBob Developer Guide
 
 ## Table of Contents
@@ -44,21 +48,32 @@ Given below is a quick overview of main components and how they interact with ea
 - At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
 
 The bulk of the BookBob's work is done by the following components: 
-- `CommandHandler`: The command executor.
+- `CommandHandler`: The command executor.<br>
   ![img.png](CommandHandler.png)
-- `FileHandler`: Reads data from, and writes data to, the hard disk.
+
+ ---
+- `FileHandler`: Reads data from, and writes data to, the hard disk.<br>
   ![img.png](FileHandler.png)
 
-The entities storing data are the following components:
-- `Records`: The list of patients.
+ ---
+The entities storing data are the following components: <br>
+- `Records`: The list of patients. <br>
   ![img.png](Records.png)
-- `AppointmentRecord`: The list of appointments.
+
+ ---
+- `AppointmentRecord`: The list of appointments. <br>
   ![img.png](AppointmentRecord.png)
-- `Appointment` : Information of appointment.
+
+ ---
+- `Appointment` : Information of appointment. <br>
   ![img.png](Appointment.png)
-- `Visit`: The visit of patients.
+
+ ---
+- `Visit`: The visit of patients. <br>
   ![img.png](Visit.png)
-- `Patient`: Personal information of patient.
+
+ ---
+- `Patient`: Personal information of patient. <br>
   ![img.png](Patient.png)
 
 
@@ -213,9 +228,9 @@ Given below are instructions to test the app manually.
 ## Launch and Shutdown
 
 ### Initial Launch
-1. Verify that you have Java 17 in your computer by running `java --version`.
+1. Ensure and Verify that you have Java 17 installed in your computer by running `java --version` on the Command Prompt.
 2. Download the <u>latest</u> BookBob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
-3. Copy the file to your desired folder where you would like to run it from.
+3. Copy the file to your desired home folder for BookBob where you would like to run it from.
 4. Using a command line tool, navigate to the path of BookBob.jar:
 - If your operating system is Windows, use Command Prompt
 - If your operating system is MacOS, use Terminal
