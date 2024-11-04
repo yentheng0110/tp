@@ -1,5 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
 
 class Patient {
 -name: String
@@ -42,9 +44,7 @@ class Records {}
 class CommandHandler {}
 
 Main --> CommandHandler : calls >
-Main --> FindVisit : calls >
 CommandHandler --> Patient : searches and modifies >
-FindVisit --> Visit : searches >
 Records "1" o-- "many" Patient
 Patient "1" o-- "many" Visit
 

@@ -542,6 +542,12 @@ public class CommandHandler {
             System.out.println("No patients found.");
             return;
         }
+        try {
+            Integer.parseInt(nric.substring(1, 2));
+        } catch (NumberFormatException e){
+            System.out.println("Please provide the NRIC of the patient, not the name.");
+            return;
+        }
         for (int i = 0; i < patients.size(); i++) {
             Patient patient = patients.get(i);
             if (patient.getNric().equals(nric)) {
@@ -728,31 +734,31 @@ public class CommandHandler {
         time = input.substring(timeStart + 5, timeEnd).trim();
         List<Appointment> appointments = appointmentRecord.getAppointments();
         String patientName = "";
+        int initialAppointmentSize = appointments.size();
 
-        for (int i = 0; i < appointments.size(); i++) {
+        for (int i = 0; i < initialAppointmentSize; i++) {
             Appointment appointment = appointments.get(i);
             patientName = appointment.getPatientName();
             String patientNric = appointment.getPatientNric();
             String patientDate = appointment.getDate().format(formatter);
             String patientTime = appointment.getTime().toString();
             if (!patientNric.equals(nric)) {
-                System.out.println("Appointment with Patient of " + nric + " does not exist.");
                 continue;
             }
             if (!patientDate.equals(date)) {
-                System.out.println("Appointment with Patient of " + nric + " on " + date + "" +
-                        "does not exist.");
                 continue;
             }
             if (!patientTime.equals(time)) {
-                System.out.println("Appointment with Patient of " + nric + " on " + date + " " + time +
-                        "does not exist.");
                 continue;
             }
             appointments.remove(i);
             break;
         }
         appointmentRecord.setAppointments(appointments);
+        if (appointments.size() == initialAppointmentSize) {
+            System.out.println("Patient with " + nric + " do not have appointment on the given date and time.");
+            return;
+        }
         System.out.println("Appointment on " + date + " " + time + " with Patient " + patientName + ", " +
                 nric + " has been deleted.");
 
@@ -905,6 +911,70 @@ public class CommandHandler {
             for (Visit visit : patient.getVisits()) {
                 System.out.println(visit.toString());
             }
+        }
+    }
+
+    //find visit by nric and print all visits to terminal
+    //@@author PrinceCatt
+    public void findVisitByIc(String nric, Records records) {
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean isFound = false;
+        for (Patient patient : patientList) {
+            if (patient.getNric().equals(nric)) {
+                ArrayList<Visit> visits = patient.getVisits();
+                isFound = true;
+
+                for (Visit visit : visits) {
+                    System.out.println(visit.toString());
+                }
+            }
+        }
+        if (!isFound) {
+            System.out.println("No patient visit record found with NRIC: " + nric);
+        }
+    }
+
+    //find patient by diagnosis and print the specific patient and visit to terminal
+    //@@author PrinceCatt
+    public void findVisitByDiagnosis(String symptom, Records records) {
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean found = false;
+        for (Patient patient : patientList) {
+            ArrayList<Visit> visits = patient.getVisits();
+            for (Visit visit : visits) {
+                if (visit.getDiagnoses().contains(symptom) || patient.getMedicalHistories().contains(symptom)) {
+                    System.out.println("---------------------------------");
+                    System.out.println(patient.toString());
+                    System.out.println(visit.toString());
+                    System.out.println("---------------------------------");
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("No patient found with symptom: " + symptom);
+        }
+    }
+
+    //find visit by medication and print all visits to terminal
+    //@@author PrinceCatt
+    public void findVisitByMedication(String medication, Records records) {
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean isFound = false;
+        for (Patient patient : patientList) {
+            ArrayList<Visit> visits = patient.getVisits();
+            for (Visit visit : visits) {
+                if (visit.getMedications().contains(medication)) {
+                    System.out.println("---------------------------------");
+                    System.out.println(patient.toString());
+                    System.out.println(visit.toString());
+                    System.out.println("---------------------------------");
+                    isFound = true;
+                }
+            }
+        }
+        if (!isFound) {
+            System.out.println("No patient found with symptom: " + medication);
         }
     }
 }

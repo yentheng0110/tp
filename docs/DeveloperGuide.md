@@ -1,29 +1,67 @@
 # BookBob Developer Guide
 
+## Table of Contents
+1. [Design & Implementation](#design--implementation)
+    - [Architecture](#architecture)
+    - [Managing Patient Visits and Records](#1-managing-patient-visits-and-records)
+        - [Adding New Visits for Existing Patients](#a-adding-new-visits-for-existing-patients)
+        - [Adding New Patient to the Patient Records](#b-adding-new-patient-to-the-patient-records)
+        - [Appointment Feature](#c-appointment-feature)
+2. [Appendix A: Product Scope](#appendix-a--product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+3. [Appendix B: User Stories](#appendix-b--user-stories)
+4. [Appendix C: Non-Functional Requirements](#appendix-c--non-functional-requirements)
+5. [Appendix D: Glossary](#appendix-d--glossary)
+6. [Appendix E: Instructions for Manual Testing](#appendix-e--instructions-for-manual-testing)
+    - [Command Summary Reference](#command-summary-reference)
+    - [Launch and Shutdown](#launch-and-shutdown)
+        - [Initial Launch](#initial-launch)
+        - [Shutdown](#shutdown)
+    - [Patient Record Management](#patient-record-management)
+    - [Visit Management](#visit-management)
+    - [Appointment Management](#appointment-management)
+    - [Data Persistence (Saving and Loading)](#data-persistence-saving-and-loading)
+
 ## Acknowledgements
 
 Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
-## Product scope
-### Target user profile
-Dr Bob is a General Practitioner running his own private clinic. He manages everything independently, attending to 
-numerous patients with diverse health concerns each day. The demanding workload and long hours often leave him exhausted
-and sleep-deprived. On his work desk, he relies on a personal desktop computer for his work. 
-
-### Value proposition
-BookBob assists Dr Bob in storing and retrieving his patients' information, including their name, NRIC, gender, date of 
-birth, phone number, home address, allergies, medical history and visit records with details like diagnoses and 
-prescribed medications. Additionally, BookBob helps Dr Bob stay organised by tracking his daily appointments and 
-providing reminders of upcoming appointments at the start of each day.
-
-## User Stories
-
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
 
 ## Design & Implementation
+### Architecture
+> Sequence Diagram on initialisation of BookBob:
+>![img.png](MainSequenceDiagram.png)
+> The Object Diagram on initialisation of BookBob:
+![img.png](MainObjectDiagram.png)
+
+The _**Architecture Diagram**_ given above explains the high-level design of BookBob. 
+Given below is a quick overview of main components and how they interact with each other. 
+**Main** components of the architecture 
+`Main` is in charge of the launch of BookBob and its shutdown.
+![img.png](Main.png)
+- At application launch, it initialises other components in the correct sequence and connects them up with each other. 
+- At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
+
+The bulk of the BookBob's work is done by the following components: 
+- `CommandHandler`: The command executor.
+  ![img.png](CommandHandler.png)
+- `FileHandler`: Reads data from, and writes data to, the hard disk.
+  ![img.png](FileHandler.png)
+
+The entities storing data are the following components:
+- `Records`: The list of patients.
+  ![img.png](Records.png)
+- `AppointmentRecord`: The list of appointments.
+  ![img.png](AppointmentRecord.png)
+- `Appointment` : Information of appointment.
+  ![img.png](Appointment.png)
+- `Visit`: The visit of patients.
+  ![img.png](Visit.png)
+- `Patient`: Personal information of patient.
+  ![img.png](Patient.png)
+
+
 ### 1. Managing Patient Visits and Records
 ### a. Adding New Visits for Existing Patients
 The addVisit mechanism is handled by `CommandHandler`. It begins by scanning the patient records (`Records`) to locate 
@@ -43,6 +81,42 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 ![img.png](AddVisitSequenceDiagram.png)
 
 ### b. Adding New Patient to the Patient Records
+The "add" command mechanism for New Patients(first visit to clinic) is handled by `CommandHandler`. It begins by creating a new `Patient` object to store all related
+information from terminal input. A new `Visit` object is compulsory to be created with the `Patient` object. This new 
+visit is then added to the patient's `ArrayList<Visit>`. Finally, the new patient will be stored into the patient 
+records (`Records`) which will be saved using `FileHandler` to ensure they can be retrieved later.
+
+**Doctor enters the command:** `add n/Patricia Chan ic/S9870789B p/98097890 d/Cough m/Antibiotics ha/Bukit Batok East Avenue 3 
+dob/01111998 v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension`
+
+> The Object Diagram before the execution of "add" command:
+![img.png](ObjectDiagramBeforeAddPatient.png)
+
+> The Object Diagram after the execution of "add" command:
+![img.png](ObjectDiagramAfterAddPatient.png)
+
+> The Sequence Diagram(s) for the execution of "add" command:
+
+There are two parts to the sequence diagrams; Part(1) shows the process for System Initialization and Input Processing, and Part(2)
+shows the Patient Creation and Data Storage processes. 
+
+Part(1) System Initialization and Input Processing :
+![img.png](NewPatientSequenceDiagram_1.png)
+This sequence diagram illustrates the initial phase of adding a new patient to the BookBob.
+When the Doctor inputs the "add" command with patient details, the system workflow begins :
+1. Initializes necessary components (Scanner, Records, FileHandler, CommandHandler).
+2. Processes the input command.
+3. Performs validation checks for required fields (Name, NRIC, Visit Date).
+4. Either returns an error message if validation fails, or proceeds to patient creation.
+
+Part (2) Patient Creation and Data Storage :
+![img.png](NewPatientSequenceDiagram_2.png)
+This sequence diagram shows the process of creating and storing a new patient's record after successful validation. The system workflow :
+1. Creating necessary data structures (ArrayLists for diagnoses, medications, visits).
+2. Constructing a new Visit object with the provided data.
+3. Creating a new Patient object (with core information i.e. name, NRIC).
+4. Setting additional patient attributes (phone number, home address, DOB, allergies, medical histories).
+5. Storing the patient record and auto-saves the data.
 
 ### c. Appointment Feature
 
@@ -69,7 +143,32 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 > The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)
 
-## Non-Functional Requirements
+
+## Appendix A : Product Scope
+### Target user profile
+Dr Bob is a General Practitioner running his own private clinic. He manages everything independently, attending to
+significant number of patients with diverse health concerns each day. The demanding workload and long hours often leave him exhausted
+and sleep-deprived. On his work desk, he relies on a personal desktop computer for his work. Dr Bob is a fast typer, prefers typing to mouse interactions, and is reasonably comfortable using CLI apps.
+
+### Value proposition
+BookBob assists Dr Bob in storing and retrieving his patients' information, including their name, NRIC, gender, date of
+birth, phone number, home address, allergies, medical history and visit records with details like diagnoses and
+prescribed medications. Additionally, BookBob helps Dr Bob stay organised by tracking his daily appointments and
+providing reminders of upcoming appointments at the start of each day. BookBob is a CLI-Optimised program, allowing quicker and easier managing of patients records compared to a typical mouse/GUI driven app.
+
+## Appendix B : User Stories
+
+| Version | As a...  | I want to...                                                          | So that I can...                                                    |
+|---------|----------|-----------------------------------------------------------------------|---------------------------------------------------------------------|
+| v1.0    | new user | see usage instructions for BookBob                                    | quickly understand how to use the app                               |
+| v1.0    | new user | input a complex patient case                                          | test BookBob's capabilities thoroughly                              |
+| v1.0    | user     | quickly search for a patient record                                   | retrieve information efficiently during consultations               |
+| v1.0    | user     | delete case patient information                                       | retain patient information which I am still actively taking care of |
+| v1.0    | user     | set up automatic backups of my patient data                           | never lose important information due to technical issues            |
+| v2.0    | user     | view my daily appointments at a glance                                | prepare for my day efficiently                                      |
+| v2.0    | user     | easily refer to and update a patient's care plan over multiple visits | ensure consistent, long-term care                                   |                                       
+
+## Appendix C : Non-Functional Requirements
 1. Should work on any mainstream OS (Windows, Linux, Unix, MacOS) as long as it has Java 17 or above installed.
 2. Should be capable of supporting long-term use by a single doctor without requiring cache clearance.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) 
@@ -77,18 +176,18 @@ should be able to accomplish most of the tasks faster using commands than using 
 4. Should be able to respond to any commands within 1 second under normal load.
 5. Automated saving of data should happen after every modification of data.
 
-## Glossary
+## Appendix D : Glossary
 - Mainstream OS: Windows, Linux, Unix, MacOS
 - NRIC: National Registration Identity Card (Identification Number)
 
-## Appendix A : Instructions for Manual Testing
+## Appendix E : Instructions for Manual Testing
 Given below are instructions to test the app manually.
 
 <div style="background-color: #E7F3FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A; font-weight: 500;">
 ⚠️ <b>Note :</b> These instructions only provide a starting point for testers to work on; testers are expected to do more <i>exploratory</i> testing.
 </div>
 
-### Command Summary Reference :
+### Command Summary Reference
 
 | Action | Format | Example |
 |---|---|---|
@@ -134,7 +233,7 @@ Given below are instructions to test the app manually.
 
 ### Shutdown
 1. Enter `exit` to exit BookBob. 
-2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the Bookbob.jar file.
+2. BookBob automatically saves your patient record data to a file named "bookbob_data.txt" in a "data" folder in the same directory as the BookBob.jar file.
 
 3. Exit application
     1. Test Case: `exit` <br>
@@ -231,7 +330,7 @@ Given below are instructions to test the app manually.
 1. Automatic Storage
     1. Test case: Add/edit/delete records, then restart application
         - Expected: All changes are preserved after restart
-        - Note: Data is automatically saved to `bookbob_data.txt` in the `data` folder (same directory as Bookbob.jar)
+        - Note: Data is automatically saved to `bookbob_data.txt` in the `data` folder (same directory as BookBob.jar)
 
 2. File Management
     1. Test case: Manually View saved data

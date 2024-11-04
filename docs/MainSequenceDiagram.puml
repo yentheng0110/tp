@@ -32,8 +32,9 @@ deactivate ":CommandHandler"
 ":Main" -> ":AppointmentRecord" ++: appointmentNotice()
 return
 
-loop always true
+loop until exit command is entered
     ":Main" -> ":Scanner" ++: in.nextLine()
+    ":Main" <-- ":Scanner": input:String
     deactivate ":Scanner"
     ":Main" -> ":CommandHandler" ++: handleCommand(input)
     return
