@@ -381,7 +381,7 @@ public class CommandHandler {
         }
 
         int allergyStart = updates.indexOf("al/");
-        ArrayList<String> newAllergies = null;
+        ArrayList<String> newAllergies = new ArrayList<>();
         if (allergyStart != -1) {
             int allergyEnd = findNextFieldStart(updates, allergyStart + 3);
             String allergiesUpdatedInput = updates.substring(allergyStart + 3, allergyEnd).trim();
@@ -392,7 +392,7 @@ public class CommandHandler {
         }
 
         int medicalHistoryStart = updates.indexOf("mh/");
-        ArrayList<String> newMedicalHistories = null;
+        ArrayList<String> newMedicalHistories = new ArrayList<>();
         if (medicalHistoryStart != -1) {
             int medicalHistoryEnd = findNextFieldStart(updates, medicalHistoryStart + 3);
             String medicalHistoriesUpdatedInput = updates.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
