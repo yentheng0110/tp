@@ -19,7 +19,10 @@ The following output would be shown :
 ## Features 
 
 ## Finding a Patient Record
-Searches for patient records based on search parameters such as name, NRIC, phone number, home address, date of birth, allergies, sex, or medical history.<br>
+🚨 **NOTE :** this "find" command is to search for standard patient information and details. <br>
+BookBob has dedicated commands namely findAppointment,findVisit, findMedication, findDiagnosis, which you can read about in the next sections below. <br>
+
+"find" Searches for patient records based on search parameters such as name, NRIC, phone number, home address, date of birth, allergies, sex, or medical history.<br>
 Format: find Prefix/Value where Prefix can be:
 - n/NAME
 - ic/NRIC
@@ -52,7 +55,7 @@ Name: John Doe, NRIC: S9534567A, Phone: 91234567, Home Address: Clementi Road, D
 Note : <br> 
 * Partial String character search matches are allowed and will work. E.g. "find ic/S953", "find p/9123" is allowed.
 * "find" is case-insensitive, searching with either capital or non-capital letters is allowed and will work.
-* Parameters entered in the input can be of any order
+* Multiple search parameters are allowed, and Parameters entered in the input can be of any order.
 
 ## Adding a Visit Record
 Adds a new visit record for an existing patient.<br>
