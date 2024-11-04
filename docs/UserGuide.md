@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# User Guide
+# BookBob User Guide
 
 ---
 ## Introduction
@@ -12,6 +12,7 @@ allergies, medical histories and visit records with details on diagnoses and pre
 Dr Bob stay organised by tracking daily appointments and providing reminders each morning. Optimised for a Command Line 
 Interface (CLI), BookBob allows for efficient management of patient information and appointments.
 
+---
 ## Table of Contents
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -47,7 +48,7 @@ The following output would be shown :
 ` Welcome to BookBob, Dr. Bob!`
 
 ---
-## Features
+# Features
 ## Viewing Help
 Shows the available list of commands and some guiding information.
 
@@ -128,8 +129,10 @@ Format: `help`
 
 ---
 ## Finding a Patient Record
-🚨 **NOTE :** this "find" command is to search for standard patient information and details. <br>
-BookBob has dedicated commands namely findAppointment,findVisit, findMedication, findDiagnosis, which you can read about in the next sections below. <br>
+<div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
+🚨 <b>Note:</b> this "find" command is to search for standard patient information and details.<br><br>
+BookBob has dedicated commands namely findAppointment, findVisit, findMedication, findDiagnosis, which you can read about in the next sections below.
+</div>
 
 "find" Searches for patient records based on search parameters such as name, NRIC, phone number, home address, date of birth, allergies, sex, or medical history.<br>
 Format: find Prefix/Value where Prefix can be:
