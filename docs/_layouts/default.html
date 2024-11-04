@@ -47,6 +47,131 @@
       line-height: 1.6;
     }
 
+    /* Image styles */
+    .main-content img {
+      max-width: 850px;  /* Larger width suitable for UML diagrams */
+      height: auto;      /* Maintain aspect ratio */
+      display: block;    /* Center the image */
+      margin: 20px auto; /* Add some margin and center */
+    }
+
+    /* Markdown content styling */
+    .main-content h1,
+    .main-content h2,
+    .main-content h3,
+    .main-content h4,
+    .main-content h5,
+    .main-content h6 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #159957;
+    }
+
+    .main-content p {
+      margin-bottom: 1em;
+    }
+
+    .main-content code {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      background-color: rgba(27,31,35,0.05);
+      border-radius: 3px;
+      font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    }
+
+    .main-content pre {
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      background-color: #f6f8fa;
+      border-radius: 3px;
+    }
+
+    .main-content pre code {
+      display: inline;
+      max-width: auto;
+      padding: 0;
+      margin: 0;
+      overflow: visible;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0;
+    }
+
+    .main-content table {
+      display: block;
+      width: 100%;
+      overflow: auto;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    .main-content table th {
+      font-weight: 600;
+      padding: 6px 13px;
+      border: 1px solid #dfe2e5;
+      background-color: #f6f8fa;
+    }
+
+    .main-content table tr {
+      background-color: #fff;
+      border-top: 1px solid #c6cbd1;
+    }
+
+    .main-content table tr:nth-child(2n) {
+      background-color: #f6f8fa;
+    }
+
+    .main-content table td {
+      padding: 6px 13px;
+      border: 1px solid #dfe2e5;
+    }
+
+    .main-content hr {
+      height: 1px;
+      padding: 0;
+      margin: 24px 0;
+      background-color: #e1e4e8;
+      border: 0;
+    }
+
+    .main-content ul,
+    .main-content ol {
+      padding-left: 2em;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .main-content blockquote {
+      padding: 0 1em;
+      color: #6a737d;
+      border-left: 0.25em solid #dfe2e5;
+      margin: 0 0 16px 0;
+    }
+
+    .main-content dl {
+      padding: 0;
+    }
+
+    .main-content dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .main-content dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px;
+    }
+
     /* Footer styles */
     .footer {
       margin-top: 0rem;
