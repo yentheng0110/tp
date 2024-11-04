@@ -958,7 +958,7 @@ public class CommandHandler {
             }
         }
         if (!isFound) {
-            System.out.println("No patient found with symptom: " + medication);
+            System.out.println("No patient found with medication: " + medication);
         }
     }
 }
