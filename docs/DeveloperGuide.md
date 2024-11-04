@@ -266,6 +266,7 @@ Given below are instructions to test the app manually.
     1. Test Case: `exit` <br>
        Expected: Application terminates, all data are saved.
 
+---
 ## Patient Record Management
 
 1. Adding a patient
@@ -309,6 +310,7 @@ Given below are instructions to test the app manually.
     2. (Negative) Test Case (non-existent NRIC): `delete S0000000X` <br>
        Expected: Error message that patient not found.
 
+---
 ### Visit Management
 
 1. Adding visits
@@ -328,6 +330,7 @@ Given below are instructions to test the app manually.
     3. (Positive) Test Case (by medication): `findMedication Paracetamol` <br>
        Expected: Lists all patients who were prescribed paracetamol.
 
+---
 ### Appointment Management
 
 1. Adding appointments
@@ -352,6 +355,7 @@ Given below are instructions to test the app manually.
     2. (Negative) Test Case (non-existent appointment): Delete appointment that doesn't exist <br>
        Expected: Error message that appointment doesn't exist.
 
+---
 ### Data Persistence (Saving and Loading)
 
 1. Automatic Storage
