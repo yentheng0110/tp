@@ -238,6 +238,8 @@ Given below are instructions to test the app manually.
 ### Below are instructions to perform manual testing of BookBob :
 
 ## Launch and Shutdown
+<hr style="width: 33%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
+
 
 ### Initial Launch
 1. Ensure and Verify that you have Java 17 installed in your computer by running `java --version` on the Command Prompt.

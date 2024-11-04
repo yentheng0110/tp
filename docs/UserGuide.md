@@ -46,6 +46,8 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 
 ---
 # Features
+<hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
+
 ## Viewing Help
 Shows the available list of commands and some guiding information.
 
