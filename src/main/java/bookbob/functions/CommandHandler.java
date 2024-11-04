@@ -437,6 +437,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
+    //@@author yentheng0110
     public void editVisit(String input, Records records) throws IOException {
         // Extract NRIC from input command
         int nricStart = input.indexOf("ic/");
@@ -958,7 +959,7 @@ public class CommandHandler {
             }
         }
         if (!isFound) {
-            System.out.println("No patient found with symptom: " + medication);
+            System.out.println("No patient found with medication: " + medication);
         }
     }
 }
