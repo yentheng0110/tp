@@ -10,7 +10,7 @@
 
 1. Ensure that you have Java 17 installed in your computer.
 2. Download the <u>latest</u> BookBob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
-3. Copy the file to your desired folder where you would like to run it from.
+3. Copy the file to your desired home folder for BookBob where you would like to run it from.
 4. Open a command prompt or terminal, navigate to the folder containing BookBob.jar, and execute the command : **`java -jar BookBob.jar`** <br>
 The following output would be shown : 
 ` Welcome to BookBob, Dr. Bob!`
@@ -29,7 +29,10 @@ Format: find Prefix/Value where Prefix can be:
 - al/ALLERGY
 - s/SEX
 - mh/MEDICAL_HISTORY <br>
-Note : Trailing spaces are fine, but there are no spaces anywhere in between Prefix/Value.  <br>
+<br>
+Note : <br>
+- Trailing spaces are fine, but there are no spaces anywhere in between Prefix/Value.  <br>
+
 Examples:
 * `find n/John` - Finds all patients whose names contain "John"
 
@@ -45,13 +48,17 @@ Name: John Doe, NRIC: S9534567A, Phone: 91234567, Home Address: Clementi Road, D
 * `find al/Peanuts` - Finds all patients with peanut allergies
 * `find s/Male` - Finds all male patients
 * `find mh/Asthma` - Finds all patients with asthma in their medical history
-Note : Partial String character search is allowed and will work. E.g. "find ic/S953", "find p/9123" is allowed.
+
+Note : <br> 
+* Partial String character search matches are allowed and will work. E.g. "find ic/S953", "find p/9123" is allowed.
+* "find" is case-insensitive, searching with either capital or non-capital letters is allowed and will work.
+* Parameters entered in the input can be of any order
 
 ## Adding a Visit Record
 Adds a new visit record for an existing patient.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
 Date and Time format must be in : dd-MM-yyyy HH:mm <br>
-Note: Multiple diagnoses or medications can be added by separating them with commas.
+Note: Single diagnosis and medications can be added; <u>Multiple diagnoses and/or medications are also allowed</u>, by separating them with commas. 
 
 Example: `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`
 
@@ -69,7 +76,9 @@ Additional examples:
 
 Note : <br>
 • The NRIC must belong to an existing patient in the system <br>
-• Date and Time format must be in : dd-MM-yyyy HH:mm
+• Date and Time format must be in : dd-MM-yyyy HH:mm <br>
+• Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
+Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
 
 
 ## Deleting a Patient Record

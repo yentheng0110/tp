@@ -215,7 +215,7 @@ Given below are instructions to test the app manually.
 ### Initial Launch
 1. Ensure and Verify that you have Java 17 installed in your computer by running `java --version` on the Command Prompt.
 2. Download the <u>latest</u> BookBob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
-3. Copy the file to your desired folder where you would like to run it from.
+3. Copy the file to your desired home folder for BookBob where you would like to run it from.
 4. Using a command line tool, navigate to the path of BookBob.jar:
 - If your operating system is Windows, use Command Prompt
 - If your operating system is MacOS, use Terminal
