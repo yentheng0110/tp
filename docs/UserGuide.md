@@ -4,10 +4,12 @@ layout: default
 
 # User Guide
 
+---
 ## Introduction
 
 {Give a product intro}
 
+---
 ## Quick Start
 
 {Give steps to get started quickly}
@@ -20,6 +22,7 @@ The following output would be shown :
 ` Welcome to BookBob, Dr. Bob!`
 
 
+---
 ## Features 
 ## Viewing Help 
 Shows the available list of commands and some guiding information.
@@ -99,6 +102,7 @@ Format: `help`
 
 ```
 
+---
 ## Finding a Patient Record
 🚨 **NOTE :** this "find" command is to search for standard patient information and details. <br>
 BookBob has dedicated commands namely findAppointment,findVisit, findMedication, findDiagnosis, which you can read about in the next sections below. <br>
@@ -138,6 +142,7 @@ Note : <br>
 * "find" is case-insensitive, searching with either capital or non-capital letters is allowed and will work.
 * Multiple search parameters are allowed, and Parameters entered in the input can be of any order.
 
+---
 ## Adding a Visit Record
 Adds a new visit record for an existing patient.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
@@ -164,6 +169,7 @@ Note : <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
 Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
 
+---
 ## Deleting a Patient Record
 Deletes the patient record based on the given NRIC number\
 The delete function will only work on the NRIC number and not the patient's name\
@@ -183,6 +189,7 @@ Example Output:
 Please provide the NRIC of the patient, not the name.
 ```
 
+---
 ## Adding an appointment for a patient
 Adds an appointment for a patient on the date and time\
 If the selected appointment slot has already been taken, it will prompt the next available time slot\
@@ -202,6 +209,8 @@ Example Output:
 
 There is already an appointment at the given timeslot. The next available timeslot is: 18:30
 ```
+
+---
 ## Deleting an appointment with a patient
 Delete an appointment for a patient on the date and time\
 Format: appointment ic/NRIC date/DATE time/TIME\
@@ -213,6 +222,8 @@ Example Output:
 
 Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been deleted.
 ```
+
+---
 ## List all the appointments
 List all the appointments on the schedule\
 Format: listAppointments
@@ -225,6 +236,7 @@ Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
 Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
 ```
 
+---
 ## Finding an appointment with a patient
 Find an appointment with a patient based on the given name, nric, date or time\
 Format:
@@ -266,16 +278,21 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 
 ```
 
+---
 ## Exiting the program
 Exits the program.
 
 Format: `exit`
+
+---
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
 
 **A**: {your answer here}
 
+
+---
 ## Command Summary
 
 | Action             | Format                                                                                                                                                                                                                                                   | Example                                                                                                                                                                                                    |

@@ -25,6 +25,8 @@
     }
     .header {
       margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eaecef;
     }
     .github-button {
       display: inline-block;
@@ -49,10 +51,10 @@
 
     /* Image styles */
     .main-content img {
-      max-width: 850px;  /* Larger width suitable for UML diagrams */
-      height: auto;      /* Maintain aspect ratio */
-      display: block;    /* Center the image */
-      margin: 20px auto; /* Add some margin and center */
+      max-width: 850px;
+      height: auto;
+      display: block;
+      margin: 20px auto;
     }
 
     /* Markdown content styling */
@@ -65,17 +67,18 @@
       margin-top: 2rem;
       margin-bottom: 1rem;
       font-weight: bold;
-      color: #159957;
+      color: #333333;
     }
 
     .main-content p {
       margin-bottom: 1em;
+      color: #333333;
     }
 
     .main-content code {
       padding: 0.2em 0.4em;
       margin: 0;
-      font-size: 85%;
+      font-size: 90%;
       background-color: rgba(27,31,35,0.05);
       border-radius: 3px;
       font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
@@ -84,15 +87,19 @@
     .main-content pre {
       padding: 16px;
       overflow: auto;
-      font-size: 85%;
+      font-size: 90%;
       line-height: 1.45;
       background-color: #f6f8fa;
       border-radius: 3px;
     }
 
+    .main-content pre > code {
+      font-size: 95%;
+      padding: 0;
+    }
+
     .main-content pre code {
       display: inline;
-      max-width: auto;
       padding: 0;
       margin: 0;
       overflow: visible;
