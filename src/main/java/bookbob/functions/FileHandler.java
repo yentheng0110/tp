@@ -293,7 +293,7 @@ public class FileHandler {
         return new Visit(visitDateTime, diagnosisList, medicationsList);
     }*/
 
-    //@@author kaboomzxc
+    //@@author kaboomzxc and coraleaf0602
     public static Visit parseVisitInputString(String visitString) {
         try {
             int visitStartIndex = visitString.indexOf("[");
