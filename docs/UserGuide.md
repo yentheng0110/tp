@@ -182,7 +182,7 @@ Name: Jacky Cheung, NRIC: S7209876Y, Phone: 98765789, Home Address: Farrer Road,
 Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 ```
 \
-Additional Example Output of the <u>same Patient</u> with multiple repeated visits during <u>different dates</u>, 
+Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple repeated visits during <u>different dates</u>, 
 with different illness diagnosed and medications prescribed during the different visit event : 
 ```
 Name: Wang Ritz, NRIC: S8634567A, Phone: 91234567, Home Address: PGPR, DOB: 01-02-1990, Allergies: [grass], Sex: female, Medical Histories: [diabetes]
@@ -289,8 +289,9 @@ The examples above result in successful patient record updates, which are automa
 Adds a new visit record for an existing patient.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
 Date and Time format must be in : dd-MM-yyyy HH:mm <br>
-Note: Single diagnosis and medications can be added; <u>Multiple diagnoses and/or medications are also allowed</u>, by separating them with commas. 
-
+    Note: <br>
+• Single diagnosis and medications can be added; <u>Multiple diagnoses and/or medications are also allowed</u>, by separating them with commas. <br>
+• Compulsory fields are NRIC and Date&Time of visit, other fields are optional. <br>
 Example: `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`
 
 Example Output:
