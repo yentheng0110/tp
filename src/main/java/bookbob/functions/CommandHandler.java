@@ -542,6 +542,12 @@ public class CommandHandler {
             System.out.println("No patients found.");
             return;
         }
+        try {
+            Integer.parseInt(nric.substring(1, 2));
+        } catch (NumberFormatException e){
+            System.out.println("Please provide the NRIC of the patient, not the name.");
+            return;
+        }
         for (int i = 0; i < patients.size(); i++) {
             Patient patient = patients.get(i);
             if (patient.getNric().equals(nric)) {
@@ -728,31 +734,31 @@ public class CommandHandler {
         time = input.substring(timeStart + 5, timeEnd).trim();
         List<Appointment> appointments = appointmentRecord.getAppointments();
         String patientName = "";
+        int initialAppointmentSize = appointments.size();
 
-        for (int i = 0; i < appointments.size(); i++) {
+        for (int i = 0; i < initialAppointmentSize; i++) {
             Appointment appointment = appointments.get(i);
             patientName = appointment.getPatientName();
             String patientNric = appointment.getPatientNric();
             String patientDate = appointment.getDate().format(formatter);
             String patientTime = appointment.getTime().toString();
             if (!patientNric.equals(nric)) {
-                System.out.println("Appointment with Patient of " + nric + " does not exist.");
                 continue;
             }
             if (!patientDate.equals(date)) {
-                System.out.println("Appointment with Patient of " + nric + " on " + date + "" +
-                        "does not exist.");
                 continue;
             }
             if (!patientTime.equals(time)) {
-                System.out.println("Appointment with Patient of " + nric + " on " + date + " " + time +
-                        "does not exist.");
                 continue;
             }
             appointments.remove(i);
             break;
         }
         appointmentRecord.setAppointments(appointments);
+        if (appointments.size() == initialAppointmentSize) {
+            System.out.println("Patient with " + nric + " do not have appointment on the given date and time.");
+            return;
+        }
         System.out.println("Appointment on " + date + " " + time + " with Patient " + patientName + ", " +
                 nric + " has been deleted.");
 

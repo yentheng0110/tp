@@ -3,6 +3,9 @@
 skinparam classAttributeIconSize 0
 hide circle
 
+skinparam classAttributeIconSize 0
+hide circle
+
 class AppointmentRecord {
 - formatter : DateTimeFormatter = "dd-MM-yyyy"
 + AppointmentRecord()

@@ -13,22 +13,107 @@
 
 ## Features 
 
-{Give detailed description of each feature}
+## Deleting a Patient Record
+Deletes the patient record based on the given NRIC number\
+The delete function will only work on the NRIC number and not the patient's name\
+Format: delete NRIC
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+Example: `delete S1234567A`
+```
+Example Output:
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+Patient John Doe, S1234567A, has been deleted."
+```
+Example: `delete John Doe`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+```
+Example Output:
 
-Example of usage: 
+Please provide the NRIC of the patient, not the name.
+```
 
-`todo n/Write the rest of the User Guide d/next week`
+## Adding an appointment for a patient
+Adds an appointment for a patient on the date and time\
+If the selected appointment slot has already been taken, it will prompt the next available time slot\
+Format: appointment n/NAME ic/NRIC date/DATE time/TIME\
+Date format is in DD-MM-YYYY and Time format is in HH:mm
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+Example: `appointment n/John Doe ic/S1234567A date/18-11-2024 time/18:00`
+```
+Example Output:
 
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been added.
+```
+
+Example: `appointment n/Will Smith ic/S7654321A date/18-11-2024 time/18:00`
+```
+Example Output:
+
+There is already an appointment at the given timeslot. The next available timeslot is: 18:30
+```
+## Deleting an appointment with a patient
+Delete an appointment for a patient on the date and time\
+Format: appointment ic/NRIC date/DATE time/TIME\
+Date format is in DD-MM-YYYY and Time format is in HH:mm
+
+Example: `deleteAppointment ic/S1234567A date/18-11-2024 time/18:00`
+```
+Example Output:
+
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been deleted.
+```
+## List all the appointments
+List all the appointments on the schedule\
+Format: listAppointments
+
+Example: `listAppointments`
+```
+Example Output:
+
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
+Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
+```
+
+## Finding an appointment with a patient
+Find an appointment with a patient based on the given name, nric, date or time\
+Format:
+findAppointment n/NAME OR\
+findAppointment ic/NRIC OR\
+findAppointment date/DATE OR\
+findAppointment time/TIME\
+Date format is in DD-MM-YYYY and Time format is in HH:mm
+
+Example: `findAppointment n/John`
+```
+Example Output:
+
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
+Appointment on 30-11-2024 9:00 with Patient John Tan, S2468123A.
+
+```
+
+Example: `findAppointment ic/S1234567A`
+```
+Example Output:
+
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
+```
+Example: `findAppointment date/18-11-2024`
+```
+Example Output:
+
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
+Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
+
+```
+Example: `findAppointment time/18:00`
+```
+Example Output:
+
+Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
+Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
+
+```
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
