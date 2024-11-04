@@ -6,8 +6,33 @@ layout: default
 
 ---
 ## Introduction
+BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. It facilitates the storage 
+and retrieval of patient information, including names, NRICs, genders, dates of birth, phone numbers, home addresses, 
+allergies, medical histories and visit records with details on diagnoses and prescribed medications. BookBob also helps 
+Dr Bob stay organised by tracking daily appointments and providing reminders each morning. Optimised for a Command Line 
+Interface (CLI), BookBob allows for efficient management of patient information and appointments.
 
-{Give a product intro}
+## Table of Contents
+- [Quick Start](#quick-start)
+- [Features](#features)
+    - [Viewing Help](#viewing-help)
+    - [Adding a Patient Record](#adding-a-patient-record)
+    - [Listing all Patient Records](#listing-a-patient-record)
+    - [Finding a Patient Record](#finding-a-patient-record)
+    - [Deleting a Patient Record](#deleting-a-patient-record)
+    - [Editing a Patient Record](#editing-a-patient-record)
+    - [Adding a Visit Record](#adding-a-visit-record)
+    - [Editing a Visit Record](#editing-a-visit-record)
+    - [Adding a Patient Appointment](#adding-a-patient-appointment)
+    - [Deleting a Patient Appointment](#deleting-a-patient-appointment)
+    - [List all Patient Appointments](#list-all-patient-appointments)
+    - [Finding a Patient Appointment](#finding-a-patient-appointment)
+    - [Finding All Patient Visits by NRIC](#finding-all-patient-visits-by-NRIC)
+    - [Finding All Patient Visits by Diagnosis](#finding-all-patient-visits-by-diagnosis)
+    - [Finding All Patient Visits by Medication](#finding-all-patient-visits-by-medication)
+    - [Exiting the Program](#exiting-the-program)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
 
 ---
 ## Quick Start
@@ -20,7 +45,6 @@ layout: default
 4. Open a command prompt or terminal, navigate to the folder containing BookBob.jar, and execute the command : **`java -jar BookBob.jar`** <br>
 The following output would be shown : 
 ` Welcome to BookBob, Dr. Bob!`
-
 
 ---
 ## Features 
@@ -143,6 +167,26 @@ Note : <br>
 * Multiple search parameters are allowed, and Parameters entered in the input can be of any order.
 
 ---
+## Deleting a Patient Record
+Deletes the patient record based on the given NRIC number\
+The delete function will only work on the NRIC number and not the patient's name\
+Format: delete NRIC
+
+Example: `delete S1234567A`
+```
+Example Output:
+
+Patient John Doe, S1234567A, has been deleted."
+```
+Example: `delete John Doe`
+
+```
+Example Output:
+
+Please provide the NRIC of the patient, not the name.
+```
+
+---
 ## Adding a Visit Record
 Adds a new visit record for an existing patient.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
@@ -163,7 +207,7 @@ Additional examples:
 * `addVisit ic/S9534567A v/22-10-2024 09:30 d/Cough m/Cough Syrup` - Adds a visit with single diagnosis and medication
 * `addVisit ic/S9534567A v/23-10-2024 14:00` - Adds a visit without diagnosis or medication
 
-Note : <br>
+    Note : <br>
 • The NRIC must belong to an existing patient in the system <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
@@ -209,7 +253,6 @@ Example Output:
 
 There is already an appointment at the given timeslot. The next available timeslot is: 18:30
 ```
-
 ---
 ## Deleting an appointment with a patient
 Delete an appointment for a patient on the date and time\
@@ -279,7 +322,7 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 ```
 
 ---
-## Exiting the program
+## Exiting the Program
 Exits the program.
 
 Format: `exit`
@@ -289,7 +332,8 @@ Format: `exit`
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: Install the app on the other computer and overwrite the empty data file it generates with the data file from your
+previous BookBob home folder.
 
 
 ---
