@@ -166,7 +166,7 @@ significant number of patients with diverse health concerns each day. The demand
 and sleep-deprived. On his work desk, he relies on a personal desktop computer for his work. Dr Bob is a fast typer, prefers typing to mouse interactions, and is reasonably comfortable using CLI apps.
 
 ### Value proposition
-BookBob assists Dr Bob in storing and retrieving his patients' information, including their name, NRIC, gender, date of
+BookBob assists Dr Bob in storing and retrieving his patients' information, including their name, NRIC, sex, date of
 birth, phone number, home address, allergies, medical history and visit records with details like diagnoses and
 prescribed medications. Additionally, BookBob helps Dr Bob stay organised by tracking his daily appointments and
 providing reminders of upcoming appointments at the start of each day. BookBob is a CLI-Optimised program, allowing quicker and easier managing of patients records compared to a typical mouse/GUI driven app.
