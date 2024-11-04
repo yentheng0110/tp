@@ -237,7 +237,7 @@ Please provide the NRIC of the patient, not the name.
 ```
 
 ---
-## Adding an appointment for a patient
+## Adding a Patient Appointment
 Adds an appointment for a patient on the date and time\
 If the selected appointment slot has already been taken, it will prompt the next available time slot\
 Format: appointment n/NAME ic/NRIC date/DATE time/TIME\
@@ -257,7 +257,7 @@ Example Output:
 There is already an appointment at the given timeslot. The next available timeslot is: 18:30
 ```
 ---
-## Deleting an appointment with a patient
+## Deleting a Patient Appointment
 Delete an appointment for a patient on the date and time\
 Format: appointment ic/NRIC date/DATE time/TIME\
 Date format is in DD-MM-YYYY and Time format is in HH:mm
@@ -270,7 +270,7 @@ Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been delete
 ```
 
 ---
-## List all the appointments
+## List all Patient Appointments
 List all the appointments on the schedule\
 Format: listAppointments
 
@@ -283,7 +283,7 @@ Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
 ```
 
 ---
-## Finding an appointment with a patient
+## Finding a Patient Appointment
 Find an appointment with a patient based on the given name, nric, date or time\
 Format:
 findAppointment n/NAME OR\
