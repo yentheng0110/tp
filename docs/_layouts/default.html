@@ -4,10 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: site.title }}</title>
-  <!-- Use GitHub Pages default stylesheet -->
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-  <!-- Only keep custom styles for header and footer -->
   <style>
+    /* Container for everything */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header styles */
     .tp-section {
       font-size: 2.0rem;
       margin-bottom: 0.5rem;
@@ -33,6 +39,15 @@
     .github-button:hover {
       background-color: #137b44;
     }
+
+    /* Main content styles */
+    .main-content {
+      margin: 0 auto;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Footer styles */
     .footer {
       margin-top: 0rem;
       padding-top: 2rem;
@@ -43,20 +58,22 @@
   </style>
 </head>
 <body>
-<div class="header">
-  <div class="tp-section">
-    <p><a href="https://ay2425s1-cs2113-t10-2.github.io/tp/">tP</a></p>
+<div class="container">
+  <div class="header">
+    <div class="tp-section">
+      <p><a href="https://ay2425s1-cs2113-t10-2.github.io/tp/">tP</a></p>
+    </div>
+    <a href="https://github.com/AY2425S1-CS2113-T10-2/tp" class="github-button">View on GitHub</a>
   </div>
-  <a href="https://github.com/AY2425S1-CS2113-T10-2/tp" class="github-button">View on GitHub</a>
-</div>
 
-<div class="main-content">
-  {{ content }}
-</div>
+  <div class="main-content">
+    {{ content }}
+  </div>
 
-<div class="footer">
-  <p>tP maintained by <a href="https://github.com/AY2425S1-CS2113-T10-2">Team AY2425S1-CS2113-T10-2</a></p>
-  <p>Published with <a href="https://pages.github.com/">Github Pages</a></p>
+  <div class="footer">
+    <p>tP maintained by <a href="https://github.com/AY2425S1-CS2113-T10-2">Team AY2425S1-CS2113-T10-2</a></p>
+    <p>Published with <a href="https://pages.github.com/">Github Pages</a></p>
+  </div>
 </div>
 </body>
 </html>
