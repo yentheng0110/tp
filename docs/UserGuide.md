@@ -436,10 +436,57 @@ Format: `exit`
 ---
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+### Data Management, Updates, & Migration
 
-**A**: Install the app on the other computer and overwrite the empty data file it generates with the data file from your
-previous BookBob home folder.
+**Q1** : How do I transfer my data to another computer?
+
+**A** : Install the app on the other computer and overwrite the empty data file it generates with the data file from your previous BookBob home folder.
+
+**Q2**: Can I use BookBob on multiple computers?
+
+**A**: Yes, you can use BookBob on multiple computers by copying your data file between them. However, ensure you're always working with the most recent version of your data.
+
+**Q3** : How do I export my data ?
+
+**A** : Navigate to the "data" folder, copy your "bookbob_data" text file into your external storage device such as a thumbdrive, or external hard disk. The data file can then be used for your own storage and reference, can be a good backup, can be emailed to your colleagues, it can be used for your further analysis such as using Excel for your trend analysis.
+
+**Q4** : How often does BookBob back up my data?
+
+**A**: BookBob automatically saves all changes immediately after they are made. However, we recommend creating manual backups of your data file periodically by copying it to a secure external storage device.
+
+### Patient Records
+
+**Q1**: Is there a limit to how many patient records I can store?
+
+**A**: No, BookBob is designed to handle a large number of patient records efficiently. However, performance may vary depending on your computer's specifications.
+
+### Appointments
+
+**Q1**: Can I schedule recurring appointments?
+
+**A**: Currently, each appointment needs to be scheduled individually. You can use the same time slot on different dates for regular check-ups.
+
+**Q2**: How does BookBob handle appointment conflicts?
+
+**A**: When you attempt to schedule an appointment in an occupied time slot, BookBob will automatically suggest the next available time slot.
+
+### Visit Records
+
+**Q1**: Can I add multiple diagnoses and medications for a single visit?
+
+**A**: Yes, you can add multiple diagnoses and medications by separating them with commas. For example: d/Fever,Headache,Flu m/Paracetamol,Ibuprofen
+
+**Q2**: How far back can I view a patient's visit history?
+
+**A**: BookBob maintains a complete history of all patient visits since their first record. There is no time limit on historical data.
+
+
+
+### System Requirements & Technical Support
+
+**Q1**: What operating systems is BookBob compatible with?
+
+**A**: BookBob is compatible with any operating system that supports Java 17, including Windows, macOS, and Linux distributions.
 
 
 ---
