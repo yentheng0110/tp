@@ -38,8 +38,6 @@ Interface (CLI), BookBob allows for efficient management of patient information 
 ---
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 installed in your computer.
 2. Download the <u>latest</u> BookBob.jar file from [here](https://github.com/AY2425S1-CS2113-T10-2/tp/releases).
 3. Copy the file to your desired home folder for BookBob where you would like to run it from.
