@@ -18,7 +18,7 @@ Interface (CLI), BookBob allows for efficient management of patient information 
 - [Features](#features)
     - [Viewing Help](#viewing-help)
     - [Adding a Patient Record](#adding-a-patient-record)
-    - [Listing all Patient Records](#listing-a-patient-record)
+    - [Listing all Patient Records](#listing-all-patient-records)
     - [Finding a Patient Record](#finding-a-patient-record)
     - [Deleting a Patient Record](#deleting-a-patient-record)
     - [Editing a Patient Record](#editing-a-patient-record)
@@ -128,6 +128,51 @@ Format: `help`
 ```
 
 ---
+
+## Adding a Patient Record
+Adds a new patient record to BookBob. <br>
+Format: add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY] <br>
+
+Note : <br>
+• The mandatory fields are name, NRIC and visit date. Optional fields (denoted by square brackets above) include phone
+number, diagnoses, medications, home address, date of birth, allergies, sex and medical histories. <br>
+• Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
+• Date and Time format must be in : dd-MM-yyyy HH:mm <br> 
+• Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
+Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
+
+Example Output: 
+```
+Patient James Ho with NRIC S9534567A added.
+```
+
+Additional examples:
+* `add n/Patricia Chan ic/S9890897U v/04-11-2024 09:00` - Adds a patient with only mandatory fields inputted.
+* `add n/Jacky Cheung ic/S7209876Y ha/Farrer Road p/98765789 v/06-11-2024 14:00` - Adds a patient with mandatory fields
+and optional fields with a different order as the format above.
+
+The examples above result in successful patient record additions, which are then saved automatically.
+
+---
+
+## Listing All Patient Records
+Lists all patient records saved. <br>
+Format: `list`
+
+Example Output:
+```
+Name: James Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 01011990, Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]
+Visit Date: 21-10-2024 15:48, Diagnosis: [Asthma], Medications: [Albuterol]
+
+Name: Patricia Chan, NRIC: S90890897U, Phone: , Home Address: , DOB: , Allergies: [], Sex: , Medical Histories: []
+Visit Date: 04-11-2024 09:00, Diagnosis: [], Medications: []
+
+Name: Jacky Cheung, NRIC: S7209876Y, Phone: 98765789, Home Address: Farrer Road, DOB: , Allergies: [], Sex: , Medical Histories: []
+Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
+```
+
+---
+
 ## Finding a Patient Record
 <div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
 🚨 <b>Note:</b> this "find" command is to search for standard patient information and details.<br><br>
@@ -167,7 +212,7 @@ Name: John Doe, NRIC: S9534567A, Phone: 91234567, Home Address: Clementi Road, D
 Note : <br> 
 * Partial String character search matches are allowed and will work. E.g. "find ic/S953", "find p/9123" is allowed.
 * "find" is case-insensitive, searching with either capital or non-capital letters is allowed and will work.
-* Multiple search parameters are allowed, and Parameters entered in the input can be of any order.
+* Multiple search parameters are allowed, and parameters entered in the input can be of any order.
 
 ---
 ## Deleting a Patient Record
@@ -190,6 +235,34 @@ Please provide the NRIC of the patient, not the name.
 ```
 
 ---
+
+## Editing a Patient Record
+Edits a current patient record saved in BookBob. <br>
+Format: edit ic/NRIC /to [n/NAME] [newic/NEW_NRIC] [p/PHONE_NUMBER] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY] <br>
+
+Note : <br>
+• The mandatory field is patient's NRIC to search for the specific patient record to be edited. 
+Then, anything after the `/to` are optional fields (denoted by square brackets above) include name, new NRIC, 
+phone number, home address, date of birth, allergies, sex and medical histories. These are the new information to be 
+updated for the patient. <br>
+• Single allergy and medical history can be added; <u>Multiple allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
+• Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
+Example: `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension`
+
+Example Output:
+```
+Patient record updated successfully.
+Updated patient details:
+Name: James Ho, NRIC: S9534567A, Phone: 80976890, Address: NUS-PGPR, DOB: 01011990, Allergy: [], Sex: Female, Medical History: [Diabetes, Hypertension]
+```
+
+Additional examples:
+* `edit ic/S9890897U dob/01011998 ha/Orchard Road` - Edit a patient record with optional fields in a different order than the format shown above.
+
+The examples above result in successful patient record updates, which are automatically saved.
+
+---
+
 ## Adding a Visit Record
 Adds a new visit record for an existing patient.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
@@ -217,26 +290,35 @@ Additional examples:
 Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
 
 ---
-## Deleting a Patient Record
-Deletes the patient record based on the given NRIC number\
-The delete function will only work on the NRIC number and not the patient's name\
-Format: delete NRIC
 
-Example: `delete S1234567A`
-```
+## Editing a Visit Record
+Edits a current visit record of a patient saved in BookBob. <br>
+Format: editVisit ic/NRIC date/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION] <br>
+
+Note : <br>
+• The mandatory fields for searching and editing a specific visit in a patient's record are the patient's NRIC and visit
+date. The optional fields (denoted by square brackets above) include new date, diagnosis and medication. These 
+are the new information to be updated for the patient. <br>
+• Single diagnosis and medication can be added; <u>Multiple diagnoses and/or medications are also allowed</u>, by 
+separating them with commas. <br>
+• Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
+Example: `editVisit ic/S7209876Y date/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`
+
 Example Output:
-
-Patient John Doe, S1234567A, has been deleted."
 ```
-Example: `delete John Doe`
-
+Visit record updated successfully.
+Updated visit details:
+06-11-2024 14:00, Diagnosis: [Asthma], Medications: [Panadol, Antibiotics]
 ```
-Example Output:
 
-Please provide the NRIC of the patient, not the name.
-```
+Additional examples:
+* `editVisit ic/S9089087U date/19-11-2024 18:00 d/Runny Nose newDate/20-11-2024 18:00` - Edit a visit record of a 
+patient with optional fields in a different order than the format shown above.
+
+The examples above result in successful visit record updates, which are automatically saved.
 
 ---
+
 ## Adding a Patient Appointment
 Adds an appointment for a patient on the date and time\
 If the selected appointment slot has already been taken, it will prompt the next available time slot\
