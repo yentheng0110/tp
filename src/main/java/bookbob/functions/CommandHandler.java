@@ -898,22 +898,6 @@ public class CommandHandler {
         }
     }
 
-
-
-    // @@author coraleaf0602
-    // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
-    // the associated appointments for a patient
-    public void printVisits(Patient patient) {
-        if (patient.getVisits().isEmpty()) {
-            System.out.println("No visits found for patient: " + patient.getName());
-        } else {
-            System.out.println("Visits for patient: " + patient.getName());
-            for (Visit visit : patient.getVisits()) {
-                System.out.println(visit.toString());
-            }
-        }
-    }
-
     //find visit by nric and print all visits to terminal
     //@@author PrinceCatt
     public void findVisitByIc(String nric, Records records) {
