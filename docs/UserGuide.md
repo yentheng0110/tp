@@ -179,6 +179,16 @@ Visit Date: 04-11-2024 09:00, Diagnosis: [], Medications: []
 Name: Jacky Cheung, NRIC: S7209876Y, Phone: 98765789, Home Address: Farrer Road, DOB: , Allergies: [], Sex: , Medical Histories: []
 Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 ```
+Additional Example Output of the <u>same Patient</u> with multiple repeated visits during <u>different dates</u>, 
+with different illness diagnosed and medications prescribed during the different visit event. 
+```
+Name: Wang Ritz, NRIC: S8634567A, Phone: 91234567, Home Address: PGPR, DOB: 01-02-1990, Allergies: [grass], Sex: female, Medical Histories: [diabetes]
+    Visit Date: 20-10-1995 12:35, Diagnosis: [], Medications: []
+    Visit Date: 21-10-2024 15:48, Diagnosis: [Fever, Headache, Flu], Medications: [Paracetamol, Ibuprofen, Aspirin]
+    Visit Date: 29-12-2026 23:59, Diagnosis: [Fatigue, Dizziness, Cough], Medications: [Mint, Mentos, Coke]
+    Visit Date: 11-10-2030 16:45, Diagnosis: [Myopia, Acid Reflux, Rhinitis], Medications: [Naproxen, Omeprazole, Zyrtec]
+```
+
 
 ---
 
