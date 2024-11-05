@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+//@@author coraleaf0602
 public class Visit {
     private LocalDateTime visitDate;
     private ArrayList<String> diagnoses;
