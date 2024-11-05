@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VisitTest {
     @Test
-    public void testVisitWithEmptyLists() {
+    public void visit_withEmptyLists_expectEmpty() {
         LocalDateTime testDate = LocalDateTime.now();
         Visit visit = new Visit(testDate);
         assertTrue(visit.getDiagnoses().isEmpty());
@@ -21,7 +21,7 @@ public class VisitTest {
     }
 
     @Test
-    public void testVisitWithDiagnosesAndMedications() {
+    public void visit_withDiagnosesAndMedications_expectCorrectLists() {
         LocalDateTime testDate = LocalDateTime.now();
         ArrayList<String> testDiagnoses = new ArrayList<>(Arrays.asList("Asthma"));
         ArrayList<String> testMedications = new ArrayList<>(Arrays.asList("Albuterol"));
@@ -32,7 +32,7 @@ public class VisitTest {
     }
 
     @Test
-    public void testSettingDiagnosesAndMedications() {
+    public void setDiagnosesAndMedications_onVisit_expectUpdatedLists() {
         LocalDateTime testDate = LocalDateTime.now();
         Visit visit = new Visit(testDate);
         ArrayList<String> newDiagnoses = new ArrayList<>(Arrays.asList("Diabetes"));
@@ -44,7 +44,7 @@ public class VisitTest {
     }
 
     @Test
-    public void testSetDiagnoses() {
+    public void setDiagnoses_onVisit_expectUpdatedDiagnoses() {
         LocalDateTime visitDate = LocalDateTime.now();
         Visit visit = new Visit(visitDate);
         ArrayList<String> newDiagnoses = new ArrayList<>(Arrays.asList("Flu", "Cold"));
@@ -53,7 +53,7 @@ public class VisitTest {
     }
 
     @Test
-    public void testSetMedications() {
+    public void setMedications_onVisit_expectUpdatedMedications() {
         LocalDateTime visitDate = LocalDateTime.now();
         Visit visit = new Visit(visitDate);
         ArrayList<String> newMedications = new ArrayList<>(Arrays.asList("Ibuprofen", "Acetaminophen"));
@@ -62,7 +62,7 @@ public class VisitTest {
     }
 
     @Test
-    public void testSetVisitDate() {
+    public void setVisitDate_onVisit_expectUpdatedVisitDate() {
         LocalDateTime visitDate = LocalDateTime.of(2024, 10, 21, 15, 48);
         Visit visit = new Visit(visitDate);
         LocalDateTime newVisitDate = LocalDateTime.of(2025, 11, 22, 10, 30);
@@ -72,7 +72,7 @@ public class VisitTest {
 
 
     @Test
-    public void testToString() {
+    public void toString_onVisit_expectFormattedString() {
         String dateTimeString = "21-10-2024 15:48";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime testDate = LocalDateTime.parse(dateTimeString, formatter);
