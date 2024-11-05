@@ -116,7 +116,7 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+""");
     }
 
-    //@@author yentheng0110
+    //@@author yentheng0110 and coraleaf0602
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
