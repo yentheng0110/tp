@@ -1,1 +1,1 @@
-Name: Patricia Chan | NRIC: S9089087U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [26-10-2024 18:00, Diagnosis: [Asthma, Cough], Medications: [Panadol, Antibiotics]];
+Name: Jack Wong | NRIC: S9765432T | Phone Number: 87658976 | Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: [] | Sex:  | Medical History: [] | Visit: [01-10-2024 17:30, Diagnosis: [Gastric], Medications: [Gaviscon]];

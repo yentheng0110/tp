@@ -27,6 +27,7 @@ class CommandHandler {}
 
 Main --> CommandHandler : calls >
 CommandHandler --> Patient : searches and modifies >
+CommandHandler --> Visit : searches and modifies >
 Records "1" o-- "many" Patient
 Patient "1" o-- "many" Visit
 
