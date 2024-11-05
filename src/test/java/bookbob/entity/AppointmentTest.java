@@ -53,7 +53,7 @@ class AppointmentTest {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
         long duration = first.getConsultationDuration();
-        assertEquals(LocalTime.parse("18:00"), duration);
+        assertEquals(30, duration);
     }
 
     //@@author G13nd0n
