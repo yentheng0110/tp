@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
+
+class CommandHandler {
+-{static} logger: Logger
++CommandHandler(): void
++help(): void
++add(input: String, records: Records): void
++list(records: Records): void
++edit(input: String, records: Records): void
++editVisit(input: String, records: Records): void
++delete(nric: String, records: Records): void
++find(input: String, records: Records): void
++exit(input: String): void
++addVisit(input: String, records: Records): void
++Appointment(input: String, appointmentRecord: AppointmentRecord): void
++deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
++listAppointment(appointmentRecord: AppointmentRecord): void
++findAppointment(input: String, appointmentRecord: AppointmentRecord): void
++deleteAppointment(appointmentRecord: AppointmentRecord): void
+-findNextFieldStart(input: String, currentIndex: int): int
++findVisitByIc(input: String, records: Records)
++findVisitByDiagnosis(input: String, records: Records)
++findVisitByMedication(input: String, records: Records)
+}
+
+class Patient {
+}
+
+class Visit {
+}
+
+class Main {
+}
+
+class Records {
+}
+
+class AppointmentRecord {
+}
+
+CommandHandler --> Appointment : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
+Main --> CommandHandler : calls >
+Main --> FindVisit : calls >
+CommandHandler --> Patient : searches and modifies >
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
+
+@enduml

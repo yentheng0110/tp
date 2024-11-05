@@ -4,7 +4,6 @@ import bookbob.entity.Records;
 import bookbob.entity.AppointmentRecord;
 import bookbob.functions.CommandHandler;
 import bookbob.functions.FileHandler;
-import bookbob.functions.FindVisit;
 
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -60,7 +59,8 @@ public class Main {
 
             case "add":
                 logger.log(Level.INFO, "Processing add command");
-                try{
+
+                try {
                     int nameStart = input.indexOf("n/");
                     int nricStart = input.indexOf("ic/");
                     int visitStart = input.indexOf("v/");
@@ -75,6 +75,7 @@ public class Main {
                         System.out.println("Please provide the patient's NRIC.");
                         logger.log(Level.INFO, "NRIC of the patient is not provided");
                         break;
+
                     }
 
                     if (visitStart == -1) {
@@ -82,6 +83,7 @@ public class Main {
                         logger.log(Level.INFO, "Visit date is not provided");
                         break;
                     }
+
                     commandHandler.add(input, records);
                     logger.log(Level.INFO, "Successfully processed add command");
                 } catch (Exception e) {
@@ -252,7 +254,7 @@ public class Main {
             case "findVisit":
                 logger.log(Level.INFO, "Processing find visit command");
                 try {
-                    FindVisit.findVisitByIc(inputArr[1], records);
+                    commandHandler.findVisitByIc(inputArr[1], records);
                     logger.log(Level.INFO, "Successfully processed find visit command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing find visit command", e);
@@ -262,7 +264,7 @@ public class Main {
             case "findMedication":
                 logger.log(Level.INFO, "Processing find medication command");
                 try {
-                    FindVisit.findVisitByMedication(inputArr[1], records);
+                    commandHandler.findVisitByMedication(inputArr[1], records);
                     logger.log(Level.INFO, "Successfully processed find medication command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing find medication command", e);
@@ -273,13 +275,39 @@ public class Main {
             case "findDiagnosis":
                 logger.log(Level.INFO, "Processing find diagnosis command");
                 try {
-                    FindVisit.findVisitByDiagnosis(inputArr[1], records);
+                    commandHandler.findVisitByDiagnosis(inputArr[1], records);
                     logger.log(Level.INFO, "Successfully processed find diagnosis command");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing find diagnosis command", e);
                 }
                 break;
 
+            case "addVisit":
+                logger.log(Level.INFO, "Processing addVisit command");
+                try {
+                    // Check for required fields
+                    int nricStart = input.indexOf("ic/");
+                    int visitStart = input.indexOf("v/");
+
+                    if (nricStart == -1) {
+                        System.out.println("Please provide the patient's NRIC.");
+                        logger.log(Level.INFO, "NRIC not provided");
+                        break;
+                    }
+
+                    if (visitStart == -1) {
+                        System.out.println("Please provide the visit date and time.");
+                        logger.log(Level.INFO, "Visit date/time not provided");
+                        break;
+                    }
+
+                    commandHandler.addVisit(input, records);
+                    logger.log(Level.INFO, "Successfully processed addVisit command");
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Error processing addVisit command", e);
+                    System.out.println("Error processing addVisit command: " + e.getMessage());
+                }
+                break;
             default:
                 System.out.println("Unknown command. Type 'help' for a list of commands.");
                 break;

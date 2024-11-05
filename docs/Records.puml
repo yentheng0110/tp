@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
+
+class Records {
++Records()
++addPatient(patient: Patient): void
++getPatients(): ArrayList<Patient>
+}
+
+class Patient {}
+class Main {}
+class Records {}
+class CommandHandler {}
+
+Main --> CommandHandler : calls >
+CommandHandler --> Patient : searches and modifies >
+Records "1" o-- "many" Patient
+
+
+@enduml

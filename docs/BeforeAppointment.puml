@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object "<u>:Main</u>" as Main
+object "<u> :CommandHandler</u>" as CommandHandler
+object "<u> in:Scanner</u>" as Scanner
+object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
+object "<u> record:Record </u>" as Record
+object "<u> :FileHandler </u>" as FileHandler
+
+Main --> Record
+Main --> AppointmentRecord
+Main --> FileHandler
+Main --> CommandHandler
+Main --> Scanner
+CommandHandler --> FileHandler
+CommandHandler --> AppointmentRecord
+CommandHandler --> Record
+
+@enduml

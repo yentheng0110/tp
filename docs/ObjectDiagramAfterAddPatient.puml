@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object "<u> :Main</u>" as Main
+object "<u> in:Scanner</u>" as Scanner
+object "<u> records:Records</u>" as Records
+object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
+object "<u> :FileHandler</u>" as FileHandler
+object "<u> commandHandler:CommandHandler</u>" as CommandHandler
+
+object "<u> newPatient:Patient</u>" as Patient {
+name = Patricia Chan
+nric = S9870789B
+sex = Female
+dateOfBirth = 01111998
+phoneNumber = 98097890
+homeAddress = Bukit Batok East Avenue 3
+allergies = [Peanuts]
+medicalHistories = [Hypertension, Breast Cancer]
+}
+
+
+object "<u> newVisit:Visit</u>" as Visit {
+visitDate = 29-10-2024 10:00
+diagnoses = [Gastric]
+medications = [Gaviscon, Paracetamol]
+}
+
+object "<u> existingPatient:Patient</u>" as existingPatient {
+name = John Goh
+nric = S8971129B
+sex = Male
+dateOfBirth = 02092001
+phoneNumber = 93809923
+homeAddress = PGPR
+allergies = [fur]
+medicalHistories = [Diabetes]
+}
+
+object "<u> existingVisit:Visit</u>" as existingVisit {
+visitDate = 21-10-2024 18:00
+diagnoses = [Cough]
+medications = [Antibiotics]
+}
+
+Main --> Scanner
+Main --> Records
+Main --> AppointmentRecord
+Main --> FileHandler
+Main --> CommandHandler
+Patient --> Visit
+CommandHandler --> Records
+Records --> Patient
+Records --> existingPatient
+existingPatient --> existingVisit
+FileHandler --> Records
+FileHandler --> AppointmentRecord
+
+@enduml

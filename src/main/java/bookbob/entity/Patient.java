@@ -14,7 +14,7 @@ public class Patient {
     private ArrayList<String> medicalHistories;
 
     // default constructor only takes in name, NRIC and visits - mandatory fields
-    //@@author G13nd0n and kaboomzxc and coraleaf0602
+    //@@author G13nd0n and kaboomzxc and coraleaf0602 and yentheng0110
     public Patient(String name, String nric, ArrayList<Visit> visits) {
         this.name = name;
         this.nric = nric;
@@ -28,7 +28,7 @@ public class Patient {
     }
 
     // constructor used in retrieving data
-    // @@author G13nd0n and kaboomzxc
+    // @@author G13nd0n and kaboomzxc and yentheng0110
     public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
                    ArrayList<String> allergies, String sex, ArrayList<String> medicalHistories,
                    ArrayList<Visit> visits) {
@@ -92,27 +92,27 @@ public class Patient {
         this.visits = visits;
     }
 
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public ArrayList<String> getAllergies() {
         return allergies;
     }
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public void setAllergies(ArrayList<String> allergies) {
         this.allergies = allergies;
     }
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public String getSex() {
         return sex;
     }
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public void setSex(String sex) {
         this.sex = sex;
     }
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public ArrayList<String> getMedicalHistories() {
         return medicalHistories;
     }
-    // @@author kaboomzxc
+    //@@author kaboomzxc
     public void setMedicalHistories(ArrayList<String> medicalHistories) {
         this.medicalHistories = medicalHistories;
     }

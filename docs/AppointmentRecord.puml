@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
+
+skinparam classAttributeIconSize 0
+hide circle
+
+class AppointmentRecord {
+- formatter : DateTimeFormatter = "dd-MM-yyyy"
++ AppointmentRecord()
++ addAppointment(appointment : Appointment)
++ findAppointments(input : String) : List<Appointment>
++ getAppointments() : List<Appointment>
++ sort()
++ setAppointments(appointments : List<Appointment>)
++ appointmentNotice()
++ LocalTime checkAvailability(date : LocalDate, time : LocalTime )
+}
+
+class Main {}
+class CommandHandler {}
+class AppointmentRecord {}
+
+
+CommandHandler --> Appointment : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
+Main --> CommandHandler : calls >
+
+@enduml
