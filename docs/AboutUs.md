@@ -7,7 +7,7 @@ layout: default
 Display |    Name     |             Github Profile             | Portfolio 
 --------|:-----------:|:--------------------------------------:|:---------:
 ![JZ](facepic_JZ.jpg) | OngJunZheng | [Github](https://github.com/kaboomzxc) | [Portfolio](team/ongjunzheng.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Cora Zhang | [Github](https://github.com/coraleaf0602) | [Portfolio](coraleaf0602)
+![](https://via.placeholder.com/100.png?text=Photo) | Cora Zhang | [Github](https://github.com/coraleaf0602) | [Portfolio](team/coraleaf0602.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | Glendon Tan | [Github](https://github.com/G13nd0n) | [Portfolio](docs/team/GlendonTan.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | Ma Yitao | [Github](https://github.com/PrinceCatt) | [Portfolio](docs/team/yitao.md)
 ![](https://via.placeholder.com/100.png?text=Photo) | Wong Yen Theng | [Github](https://github.com/yentheng0110) | [Portfolio](docs/team/wongyentheng.md)
