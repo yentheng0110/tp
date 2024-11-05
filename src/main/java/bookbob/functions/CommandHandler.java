@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -726,6 +727,10 @@ public class CommandHandler {
             throw new IllegalArgumentException();
         }
 
+        assert nricStart != -1 : "Please provide a valid NRIC";
+        assert dateStart != -1 : "Please provide a valid date";
+        assert timeStart != -1 : "Please provide a valid time";
+
         int nricEnd = findNextFieldStart(input, nricStart + 2);
         nric = input.substring(nricStart + 3, nricEnd).trim();
         int dateEnd = findNextFieldStart(input, dateStart + 2);
@@ -792,12 +797,16 @@ public class CommandHandler {
     //@@author G13nd0n
     public void removePastAppointments(AppointmentRecord appointmentRecord) throws IOException {
         LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
         List<Appointment> appointments = appointmentRecord.getAppointments();
         List<Appointment> updatedAppointments = new ArrayList<Appointment>();
         for (int i = 0; i < appointments.size(); i++) {
             Appointment currentAppointment = appointments.get(i);
             LocalDate appointmentDate = currentAppointment.getDate();
+            LocalTime appointmentTime = currentAppointment.getTime();
             if (appointmentDate.isAfter(today)) {
+                updatedAppointments.add(currentAppointment);
+            } else if (appointmentDate.isEqual(today) && appointmentTime.isAfter(now)) {
                 updatedAppointments.add(currentAppointment);
             }
         }
