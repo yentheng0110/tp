@@ -1,5 +1,7 @@
 @startuml Appointment
 'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
 
 interface Comparable
 

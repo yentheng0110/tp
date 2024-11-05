@@ -1,5 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
 
 class Main {
 -{static} logger: Logger {readOnly}
@@ -17,9 +19,7 @@ class AppointmentRecord {}
 CommandHandler --> Appointment : searches and modifies >
 AppointmentRecord "1" o-- "many" Appointment
 Main --> CommandHandler : calls >
-Main --> FindVisit : calls >
 CommandHandler --> Patient : searches and modifies >
-FindVisit --> Visit : searches >
 Records "1" o-- "many" Patient
 Patient "1" o-- "many" Visit
 @enduml

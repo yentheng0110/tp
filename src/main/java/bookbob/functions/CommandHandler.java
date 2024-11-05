@@ -46,10 +46,23 @@ public class CommandHandler {
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
+                | Edit        | edit ic/NRIC /to [n/NAME]             | edit ic/S9534567A /to p/80976890|
+                |             | [newic/NEW_NRIC]  [p/PHONE_NUMBER]    | mh/Diabetes, Hypertension       |
+                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] |                                 |
+                |             | [al/ALLERGY] [s/SEX]                  |                                 |
+                |             | [mh/MEDICALHISTORY]                   |                                 |
+                +-------------+---------------------------------------+---------------------------------+
                 | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
                 |             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |
                 |             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |
                 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
+                +-------------+---------------------------------------+---------------------------------+
+                | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
+                |             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
+                |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
+                |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
+                |             | DATE format: dd-mm-yyyy               |                                 |
+                |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
@@ -104,7 +117,7 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+""");
     }
 
-    //@@author yentheng0110
+    //@@author yentheng0110 and coraleaf0602
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
@@ -382,7 +395,7 @@ public class CommandHandler {
         }
 
         int allergyStart = updates.indexOf("al/");
-        ArrayList<String> newAllergies = null;
+        ArrayList<String> newAllergies = new ArrayList<>();
         if (allergyStart != -1) {
             int allergyEnd = findNextFieldStart(updates, allergyStart + 3);
             String allergiesUpdatedInput = updates.substring(allergyStart + 3, allergyEnd).trim();
@@ -393,7 +406,7 @@ public class CommandHandler {
         }
 
         int medicalHistoryStart = updates.indexOf("mh/");
-        ArrayList<String> newMedicalHistories = null;
+        ArrayList<String> newMedicalHistories = new ArrayList<>();
         if (medicalHistoryStart != -1) {
             int medicalHistoryEnd = findNextFieldStart(updates, medicalHistoryStart + 3);
             String medicalHistoriesUpdatedInput = updates.substring(medicalHistoryStart + 3, medicalHistoryEnd).trim();
@@ -438,6 +451,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
+    //@@author yentheng0110
     public void editVisit(String input, Records records) throws IOException {
         // Extract NRIC from input command
         int nricStart = input.indexOf("ic/");
@@ -907,19 +921,67 @@ public class CommandHandler {
         }
     }
 
+    //find visit by nric and print all visits to terminal
+    //@@author PrinceCatt
+    public void findVisitByIc(String nric, Records records) {
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean isFound = false;
+        for (Patient patient : patientList) {
+            if (patient.getNric().equals(nric)) {
+                ArrayList<Visit> visits = patient.getVisits();
+                isFound = true;
 
-
-    // @@author coraleaf0602
-    // Prints out the number of times a patient visited the clinic - need a command to call this if we want to see
-    // the associated appointments for a patient
-    public void printVisits(Patient patient) {
-        if (patient.getVisits().isEmpty()) {
-            System.out.println("No visits found for patient: " + patient.getName());
-        } else {
-            System.out.println("Visits for patient: " + patient.getName());
-            for (Visit visit : patient.getVisits()) {
-                System.out.println(visit.toString());
+                for (Visit visit : visits) {
+                    System.out.println(visit.toString());
+                }
             }
+        }
+        if (!isFound) {
+            System.out.println("No patient visit record found with NRIC: " + nric);
+        }
+    }
+
+    //find patient by diagnosis and print the specific patient and visit to terminal
+    //@@author PrinceCatt
+    public void findVisitByDiagnosis(String symptom, Records records) {
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean found = false;
+        for (Patient patient : patientList) {
+            ArrayList<Visit> visits = patient.getVisits();
+            for (Visit visit : visits) {
+                if (visit.getDiagnoses().contains(symptom) || patient.getMedicalHistories().contains(symptom)) {
+                    System.out.println("---------------------------------");
+                    System.out.println(patient.toString());
+                    System.out.println(visit.toString());
+                    System.out.println("---------------------------------");
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("No patient found with symptom: " + symptom);
+        }
+    }
+
+    //find visit by medication and print all visits to terminal
+    //@@author PrinceCatt
+    public void findVisitByMedication(String medication, Records records) {
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean isFound = false;
+        for (Patient patient : patientList) {
+            ArrayList<Visit> visits = patient.getVisits();
+            for (Visit visit : visits) {
+                if (visit.getMedications().contains(medication)) {
+                    System.out.println("---------------------------------");
+                    System.out.println(patient.toString());
+                    System.out.println(visit.toString());
+                    System.out.println("---------------------------------");
+                    isFound = true;
+                }
+            }
+        }
+        if (!isFound) {
+            System.out.println("No patient found with medication: " + medication);
         }
     }
 }
