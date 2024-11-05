@@ -29,7 +29,7 @@ Interface (CLI), BookBob allows for efficient management of patient information 
     - [List all Patient Appointments](#list-all-patient-appointments)
     - [Finding a Patient Appointment](#finding-a-patient-appointment)
     - [Finding Patient Visits](#finding-patient-visits)
-    - [Saving/Retrieving Records and AppointmentRecords Data](#savingretrieving-records-and-appointmentrecords-data)
+    - [Saving/Retrieving Patient Records and Appointment Records Data](#savingretrieving-patient-records-and-appointment-records-data)
     - [Exiting the Program](#exiting-the-program)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
@@ -495,7 +495,7 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 
 ```
 ---
-## Saving/Retrieving Records and AppointmentRecords Data
+## Saving/Retrieving Patient Records and Appointment Records Data
 <br>
 Saving and retrieving are performed automatically whenever changes are made, with no additional commands required.
 ---
