@@ -28,9 +28,8 @@ Interface (CLI), BookBob allows for efficient management of patient information 
     - [Deleting a Patient Appointment](#deleting-a-patient-appointment)
     - [List all Patient Appointments](#list-all-patient-appointments)
     - [Finding a Patient Appointment](#finding-a-patient-appointment)
-    - [Finding All Patient Visits by NRIC](#finding-all-patient-visits-by-NRIC)
-    - [Finding All Patient Visits by Diagnosis](#finding-all-patient-visits-by-diagnosis)
-    - [Finding All Patient Visits by Medication](#finding-all-patient-visits-by-medication)
+    - [Finding Patient Visits](#finding-patient-visits)
+    - [Saving/Retrieving Records and AppointmentRecord Data](#savingretrieving-records-and-appointmentrecord-data)
     - [Exiting the Program](#exiting-the-program)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
@@ -342,6 +341,73 @@ The examples above result in successful visit record updates, which are automati
 
 ---
 
+## Finding Patient Visits
+Finds a current visit record of a patient saved in BookBob in three ways, by NRIC, by diagnosis and by medication. <br>
+
+By NRIC: <br> Format: findVisit NRIC<br>
+Note : <br>
+• Single NRIC to be entered. All corresponding visit records will be printed to terminal,
+with exactly matched NRIC. <br>
+Example: `findVisit S7209876Y`
+
+Example Output:
+```
+Processing find visit command
+Successfully processed find visit command
+20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+```
+If nothing found:
+```
+No patient visit record found with NRIC: S7209876Y
+```
+
+By diagnosis: <br> Format: findDiagnosis diagnosis<br>
+Note : <br>
+• Single diagnosis to be entered. All corresponding patients' information and visit records will be printed to terminal,
+with exactly matched diagnosis. <br>
+Example: `findDiagnosis Runny Nose`
+
+Example Output:
+```
+---------------------------------
+Name: Patricia Chan, NRIC: S9089087U, Phone: , Address: , DOB: , Allergy: [], Sex: , Medical History: []
+20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+---------------------------------
+---------------------------------
+Name: Jacky Cheung, NRIC: S7209876Y, Phone: 91234567 | DOB: , Address: Farrer Road, Allergy: [], Sex: , 
+Medical History: []
+06-11-2024 14:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+---------------------------------
+```
+If nothing found:
+```
+No patient found with symptom: Runny Nos
+```
+
+By Medication: <br> Format: findMedication medication<br>
+Note : <br>
+• Single diagnosis to be entered. All corresponding patients' information and visit records will be printed to terminal,
+with exactly matched medication. <br>
+Example: `findMedication Panadol`
+
+Example Output:
+```
+---------------------------------
+Name: Patricia Chan, NRIC: S9089087U, Phone: , Address: , DOB: , Allergy: [], Sex: , Medical History: []
+20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+---------------------------------
+---------------------------------
+Name: Jacky Cheung, NRIC: S7209876Y, Phone: 91234567, Address: Farrer Road, DOB: , Allergy: [], Sex: , Medical History: []
+06-11-2024 14:00, Diagnosis: [Asthma], Medications: [Panadol, Antibiotics]
+---------------------------------
+```
+If nothing found:
+```
+No patient found with symptom: Panado
+```
+---
+
+
 ## Adding a Patient Appointment
 Adds an appointment for a patient on the date and time\
 If the selected appointment slot has already been taken, it will prompt the next available time slot\
@@ -428,6 +494,10 @@ Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.
 Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 
 ```
+---
+## Saving/Retrieving Records and AppointmentRecord Data
+<br>
+No Extra command is to be issued to save. All saving and retrieving are automatically performed when needed.
 
 ---
 ## Exiting the Program
