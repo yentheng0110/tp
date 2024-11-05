@@ -26,7 +26,7 @@ public class AppointmentRecord {
 
     //@@author G13nd0n
     public List<Appointment> findAppointments(String input) {
-        List<Appointment> appointments = new ArrayList<>();
+        List<Appointment> results = new ArrayList<>();
         String[] inputs = input.split("/");
         String details = inputs[1];
         if (inputs[0].equals("n")) {
@@ -34,7 +34,7 @@ public class AppointmentRecord {
                 Appointment appointment = appointments.get(i);
                 String patientName = appointment.getPatientName();
                 if (patientName.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
         } else if (inputs[0].equals("ic")) {
@@ -42,7 +42,7 @@ public class AppointmentRecord {
                 Appointment appointment = appointments.get(i);
                 String nric = appointment.getPatientNric();
                 if (nric.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
         } else if (inputs[0].equals("date")){
@@ -50,20 +50,20 @@ public class AppointmentRecord {
                 Appointment appointment = appointments.get(i);
                 String date = appointment.getDate().toString();
                 if (date.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
-        } else {
+        } else if (inputs[0].equals("time")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String time = appointment.getTime().toString();
                 if (time.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
 
         }
-        return appointments;
+        return results;
     }
 
     //@@author G13nd0n
