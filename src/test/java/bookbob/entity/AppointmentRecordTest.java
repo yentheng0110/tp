@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AppointmentRecordTest {
 
@@ -22,7 +22,7 @@ class AppointmentRecordTest {
 
     //@@author G13nd0n
     @Test
-    void checkAvailability_oneAppointment_1830() {
+    void checkAvailability_oneAppointment_nextAvailableTime() {
         AppointmentRecord appointmentRecord = new AppointmentRecord();
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
@@ -66,5 +66,4 @@ class AppointmentRecordTest {
         appointmentRecord.setAppointments(updatedRecord.getAppointments());
         assertEquals(2, appointmentRecord.getAppointments().size());
     }
-
 }

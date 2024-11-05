@@ -323,9 +323,9 @@ public class CommandHandlerTest {
         command.appointment("n/John Doe ic/S1234567A date/18-11-2024 time/18:00", appointmentRecord);
         command.appointment("n/Helen Smith ic/S7654321A date/19-11-2024 time/18:00", appointmentRecord);
         String expectedOutput = "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been added.\n" +
-                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" + "Appointment " +
-                "on 18-11-2024 18:00 with Patient John Doe, S1234567A.\n" + "Appointment on 19-11-2024 18:00 " +
-                "with Patient Helen Smith, S7654321A.";
+                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" +
+                "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.\n" + "Appointment on 19-11-2024 " +
+                "18:00 with Patient Helen Smith, S7654321A.";
         command.listAppointments(appointmentRecord);
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(),
                 "\n"));
@@ -337,8 +337,8 @@ public class CommandHandlerTest {
         command.appointment("n/John Doe ic/S1234567A date/18-11-2024 time/18:00", appointmentRecord);
         command.appointment("n/Helen Smith ic/S7654321A date/19-11-2024 time/18:00", appointmentRecord);
         String expectedOutput = "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been added.\n" +
-                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" + "Appointment " +
-                "on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
+                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" +
+                "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
         command.findAppointment("n/John Doe", appointmentRecord);
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(),
                 "\n"));
@@ -350,8 +350,8 @@ public class CommandHandlerTest {
         command.appointment("n/John Doe ic/S1234567A date/18-11-2024 time/18:00", appointmentRecord);
         command.appointment("n/Helen Smith ic/S7654321A date/19-11-2024 time/18:00", appointmentRecord);
         String expectedOutput = "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been added.\n" +
-                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" + "Appointment " +
-                "on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
+                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" +
+                "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
         command.findAppointment("ic/S1234567A", appointmentRecord);
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(),
                 "\n"));
@@ -363,8 +363,8 @@ public class CommandHandlerTest {
         command.appointment("n/John Doe ic/S1234567A date/18-11-2024 time/18:00", appointmentRecord);
         command.appointment("n/Helen Smith ic/S7654321A date/19-11-2024 time/18:00", appointmentRecord);
         String expectedOutput = "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been added.\n" +
-                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" + "Appointment " +
-                "on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
+                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" +
+                "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
         command.findAppointment("date/18-11-2024", appointmentRecord);
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(),
                 "\n"));
@@ -376,9 +376,9 @@ public class CommandHandlerTest {
         command.appointment("n/John Doe ic/S1234567A date/18-11-2024 time/18:00", appointmentRecord);
         command.appointment("n/Helen Smith ic/S7654321A date/19-11-2024 time/18:00", appointmentRecord);
         String expectedOutput = "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A has been added.\n" +
-                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" + "Appointment " +
-                "on 18-11-2024 18:00 with Patient John Doe, S1234567A.\n" + "Appointment on 19-11-2024 18:00 " +
-                "with Patient Helen Smith, S7654321A.";
+                "Appointment on 19-11-2024 18:00 with Patient Helen Smith, S7654321A has been added.\n" +
+                "Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.\n" + "Appointment on 19-11-2024 " +
+                "18:00 with Patient Helen Smith, S7654321A.";
         command.findAppointment("time/18:00", appointmentRecord);
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim().replace(System.lineSeparator(),
                 "\n"));
