@@ -73,14 +73,14 @@ Format: `help`
 |             | [mh/MEDICALHISTORY]                   |                                 |
 +-------------+---------------------------------------+---------------------------------+
 | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
-|             | [d/DIAGNOSIS] [MEDICATION]            | v/21-10-2024 15:48              |
+|             | [d/DIAGNOSIS] m/[MEDICATION]          | v/21-10-2024 15:48              |
 |             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |
-|             | TIME format: HH:mm                    | Paracetamol,Ibuprofen           |
+|             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
 +-------------+---------------------------------------+---------------------------------+
 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
 |             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
 |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
-|             | [MEDICATION]                          | d/Asthma m/Panadol, Antibiotics |
+|             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
 |             | DATE format: dd-mm-yyyy               |                                 |
 |             | TIME format: HH:mm                    |                                 |
 +-------------+---------------------------------------+---------------------------------+
