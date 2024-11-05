@@ -73,7 +73,7 @@ Format: `help`
 |             | [mh/MEDICALHISTORY]                   |                                 |
 +-------------+---------------------------------------+---------------------------------+
 | Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |
-|             | [d/DIAGNOSIS] m/[MEDICATION]          | v/21-10-2024 15:48              |
+|             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |
 |             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |
 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
 +-------------+---------------------------------------+---------------------------------+
