@@ -403,7 +403,7 @@ Name: Jacky Cheung, NRIC: S7209876Y, Phone: 91234567, Address: Farrer Road, DOB:
 ```
 If nothing found:
 ```
-No patient found with symptom: Panado
+No patient found with medication: Panado
 ```
 ---
 
@@ -497,8 +497,7 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 ---
 ## Saving/Retrieving Records and AppointmentRecord Data
 <br>
-No Extra command is to be issued to save. All saving and retrieving are automatically performed when needed.
-
+Saving and retrieving are performed automatically whenever changes are made, with no additional commands required.
 ---
 ## Exiting the Program
 Exits the program.
