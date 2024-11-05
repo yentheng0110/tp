@@ -34,7 +34,7 @@ public class CommandHandlerTest {
 
     //@@author coraleaf0602
     @Test
-    void test_help_output() {
+    void helpCommand_noInput_outputsCommandHelp() {
         command.help();
         assertEquals("+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Action      | Format                                | Example                         |\n" +
@@ -130,7 +130,7 @@ public class CommandHandlerTest {
 
     //@@author coraleaf0602
     @Test
-    void test_addOnePatient_toEmptyRecord() throws IOException {
+    void addCommand_validPatientDetails_addsSuccessfully() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
@@ -138,7 +138,7 @@ public class CommandHandlerTest {
 
     //@@author coraleaf0602
     @Test
-    void test_deletePatient_inRecord() throws IOException {
+    void deleteCommand_existingPatient_deletesSuccessfully() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes", records);
         command.delete("S9534567A", records);
@@ -150,7 +150,7 @@ public class CommandHandlerTest {
 
     //@@author coraleaf0602
     @Test
-    void test_listOnePatient_inRecord() throws IOException {
+    void listCommand_onePatientInRecord_outputsPatientDetails() throws IOException {
         command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes", records);
         command.list(records);
@@ -163,35 +163,35 @@ public class CommandHandlerTest {
 
     //@@author coraleaf0602
     @Test
-    void test_findName_doesNotExist() {
+    void findCommand_nameDoesNotExist_returnsNotFound() {
         command.find("n/james", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
     //@@author coraleaf0602
     @Test
-    void test_findIC_doesNotExist() {
+    void findCommand_nricDoesNotExist_returnsNotFound() {
         command.find("ic/S1234567Z", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
     //@@author coraleaf0602
     @Test
-    void test_findPhoneNumber_doesNotExist() {
+    void findCommand_phoneNumberDoesNotExist_returnsNotFound() {
         command.find("p/82529790", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
     //@@author coraleaf0602
     @Test
-    void test_findHomeAddress_doesNotExist() {
+    void findCommand_homeAddressDoesNotExist_returnsNotFound() {
         command.find("ha/NUS Utown", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
 
     //@@author coraleaf0602
     @Test
-    void test_findDateOfBirth_doesNotExist() {
+    void findCommand_dateOfBirthDoesNotExist_returnsNotFound() {
         command.find("dob/13122005", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
