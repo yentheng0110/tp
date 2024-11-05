@@ -24,6 +24,7 @@ public class FileHandler {
     private static String filePath = "data" + File.separator + "bookbob_data.txt";
     private static String appointmentFilePath = "data" + File.separator + "bookbob_appointment.txt";
 
+    //@@author PrinceCatt
     public static void initFile(Records records){
         try {
             String directoryName = "data";
@@ -74,6 +75,7 @@ public class FileHandler {
         }
     }
 
+    //@@author PrinceCatt
     public static String convertPatientToOutputText(Patient patient) {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
@@ -97,6 +99,7 @@ public class FileHandler {
         return output;
     }
 
+    //@@author PrinceCatt
     public static void autosave(Records records) throws IOException {
         ArrayList<Patient> patients = records.getPatients();
         FileWriter fw = new FileWriter(filePath);
@@ -152,6 +155,7 @@ public class FileHandler {
         }
     }
 
+    //@@author PrinceCatt
     public static void retrieveData(AppointmentRecord appointmentRecord){
         try {
             File file = new File(appointmentFilePath);

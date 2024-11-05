@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class FindVisit {
 
     //find visit by nric and print all visits to terminal
+    //@@author PrinceCatt
     public static void findVisitByIc(String nric, Records records) {
         ArrayList<Patient> patientList = records.getPatients();
         boolean isFound = false;
@@ -28,6 +29,7 @@ public class FindVisit {
     }
 
     //find patient by diagnosis and print the specific patient and visit to terminal
+    //@@author PrinceCatt
     public static void findVisitByDiagnosis(String symptom, Records records) {
         ArrayList<Patient> patientList = records.getPatients();
         boolean found = false;
@@ -49,6 +51,7 @@ public class FindVisit {
     }
 
     //find visit by medication and print all visits to terminal
+    //@@author PrinceCatt
     public static void findVisitByMedication(String medication, Records records) {
         ArrayList<Patient> patientList = records.getPatients();
         boolean isFound = false;
