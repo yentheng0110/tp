@@ -122,8 +122,7 @@ public class FileHandler {
         fw.close();
         logger.log(Level.INFO, "Autosaved appointments successfully");
     }
-
-    //@@author kaboomzxc
+    
     public static void retrieveData(Records records) {
         try {
             File file = new File(filePath);
@@ -200,7 +199,7 @@ public class FileHandler {
         }
     }
 
-    //@@author kaboomzxc
+    //@@author yentheng0110 and kaboomzxc
     private static ArrayList<String> parseList(String input) {
         ArrayList<String> list = new ArrayList<>();
         // Remove any number of surrounding brackets
@@ -212,7 +211,7 @@ public class FileHandler {
         return list;
     }
 
-    //@@author kaboomzxc
+
     public static Visit parseVisitInputString(String visitString) {
         try {
             int visitStartIndex = visitString.indexOf("[");

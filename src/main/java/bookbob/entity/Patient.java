@@ -14,7 +14,7 @@ public class Patient {
     private ArrayList<String> medicalHistories;
 
     // default constructor only takes in name, NRIC and visits - mandatory fields
-    //@@author G13nd0n and kaboomzxc and coraleaf0602
+    //@@author G13nd0n and kaboomzxc and coraleaf0602 and yentheng0110
     public Patient(String name, String nric, ArrayList<Visit> visits) {
         this.name = name;
         this.nric = nric;

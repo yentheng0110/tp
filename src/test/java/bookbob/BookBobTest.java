@@ -54,10 +54,23 @@ public class BookBobTest {
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Edit        | edit ic/NRIC /to [n/NAME]             | edit ic/S9534567A /to p/80976890|\n" +
+                        "|             | [newic/NEW_NRIC]  [p/PHONE_NUMBER]    | mh/Diabetes, Hypertension       |\n" +
+                        "|             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] |                                 |\n" +
+                        "|             | [al/ALLERGY] [s/SEX]                  |                                 |\n" +
+                        "|             | [mh/MEDICALHISTORY]                   |                                 |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Add Visit   | addVisit ic/NRIC v/VISIT_DATE_TIME    | addVisit ic/S9534567A           |\n" +
                         "|             | [d/DIAGNOSIS] [m/MEDICATION]          | v/21-10-2024 15:48              |\n" +
                         "|             | DATE format: dd-mm-yyyy               | d/Fever,Headache,Flu            |\n" +
                         "|             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |\n" +
+                        "+-------------+---------------------------------------+---------------------------------+\n" +
+                        "| Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |\n" +
+                        "|             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |\n" +
+                        "|             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |\n" +
+                        "|             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |\n" +
+                        "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
+                        "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| List        | list                                  | list                            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
