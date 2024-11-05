@@ -80,7 +80,7 @@ Format: `help`
 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
 |             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
 |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
-|             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
+|             | [m/MEDICATION]                        | d/Asthma m/l, Antibiotics |
 |             | DATE format: dd-mm-yyyy               |                                 |
 |             | TIME format: HH:mm                    |                                 |
 +-------------+---------------------------------------+---------------------------------+
@@ -90,7 +90,7 @@ Format: `help`
 |             | find ic/NRIC         OR               | find ic/S1234                   |
 |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
 |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
-|             | find m/MEDICATION    OR               | find m/Panadol                  |
+|             | find m/MEDICATION    OR               | find m/l                  |
 |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
 |             | find dob/DATE_OF_BIRTH OR             | find dob/01011990               |
 |             | find al/ALLERGY      OR               | find al/Peanuts                 |
@@ -125,7 +125,7 @@ Format: `help`
 | Find        | findDiagnosis diagnosis               | findDiagnosis fever             |
 | Diagnosis   |                                       |                                 |
 +-------------+---------------------------------------+---------------------------------+
-| Find        | findMedication medication             | findMedication Panadol          |
+| Find        | findMedication medication             | findMedication l          |
 | Medication  |                                       |                                 |
 +-------------+---------------------------------------+---------------------------------+
 | Save        | save(automatic)                       |                                 |
@@ -324,13 +324,13 @@ are the new information to be updated for the patient. <br>
 • Single diagnosis and medication can be added; <u>Multiple diagnoses and/or medications are also allowed</u>, by 
 separating them with commas. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `editVisit ic/S7209876Y date/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`
+Example: `editVisit ic/S7209876Y date/06-11-2024 14:00 d/Asthma m/l, Antibiotics`
 
 Example Output:
 ```
 Visit record updated successfully.
 Updated visit details:
-06-11-2024 14:00, Diagnosis: [Asthma], Medications: [Panadol, Antibiotics]
+06-11-2024 14:00, Diagnosis: [Asthma], Medications: [l, Antibiotics]
 ```
 
 Additional examples:
@@ -381,7 +381,7 @@ Medical History: []
 ```
 If nothing found:
 ```
-No patient found with symptom: Runny Nos
+No patient found with symptom: Runny Nose
 ```
 
 By Medication: <br> Format: findMedication medication<br>
@@ -403,7 +403,7 @@ Name: Jacky Cheung, NRIC: S7209876Y, Phone: 91234567, Address: Farrer Road, DOB:
 ```
 If nothing found:
 ```
-No patient found with medication: Panado
+No patient found with medication: Panadol
 ```
 ---
 
@@ -495,7 +495,7 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 
 ```
 ---
-## Saving/Retrieving Records and AppointmentRecord Data
+## Saving/Retrieving Records and AppointmentRecords Data
 <br>
 Saving and retrieving are performed automatically whenever changes are made, with no additional commands required.
 ---
