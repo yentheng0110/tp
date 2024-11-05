@@ -195,4 +195,106 @@ public class CommandHandlerTest {
         command.find("dob/13122005", records);
         assertEquals("No matching patients found.", outputStreamCaptor.toString().trim());
     }
+
+
+    // @@ author G13nd0n
+    @Test
+    void add_onePatient_onePatientInRecord() throws IOException{
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        assertEquals(1, records.getPatients().size());
+    }
+
+    // @@author G13nd0n
+    @Test
+    void delete_onePatient_twoPatientInRecord() throws IOException{
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                "v/15-10-2024 11:53", records);
+        command.add("add n/Shawn Knowles ic/S2468013C p/87654321 d/Fever m/Aspirin ha/Tembusu dob/23-11-1998" +
+                "v/02-04-2024 09:45", records);
+        command.delete("S2468013C", records);
+        assertEquals(2, records.getPatients().size());
+    }
+
+    // @@author G13nd0n
+    @Test
+    void testList_twoInputs_twoPatientsInRecord() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                "v/15-10-2024 11:53", records);
+        command.list(records);
+
+        String expectedOutput = "Patient John Doe with NRIC S1234567A added.\n" +
+                "Patient Will Smith with NRIC S7654321B added.\n" +
+                "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Home Address: RC4, " +
+                "DOB: 13-04-2000, Allergies: [], Sex: , Medical Histories: []\n" +
+                "    Visit Date: 23-11-2024 12:29, Diagnosis: [COVID-19], Medications: [Paracetamol]\n" +
+                "Name: Will Smith, NRIC: S7654321B, Phone: 91234567, Home Address: CAPT, " +
+                "DOB: 18-06-2003, Allergies: [], Sex: , Medical Histories: []\n" +
+                "    Visit Date: 15-10-2024 11:53, Diagnosis: [AIDS], Medications: [Paracetamol]";
+
+        String normalizedExpected = expectedOutput.replaceAll("\\s+\n", "\n");
+        String normalizedActual = outputStreamCaptor.toString().trim().replaceAll("\\s+\n", "\n");
+        assertEquals(normalizedExpected, normalizedActual);
+    }
+
+    // @@author G13nd0n
+    @Test
+    void testFind_nric_oneOutput() throws IOException{
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                "v/21-10-2024 15:30 al/peanuts s/male mh/diabetes", records);
+        command.find("ic/S7654321B", records);
+        String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
+                "added.\n" + "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, Address: CAPT, " +
+                "DOB: 18-06-2003, Allergy: [peanuts], Sex: male, Medical History: [diabetes]";
+        assertEquals(expectedOutput,
+                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    }
+
+    //@@author G13nd0n
+    @Test
+    void testFind_name_multipleOutputs() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                "v/21-10-2024 15:30", records);
+        command.add("add n/John Smith ic/S2468024A p/87654321 d/Diabetes m/Insulin ha/CAPT dob/13-04-2002" +
+                "v/15-10-2024 10:25", records);
+        String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
+                "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
+                "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
+                "Address: CAPT, DOB: 18-06-2003, Allergy: [], Sex: , Medical History: []\n" +
+                "Name: John Smith, NRIC: S2468024A, Phone: 87654321, Address: CAPT, " +
+                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
+        command.find("n/Smith", records);
+        assertEquals(expectedOutput,
+                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    }
+
+    //@@author G13nd0n
+    @Test
+    void testFind_address_multipleOutputs() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
+                "v/23-11-2024 12:29", records);
+        command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
+                "v/21-10-2024 15:30", records);
+        command.add("add n/John Smith ic/S2468024A p/87654321 d/Diabetes m/Insulin ha/CAPT dob/13-04-2002" +
+                "v/15-10-2024 10:25", records);
+        String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
+                "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
+                "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
+                "Address: CAPT, DOB: 18-06-2003, " +
+                "Allergy: [], Sex: , Medical History: []\nName: John Smith, NRIC: S2468024A, " +
+                "Phone: 87654321, Address: CAPT, " +
+                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
+        command.find("ha/CAPT", records);
+        assertEquals(expectedOutput,
+                outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
+    }
+
 }
