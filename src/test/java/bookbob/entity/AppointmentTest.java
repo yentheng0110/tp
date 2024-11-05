@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppointmentTest {
     //@@author G13nd0n
     @Test
-    void test_nameGetter() {
+    void testNameGetter_noInput_name() {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
         String name = first.getPatientName();
@@ -19,7 +19,7 @@ class AppointmentTest {
 
     //@@author G13nd0n
     @Test
-    void test_nricGetter() {
+    void testNricGetter_noInput_nric() {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
         String nric = first.getPatientNric();
@@ -29,7 +29,7 @@ class AppointmentTest {
 
     //@@author G13nd0n
     @Test
-    void test_dateGetter() {
+    void testDateGetter_noInput_date() {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
         LocalDate date = first.getDate();
@@ -39,7 +39,7 @@ class AppointmentTest {
 
     //@@author G13nd0n
     @Test
-    void test_timeGetter() {
+    void testTimeGetter_noInput_time() {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
         LocalTime time = first.getTime();
@@ -49,7 +49,7 @@ class AppointmentTest {
 
     //@@author G13nd0n
     @Test
-    void test_consultationTimeGetter() {
+    void testConsultationDurationGetter_noInput_duration() {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
         long duration = first.getConsultationDuration();
@@ -70,7 +70,7 @@ class AppointmentTest {
 
     //@@author G13nd0n
     @Test
-    void compareTo_firstAfterSecond_one() {
+    void compareTo_twoInputs_one() {
         Appointment first = new Appointment("John Doe", "S1234567A", "19-11-2024",
                 "18:00");
         Appointment second = new Appointment("Helen Smith", "S7654321A", "18-11-2024",
