@@ -48,7 +48,7 @@ public class AppointmentRecord {
         } else if (inputs[0].equals("date")){
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
-                String date = appointment.getDate().toString();
+                String date = appointment.getDate().format(formatter);
                 if (date.equals(details)) {
                     results.add(appointment);
                 }
