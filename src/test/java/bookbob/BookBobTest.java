@@ -344,7 +344,7 @@ public class BookBobTest {
     }
     //@@author kaboomzxc
     @Test
-    void testAddVisit_Success() throws IOException {
+    void testAddVisitSuccess() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
         outputStreamCaptor.reset();
         command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
@@ -359,7 +359,7 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisit_NonExistentPatient() throws IOException {
+    void testAddVisitNonexistentPatient() throws IOException {
         command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
 
         String output = outputStreamCaptor.toString().trim();
@@ -368,7 +368,7 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisit_MissingNRIC() throws IOException {
+    void testAddVisitMissingNric() throws IOException {
         command.addVisit("addVisit v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
 
         assertEquals("Please provide the patient's NRIC.", outputStreamCaptor.toString().trim());
@@ -376,7 +376,7 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisit_MissingVisitDate() throws IOException {
+    void testAddVisitMissingVisitDate() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
         outputStreamCaptor.reset();
 
@@ -387,7 +387,7 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisit_MultipleVisits_1() throws IOException {
+    void testAddVisitMultipleVisits() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
 
         command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
@@ -401,7 +401,7 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisit_InvalidDateFormat() throws IOException {
+    void testAddVisitInvalidFormat() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
         outputStreamCaptor.reset();
 
@@ -413,7 +413,7 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisit_EmptyOptionalFields() throws IOException {
+    void testAddVisitEmptyFields() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
         outputStreamCaptor.reset();
 
