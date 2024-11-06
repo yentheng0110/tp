@@ -250,7 +250,7 @@ public class MainTest {
     }
 
     @Test
-    void testAddCommand_AllFields() {
+    void testAddCommandAllFields() {
         String input = "add n/John Doe ic/S9876543A p/91234567 d/Fever,Cough m/Paracetamol,Syrup " +
                 "ha/123 Main St dob/01-01-1990 v/01-11-2024 14:30 al/Peanuts s/Male mh/Asthma\n" +
                 "add n/Jane Smith ic/S8765432B p/92345678 v/01-11-2024 15:30\n" + // Minimal fields
@@ -274,7 +274,7 @@ public class MainTest {
     }
 
     @Test
-    void testEditCommand_AllFieldVariations() {
+    void testEditCommandAllFieldVariations() {
         String input = "add n/John Doe ic/S9876543A v/01-11-2024 14:30 p/91234567\n" +
                 "edit ic/S9876543A /to n/James Doe\n" +
                 "edit ic/S9876543A /to newic/S9876543B\n" +
@@ -305,7 +305,7 @@ public class MainTest {
     }
 
     @Test
-    void testVisitOperations_ComplexScenarios() {
+    void testVisitOperationsComplexScenarios() {
         String input = "add n/John Doe ic/S9876543A v/01-11-2024 14:30\n" +
                 "addVisit ic/S9876543A v/02-11-2024 14:30 d/Fever m/Paracetamol\n" +
                 "addVisit ic/S9876543A v/03-11-2024 14:30 d/Cold m/Syrup\n" +
@@ -348,7 +348,7 @@ public class MainTest {
     }
 
     @Test
-    void testSearchOperations_AllCriteria() {
+    void testSearchOperationsAllCriteria() {
         String input = "add n/John Doe ic/S9876543A p/91234567 d/Fever m/Paracetamol " +
                 "ha/123 Main St dob/01-01-1990 v/01-11-2024 14:30 al/Peanuts s/Male mh/Asthma\n" +
                 "find n/John\n" +
@@ -380,7 +380,7 @@ public class MainTest {
     }
 
     @Test
-    void testDeleteOperations_ComplexScenarios() {
+    void testDeleteOperationsComplexScenarios() {
         String input = "add n/John Doe ic/S9876543A v/01-11-2024 14:30\n" +
                 "addVisit ic/S9876543A v/02-11-2024 14:30 d/Fever m/Paracetamol\n" +
                 "appointment n/John Doe ic/S9876543A date/03-11-2024 time/14:30\n" +
