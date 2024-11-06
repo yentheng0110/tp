@@ -1,6 +1,8 @@
 package bookbob;
 
+import bookbob.entity.Patient;
 import bookbob.entity.Records;
+import bookbob.entity.Visit;
 import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
 
