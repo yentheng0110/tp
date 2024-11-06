@@ -63,14 +63,14 @@ Interface (CLI), BookBob allows for efficient management of patient information 
   - Help fixed the CI issues that was accumulated over time #75
 
 ## Contributions to the Developer Guide
-- Appointment Class Diagram
+- Appointment Class Diagram\
 ![Appointment.png](..%2FAppointment.png)
-- AppointmentRecord Class Diagram
+- AppointmentRecord Class Diagram\
 ![AppointmentRecord.png](..%2FAppointmentRecord.png)
-- Object Diagram for Appointment Feature
+- Object Diagram for Appointment Feature\
 ![BeforeExecutionOD.png](..%2FBeforeExecutionOD.png)
 ![AfterExecutionOD.png](..%2FAfterExecutionOD.png)
-- Sequence Diagram for Appointment Feature
+- Sequence Diagram for Appointment Feature\
 ![NewAppointmentSD.png](..%2FNewAppointmentSD.png)
 
 ```
