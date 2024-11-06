@@ -387,16 +387,40 @@ public class BookBobTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisitMultipleVisits() throws IOException {
+    void testAddVisitMultipleVisitsForSamePatient() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
 
         command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
-        command.addVisit("addVisit ic/S1234567A v/22-10-2024 16:30 d/Headache m/Ibuprofen", records);
+        String firstOutput = outputStreamCaptor.toString().trim();
+        outputStreamCaptor.reset();
+
+        command.addVisit("addVisit ic/S1234567A v/22-10-2024 16:30 d/Cough m/Cough Syrup", records);
+        String secondOutput = outputStreamCaptor.toString().trim();
 
         Patient patient = records.getPatients().get(0);
         assertEquals(3, patient.getVisits().size()); // Including initial visit
-        Visit lastVisit = patient.getVisits().get(2);
-        assertEquals("Headache", lastVisit.getDiagnoses().get(0));
+
+        Visit firstAddedVisit = patient.getVisits().get(1);
+        Visit secondAddedVisit = patient.getVisits().get(2);
+
+        assertEquals("Fever", firstAddedVisit.getDiagnoses().get(0));
+        assertEquals("Cough", secondAddedVisit.getDiagnoses().get(0));
+        assertEquals("Paracetamol", firstAddedVisit.getMedications().get(0));
+        assertEquals("Cough Syrup", secondAddedVisit.getMedications().get(0));
+
+        String expectedFirstOutput = "Visit added successfully for patient: John Doe" + System.lineSeparator() +
+                "Visit date: 21-10-2024 15:48" + System.lineSeparator() +
+                "Diagnoses: Fever" + System.lineSeparator() +
+                "Medications: Paracetamol";
+
+        String expectedSecondOutput = "Visit added successfully for patient: John Doe" + System.lineSeparator() +
+                "Visit date: 22-10-2024 16:30" + System.lineSeparator() +
+                "Diagnoses: Cough" + System.lineSeparator() +
+                "Medications: Cough Syrup";
+
+        assertEquals(expectedFirstOutput, firstOutput);
+        assertEquals(expectedSecondOutput, secondOutput);
     }
 
     //@@author kaboomzxc
@@ -427,6 +451,60 @@ public class BookBobTest {
         assertEquals(0, addedVisit.getMedications().size());
         assertEquals("Visit added successfully for patient: John Doe" + System.lineSeparator() +
                 "Visit date: 21-10-2024 15:48", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisitMultipleDiagnoses() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
+
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever,Cough,Headache m/Paracetamol,Ibuprofen", records);
+
+        Patient patient = records.getPatients().get(0);
+        Visit addedVisit = patient.getVisits().get(1); // Second visit
+
+        assertEquals(2, patient.getVisits().size());
+        assertEquals(3, addedVisit.getDiagnoses().size());
+        assertEquals(2, addedVisit.getMedications().size());
+        assertEquals("Fever", addedVisit.getDiagnoses().get(0));
+        assertEquals("Cough", addedVisit.getDiagnoses().get(1));
+        assertEquals("Headache", addedVisit.getDiagnoses().get(2));
+        assertEquals("Paracetamol", addedVisit.getMedications().get(0));
+        assertEquals("Ibuprofen", addedVisit.getMedications().get(1));
+
+        String expectedOutput = "Visit added successfully for patient: John Doe" + System.lineSeparator() +
+                "Visit date: 21-10-2024 15:48" + System.lineSeparator() +
+                "Diagnoses: Fever, Cough, Headache" + System.lineSeparator() +
+                "Medications: Paracetamol, Ibuprofen";
+
+        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisitSpecialCharacters() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
+
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 " +
+                "d/High Blood-Pressure,Type-2 Diabetes m/Metformin-500mg,ACE-Inhibitor", records);
+
+        Patient patient = records.getPatients().get(0);
+        Visit addedVisit = patient.getVisits().get(1); // Second visit
+
+        assertEquals(2, patient.getVisits().size());
+        assertEquals("High Blood-Pressure", addedVisit.getDiagnoses().get(0));
+        assertEquals("Type-2 Diabetes", addedVisit.getDiagnoses().get(1));
+        assertEquals("Metformin-500mg", addedVisit.getMedications().get(0));
+        assertEquals("ACE-Inhibitor", addedVisit.getMedications().get(1));
+
+        String expectedOutput = "Visit added successfully for patient: John Doe" + System.lineSeparator() +
+                "Visit date: 21-10-2024 15:48" + System.lineSeparator() +
+                "Diagnoses: High Blood-Pressure, Type-2 Diabetes" + System.lineSeparator() +
+                "Medications: Metformin-500mg, ACE-Inhibitor";
+
+        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }
 
     // @@ author G13nd0n
