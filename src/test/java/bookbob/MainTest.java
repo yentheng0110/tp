@@ -29,6 +29,8 @@ public class MainTest {
     private final String TOMORROW = LocalDate.now().plusDays(1).format(formatter);
     private final String YESTERDAY = LocalDate.now().minusDays(1).format(formatter);
 
+
+    //@@author kaboomzxc
     @BeforeEach
     void setUp() throws IOException {
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -42,6 +44,7 @@ public class MainTest {
         System.setOut(standardOut);
     }
 
+    //@@author kaboomzxc
     // Test different command combinations
     @Test
     void testMultipleCommandSequences() {
@@ -67,6 +70,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test all error conditions in addVisit
     @Test
     void testAddVisitErrors() {
@@ -89,6 +93,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test all error conditions in editVisit
     @Test
     void testEditVisitErrors() {
@@ -111,6 +116,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test all error conditions in appointment
     @Test
     void testAppointmentErrors() {
@@ -136,6 +142,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test appointment time slot validation
     @Test
     void testAppointmentTimeSlotValidation() {
@@ -155,6 +162,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test find command with various criteria
     @Test
     void testFindWithMultipleCriteria() {
@@ -181,6 +189,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test deleteAppointment with various conditions
     @Test
     void testDeleteAppointmentScenarios() {
@@ -202,6 +211,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test input validation edge cases
     @Test
     void testInputValidationEdgeCases() {
@@ -222,6 +232,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     // Test concurrent operations
     @Test
     void testConcurrentOperations() {
@@ -244,11 +255,13 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     private void provideInput(String data) {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
         System.setIn(testIn);
     }
 
+    //@@author kaboomzxc
     @Test
     void testAddCommandAllFields() {
         String input = "add n/John Doe ic/S9876543A p/91234567 d/Fever,Cough m/Paracetamol,Syrup " +
@@ -273,6 +286,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testEditCommandAllFieldVariations() {
         String input = "add n/John Doe ic/S9876543A v/01-11-2024 14:30 p/91234567\n" +
@@ -304,6 +318,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testVisitOperationsComplexScenarios() {
         String input = "add n/John Doe ic/S9876543A v/01-11-2024 14:30\n" +
@@ -328,6 +343,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testDateTimeValidations() {
         String input = "add n/John Doe ic/S9876543A v/32-13-2024 14:30\n" + // Invalid date
@@ -347,6 +363,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testSearchOperationsAllCriteria() {
         String input = "add n/John Doe ic/S9876543A p/91234567 d/Fever m/Paracetamol " +
@@ -379,6 +396,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testDeleteOperationsComplexScenarios() {
         String input = "add n/John Doe ic/S9876543A v/01-11-2024 14:30\n" +
@@ -401,6 +419,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testInvalidCommandsAndErrors() {
         String input = "invalidcommand\n" +
@@ -429,6 +448,8 @@ public class MainTest {
         }
 
     }
+
+    //@@author kaboomzxc
     @Test
     void testCheckAvailabilityAllBranches() {
         String input = String.format(
@@ -455,6 +476,8 @@ public class MainTest {
         }
     }
 
+
+    //@@author kaboomzxc
     @Test
     void testCompletePatientLifecycle() {
         String input = "add n/John Doe ic/S1234567A p/91234567 d/Fever m/Paracetamol v/01-11-2024 14:30\n" +
@@ -479,6 +502,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testAppointmentTimeBoundaries() {
         String input = String.format(
@@ -500,6 +524,7 @@ public class MainTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     void testDateFormatHandling() {
         String input = "add n/John Doe ic/S1234567A v/2024-11-01 14:30\n" +  // Wrong date format
