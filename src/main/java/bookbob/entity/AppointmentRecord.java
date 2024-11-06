@@ -108,19 +108,29 @@ public class AppointmentRecord {
     //@@author G13nd0n
     public LocalTime checkAvailability(LocalDate date, LocalTime time) {
         LocalTime nextAvailableTime = time;
+        long consultationDuration = 30;
+        LocalTime endTime = time.plusMinutes(consultationDuration);
         for (Appointment appointment : appointments) {
             LocalDate appointmentDate = appointment.getDate();
             LocalTime appointmentTime = appointment.getTime();
-            long consultationDuration = appointment.getConsultationDuration();
             LocalTime appointmentEndTime = appointmentTime.plusMinutes(consultationDuration);
             if (appointmentDate.equals(date) && appointmentTime.equals(nextAvailableTime)) {
                 nextAvailableTime = appointmentEndTime;
-            } else if (appointmentDate.isAfter(date) && appointmentTime.isAfter(nextAvailableTime)
-                    && appointmentEndTime.isBefore(nextAvailableTime)) {
-                nextAvailableTime = appointmentEndTime;
-            }
-            if (appointmentDate.isAfter(date)) {
+                endTime = appointmentEndTime.plusMinutes(consultationDuration);
                 break;
+            } else if (appointmentDate.isAfter(date)) {
+                break;
+            } else if (appointmentDate.isBefore(date)) {
+                continue;
+            } else if (appointmentDate.equals(date) && appointmentTime.isBefore(nextAvailableTime)
+                    && appointmentEndTime.isAfter(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+                endTime = appointmentEndTime.plusMinutes(consultationDuration);
+            } else if (appointmentDate.equals(date) && appointmentEndTime.isBefore(nextAvailableTime)) {
+                continue;
+            } else if (appointmentDate.equals(date) &&  appointmentTime.isBefore(endTime)) {
+                nextAvailableTime = appointmentEndTime;
+                endTime = appointmentEndTime.plusMinutes(consultationDuration);
             }
         }
         return nextAvailableTime;
