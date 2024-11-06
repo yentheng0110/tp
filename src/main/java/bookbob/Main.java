@@ -237,7 +237,7 @@ public class Main {
             case "findAppointment":
                 logger.log(Level.INFO, "Processing find appointment command");
                 try {
-                    commandHandler.findAppointment(input, appointmentRecord);
+                    commandHandler.findAppointment(inputArr[1], appointmentRecord);
                     logger.log(Level.INFO, "Successfully processed find appointment command");
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
