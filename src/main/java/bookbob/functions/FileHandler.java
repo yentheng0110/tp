@@ -24,7 +24,7 @@ public class FileHandler {
     private static String filePath = "data" + File.separator + "bookbob_data.txt";
     private static String appointmentFilePath = "data" + File.separator + "bookbob_appointment.txt";
 
-    //@author PrinceCatt
+    //@@author PrinceCatt
     public static void initFile(Records records){
         try {
             String directoryName = "data";
@@ -75,7 +75,7 @@ public class FileHandler {
         }
     }
 
-    //@author PrinceCatt
+    //@@author PrinceCatt
     public static String convertPatientToOutputText(Patient patient) {
         String output = "";
         output += "Name: " + patient.getName() + " | " + "NRIC: " + patient.getNric() + " | "
@@ -122,7 +122,8 @@ public class FileHandler {
         fw.close();
         logger.log(Level.INFO, "Autosaved appointments successfully");
     }
-    
+
+    //@@author PrinceCatt and kaboomzxc
     public static void retrieveData(Records records) {
         try {
             File file = new File(filePath);
