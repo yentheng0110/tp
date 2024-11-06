@@ -1,9 +1,14 @@
 package functions;
 
-import bookbob.entity.*;
+
+import bookbob.entity.Appointment;
+import bookbob.entity.Patient;
+import bookbob.entity.Records;
+import bookbob.entity.Visit;
 import bookbob.functions.CommandHandler;
 import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
+import bookbob.entity.AppointmentRecord;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -88,7 +93,7 @@ public class FileHandlerTest {
 
     @Test
     void testFileInitializationAppointmentRecords() throws IOException {
-        AppointmentRecord appointmentRecord = new AppointmentRecord();            //initialize a new record to clear file content
+        AppointmentRecord appointmentRecord = new AppointmentRecord();
         fileHandler.autosave(appointmentRecord);
         command.appointment("appointment n/Jack Wong ic/S9765432T date/04-11-2024 " +
                 "time/21:19", appointmentRecord);
