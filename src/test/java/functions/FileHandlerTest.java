@@ -77,7 +77,7 @@ public class FileHandlerTest {
     void testFileInitializationRecords() throws IOException {
         Records records = new Records();            //initialize a new record to clear file content
         fileHandler.autosave(records);
-        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon " +
+        command.add("add n/Jack Wong ic/S9765432T p/87658976 mh/diabetes d/Gastric m/Gaviscon Panadol " +
                 "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
         Patient patient = records.getPatients().get(0);
         fileHandler.autosave(records);
@@ -112,11 +112,20 @@ public class FileHandlerTest {
         diagnosis.add("Gastric");
         medications.add("Gaviscon");
         Visit visit = new Visit(visitDateTime, diagnosis, medications);
-        assertEquals(visit, convertedVisit);
+        assertEquals(visit.toString(), convertedVisit.toString());
     }
 
     @Test
-    void testParseList() throws IOException {
+    void testParseVisitInputStringNull() throws IOException {
+        String visitString = "";
+        Visit convertedVisit = fileHandler.parseVisitInputString(visitString);
+        assertEquals(null, convertedVisit);
+    }
 
+    @Test
+    void testParseVisitInputStringNull2() throws IOException {
+        String visitString = "[01-10-2024 17:30, : [Gastric], Medications: [Gaviscon]]";
+        Visit convertedVisit = fileHandler.parseVisitInputString(visitString);
+        assertEquals(null, convertedVisit);
     }
 }
