@@ -281,7 +281,7 @@ public class CommandHandler {
         return nextIndex;
     }
 
-    //@@author yentheng0110
+    //@@author yentheng0110 and kaboomzxc
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
