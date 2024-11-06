@@ -8,7 +8,6 @@ and medication for each visit when applicable. It also provides a system for sim
 of future appointments, giving reminders in the morning for the day's appointments when the app initiated.
 
 ### Summary of Contributions
-### Summary of Contributions
 
 - Code Contributed: [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=princecatt)
 - Enhancements implemented:
