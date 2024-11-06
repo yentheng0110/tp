@@ -1,3 +1,1 @@
-Name: Patricia Chan | NRIC: S9089087U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]];
-Name: Jacky Cheung | NRIC: S7209876Y | Phone Number: 91234567 | Date_Of_Birth:  | Home Address: Farrer Road | Allergy: [] | Sex:  | Medical History: [] | Visit: [06-11-2024 14:00, Diagnosis: [Asthma], Medications: [Panadol, Antibiotics]];
-Name: James Ho | NRIC: S9534567A | Phone Number: 80976890 | Date_Of_Birth: 01011990 | Home Address: NUS-PGPR | Allergy: [] | Sex: Female | Medical History: [Diabetes, Hypertension] | Visit: [21-10-2024 15:48, Diagnosis: [Asthma], Medications: [Albuterol]];
+Name: Jack Wong | NRIC: S9765432T | Phone Number: 87658976 | Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: [] | Sex:  | Medical History: [] | Visit: [01-10-2024 17:30, Diagnosis: [Gastric], Medications: [Gaviscon]];

@@ -149,7 +149,7 @@ number, diagnoses, medications, home address, date of birth, allergies, sex and 
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br> 
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
+Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
 Example Output: 
 ```
@@ -171,7 +171,7 @@ Format: `list`
 
 Example Output:
 ```
-Name: James Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 01011990, Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]
+Name: James Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 01011995, Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]
 Visit Date: 21-10-2024 15:48, Diagnosis: [Asthma], Medications: [Albuterol]
 
 Name: Patricia Chan, NRIC: S90890897U, Phone: , Home Address: , DOB: , Allergies: [], Sex: , Medical Histories: []
