@@ -116,7 +116,7 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+""");
     }
 
-    //@@author yentheng0110 and coraleaf0602
+    //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
@@ -299,15 +299,12 @@ public class CommandHandler {
                     ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
 
             // Print all visits
-            if (!patient.getVisits().isEmpty()) {
-                for (Visit visit : patient.getVisits()) {
-                    System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
-                            ", Diagnosis: " + visit.getDiagnoses() +
-                            ", Medications: " + visit.getMedications());
-                }
-            } else {
-                System.out.println("No visits recorded");
+            for (Visit visit : patient.getVisits()) {
+                System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
+                        ", Diagnosis: " + visit.getDiagnoses() +
+                        ", Medications: " + visit.getMedications());
             }
+
             System.out.println(); // Add blank line between patients
         }
     }
@@ -434,10 +431,10 @@ public class CommandHandler {
         if (newHomeAddress != null) {
             patientToBeEdited.setHomeAddress(newHomeAddress);
         }
-        if (newAllergies != null) {
+        if (!newAllergies.isEmpty()) {
             patientToBeEdited.setAllergies(newAllergies);
         }
-        if (newMedicalHistories != null) {
+        if (!newMedicalHistories.isEmpty()) {
             patientToBeEdited.setMedicalHistories(newMedicalHistories);
         }
 
