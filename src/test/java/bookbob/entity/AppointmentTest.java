@@ -71,12 +71,36 @@ class AppointmentTest {
     //@@author G13nd0n
     @Test
     void compareTo_twoInputs_one() {
-        Appointment first = new Appointment("John Doe", "S1234567A", "19-11-2024",
-                "18:00");
+        Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
+                "19:00");
         Appointment second = new Appointment("Helen Smith", "S7654321A", "18-11-2024",
                 "18:30");
         int result = first.compareTo(second);
 
         assertEquals(1, result);
     }
+
+    //@@author G13nd0n
+    @Test
+    void compareTo_differenceInDate_negativeOne() {
+        Appointment first = new Appointment("John Doe", "S1234567A", "17-11-2024",
+                "18:00");
+        Appointment second = new Appointment("Helen Smith", "S7654321A", "18-11-2024",
+                "18:30");
+        int result = first.compareTo(second);
+
+        assertEquals(-1, result);
+    }
+
+    //@@author G13nd0n
+    @Test
+    void toString_noInput_String() {
+        Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
+                "18:00");
+
+        String result ="Appointment on 18-11-2024 18:00 with Patient John Doe, S1234567A.";
+
+        assertEquals(result, first.toString());
+    }
+
 }
