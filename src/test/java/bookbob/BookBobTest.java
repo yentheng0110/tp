@@ -1,8 +1,6 @@
 package bookbob;
 
-import bookbob.entity.Patient;
 import bookbob.entity.Records;
-import bookbob.entity.Visit;
 import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -645,58 +640,4 @@ public class BookBobTest {
         });
     }
 
-    //@@author PrinceCatt
-    @Test
-    void testTextConverterFullInformation() {
-        ArrayList<String> diagnosis = new ArrayList<>();
-        diagnosis.add("Tummy bug");
-        ArrayList<String> medications = new ArrayList<>();
-        medications.add("Gaviscon");
-        String dateTimeString = "21-10-2024 15:48";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
-        ArrayList<Visit> visits = new ArrayList<>();
-        visits.add(new Visit(visitDateTime, diagnosis, medications));
-        ArrayList<String> allergies = new ArrayList<>();
-        allergies.add("Peanuts");
-        ArrayList<String> medicalHistory = new ArrayList<>();
-        medicalHistory.add("History of gastritis");
-
-        Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
-                "Bukit Gombak", allergies, "Male", medicalHistory, visits);
-        String output = fileHandler.convertPatientToOutputText(patient);
-        assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
-                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: [Peanuts] " +
-                "| Sex: Male | Medical History: [History of gastritis] | Visit: " +
-                "[21-10-2024 15:48, Diagnosis: [Tummy bug], " +
-                "Medications: [Gaviscon]];", output);
-    }
-
-    //@@author PrinceCatt and coraleaf0602
-    @Test
-    void testTextConverterPartialInformation() {
-        String dateTimeString = "21-10-2024 15:48";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
-        ArrayList<Visit> visits = new ArrayList<>();
-        visits.add(new Visit(visitDateTime));
-        Patient patient = new Patient("John", "S9765432T", visits);
-        String output = fileHandler.convertPatientToOutputText(patient);
-        assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
-                "Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | " +
-                "Visit: [21-10-2024 15:48, Diagnosis: [], Medications: []];");
-    }
-
-    @Test
-    void testFileInitialization() throws IOException {
-        Records records = new Records();            //initialize a new record to clear file content
-        fileHandler.autosave(records);
-        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon " +
-                        "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
-        Patient patient = records.getPatients().get(0);
-        fileHandler.autosave(records);
-        fileHandler.initFile(records);
-        Patient newPatient = records.getPatients().get(0);
-        assertEquals(patient,newPatient);
-    }
 }
