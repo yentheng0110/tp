@@ -1,1 +1,2 @@
-Name: Jack Wong|NRIC: S9765432T|Date: 04-11-2024|Time: 21:19
+Name: John Doe|NRIC: S1234567A|Date: 18-11-2024|Time: 18:00
+Name: Helen Smith|NRIC: S7654321A|Date: 19-11-2024|Time: 18:00

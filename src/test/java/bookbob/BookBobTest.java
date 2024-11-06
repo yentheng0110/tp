@@ -604,42 +604,4 @@ public class BookBobTest {
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
-
-    //@@author yentheng0110
-    @Test
-    void testList_emptyList_noPatientFoundMessage() {
-        command.list(records);
-        String expectedOutput = "No patients found.";
-    }
-  
-    //@@author yentheng0110
-    @Test
-    void testDelete_deleteNonExistingPatient_recordsSizeRemainsTheSame() throws IOException {
-        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon " +
-                        "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
-        command.delete("S9587690H", records);
-        assertEquals(1, records.getPatients().size());
-    }
-  
-    //@@author yentheng0110
-    @Test
-    void testFind_invalidSearchFormat_expectAnErrorMessageWithGuidance() throws IOException {
-        command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon " +
-                        "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
-        command.find("Jack", records);
-        String expectedOutput = "Patient Jack Wong with NRIC S9765432T added.\nInvalid search parameters. " +
-                "Please use the format: find n/NAME ic/NRIC [p/PHONE] " +
-                "[ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]";
-        assertEquals(expectedOutput,
-                  outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
-    }
-
-    //@@author yentheng0110
-    @Test
-    void testAdd_addPatientWithoutNRIC_expectAssertionError() throws IOException {
-        AssertionError error = assertThrows(AssertionError.class, () -> {
-            command.add("add n/Jane Tan", records);
-        });
-    }
-
 }

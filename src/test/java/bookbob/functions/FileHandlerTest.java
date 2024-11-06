@@ -1,12 +1,10 @@
-package functions;
+package bookbob.functions;
 
 
 import bookbob.entity.Appointment;
 import bookbob.entity.Patient;
 import bookbob.entity.Records;
 import bookbob.entity.Visit;
-import bookbob.functions.CommandHandler;
-import bookbob.functions.FileHandler;
 import org.junit.jupiter.api.Test;
 import bookbob.entity.AppointmentRecord;
 
