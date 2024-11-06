@@ -1,10 +1,14 @@
 # BookBob
 
-BookBob is a Command Line Interface (CLI) application designed for Doctor Bob, to efficiently manage his patient records and appointments in his clinic; maintaining organized patient information, track medical histories, and schedule appointments all through simple text commands. Clinicians, Doctors, and Medical Professionals are also welcomed to use BookBob.
+BookBob is a Command Line Interface (CLI) application designed for Doctor Bob, to efficiently manage his patient records
+and appointments in his clinic; maintaining organised patient information, track medical histories and schedule 
+appointments all through simple text commands. Clinicians, Doctors and Medical Professionals are also welcomed to use 
+BookBob.
 
 ## Key Features
 
-* **Patient Record Management**: Store and retrieve comprehensive patient information including personal details, medical history, and allergies
+* **Patient Record Management**: Store and retrieve comprehensive patient information including personal details, 
+medical history, and allergies
 * **Visit Tracking**: Record and manage patient visits with diagnoses and prescribed medications
 * **Appointment Scheduling**: Schedule and manage patient appointments with automatic time-slot validation
 * **Smart Search**: Find patient records using various parameters (NRIC, name, diagnosis, medication, etc.)

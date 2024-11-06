@@ -116,7 +116,7 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+""");
     }
 
-    //@@author yentheng0110 and coraleaf0602
+    //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
@@ -281,7 +281,7 @@ public class CommandHandler {
         return nextIndex;
     }
 
-    //@@author yentheng0110
+    //@@author yentheng0110 and kaboomzxc
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
@@ -299,15 +299,12 @@ public class CommandHandler {
                     ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
 
             // Print all visits
-            if (!patient.getVisits().isEmpty()) {
-                for (Visit visit : patient.getVisits()) {
-                    System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
-                            ", Diagnosis: " + visit.getDiagnoses() +
-                            ", Medications: " + visit.getMedications());
-                }
-            } else {
-                System.out.println("No visits recorded");
+            for (Visit visit : patient.getVisits()) {
+                System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
+                        ", Diagnosis: " + visit.getDiagnoses() +
+                        ", Medications: " + visit.getMedications());
             }
+
             System.out.println(); // Add blank line between patients
         }
     }
@@ -434,10 +431,10 @@ public class CommandHandler {
         if (newHomeAddress != null) {
             patientToBeEdited.setHomeAddress(newHomeAddress);
         }
-        if (newAllergies != null) {
+        if (!newAllergies.isEmpty()) {
             patientToBeEdited.setAllergies(newAllergies);
         }
-        if (newMedicalHistories != null) {
+        if (!newMedicalHistories.isEmpty()) {
             patientToBeEdited.setMedicalHistories(newMedicalHistories);
         }
 
@@ -740,6 +737,10 @@ public class CommandHandler {
             throw new IllegalArgumentException();
         }
 
+        assert nricStart != -1 : "Please provide a valid NRIC";
+        assert dateStart != -1 : "Please provide a valid date";
+        assert timeStart != -1 : "Please provide a valid time";
+
         int nricEnd = findNextFieldStart(input, nricStart + 2);
         nric = input.substring(nricStart + 3, nricEnd).trim();
         int dateEnd = findNextFieldStart(input, dateStart + 2);
@@ -806,12 +807,16 @@ public class CommandHandler {
     //@@author G13nd0n
     public void removePastAppointments(AppointmentRecord appointmentRecord) throws IOException {
         LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
         List<Appointment> appointments = appointmentRecord.getAppointments();
         List<Appointment> updatedAppointments = new ArrayList<Appointment>();
         for (int i = 0; i < appointments.size(); i++) {
             Appointment currentAppointment = appointments.get(i);
             LocalDate appointmentDate = currentAppointment.getDate();
+            LocalTime appointmentTime = currentAppointment.getTime();
             if (appointmentDate.isAfter(today)) {
+                updatedAppointments.add(currentAppointment);
+            } else if (appointmentDate.isEqual(today) && appointmentTime.isAfter(now)) {
                 updatedAppointments.add(currentAppointment);
             }
         }
