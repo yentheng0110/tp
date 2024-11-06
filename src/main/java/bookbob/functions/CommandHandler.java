@@ -281,14 +281,14 @@ public class CommandHandler {
         return nextIndex;
     }
 
-    //@@author yentheng0110 and kaboomzxc
+    //@@author yentheng0110
     public void list(Records records) {
         List<Patient> patients = records.getPatients();
         if (patients.isEmpty()) {
             System.out.println("No patients found.");
             return;
         }
-
+        //@@author kaboomzxc
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
         for (Patient patient : patients) {
@@ -610,6 +610,7 @@ public class CommandHandler {
         displayResults(matchedPatients);
     }
 
+    //@@author kaboomzxc
     private Map<String, String> extractSearchParams(String input) {
         Map<String, String> params = new HashMap<>();
         String[] parts = input.split("\\s+");
@@ -631,10 +632,12 @@ public class CommandHandler {
         return params;
     }
 
+    //@@author kaboomzxc
     private boolean isValidSearchKey(String key) {
         return Arrays.asList("n", "ic", "p", "ha", "dob", "al", "s", "mh").contains(key);
     }
 
+    //@@author kaboomzxc
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
         logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
 
@@ -670,7 +673,8 @@ public class CommandHandler {
         logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
         return matches;
     }
-
+    
+    //@@author kaboomzxc
     private void displayResults(List<Patient> patients) {
         if (patients.isEmpty()) {
             System.out.println("No matching patients found.");

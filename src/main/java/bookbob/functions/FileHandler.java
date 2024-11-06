@@ -123,7 +123,7 @@ public class FileHandler {
         logger.log(Level.INFO, "Autosaved appointments successfully");
     }
 
-    //@@author PrinceCatt and kaboomzxc
+    //@@author PrinceCatt
     public static void retrieveData(Records records) {
         try {
             File file = new File(filePath);
@@ -143,6 +143,7 @@ public class FileHandler {
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirth = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
+                //@@author kaboomzxc
                 String sex = data[6].substring(5).trim();
                 ArrayList<String> allergies = parseList(data[5].substring(9).trim());
                 ArrayList<String> medicalHistories = parseList(data[7].substring(17).trim());
@@ -179,6 +180,7 @@ public class FileHandler {
         }
     }
 
+    //@@author PrinceCatt
     public static void retrieveData(AppointmentRecord appointmentRecord){
         try {
             File file = new File(appointmentFilePath);
@@ -212,7 +214,7 @@ public class FileHandler {
         return list;
     }
 
-
+    //@@author coraleaf0602
     public static Visit parseVisitInputString(String visitString) {
         try {
             int visitStartIndex = visitString.indexOf("[");
@@ -238,6 +240,7 @@ public class FileHandler {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
 
+            //@@author kaboomzxc
             // Parse diagnoses and medications
             ArrayList<String> diagnosisList = new ArrayList<>();
             ArrayList<String> medicationsList = new ArrayList<>();
@@ -268,7 +271,7 @@ public class FileHandler {
                         }
                     }
                 }
-            }
+            }    //@@author coraleaf0602
             return new Visit(visitDateTime, diagnosisList, medicationsList);
         } catch (Exception e) {
             return null;
