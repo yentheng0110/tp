@@ -342,6 +342,92 @@ public class BookBobTest {
         String normalizedActual = outputStreamCaptor.toString().trim().replaceAll("\\s+\n", "\n");
         assertEquals(normalizedExpected, normalizedActual);
     }
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_Success() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
+
+        String expectedOutput = "Visit added successfully for patient: John Doe" + System.lineSeparator() +
+                "Visit date: 21-10-2024 15:48" + System.lineSeparator() +
+                "Diagnoses: Fever" + System.lineSeparator() +
+                "Medications: Paracetamol";
+
+        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_NonExistentPatient() throws IOException {
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
+
+        String output = outputStreamCaptor.toString().trim();
+        assertTrue(output.contains("No patient found with NRIC: S1234567A"));
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_MissingNRIC() throws IOException {
+        command.addVisit("addVisit v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
+
+        assertEquals("Please provide the patient's NRIC.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_MissingVisitDate() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
+
+        command.addVisit("addVisit ic/S1234567A d/Fever m/Paracetamol", records);
+
+        assertEquals("Please provide the visit date and time.", outputStreamCaptor.toString().trim());
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_MultipleVisits_1() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
+        command.addVisit("addVisit ic/S1234567A v/22-10-2024 16:30 d/Headache m/Ibuprofen", records);
+
+        Patient patient = records.getPatients().get(0);
+        assertEquals(3, patient.getVisits().size()); // Including initial visit
+        Visit lastVisit = patient.getVisits().get(2);
+        assertEquals("Headache", lastVisit.getDiagnoses().get(0));
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_InvalidDateFormat() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
+
+        command.addVisit("addVisit ic/S1234567A v/2024-10-21 15:48 d/Fever", records);
+
+        assertEquals("Invalid date format. Please use dd-MM-yyyy HH:mm format (e.g., 21-10-2024 15:48)",
+                outputStreamCaptor.toString().trim());
+    }
+
+    //@@author kaboomzxc
+    @Test
+    void testAddVisit_EmptyOptionalFields() throws IOException {
+        command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
+        outputStreamCaptor.reset();
+
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48", records);
+
+        Patient patient = records.getPatients().get(0);
+        Visit addedVisit = patient.getVisits().get(1); // Second visit (index 1)
+
+        assertEquals(2, patient.getVisits().size());
+        assertEquals(0, addedVisit.getDiagnoses().size());
+        assertEquals(0, addedVisit.getMedications().size());
+        assertEquals("Visit added successfully for patient: John Doe" + System.lineSeparator() +
+                "Visit date: 21-10-2024 15:48", outputStreamCaptor.toString().trim());
+    }
 
     // @@ author G13nd0n
     @Test
