@@ -450,7 +450,8 @@ public class CommandHandlerTest {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
         outputStreamCaptor.reset();
 
-        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever,Cough,Headache m/Paracetamol,Ibuprofen", records);
+        command.addVisit("addVisit ic/S1234567A v/21-10-2024 15:48 d/Fever,Cough,Headache m/Paracetamol,Ibuprofen"
+                , records);
 
         Patient patient = records.getPatients().get(0);
         Visit addedVisit = patient.getVisits().get(1); // Second visit
