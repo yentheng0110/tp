@@ -94,7 +94,7 @@ class AppointmentTest {
 
     //@@author G13nd0n
     @Test
-    void toString_noInput_String() {
+    void toString_noInput_string() {
         Appointment first = new Appointment("John Doe", "S1234567A", "18-11-2024",
                 "18:00");
 
