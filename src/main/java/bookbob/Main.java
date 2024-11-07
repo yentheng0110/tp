@@ -207,10 +207,10 @@ public class Main {
                     logger.log(Level.INFO, "Successfully processed list appointments command");
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong date format");
+                    System.out.println("Error in listing appointment, wrong date format");
                 } catch (DateTimeException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong time format");
+                    System.out.println("Error in listing appointment, wrong time format");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing list appointments", e);
                     System.out.println("Error in listing appointments, specific error: " + e.getMessage());
