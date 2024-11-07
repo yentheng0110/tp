@@ -114,21 +114,20 @@ public class AppointmentRecord {
             LocalDate appointmentDate = appointment.getDate();
             LocalTime appointmentTime = appointment.getTime();
             LocalTime appointmentEndTime = appointmentTime.plusMinutes(consultationDuration);
-            if (appointmentDate.equals(date) && appointmentTime.equals(nextAvailableTime)) {
-                nextAvailableTime = appointmentEndTime;
-                endTime = appointmentEndTime.plusMinutes(consultationDuration);
-                break;
-            } else if (appointmentDate.isAfter(date)) {
+            if (appointmentDate.isAfter(date)) {
                 break;
             } else if (appointmentDate.isBefore(date)) {
                 continue;
-            } else if (appointmentDate.equals(date) && appointmentTime.isBefore(nextAvailableTime)
+            } else if (appointmentTime.equals(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+                break;
+            } else if (appointmentTime.isBefore(nextAvailableTime)
                     && appointmentEndTime.isAfter(nextAvailableTime)) {
                 nextAvailableTime = appointmentEndTime;
                 endTime = appointmentEndTime.plusMinutes(consultationDuration);
-            } else if (appointmentDate.equals(date) && appointmentEndTime.isBefore(nextAvailableTime)) {
+            } else if (appointmentEndTime.isBefore(nextAvailableTime) || appointmentEndTime.equals(nextAvailableTime)) {
                 continue;
-            } else if (appointmentDate.equals(date) &&  appointmentTime.isBefore(endTime)) {
+            } else if (appointmentTime.isBefore(endTime)) {
                 nextAvailableTime = appointmentEndTime;
                 endTime = appointmentEndTime.plusMinutes(consultationDuration);
             }
