@@ -271,7 +271,8 @@ public class FileHandler {
                         }
                     }
                 }
-            }    //@@author coraleaf0602
+            }
+            //@@author coraleaf0602
             return new Visit(visitDateTime, diagnosisList, medicationsList);
         } catch (Exception e) {
             return null;

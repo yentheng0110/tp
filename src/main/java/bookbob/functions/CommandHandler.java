@@ -288,7 +288,7 @@ public class CommandHandler {
             System.out.println("No patients found.");
             return;
         }
-        //@@author kaboomzxc
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
         for (Patient patient : patients) {
@@ -298,6 +298,7 @@ public class CommandHandler {
                     ", DOB: " + patient.getDateOfBirth() + ", Allergies: " + patient.getAllergies() +
                     ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
 
+            //@@author kaboomzxc
             // Print all visits
             for (Visit visit : patient.getVisits()) {
                 System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
