@@ -66,43 +66,41 @@ public class CommandHandlerTest {
                         "|             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |\n" +
-                        "|             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |\n" +
-                        "|             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |\n" +
+                        "|             | date/VISIT_DATE_TIME                  | date/06-11-2024 14:00           |\n" +
+                        "|             | [newDate/NEW_DATE_TIME]  [d/DIAGNOSIS]| newDate/08-11-2024 14:00        |\n" +
                         "|             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |\n" +
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| List        | list                                  | list                            |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
-                        "| Find        | find n/NAME          OR               | find n/John Doe                 |\n" +
-                        "|             | find ic/NRIC         OR               | find ic/S1234                   |\n" +
-                        "|             | find p/PHONE_NUMBER  OR               | find p/91234567                 |\n" +
-                        "|             | find d/DIAGNOSIS     OR               | find d/Fever                    |\n" +
-                        "|             | find m/MEDICATION    OR               | find m/Panadol                  |\n" +
-                        "|             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |\n" +
+                        "| Find        | find n/NAME            OR             | find n/John Doe                 |\n" +
+                        "|             | find ic/NRIC           OR             | find ic/S1234                   |\n" +
+                        "|             | find p/PHONE_NUMBER    OR             | find p/91234567                 |\n" +
+                        "|             | find ha/HOME_ADDRESS   OR             | find ha/NUS PGPR                |\n" +
                         "|             | find dob/DATE_OF_BIRTH OR             | find dob/01011990               |\n" +
-                        "|             | find al/ALLERGY      OR               | find al/Peanuts                 |\n" +
-                        "|             | find find s/SEX      OR               | find find s/Female              |\n" +
+                        "|             | find al/ALLERGY        OR             | find al/Peanuts                 |\n" +
+                        "|             | find s/SEX             OR             | find s/Female                   |\n" +
                         "|             | find mh/MEDICAL_HISTORY               | find mh/Diabetes                |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Delete      | delete NRIC                           | delete S9534567A                |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
-                        "| Add         | appointment n/NAME ic/NRIC            | add n/James Ho ic/S9534567A     |\n" +
-                        "| Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |\n" +
-                        "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
+                        "| Add         | appointment n/NAME ic/NRIC            | appointment n/James Ho          |\n" +
+                        "| Appointment | date/DATE time/TIME                   | ic/S9534567A date/01-04-2025    |\n" +
+                        "|             | DATE format: dd-mm-yyyy               | time/12:00                      |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
-                        "| List        | listAppointments                      | list                            |\n" +
+                        "| List        | listAppointments                      | listAppointments                |\n" +
                         "| Appointment |                                       |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Find        | findAppointment n/NAME          OR    | findAppointment n/John Doe      |\n" +
-                        "| Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234        |\n" +
+                        "| Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234567A    |\n" +
                         "|             | findAppointment date/DATE       OR    | findAppointment date/01-04-2025 |\n" +
                         "|             | findAppointment time/TIME       OR    | findAppointment time/12:00      |\n" +
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
-                        "| Delete      | deleteAppointment NRIC                | deleteAppointment S9534567A     |\n" +
+                        "| Delete      | deleteAppointment ic/NRIC             | deleteAppointment ic/S9534567A  |\n" +
                         "| Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |\n" +
                         "|             | DATE format: dd-mm-yyyy               |                                 |\n" +
                         "|             | TIME format: HH:mm                    |                                 |\n" +
@@ -116,7 +114,7 @@ public class CommandHandlerTest {
                         "| Find        | findMedication medication             | findMedication Panadol          |\n" +
                         "| Medication  |                                       |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
-                        "| Save        | save(automatic)                       |                                 |\n" +
+                        "| Save        | save (automatic)                      |                                 |\n" +
                         "+-------------+---------------------------------------+---------------------------------+\n" +
                         "| Retrieve/   | retrieve or import                    |                                 |\n" +
                         "| Import      | (automatic)                           |                                 |\n" +
