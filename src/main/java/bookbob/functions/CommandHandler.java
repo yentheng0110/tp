@@ -57,43 +57,41 @@ public class CommandHandler {
                 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
-                |             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
-                |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
+                |             | date/VISIT_DATE_TIME                  | date/06-11-2024 14:00           |
+                |             | [newDate/NEW_DATE_TIME]  [d/DIAGNOSIS]| newDate/08-11-2024 14:00        |
                 |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
-                | Find        | find n/NAME          OR               | find n/John Doe                 |
-                |             | find ic/NRIC         OR               | find ic/S1234                   |
-                |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |             | find m/MEDICATION    OR               | find m/Panadol                  |
-                |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                | Find        | find n/NAME            OR             | find n/John Doe                 |
+                |             | find ic/NRIC           OR             | find ic/S1234                   |
+                |             | find p/PHONE_NUMBER    OR             | find p/91234567                 |
+                |             | find ha/HOME_ADDRESS   OR             | find ha/NUS PGPR                |
                 |             | find dob/DATE_OF_BIRTH OR             | find dob/01011990               |
-                |             | find al/ALLERGY      OR               | find al/Peanuts                 |
-                |             | find find s/SEX      OR               | find find s/Female              |
+                |             | find al/ALLERGY        OR             | find al/Peanuts                 |
+                |             | find s/SEX             OR             | find s/Female                   |
                 |             | find mh/MEDICAL_HISTORY               | find mh/Diabetes                |
                 +-------------+---------------------------------------+---------------------------------+
                 | Delete      | delete NRIC                           | delete S9534567A                |
                 +-------------+---------------------------------------+---------------------------------+
-                | Add         | appointment n/NAME ic/NRIC            | add n/James Ho ic/S9534567A     |
-                | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
-                |             | DATE format: dd-mm-yyyy               |                                 |
+                | Add         | appointment n/NAME ic/NRIC            | appointment n/James Ho          |
+                | Appointment | date/DATE time/TIME                   | ic/S9534567A date/01-04-2025    |
+                |             | DATE format: dd-mm-yyyy               | time/12:00                      |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
-                | List        | listAppointments                      | list                            |
+                | List        | listAppointments                      | listAppointments                |
                 | Appointment |                                       |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Find        | findAppointment n/NAME          OR    | findAppointment n/John Doe      |
-                | Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234        |
+                | Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234567A    |
                 |             | findAppointment date/DATE       OR    | findAppointment date/01-04-2025 |
                 |             | findAppointment time/TIME       OR    | findAppointment time/12:00      |
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
-                | Delete      | deleteAppointment NRIC                | deleteAppointment S9534567A     |
+                | Delete      | deleteAppointment ic/NRIC             | deleteAppointment ic/S9534567A  |
                 | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
@@ -107,7 +105,7 @@ public class CommandHandler {
                 | Find        | findMedication medication             | findMedication Panadol          |
                 | Medication  |                                       |                                 |
                 +-------------+---------------------------------------+---------------------------------+
-                | Save        | save(automatic)                       |                                 |
+                | Save        | save (automatic)                      |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Retrieve/   | retrieve or import                    |                                 |
                 | Import      | (automatic)                           |                                 |
@@ -600,7 +598,8 @@ public class CommandHandler {
         if (searchParams.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: "
-                    + "find n/NAME ic/NRIC [p/PHONE] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]");
+                    + "find [n/NAME] [ic/NRIC] [p/PHONE] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] " +
+                    "[mh/MEDICAL_HISTORY]");
             return;
         }
 
