@@ -247,13 +247,13 @@ public class Main {
                     logger.log(Level.INFO, "Successfully processed find appointment command");
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong date format");
+                    System.out.println("Error in finding appointment, wrong date format");
                 } catch (DateTimeException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong time format");
+                    System.out.println("Error in finding appointment, wrong time format");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, missing nric, date and time.");
+                    System.out.println("Error in finding appointment, missing nric, date and time.");
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error processing find command", e);
                     System.out.println("An error occurred while processing the find command: " + e.getMessage());
