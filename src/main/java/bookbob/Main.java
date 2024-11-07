@@ -253,7 +253,7 @@ public class Main {
                     System.out.println("Error in finding appointment, wrong time format");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in finding appointment, missing nric, date and time.");
+                    System.out.println("Error in finding appointment, missing name, nric, date or time.");
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error processing find command", e);
                     System.out.println("An error occurred while processing the find command: " + e.getMessage());
