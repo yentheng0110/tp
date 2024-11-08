@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 //@@author G13nd0n
-public class Appointment implements Comparable<Appointment> {
+public class Appointment implements Comparable<Appointment>, OutputConversion {
     private String patientName;
     private String patientNric;
     private LocalTime time;
@@ -66,5 +66,19 @@ public class Appointment implements Comparable<Appointment> {
         } else {
             return 1;
         }
+    }
+
+    @Override
+    public String convertPatientToOutputText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String patientName = this.getPatientName();
+        String patientNric = this.getPatientNric();
+        String date = this.getDate().format(formatter);
+        String time = this.getTime().toString();
+        String output = "";
+        output += "Name: " + patientName + "|" + "NRIC: " + patientNric + "|"
+                + "Date: " + date  + "|" + "Time: " + time;
+
+        return output;
     }
 }
