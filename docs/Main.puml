@@ -17,6 +17,7 @@ class AppointmentRecord {}
 
 
 CommandHandler --> Appointment : searches and modifies >
+CommandHandler --> Visit : searches and modifies >
 AppointmentRecord "1" o-- "many" Appointment
 Main --> CommandHandler : calls >
 CommandHandler --> Patient : searches and modifies >

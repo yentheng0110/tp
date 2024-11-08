@@ -57,43 +57,41 @@ public class CommandHandler {
                 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
-                |             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
-                |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
+                |             | date/VISIT_DATE_TIME                  | date/06-11-2024 14:00           |
+                |             | [newDate/NEW_DATE_TIME]  [d/DIAGNOSIS]| newDate/08-11-2024 14:00        |
                 |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | List        | list                                  | list                            |
                 +-------------+---------------------------------------+---------------------------------+
-                | Find        | find n/NAME          OR               | find n/John Doe                 |
-                |             | find ic/NRIC         OR               | find ic/S1234                   |
-                |             | find p/PHONE_NUMBER  OR               | find p/91234567                 |
-                |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
-                |             | find m/MEDICATION    OR               | find m/Panadol                  |
-                |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
+                | Find        | find n/NAME            OR             | find n/John Doe                 |
+                |             | find ic/NRIC           OR             | find ic/S1234                   |
+                |             | find p/PHONE_NUMBER    OR             | find p/91234567                 |
+                |             | find ha/HOME_ADDRESS   OR             | find ha/NUS PGPR                |
                 |             | find dob/DATE_OF_BIRTH OR             | find dob/01011990               |
-                |             | find al/ALLERGY      OR               | find al/Peanuts                 |
-                |             | find find s/SEX      OR               | find find s/Female              |
+                |             | find al/ALLERGY        OR             | find al/Peanuts                 |
+                |             | find s/SEX             OR             | find s/Female                   |
                 |             | find mh/MEDICAL_HISTORY               | find mh/Diabetes                |
                 +-------------+---------------------------------------+---------------------------------+
                 | Delete      | delete NRIC                           | delete S9534567A                |
                 +-------------+---------------------------------------+---------------------------------+
-                | Add         | appointment n/NAME ic/NRIC            | add n/James Ho ic/S9534567A     |
-                | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
-                |             | DATE format: dd-mm-yyyy               |                                 |
+                | Add         | appointment n/NAME ic/NRIC            | appointment n/James Ho          |
+                | Appointment | date/DATE time/TIME                   | ic/S9534567A date/01-04-2025    |
+                |             | DATE format: dd-mm-yyyy               | time/12:00                      |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
-                | List        | listAppointments                      | list                            |
+                | List        | listAppointments                      | listAppointments                |
                 | Appointment |                                       |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Find        | findAppointment n/NAME          OR    | findAppointment n/John Doe      |
-                | Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234        |
+                | Appointment | findAppointment ic/NRIC         OR    | findAppointment ic/S1234567A    |
                 |             | findAppointment date/DATE       OR    | findAppointment date/01-04-2025 |
                 |             | findAppointment time/TIME       OR    | findAppointment time/12:00      |
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
                 +-------------+---------------------------------------+---------------------------------+
-                | Delete      | deleteAppointment NRIC                | deleteAppointment S9534567A     |
+                | Delete      | deleteAppointment ic/NRIC             | deleteAppointment ic/S9534567A  |
                 | Appointment | date/DATE time/TIME                   | date/01-04-2025 time/12:00      |
                 |             | DATE format: dd-mm-yyyy               |                                 |
                 |             | TIME format: HH:mm                    |                                 |
@@ -107,7 +105,7 @@ public class CommandHandler {
                 | Find        | findMedication medication             | findMedication Panadol          |
                 | Medication  |                                       |                                 |
                 +-------------+---------------------------------------+---------------------------------+
-                | Save        | save(automatic)                       |                                 |
+                | Save        | save (automatic)                      |                                 |
                 +-------------+---------------------------------------+---------------------------------+
                 | Retrieve/   | retrieve or import                    |                                 |
                 | Import      | (automatic)                           |                                 |
@@ -116,7 +114,7 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+""");
     }
 
-    //@@author yentheng0110 and coraleaf0602
+    //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = "";
         String nric = "";
@@ -298,16 +296,14 @@ public class CommandHandler {
                     ", DOB: " + patient.getDateOfBirth() + ", Allergies: " + patient.getAllergies() +
                     ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
 
+            //@@author kaboomzxc
             // Print all visits
-            if (!patient.getVisits().isEmpty()) {
-                for (Visit visit : patient.getVisits()) {
-                    System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
-                            ", Diagnosis: " + visit.getDiagnoses() +
-                            ", Medications: " + visit.getMedications());
-                }
-            } else {
-                System.out.println("No visits recorded");
+            for (Visit visit : patient.getVisits()) {
+                System.out.println("    Visit Date: " + visit.getVisitDate().format(formatter) +
+                        ", Diagnosis: " + visit.getDiagnoses() +
+                        ", Medications: " + visit.getMedications());
             }
+
             System.out.println(); // Add blank line between patients
         }
     }
@@ -434,10 +430,10 @@ public class CommandHandler {
         if (newHomeAddress != null) {
             patientToBeEdited.setHomeAddress(newHomeAddress);
         }
-        if (newAllergies != null) {
+        if (!newAllergies.isEmpty()) {
             patientToBeEdited.setAllergies(newAllergies);
         }
-        if (newMedicalHistories != null) {
+        if (!newMedicalHistories.isEmpty()) {
             patientToBeEdited.setMedicalHistories(newMedicalHistories);
         }
 
@@ -602,7 +598,8 @@ public class CommandHandler {
         if (searchParams.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters provided.");
             System.out.println("Invalid search parameters. Please use the format: "
-                    + "find n/NAME ic/NRIC [p/PHONE] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]");
+                    + "find [n/NAME] [ic/NRIC] [p/PHONE] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] " +
+                    "[mh/MEDICAL_HISTORY]");
             return;
         }
 
@@ -613,6 +610,7 @@ public class CommandHandler {
         displayResults(matchedPatients);
     }
 
+    //@@author kaboomzxc
     private Map<String, String> extractSearchParams(String input) {
         Map<String, String> params = new HashMap<>();
         String[] parts = input.split("\\s+");
@@ -634,10 +632,12 @@ public class CommandHandler {
         return params;
     }
 
+    //@@author kaboomzxc
     private boolean isValidSearchKey(String key) {
         return Arrays.asList("n", "ic", "p", "ha", "dob", "al", "s", "mh").contains(key);
     }
 
+    //@@author kaboomzxc
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
         logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
 
@@ -673,7 +673,8 @@ public class CommandHandler {
         logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
         return matches;
     }
-
+    
+    //@@author kaboomzxc
     private void displayResults(List<Patient> patients) {
         if (patients.isEmpty()) {
             System.out.println("No matching patients found.");
@@ -739,6 +740,10 @@ public class CommandHandler {
         if (nricStart == -1 || dateStart == -1 || timeStart == -1) {
             throw new IllegalArgumentException();
         }
+
+        assert nricStart != -1 : "Please provide a valid NRIC";
+        assert dateStart != -1 : "Please provide a valid date";
+        assert timeStart != -1 : "Please provide a valid time";
 
         int nricEnd = findNextFieldStart(input, nricStart + 2);
         nric = input.substring(nricStart + 3, nricEnd).trim();
@@ -806,12 +811,16 @@ public class CommandHandler {
     //@@author G13nd0n
     public void removePastAppointments(AppointmentRecord appointmentRecord) throws IOException {
         LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
         List<Appointment> appointments = appointmentRecord.getAppointments();
         List<Appointment> updatedAppointments = new ArrayList<Appointment>();
         for (int i = 0; i < appointments.size(); i++) {
             Appointment currentAppointment = appointments.get(i);
             LocalDate appointmentDate = currentAppointment.getDate();
+            LocalTime appointmentTime = currentAppointment.getTime();
             if (appointmentDate.isAfter(today)) {
+                updatedAppointments.add(currentAppointment);
+            } else if (appointmentDate.isEqual(today) && appointmentTime.isAfter(now)) {
                 updatedAppointments.add(currentAppointment);
             }
         }

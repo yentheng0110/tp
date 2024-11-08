@@ -1,0 +1,5 @@
+Name: Patrick|NRIC: S9089078U|Date: 08-11-2024|Time: 09:00
+Name: John Doe|NRIC: S1234567A|Date: 18-11-2024|Time: 18:00
+Name: Yusof|NRIC: S9089079U|Date: 19-11-2024|Time: 09:00
+Name: Helen Smith|NRIC: S7654321A|Date: 19-11-2024|Time: 18:00
+Name: Yusof|NRIC: S9089079U|Date: 19-11-2024|Time: 18:30

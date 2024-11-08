@@ -26,7 +26,7 @@ public class AppointmentRecord {
 
     //@@author G13nd0n
     public List<Appointment> findAppointments(String input) {
-        List<Appointment> appointments = new ArrayList<>();
+        List<Appointment> results = new ArrayList<>();
         String[] inputs = input.split("/");
         String details = inputs[1];
         if (inputs[0].equals("n")) {
@@ -34,7 +34,7 @@ public class AppointmentRecord {
                 Appointment appointment = appointments.get(i);
                 String patientName = appointment.getPatientName();
                 if (patientName.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
         } else if (inputs[0].equals("ic")) {
@@ -42,28 +42,28 @@ public class AppointmentRecord {
                 Appointment appointment = appointments.get(i);
                 String nric = appointment.getPatientNric();
                 if (nric.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
         } else if (inputs[0].equals("date")){
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
-                String date = appointment.getDate().toString();
+                String date = appointment.getDate().format(formatter);
                 if (date.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
-        } else {
+        } else if (inputs[0].equals("time")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String time = appointment.getTime().toString();
                 if (time.equals(details)) {
-                    appointments.add(appointment);
+                    results.add(appointment);
                 }
             }
 
         }
-        return appointments;
+        return results;
     }
 
     //@@author G13nd0n
@@ -108,19 +108,28 @@ public class AppointmentRecord {
     //@@author G13nd0n
     public LocalTime checkAvailability(LocalDate date, LocalTime time) {
         LocalTime nextAvailableTime = time;
+        long consultationDuration = 30;
+        LocalTime endTime = time.plusMinutes(consultationDuration);
         for (Appointment appointment : appointments) {
             LocalDate appointmentDate = appointment.getDate();
             LocalTime appointmentTime = appointment.getTime();
-            long consultationDuration = appointment.getConsultationDuration();
             LocalTime appointmentEndTime = appointmentTime.plusMinutes(consultationDuration);
-            if (appointmentDate.equals(date) && appointmentTime.equals(nextAvailableTime)) {
-                nextAvailableTime = appointmentEndTime;
-            } else if (appointmentDate.isAfter(date) && appointmentTime.isAfter(nextAvailableTime)
-                    && appointmentEndTime.isBefore(nextAvailableTime)) {
-                nextAvailableTime = appointmentEndTime;
-            }
             if (appointmentDate.isAfter(date)) {
                 break;
+            } else if (appointmentDate.isBefore(date)) {
+                continue;
+            } else if (appointmentTime.equals(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+                break;
+            } else if (appointmentTime.isBefore(nextAvailableTime)
+                    && appointmentEndTime.isAfter(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+                endTime = appointmentEndTime.plusMinutes(consultationDuration);
+            } else if (appointmentEndTime.isBefore(nextAvailableTime) || appointmentEndTime.equals(nextAvailableTime)) {
+                continue;
+            } else if (appointmentTime.isBefore(endTime)) {
+                nextAvailableTime = appointmentEndTime;
+                endTime = appointmentEndTime.plusMinutes(consultationDuration);
             }
         }
         return nextAvailableTime;

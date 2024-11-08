@@ -48,7 +48,7 @@ public class Main {
 
             case "exit":
                 logger.log(Level.INFO, "Processing exit command");
-                try{
+                try {
                     commandHandler.removePastAppointments(appointmentRecord);
                     commandHandler.exit(input);
                     logger.log(Level.INFO, "Successfully processed exit command");
@@ -136,6 +136,9 @@ public class Main {
                         System.out.println("Please specify an NRIC to delete.");
                         logger.log(Level.INFO, "Empty NRIC inputted");
                     }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    logger.log(Level.WARNING, "Error processing deletion");
+                    System.out.println("Error in deleting patient record, please provide the nric");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing deletion");
                     System.out.println("Error in deleting files, specific error: " + e.getMessage());
@@ -144,7 +147,7 @@ public class Main {
 
             case "help":
                 logger.log(Level.INFO, "Processing help command");
-                try{
+                try {
                     commandHandler.help();
                     logger.log(Level.INFO, "Successfully processed help command");
                 } catch (Exception e) {
@@ -199,15 +202,15 @@ public class Main {
 
             case "listAppointments":
                 logger.log(Level.INFO, "Processing list appointments command");
-                try{
+                try {
                     commandHandler.listAppointments(appointmentRecord);
                     logger.log(Level.INFO, "Successfully processed list appointments command");
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong date format");
+                    System.out.println("Error in listing appointment, wrong date format");
                 } catch (DateTimeException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong time format");
+                    System.out.println("Error in listing appointment, wrong time format");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing list appointments", e);
                     System.out.println("Error in listing appointments, specific error: " + e.getMessage());
@@ -228,6 +231,9 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     logger.log(Level.WARNING, "Error processing deletion of appointment command");
                     System.out.println("Error in deleting appointment, missing nric, date or time.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    logger.log(Level.WARNING, "Error processing deletion of appointment command");
+                    System.out.println("Error in deleting appointment, missing nric, date or time.");
                 } catch (Exception e) {
                     logger.log(Level.WARNING, "Error processing deletion of appointment");
                     System.out.println("Error in deleting appointment, specific error: " + e.getMessage());
@@ -237,14 +243,17 @@ public class Main {
             case "findAppointment":
                 logger.log(Level.INFO, "Processing find appointment command");
                 try {
-                    commandHandler.findAppointment(input, appointmentRecord);
+                    commandHandler.findAppointment(inputArr[1], appointmentRecord);
                     logger.log(Level.INFO, "Successfully processed find appointment command");
                 } catch (DateTimeParseException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong date format");
+                    System.out.println("Error in finding appointment, wrong date format");
                 } catch (DateTimeException e) {
                     logger.log(Level.WARNING, "Error processing appointment command", e);
-                    System.out.println("Error in adding appointment, wrong time format");
+                    System.out.println("Error in finding appointment, wrong time format");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    logger.log(Level.WARNING, "Error processing appointment command", e);
+                    System.out.println("Error in finding appointment, missing name, nric, date or time.");
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error processing find command", e);
                     System.out.println("An error occurred while processing the find command: " + e.getMessage());
