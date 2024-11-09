@@ -7,15 +7,25 @@ import bookbob.functions.CommandHandler;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
+    private static final List<String> keywords = List.of("|");
+
     public static void handleCommand(String input, CommandHandler commandHandler, Records records,
                                      AppointmentRecord appointmentRecord) {
         String[] inputArray = input.split(" ", 2);
+
+        boolean isBanned = keywords.stream().anyMatch(input::contains);
+        if (isBanned) {
+            System.out.println("You have entered a command containing illegal characters");
+            return;
+        }
+
         String command = inputArray[0];
 
         switch (command) {
