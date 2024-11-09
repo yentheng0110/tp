@@ -164,7 +164,7 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/",
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "n/",
                              "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
