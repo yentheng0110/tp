@@ -1,14 +1,12 @@
 package bookbob.entity;
 
+import bookbob.functions.FileHandler;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.logging.Level;
 
 public class Records implements FileOperation{
     private final ArrayList<Patient> patients;
@@ -85,8 +83,8 @@ public class Records implements FileOperation{
                 String homeAddress = data[4].substring(15).trim();
                 //@@author kaboomzxc
                 String sex = data[6].substring(5).trim();
-                ArrayList<String> allergies = parseList(data[5].substring(9).trim());
-                ArrayList<String> medicalHistories = parseList(data[7].substring(17).trim());
+                ArrayList<String> allergies = FileHandler.parseList(data[5].substring(9).trim());
+                ArrayList<String> medicalHistories = FileHandler.parseList(data[7].substring(17).trim());
 
                 // Parse visits
                 ArrayList<Visit> visits = new ArrayList<>();
@@ -103,7 +101,7 @@ public class Records implements FileOperation{
                     String[] visitParts = visitsString.split("(?<=\\]),\\s*(?=\\d{2}-\\d{2}-\\d{4})");
 
                     for (String visitPart : visitParts) {
-                        Visit visit = parseVisitInputString("[" + visitPart + "]");
+                        Visit visit = FileHandler.parseVisitInputString("[" + visitPart + "]");
                         if (visit != null) {
                             visits.add(visit);
                         }
@@ -117,83 +115,6 @@ public class Records implements FileOperation{
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    //@@author yentheng0110 and kaboomzxc
-    private static ArrayList<String> parseList(String input) {
-        ArrayList<String> list = new ArrayList<>();
-        // Remove any number of surrounding brackets
-        String content = input.replaceAll("^\\[+|\\]+$", "");
-        if (!content.isEmpty()) {
-            String[] items = content.split(",\\s*");
-            list.addAll(Arrays.asList(items));
-        }
-        return list;
-    }
-
-    //@@author coraleaf0602
-    public static Visit parseVisitInputString(String visitString) {
-        try {
-            int visitStartIndex = visitString.indexOf("[");
-            int visitEndIndex = visitString.lastIndexOf("]");
-
-            if (visitStartIndex == -1 || visitEndIndex == -1) {
-                return null;
-            }
-
-            String visitDetails = visitString.substring(visitStartIndex + 1, visitEndIndex).trim();
-
-            // Parse date time
-            String dateTimeString;
-            if (visitDetails.contains("Diagnosis:")) {
-                dateTimeString = visitDetails.substring(0, visitDetails.indexOf("Diagnosis:")).trim();
-            } else {
-                dateTimeString = visitDetails;
-            }
-            if (dateTimeString.endsWith(",")) {
-                dateTimeString = dateTimeString.substring(0, dateTimeString.length() - 1);
-            }
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            LocalDateTime visitDateTime = LocalDateTime.parse(dateTimeString, formatter);
-
-            //@@author kaboomzxc
-            // Parse diagnoses and medications
-            ArrayList<String> diagnosisList = new ArrayList<>();
-            ArrayList<String> medicationsList = new ArrayList<>();
-
-            if (visitDetails.contains("Diagnosis:")) {
-                // Find the diagnosis content between brackets and clean it
-                int diagStart = visitDetails.indexOf("Diagnosis: [") + 11;
-                int diagEnd = visitDetails.indexOf("]", diagStart);
-                if (diagStart != -1 && diagEnd != -1) {
-                    String diagContent = visitDetails.substring(diagStart, diagEnd);
-                    // Remove any extra square brackets
-                    diagContent = diagContent.replaceAll("^\\[+|\\]+$", "").trim();
-                    if (!diagContent.isEmpty()) {
-                        diagnosisList.addAll(Arrays.asList(diagContent.split(",\\s*")));
-                    }
-                }
-
-                if (visitDetails.contains("Medications:")) {
-                    // Find the medications content between brackets and clean it
-                    int medStart = visitDetails.indexOf("Medications: [") + 13;
-                    int medEnd = visitDetails.indexOf("]", medStart);
-                    if (medStart != -1 && medEnd != -1) {
-                        String medContent = visitDetails.substring(medStart, medEnd);
-                        // Remove any extra square brackets
-                        medContent = medContent.replaceAll("^\\[+|\\]+$", "").trim();
-                        if (!medContent.isEmpty()) {
-                            medicationsList.addAll(Arrays.asList(medContent.split(",\\s*")));
-                        }
-                    }
-                }
-            }
-            //@@author coraleaf0602
-            return new Visit(visitDateTime, diagnosisList, medicationsList);
-        } catch (Exception e) {
-            return null;
         }
     }
 }
