@@ -8,7 +8,6 @@ layout: default
 ## Table of Contents
 1. [Design & Implementation](#design--implementation)
     - [Architecture](#architecture)
-    - [Managing Patient Visits and Records](#1-managing-patient-visits-and-records)
         - [Adding New Visits for Existing Patients](#a-adding-new-visits-for-existing-patients)
         - [Adding New Patient to the Patient Records](#b-adding-new-patient-to-the-patient-records)
         - [Appointment Feature](#c-appointment-feature)
@@ -164,6 +163,7 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 
 > The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)
+
 
 ---
 ## Appendix A : Product Scope

@@ -33,6 +33,7 @@ public class FileHandler {
             fileOperation.autosave(filePath);
         }
     }
+  
     //@@author yentheng0110 and kaboomzxc
     public static ArrayList<String> parseList(String input) {
         ArrayList<String> list = new ArrayList<>();
