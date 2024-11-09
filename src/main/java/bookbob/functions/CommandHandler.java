@@ -705,7 +705,7 @@ public class CommandHandler {
         return phoneNumber;
     }
 
-    //@@author G13nd0n and PrinceCatt
+    //@@author G13nd0n and PrinceCatt and yentheng0110
     private LocalDate extractDateOfBirth(String input) throws DateTimeParseException {
         LocalDate dateOfBirth = null;
         int dobStart = input.indexOf("dob/");
@@ -719,7 +719,8 @@ public class CommandHandler {
                 dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
             } catch (DateTimeParseException e) {
                 logger.warning("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
-                throw new IllegalArgumentException("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
+                throw new IllegalArgumentException
+                ("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
 
             }
         }
