@@ -2,7 +2,7 @@ package bookbob.entity;
 
 import java.util.ArrayList;
 
-public class Patient {
+public class Patient implements OutputConversion {
     private String name;
     private String nric;
     private String sex;
@@ -123,5 +123,17 @@ public class Patient {
                 ", Phone: " + getPhoneNumber() +  ", Address: " + getHomeAddress() +
                 ", DOB: " + getDateOfBirth() + ", Allergy: " + getAllergies() +
                 ", Sex: " + getSex() + ", Medical History: " + getMedicalHistories();
+    }
+
+    //@@author PrinceCatt
+    @Override
+    public String convertPatientToOutputText() {
+        String output = "";
+        output += "Name: " + this.getName() + " | " + "NRIC: " + this.getNric() + " | "
+                + "Phone Number: " + this.getPhoneNumber() + " | " + "Date_Of_Birth: " + this.getDateOfBirth()
+                + " | " + "Home Address: " + this.getHomeAddress() + " | " + "Allergy: " + this.getAllergies()
+                + " | " + "Sex: " + this.getSex() + " | " + "Medical History: " + this.getMedicalHistories()
+                + " | " + "Visit: " + this.getVisits() + ";";
+        return output;
     }
 }

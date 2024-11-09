@@ -41,7 +41,7 @@ public class FileHandlerTest {
 
         Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
                 "Bukit Gombak", allergies, "Male", medicalHistory, visits);
-        String output = fileHandler.convertPatientToOutputText(patient);
+        String output = patient.convertPatientToOutputText();
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
                 "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: [Peanuts] " +
                 "| Sex: Male | Medical History: [History of gastritis] | Visit: " +
@@ -58,7 +58,7 @@ public class FileHandlerTest {
         ArrayList<Visit> visits = new ArrayList<>();
         visits.add(new Visit(visitDateTime));
         Patient patient = new Patient("John", "S9765432T", visits);
-        String output = fileHandler.convertPatientToOutputText(patient);
+        String output = patient.convertPatientToOutputText();
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number:  | " +
                 "Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | " +
                 "Visit: [21-10-2024 15:48, Diagnosis: [], Medications: []];");
@@ -72,7 +72,7 @@ public class FileHandlerTest {
         String date = "21-10-2024";
         String time = "15:48";
         Appointment appointment = new Appointment(name, nric, date, time);
-        String output = fileHandler.convertPatientToOutputText(appointment);
+        String output = appointment.convertPatientToOutputText();
         assertEquals(output, "Name: John|NRIC: S9765432T|Date: 21-10-2024|Time: 15:48");
     }
 
