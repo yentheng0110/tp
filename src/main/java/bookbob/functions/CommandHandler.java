@@ -113,7 +113,13 @@ public class CommandHandler {
     //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = extractName(input);
+        if (name.isEmpty()) {
+            return;
+        }
         String nric = extractNric(input);
+        if (nric.isEmpty()) {
+            return;
+        }
         String sex = extractGender(input);
         LocalDate dateOfBirth = extractDateOfBirth(input);
         String phoneNumber = extractPhoneNumber(input);
