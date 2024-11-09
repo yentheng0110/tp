@@ -696,6 +696,10 @@ public class CommandHandler {
             int homeAddressEnd = findNextFieldStart(input, homeAddressStart + lengthOfHomeAdressIndicator);
             homeAddress = input.substring(homeAddressStart + lengthOfHomeAdressIndicator, homeAddressEnd).trim();
         }
+        if (!homeAddress.matches("[a-zA-z0-9]+")) {
+        System.out.println("Please provide a valid address");
+        return "";
+        }
         return homeAddress;
     }
 
