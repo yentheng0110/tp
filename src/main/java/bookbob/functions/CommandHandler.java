@@ -758,6 +758,10 @@ public class CommandHandler {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
         }
+        if(!sex.equals("M") || !sex.equals("F")) {
+        sex = "";
+        System.out.println("Please kindly input M or F for sex only");
+        }
         return sex;
     }
 
