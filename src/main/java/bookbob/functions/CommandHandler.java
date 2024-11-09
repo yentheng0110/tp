@@ -779,10 +779,10 @@ public class CommandHandler {
         if (sexStart != -1) {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
-        }
-        if (!sex.equals("M") || !sex.equals("F")) {
-            sex = "";
-            System.out.println("Please kindly input M or F for sex only");
+            if (!(sex.startsWith("M") || sex.startsWith("m")) && !(sex.startsWith("F") || sex.startsWith("f"))) {
+                sex = "";
+                System.out.println("Please input Male or Female for sex");
+            }
         }
         return sex;
     }
