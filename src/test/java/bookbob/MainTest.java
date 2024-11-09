@@ -25,9 +25,9 @@ public class MainTest {
     private AppointmentRecord appointmentRecord;
     private CommandHandler commandHandler;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private final String TODAY = LocalDate.now().format(formatter);
-    private final String TOMORROW = LocalDate.now().plusDays(1).format(formatter);
-    private final String YESTERDAY = LocalDate.now().minusDays(1).format(formatter);
+    private final String today = LocalDate.now().format(formatter);
+    private final String tomorrow = LocalDate.now().plusDays(1).format(formatter);
+    private final String yesteyday = LocalDate.now().minusDays(1).format(formatter);
 
 
     //@@author kaboomzxc
@@ -461,16 +461,16 @@ public class MainTest {
                         "appointment n/P6 ic/S6666666F date/%s time/09:45\n" +  // Clear slot
                         "appointment n/P7 ic/S7777777G date/%s time/09:25\n" +  // Overlapping end
                         "listAppointments\nexit\n",
-                TODAY, TODAY, TODAY, TOMORROW, YESTERDAY, TODAY, TODAY);
+                today, today, today, tomorrow, yesteyday, today, today);
 
         provideInput(input);
         try {
             Main.main(new String[]{});
             String output = outputStreamCaptor.toString();
             assertTrue(output.contains("next available timeslot"));
-            assertTrue(output.contains("Appointment on " + TODAY + " 09:00"));
-            assertTrue(output.contains("Appointment on " + TODAY + " 09:45"));
-            assertTrue(output.contains("Appointment on " + TOMORROW + " 09:00"));
+            assertTrue(output.contains("Appointment on " + today + " 09:00"));
+            assertTrue(output.contains("Appointment on " + today + " 09:45"));
+            assertTrue(output.contains("Appointment on " + tomorrow + " 09:00"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -510,7 +510,7 @@ public class MainTest {
                         "appointment n/P2 ic/S2222222B date/%s time/23:30\n" +  // End of day
                         "appointment n/P3 ic/S3333333C date/%s time/23:45\n" +  // Very end of day
                         "listAppointments\nexit\n",
-                TODAY, TODAY, TODAY);
+                today, today, today);
 
         provideInput(input);
         try {

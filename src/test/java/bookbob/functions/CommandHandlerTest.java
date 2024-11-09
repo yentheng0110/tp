@@ -604,7 +604,8 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_addPatientDetailsWithoutDiagnosis_addedSuccessfully() throws IOException {
-        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 m/Albuterol ha/NUS-PGPR dob/01-01-1995";
+        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 " +
+                "p/90879089 m/Albuterol ha/NUS-PGPR dob/01-01-1995";
         command.add(input, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.";
         assertEquals(expectedOutput,
@@ -664,7 +665,8 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void editCommand_validFormatInputtedToEditDOB_editSuccessfully() throws IOException {
-        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/09-08-1995";
+        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 " +
+                "d/Asthma ha/NUS-PGPR dob/09-08-1995";
         command.add(addInput, records);
         String editInput = "edit ic/S9534567A /to dob/08-08-1995";
         command.edit(editInput, records);
@@ -691,7 +693,8 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void editCommand_validFormatInputtedToEditHomeAddress_editSuccessfully() throws IOException {
-        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/09-08-1995";
+        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 " +
+                "d/Asthma ha/NUS-PGPR dob/09-08-1995";
         command.add(addInput, records);
         String editInput = "edit ic/S9534567A /to ha/Bukit Batok";
         command.edit(editInput, records);
