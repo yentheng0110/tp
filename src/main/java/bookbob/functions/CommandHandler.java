@@ -719,7 +719,8 @@ public class CommandHandler {
                 dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
             } catch (DateTimeParseException e) {
                 logger.warning("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
-                throw new IllegalArgumentException("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
+                throw new IllegalArgumentException("Invalid date of birth entered. " +
+                        "Please follow the format: dd-MM-yyyy");
 
             }
         }
