@@ -27,6 +27,7 @@ public class Records implements FileOperation{
         return patients;
     }
 
+    //@@author PrinceCatt
     @Override
     public void initFile(String filePath) {
         try {
@@ -50,6 +51,7 @@ public class Records implements FileOperation{
         }
     }
 
+    //@@author PrinceCatt
     @Override
     public void autosave(String filePath) throws IOException {
         ArrayList<Patient> patients = this.getPatients();
@@ -61,6 +63,7 @@ public class Records implements FileOperation{
         fw.close();
     }
 
+    //@@author PrinceCatt
     @Override
     public void retrieveData(String filePath) {
         try {

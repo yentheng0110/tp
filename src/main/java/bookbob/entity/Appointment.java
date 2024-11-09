@@ -68,6 +68,7 @@ public class Appointment implements Comparable<Appointment>, OutputConversion {
         }
     }
 
+    //@@author G13nd0n
     @Override
     public String convertPatientToOutputText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

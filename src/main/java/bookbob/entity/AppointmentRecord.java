@@ -140,6 +140,7 @@ public class AppointmentRecord implements FileOperation {
         return nextAvailableTime;
     }
 
+    //@@author G13nd0n
     @Override
     public void initFile(String appointmentFilePath) {
         try {
@@ -163,6 +164,7 @@ public class AppointmentRecord implements FileOperation {
         }
     }
 
+    //@@author G13nd0n
     @Override
     public void autosave(String appointmentFilePath) throws IOException, IOException {
         List<Appointment> appointments = this.getAppointments();
@@ -174,6 +176,7 @@ public class AppointmentRecord implements FileOperation {
         fw.close();
     }
 
+    //@@author G13nd0n
     @Override
     public void retrieveData(String appointmentFilePath) {
         try {

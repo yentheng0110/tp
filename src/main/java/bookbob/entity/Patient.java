@@ -125,6 +125,7 @@ public class Patient implements OutputConversion {
                 ", Sex: " + getSex() + ", Medical History: " + getMedicalHistories();
     }
 
+    //@@author PrinceCatt
     @Override
     public String convertPatientToOutputText() {
         String output = "";
