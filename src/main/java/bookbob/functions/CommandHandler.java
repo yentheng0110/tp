@@ -791,7 +791,7 @@ public class CommandHandler {
 
     //@@author G13nd0n
     private String extractNric(String input) {
-        string nric = "";
+        String nric = "";
         int lengthOfNricIndicator = 3;
         int lengthOfNric = 9;
         int nricStart = input.indexOf("ic/");
