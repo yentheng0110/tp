@@ -149,7 +149,7 @@ number, diagnoses, medications, home address, date of birth, allergies, sex and 
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br> 
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
+Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
 Example Output: 
 ```
