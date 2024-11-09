@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -134,7 +135,7 @@ public class CommandHandlerTest {
     //@@author coraleaf0602
     @Test
     void addCommand_validPatientDetails_addedSuccessfully() throws IOException {
-        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.".trim(), outputStreamCaptor.toString().trim());
     }
@@ -142,7 +143,7 @@ public class CommandHandlerTest {
     //@@author coraleaf0602
     @Test
     void deleteCommand_existingPatient_deletesSuccessfully() throws IOException {
-        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes", records);
         command.delete("S9534567A", records);
         String expectedOutput = "Patient James-Ho with NRIC S9534567A added.\n" +
@@ -154,11 +155,11 @@ public class CommandHandlerTest {
     //@@author coraleaf0602
     @Test
     void listCommand_onePatientInRecord_outputsPatientDetails() throws IOException {
-        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes", records);
         command.list(records);
         assertEquals("Patient James-Ho with NRIC S9534567A added.\n" +
-                        "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 13121995, " +
+                        "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 13-12-1995, " +
                         "Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]\n" +
                         "    Visit Date: 21-10-2024 15:48, Diagnosis: [Asthma], Medications: [Albuterol]",
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -202,82 +203,82 @@ public class CommandHandlerTest {
     //@@author kaboomzxc
     @Test
     void testFindName() throws IOException {
-        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James-Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995" +
+        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13-12-1995" +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Chronic Migraine", records);
         command.find("n/james", records);
         assertEquals("Patient James-Ho with NRIC S9534567A added." + System.lineSeparator() +
                 "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                 "Matching patients:" + System.lineSeparator() +
-                "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, DOB: 13121995, " +
+                "Name: James-Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, DOB: 13/12/1995, " +
                 "Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]", outputStreamCaptor.toString().trim());
     }
 
     //@@author kaboomzxc
     @Test
     void testFindIc() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995" +
+        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13-12-1995" +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Chronic Migraine", records);
         command.find("ic/S1234567Z", records);
         assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
                 "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                 "Matching patients:" + System.lineSeparator() +
                 "Name: John Doe, NRIC: S1234567Z, Phone: 97654321, " +
-                "Address: Hougang Green, DOB: 13121995, Allergy: [Pollen], " +
+                "Address: Hougang Green, DOB: 13/12/1995, Allergy: [Pollen], " +
                 "Sex: Male, Medical History: [Chronic Migraine]", outputStreamCaptor.toString().trim());
     }
 
     //@@author kaboomzxc
     @Test
     void testFindPhoneNumber() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995" +
+        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13-12-1995" +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Chronic Migraine", records);
         command.find("p/91234567", records);
         assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13121995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
+                        "DOB: 13/12/1995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
                 outputStreamCaptor.toString().trim());
     }
 
     //@@author kaboomzxc
     @Test
     void testFindHomeAddress() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995" +
+        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13-12-1995" +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Chronic Migraine", records);
         command.find("ha/NUS PGPR", records);
         assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13121995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
+                        "DOB: 13/12/1995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
                 outputStreamCaptor.toString().trim());
     }
 
     //@@author kaboomzxc
     @Test
     void testFindDateOfBirth() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13121995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
-        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13121995" +
+        command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13-12-1995" +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Chronic Migraine", records);
-        command.find("dob/13121995", records);
+        command.find("dob/13-12-1995", records);
         assertEquals("Patient James Ho with NRIC S9534567A added." + System.lineSeparator() +
                         "Patient John Doe with NRIC S1234567Z added." + System.lineSeparator() +
                         "Matching patients:" + System.lineSeparator() +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13121995, Allergy: [Pollen], Sex: Male, " +
+                        "DOB: 13/12/1995, Allergy: [Pollen], Sex: Male, " +
                         "Medical History: [Diabetes]" + System.lineSeparator() +
                         "Name: John Doe, NRIC: S1234567Z, Phone: 97654321, " +
-                        "Address: Hougang Green, DOB: 13121995, Allergy: [Pollen], " +
+                        "Address: Hougang Green, DOB: 13/12/1995, Allergy: [Pollen], " +
                         "Sex: Male, Medical History: [Chronic Migraine]",
                 outputStreamCaptor.toString().trim());
     }
@@ -512,11 +513,11 @@ public class CommandHandlerTest {
     //@author yentheng0110
     @Test
     void listCommand_onePatientRecordwithNoAllergy_expectOnePatientRecordGetsPrinted() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995 " +
                 "v/21-10-2024 15:48 s/Male mh/Diabetes", records);
         command.list(records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.\nName: James Ho, NRIC: S9534567A, " +
-                "Phone: 91234567, Home Address: NUS-PGPR, DOB: 01011995, Allergies: [], Sex: Male, " +
+                "Phone: 91234567, Home Address: NUS-PGPR, DOB: 01-01-1995, Allergies: [], Sex: Male, " +
                 "Medical Histories: [Diabetes]\n    Visit Date: 21-10-2024 15:48, Diagnosis: [Asthma], " +
                 "Medications: [Albuterol]";
         assertEquals(expectedOutput,
@@ -526,10 +527,10 @@ public class CommandHandlerTest {
     //@author yentheng0110
     @Test
     void listCommand_twoPatientRecord_recordSizeIsTwo() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
         command.add("add n/Patricia Chan ic/S9087906B p/80796890 d/Gastric m/Gaviscon ha/Farrer Road " +
-                "dob/09081990 v/06-11-2024 19:00 al/Peanuts s/Female mh/Hypertension, Diabetes", records);
+                "dob/09-08-1990 v/06-11-2024 19:00 al/Peanuts s/Female mh/Hypertension, Diabetes", records);
         command.list(records);
         assertEquals(2, records.getPatients().size());
     }
@@ -538,7 +539,7 @@ public class CommandHandlerTest {
     @Test
     void deleteCommand_deleteNonExistingPatient_recordsSizeRemainsTheSame() throws IOException {
         command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon " +
-                "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
+                "v/01-10-2024 17:30 ha/Bukit Gombak dob/06-07-1997", records);
         command.delete("S9587690H", records);
         assertEquals(1, records.getPatients().size());
     }
@@ -547,10 +548,10 @@ public class CommandHandlerTest {
     @Test
     void findCommand_invalidSearchFormat_expectAnErrorMessageWithGuidance() throws IOException {
         command.add("add n/Jack Wong ic/S9765432T p/87658976 d/Gastric m/Gaviscon " +
-                "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
+                "v/01-10-2024 17:30 ha/Bukit Gombak dob/06-07-1997", records);
         command.find("Jack", records);
         String expectedOutput = "Patient Jack Wong with NRIC S9765432T added.\nInvalid search parameters. " +
-                "Please use the format: find n/NAME ic/NRIC [p/PHONE] " +
+                "Please use the format: find [n/NAME] [ic/NRIC] [p/PHONE] " +
                 "[ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -568,7 +569,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_inputWithoutNRIC_expectAssertionError() {
-        assertThrows(AssertionError.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             command.add("add n/Jane Tan", records);
         });
     }
@@ -576,7 +577,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_inputWithoutVisitDate_expectAssertionError() {
-        assertThrows(AssertionError.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             command.add("add n/Jane Tan ic/S9087689B p/90876543", records);
         });
     }
@@ -593,7 +594,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_addPatientDetailsWithoutPhoneNumber_addedSuccessfully() throws IOException {
-        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011995";
+        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995";
         command.add(input, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.";
         assertEquals(expectedOutput,
@@ -603,7 +604,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_addPatientDetailsWithoutDiagnosis_addedSuccessfully() throws IOException {
-        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 m/Albuterol ha/NUS-PGPR dob/01011995";
+        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 m/Albuterol ha/NUS-PGPR dob/01-01-1995";
         command.add(input, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.";
         assertEquals(expectedOutput,
@@ -613,7 +614,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_addPatientDetailsWithoutMedication_addedSuccessfully() throws IOException {
-        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/01011995";
+        String input = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/01-01-1995";
         command.add(input, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.";
         assertEquals(expectedOutput,
@@ -663,13 +664,13 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void editCommand_validFormatInputtedToEditDOB_editSuccessfully() throws IOException {
-        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/09081995";
+        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/09-08-1995";
         command.add(addInput, records);
-        String editInput = "edit ic/S9534567A /to dob/08081995";
+        String editInput = "edit ic/S9534567A /to dob/08-08-1995";
         command.edit(editInput, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.\nPatient record updated successfully.\n" +
                 "Updated patient details:\nName: James Ho, NRIC: S9534567A, Phone: 90879089, Address: NUS-PGPR, " +
-                "DOB: 08081995, Allergy: [], Sex: , Medical History: []";
+                "DOB: 08/08/1995, Allergy: [], Sex: , Medical History: []";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
@@ -690,13 +691,13 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void editCommand_validFormatInputtedToEditHomeAddress_editSuccessfully() throws IOException {
-        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/09081995";
+        String addInput = "add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR dob/09-08-1995";
         command.add(addInput, records);
         String editInput = "edit ic/S9534567A /to ha/Bukit Batok";
         command.edit(editInput, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.\nPatient record updated successfully.\n" +
                 "Updated patient details:\nName: James Ho, NRIC: S9534567A, Phone: 90879089, Address: Bukit Batok, " +
-                "DOB: 09081995, Allergy: [], Sex: , Medical History: []";
+                "DOB: 09/08/1995, Allergy: [], Sex: , Medical History: []";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
@@ -769,7 +770,7 @@ public class CommandHandlerTest {
         command.find("ic/S7654321B", records);
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, Address: CAPT, " +
-                "DOB: 18-06-2003, Allergy: [peanuts], Sex: male, Medical History: [diabetes]";
+                "DOB: 18/06/2003, Allergy: [peanuts], Sex: male, Medical History: [diabetes]";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
@@ -800,9 +801,9 @@ public class CommandHandlerTest {
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
                 "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
-                "Address: CAPT, DOB: 18-06-2003, Allergy: [], Sex: , Medical History: []\n" +
+                "Address: CAPT, DOB: 18/06/2003, Allergy: [], Sex: , Medical History: []\n" +
                 "Name: John Smith, NRIC: S2468024A, Phone: 87654321, Address: CAPT, " +
-                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
+                "DOB: 13/04/2002, Allergy: [], Sex: , Medical History: []";
         command.find("n/Smith", records);
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -831,10 +832,10 @@ public class CommandHandlerTest {
         String expectedOutput = "Patient John Doe with NRIC S1234567A added.\nPatient Will Smith with NRIC S7654321B " +
                 "added.\n" + "Patient John Smith with NRIC S2468024A added.\n"+
                 "Matching patients:\nName: Will Smith, NRIC: S7654321B, Phone: 91234567, " +
-                "Address: CAPT, DOB: 18-06-2003, " +
+                "Address: CAPT, DOB: 18/06/2003, " +
                 "Allergy: [], Sex: , Medical History: []\nName: John Smith, NRIC: S2468024A, " +
                 "Phone: 87654321, Address: CAPT, " +
-                "DOB: 13-04-2002, Allergy: [], Sex: , Medical History: []";
+                "DOB: 13/04/2002, Allergy: [], Sex: , Medical History: []";
         command.find("ha/CAPT", records);
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
@@ -906,7 +907,7 @@ public class CommandHandlerTest {
     void editVisitCommand_inputWithoutVisitDate_expectAssertionError() throws IOException {
         command.add("add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR", records);
         String input = "editVisit ic/S9534567A d/Asthma m/Panadol, Antibiotics";
-        assertThrows(AssertionError.class, () -> {
+        assertThrows(DateTimeParseException.class, () -> {
             command.editVisit(input, records);
         });
     }

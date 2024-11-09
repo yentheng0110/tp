@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class PatientTest {
     private String name;
     private String nric;
     private String phoneNumber;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String homeAddress;
     private ArrayList<String> allergies;
     private String sex;
@@ -28,7 +29,7 @@ public class PatientTest {
         name = "John Doe";
         nric = "S9234567A";
         phoneNumber = "98765432";
-        dateOfBirth = "08091992";
+        dateOfBirth = LocalDate.of(1990, 1, 1);
         homeAddress = "Block 123 Farrer Road";
         allergies = new ArrayList<>();
         allergies.add("Peanuts");
@@ -92,8 +93,9 @@ public class PatientTest {
     public void testSetDateOfBirth() {
         patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, allergies, sex, medicalHistories,
                 visits);
-        patient.setDateOfBirth("02021976");
-        assertEquals("02021976", patient.getDateOfBirth());
+        LocalDate currentDate = LocalDate.now();
+        patient.setDateOfBirth(currentDate);
+        assertEquals(currentDate, patient.getDateOfBirth());
     }
 
     //@author yentheng0110
@@ -163,7 +165,7 @@ public class PatientTest {
         patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress, allergies, sex, medicalHistories,
                 visits);
         String expectedString = "Name: John Doe, NRIC: S9234567A, Phone: 98765432, Address: Block 123 Farrer Road, " +
-                "DOB: 08091992, Allergy: [Peanuts], Sex: Male, Medical History: [Diabetes]";
+                "DOB: 01/01/1990, Allergy: [Peanuts], Sex: Male, Medical History: [Diabetes]";
         assertEquals(expectedString, patient.toString());
     }
 }

@@ -3,6 +3,7 @@ package bookbob.entity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class RecordsTest {
         String name = "John Doe";
         String nric = "S9234567A";
         String phoneNumber = "98765432";
-        String dateOfBirth = "09081992";
+        LocalDate dateOfBirth = LocalDate.of(1990, 1, 1);
         String homeAddress = "Block 123 Farrer Road";
         ArrayList<String> allergies = new ArrayList<>();
         allergies.add("Peanuts");
@@ -43,7 +44,7 @@ public class RecordsTest {
         name = "Jane Smith";
         nric = "S7654321B";
         phoneNumber = "87654321";
-        dateOfBirth = "02021976";
+        dateOfBirth = LocalDate.of(1990, 1, 1);
         homeAddress = "Block 456 Elmo Street";
         allergies = new ArrayList<>();
         allergies.add("Pollen");

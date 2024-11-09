@@ -5,6 +5,8 @@ import bookbob.functions.FileHandler;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,7 +26,7 @@ public class Records implements FileOperation{
     }
 
     //@@author G13nd0n
-    public void addPatient(String name, String nric, ArrayList<Visit> visits, String sex, String dateOfBirth,
+    public void addPatient(String name, String nric, ArrayList<Visit> visits, String sex, LocalDate dateOfBirth,
                            String phoneNumber, String homeAddress, ArrayList<String> allergies,
                            ArrayList<String> medicalHistories) {
         Patient patient = new Patient(name, nric, visits);
@@ -97,8 +99,16 @@ public class Records implements FileOperation{
                 String name = data[0].substring(6).trim();
                 String nric = data[1].substring(6).trim();
                 String phoneNumber = data[2].substring(15).trim();
-                String dateOfBirth = data[3].substring(16).trim();
+                String dateOfBirthString = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
+
+                LocalDate dateOfBirth = null;
+                if(!dateOfBirthString.isEmpty()) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
+                }
+
+
                 //@@author kaboomzxc
                 String sex = data[6].substring(5).trim();
                 ArrayList<String> allergies = FileHandler.parseList(data[5].substring(9).trim());
@@ -125,7 +135,6 @@ public class Records implements FileOperation{
                         }
                     }
                 }
-
                 Patient patient = new Patient(name, nric, phoneNumber, dateOfBirth, homeAddress,
                         allergies, sex, medicalHistories, visits);
                 this.addPatient(patient);

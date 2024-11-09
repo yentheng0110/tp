@@ -53,7 +53,7 @@ public class Main {
             System.out.println("Invalid input: " + e.getMessage());
         } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Error in {0} command: incorrect date format", commandName);
-            System.out.println("Error: incorrect date format.");
+            System.out.println("Error: incorrect date format123.");
         } catch (DateTimeException e) {
             logger.log(Level.WARNING, "Error in {0} command: incorrect time format", commandName);
             System.out.println("Error: incorrect time format.");
@@ -87,8 +87,8 @@ public class Main {
 
         while (true) {
             String input = in.nextLine();
-            String[] inputArr = input.split(" ", 2);
-            String command = inputArr[0];
+            String[] inputArray = input.split(" ", 2);
+            String command = inputArray[0];
 
             switch (command) {
             case "find":
@@ -144,8 +144,8 @@ public class Main {
 
             case "delete":
                 logAndExecute("delete", () -> {
-                    if (inputArr.length > 1) {
-                        String nric = inputArr[1].trim();
+                    if (inputArray.length > 1) {
+                        String nric = inputArray[1].trim();
                         try {
                             commandHandler.delete(nric, records);
                         } catch (IOException e) {
@@ -189,9 +189,9 @@ public class Main {
                 break;
 
             case "findAppointment":
-                if (inputArr.length > 1) {
+                if (inputArray.length > 1) {
                     logAndExecute("findAppointment", () -> commandHandler.
-                            findAppointment(inputArr[1], appointmentRecord));
+                            findAppointment(inputArray[1], appointmentRecord));
                 } else {
                     System.out.println("Please provide search criteria for findAppointment.");
                     logger.log(Level.INFO, "Missing criteria for findAppointment");
@@ -199,8 +199,8 @@ public class Main {
                 break;
 
             case "findVisit":
-                if (inputArr.length > 1) {
-                    logAndExecute("findVisit", () -> commandHandler.findVisitByIc(inputArr[1], records));
+                if (inputArray.length > 1) {
+                    logAndExecute("findVisit", () -> commandHandler.findVisitByIc(inputArray[1], records));
                 } else {
                     System.out.println("Please provide NRIC for findVisit.");
                     logger.log(Level.INFO, "Missing NRIC for findVisit");
@@ -208,8 +208,8 @@ public class Main {
                 break;
 
             case "findMedication":
-                if (inputArr.length > 1) {
-                    logAndExecute("findMedication", () -> commandHandler.findVisitByMedication(inputArr[1], records));
+                if (inputArray.length > 1) {
+                    logAndExecute("findMedication", () -> commandHandler.findVisitByMedication(inputArray[1], records));
                 } else {
                     System.out.println("Please provide medication for findMedication.");
                     logger.log(Level.INFO, "Missing medication for findMedication");
@@ -217,8 +217,8 @@ public class Main {
                 break;
 
             case "findDiagnosis":
-                if (inputArr.length > 1) {
-                    logAndExecute("findDiagnosis", () -> commandHandler.findVisitByDiagnosis(inputArr[1], records));
+                if (inputArray.length > 1) {
+                    logAndExecute("findDiagnosis", () -> commandHandler.findVisitByDiagnosis(inputArray[1], records));
                 } else {
                     System.out.println("Please provide diagnosis for findDiagnosis.");
                     logger.log(Level.INFO, "Missing diagnosis for findDiagnosis");

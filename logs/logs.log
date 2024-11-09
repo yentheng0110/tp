@@ -1,0 +1,134 @@
+Nov 09, 2024 2:26:19 PM bookbob.Main validateParameters
+INFO: Missing required parameter: v/
+Nov 09, 2024 2:26:45 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:26:45 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:27:42 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:27:42 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:28:01 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:28:01 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:28:48 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:28:48 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:29:35 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:29:35 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:29:49 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:29:49 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:30:28 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:30:28 PM bookbob.Main logAndExecute
+WARNING: Error in add command: incorrect date format
+Nov 09, 2024 2:33:44 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:33:44 PM bookbob.Main logAndExecute
+WARNING: Invalid input for add command: Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.
+Nov 09, 2024 2:34:05 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:34:05 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 2:34:10 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:34:10 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 2:37:05 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:37:05 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 2:37:14 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:37:14 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 2:39:02 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:39:02 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 2:47:11 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:47:11 PM bookbob.Main logAndExecute
+SEVERE: Unexpected error processing {0} command
+java.lang.NullPointerException: Cannot invoke "java.time.LocalDate.format(java.time.format.DateTimeFormatter)" because the return value of "bookbob.entity.Patient.getDateOfBirth()" is null
+	at bookbob.functions.CommandHandler.list(CommandHandler.java:165)
+	at bookbob.Main.lambda$main$3(Main.java:122)
+	at bookbob.Main.logAndExecute(Main.java:49)
+	at bookbob.Main.main(Main.java:122)
+
+Nov 09, 2024 2:49:12 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:49:12 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 2:49:58 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:49:58 PM bookbob.Main logAndExecute
+WARNING: Invalid input for add command: Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.
+Nov 09, 2024 2:51:21 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:51:21 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 2:54:11 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:54:11 PM bookbob.Main logAndExecute
+WARNING: Invalid input for add command: Invalid date of birth entered. Please follow the format: dd-MM-yyyy
+Nov 09, 2024 2:54:21 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 2:54:21 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 2:54:24 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:54:24 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 2:54:42 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:54:42 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 2:59:39 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 2:59:39 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 3:00:21 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 3:00:22 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 3:01:07 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 3:01:07 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 3:04:08 PM bookbob.Main main
+INFO: Unknown command received: aadd
+Nov 09, 2024 3:04:29 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 3:04:29 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 3:04:32 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 3:04:32 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 3:04:53 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 3:04:53 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 3:06:37 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 3:06:37 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 3:06:41 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 3:06:41 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 3:09:16 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 3:09:16 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 3:09:18 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 3:09:18 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
