@@ -5,8 +5,8 @@ object "<u>:Main</u>" as Main
 object "<u> :CommandHandler</u>" as CommandHandler
 object "<u> in:Scanner</u>" as Scanner
 object "<u> appointment:Appointment </u>" as Appointment {
-name = John Doe
-nric = S123A
+name = "John Doe"
+nric = "S123A"
 date = 18-11-2024
 time = 18:00
 }
