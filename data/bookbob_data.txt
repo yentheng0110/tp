@@ -1,1 +1,2 @@
 Name: John Doe | NRIC: S1234567A | Phone Number: 98765432 | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [01-10-2024 15:30, Diagnosis: [], Medications: [], 21-10-2024 15:48, Diagnosis: [], Medications: []];
+Name: Patricia Chan | NRIC: S8907890J | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [21-11-2024 18:00, Diagnosis: [], Medications: []];

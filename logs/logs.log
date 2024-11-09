@@ -1,0 +1,18 @@
+Nov 09, 2024 7:14:04 PM bookbob.Main logAndExecute
+INFO: Processing help command
+Nov 09, 2024 7:14:04 PM bookbob.Main logAndExecute
+INFO: Successfully processed help command
+Nov 09, 2024 7:16:38 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 7:16:38 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 7:16:53 PM bookbob.Main validateParameters
+INFO: Missing required parameter: ic/
+Nov 09, 2024 7:17:02 PM bookbob.Main validateParameters
+INFO: Missing required parameter: n/
+Nov 09, 2024 7:17:25 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 7:17:25 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 7:17:47 PM bookbob.Main logAndExecute
+INFO: Processing exit command
