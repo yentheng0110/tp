@@ -718,10 +718,10 @@ public class CommandHandler {
         if (homeAddressStart != -1) {
             int homeAddressEnd = findNextFieldStart(input, homeAddressStart + lengthOfHomeAdressIndicator);
             homeAddress = input.substring(homeAddressStart + lengthOfHomeAdressIndicator, homeAddressEnd).trim();
-        }
-        if (!homeAddress.matches("[a-zA-z0-9]+")) {
-            System.out.println("Please provide a valid address");
-            return "";
+            if (!homeAddress.matches("[a-zA-Z0-9\\s-]+")) {
+                System.out.println("Please provide a valid home address");
+                return "";
+            }
         }
         return homeAddress;
     }
