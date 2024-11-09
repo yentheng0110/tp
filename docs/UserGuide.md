@@ -46,6 +46,9 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 ---
 # Features
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
+Note:
+1. Extra Input: Additional input provided after expected inputs for commands like list and listAppointments will be ignored.
+2. Case Sensitivity: Ensure correct lowercase input as commands are case-sensitive.
 
 ## Viewing Help
 Shows the available list of commands and some guiding information.
@@ -498,13 +501,15 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 ## Saving/Retrieving Patient Records and Appointment Records Data
 <br>
 Saving and retrieving are performed automatically whenever changes are made, with no additional commands required.
----
-## Exiting the Program
-Exits the program.
 
+---
+
+## Exiting the Program
+To exit the program, type `exit` exactly, with no extra spaces or characters following it.
 Format: `exit`
 
 ---
+
 ## FAQ
 
 ### Data Management, Updates, & Migration
