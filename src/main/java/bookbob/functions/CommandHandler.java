@@ -323,7 +323,7 @@ public class CommandHandler {
     // @@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
-        if(input.equalsIgnoreCase("exit")) {
+        if (input.equalsIgnoreCase("exit")) {
             System.exit(0);
         }
     }
@@ -758,7 +758,7 @@ public class CommandHandler {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
         }
-        if(!sex.equals("M") || !sex.equals("F")) {
+        if (!sex.equals("M") || !sex.equals("F")) {
             sex = "";
             System.out.println("Please kindly input M or F for sex only");
         }

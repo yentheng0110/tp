@@ -123,7 +123,7 @@ public class Patient implements OutputConversion {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String dateOfBirthString = "";
-        if(getDateOfBirth() != null) {
+        if (getDateOfBirth() != null) {
             dateOfBirthString = getDateOfBirth().format(formatter);
         }
         return "Name: " + getName() + ", NRIC: " + getNric() +
@@ -138,7 +138,7 @@ public class Patient implements OutputConversion {
         String output = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dateOfBirthString = "";
-        if(getDateOfBirth() != null) {
+        if (getDateOfBirth() != null) {
             dateOfBirthString = getDateOfBirth().format(formatter);
         }
         output += "Name: " + this.getName() + " | " + "NRIC: " + this.getNric() + " | "
