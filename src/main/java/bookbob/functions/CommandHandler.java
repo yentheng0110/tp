@@ -113,7 +113,13 @@ public class CommandHandler {
     //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = extractName(input);
+        if (name.isEmpty()) {
+            return;
+        }
         String nric = extractNric(input);
+        if (nric.isEmpty()) {
+            return;
+        }
         String sex = extractGender(input);
         LocalDate dateOfBirth = extractDateOfBirth(input);
         String phoneNumber = extractPhoneNumber(input);
@@ -305,7 +311,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
-    // @@author G13nd0n
+    //@@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         records.delete(nric);
         FileHandler.autosave(records);
@@ -601,7 +607,7 @@ public class CommandHandler {
         }
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private LocalDateTime extractVisitDateTime(String input) {
         LocalDateTime visitDate = null;
         String visitDateString = extractVisitDate(input);
@@ -614,7 +620,7 @@ public class CommandHandler {
         return visitDate;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractMedicalHistories(String input) {
         int lengthOfMedicalHistoriesIndicator = 3;
         ArrayList<String> medicalHistories = new ArrayList<>();
@@ -632,7 +638,7 @@ public class CommandHandler {
         return medicalHistories;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractAllergies(String input) {
         int lengthOfAllergiesIndicator = 3;
         ArrayList<String> allergies = new ArrayList<>();
@@ -648,7 +654,7 @@ public class CommandHandler {
         return allergies;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractMedications(String input) {
         int lengthOfMedicationIndicator = 2;
         ArrayList<String> medications = new ArrayList<>();
@@ -665,7 +671,7 @@ public class CommandHandler {
         return medications;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractDiagnoses(String input) {
         int lengthOfDiagnosesIndicator = 2;
         ArrayList<String> diagnoses = new ArrayList<>();
@@ -681,7 +687,7 @@ public class CommandHandler {
         return diagnoses;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractHomeAddress(String input) {
         int lengthOfHomeAdressIndicator = 3;
         String homeAddress = "";
@@ -690,10 +696,14 @@ public class CommandHandler {
             int homeAddressEnd = findNextFieldStart(input, homeAddressStart + lengthOfHomeAdressIndicator);
             homeAddress = input.substring(homeAddressStart + lengthOfHomeAdressIndicator, homeAddressEnd).trim();
         }
+        if (!homeAddress.matches("[a-zA-z0-9]+")) {
+            System.out.println("Please provide a valid address");
+            return "";
+        }
         return homeAddress;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractPhoneNumber(String input) {
         int lengthOfPhoneNumberIndicator = 2;
         String phoneNumber = "";
@@ -702,10 +712,19 @@ public class CommandHandler {
             int phoneEnd = findNextFieldStart(input, phoneStart + lengthOfPhoneNumberIndicator);
             phoneNumber = input.substring(phoneStart + lengthOfPhoneNumberIndicator, phoneEnd).trim();
         }
+        if (!phoneNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid local phone number");
+            return "";
+        }
+        int number = Integer.parseInt(phoneNumber);
+        if (number < 80000000 && number > 99999999) {
+            System.out.println("Please provide a valid local phone number");
+            return "";
+        }
         return phoneNumber;
     }
 
-    //@@author G13nd0n and PrinceCatt
+    //@@author G13nd0n @@PrinceCatt @@author yentheng0110
     private LocalDate extractDateOfBirth(String input) throws DateTimeParseException {
         LocalDate dateOfBirth = null;
         int dobStart = input.indexOf("dob/");
@@ -726,7 +745,7 @@ public class CommandHandler {
         return dateOfBirth;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractGender(String input) {
         int lengthOfGenderIndicator = 2;
         String sex = "";
@@ -734,6 +753,10 @@ public class CommandHandler {
         if (sexStart != -1) {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
+        }
+        if(!sex.equals("M") || !sex.equals("F")) {
+            sex = "";
+            System.out.println("Please kindly input M or F for sex only");
         }
         return sex;
     }
@@ -764,26 +787,53 @@ public class CommandHandler {
 
     //@@author G13nd0n
     private String extractNric(String input) {
+        String nric = "";
         int lengthOfNricIndicator = 3;
+        int lengthOfNric = 9;
         int nricStart = input.indexOf("ic/");
         if (nricStart == -1) {
             System.out.println("Please provide the patient's NRIC.");
             return "";
         }
         int nricEnd = findNextFieldStart(input, nricStart + lengthOfNricIndicator);
-        String nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
+        nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
+        if (nric.isEmpty() || nric.length() != lengthOfNric) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
+        String nricFirstLetter = nric.substring(0,1);
+        String nricLastLetter = nric.substring(8);
+        String nricNumber = nric.substring(1,8);
+        if (!nricFirstLetter.matches("[A-Za-z]+") || !nricLastLetter.matches("[A-Za-z]+")
+                || !nricNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
         return nric;
     }
 
     //@@author G13nd0n
     private String extractNewNric(String updates) {
         int lenghtOfNewNricIndicator = 6;
+        int lengthOfNric = 9;
         String newNRIC = "";
         int newNRICStart = updates.indexOf("newic/");
         if (newNRICStart != -1) {
             int newNRICEnd = findNextFieldStart(updates, newNRICStart + lenghtOfNewNricIndicator);
             newNRIC = updates.substring(newNRICStart + lenghtOfNewNricIndicator, newNRICEnd).trim();
         }
+        if (newNRIC.isEmpty() || newNRIC.length() != lengthOfNric) {
+            System.out.println("Please provide a valid patient's nric");
+        }
+        String newNRICFirstLetter = newNRIC.substring(0,1);
+        String newNRICLastLetter = newNRIC.substring(8);
+        String newNRICNumber = newNRIC.substring(1,8);
+        if (!newNRICFirstLetter.matches("[A-Za-z]+") || !newNRICLastLetter.matches("[A-Za-z]+")
+                || !newNRICNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
+
         return newNRIC;
     }
 
@@ -796,17 +846,24 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+            System.out.println("Please provide a valid patient's name");
+        }
         return name;
     }
 
     private String extractNewName(String input) {
+        String name = "";
         int lengthOfNameIndicator = 2;
         int nameStart = input.indexOf("n/");
         if (nameStart == -1) {
             return "";
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
-        String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+            System.out.println("Please provide a valid patient's name");
+        }
         return name;
     }
 
