@@ -23,7 +23,10 @@ import java.util.logging.Logger;
 
 public class CommandHandler {
     private static final Logger logger = Logger.getLogger(CommandHandler.class.getName());
-  
+
+    public CommandHandler() throws IOException {
+    }
+    
     // Prints output for help command
     //@@author coraleaf0602 and yentheng0110 and G13nd0n and PrinceCatt and kaboomzxc
     public void help() {
