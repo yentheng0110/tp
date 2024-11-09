@@ -646,8 +646,8 @@ public class CommandHandler {
             try {
                 visitDate = LocalDateTime.parse(visitDateString, formatter);
             } catch (DateTimeParseException e) {
-                throw new IllegalArgumentException("Invalid visit date and time format. Please use 'dd-MM-yyyy HH:mm' " +
-                        "format.");
+                throw new IllegalArgumentException("Invalid visit date and time format. " +
+                        "Please use 'dd-MM-yyyy HH:mm' format.");
             }
         }
         return visitDate;
