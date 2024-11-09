@@ -924,7 +924,7 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
-        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+        if (!name.matches("[A-Za-z,\\s/-]+")) {
             System.out.println("Please provide a valid patient's name");
         }
         return name;

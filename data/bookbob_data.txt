@@ -1,8 +1,1 @@
-Name: Patrick | NRIC: S9089080U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [18-08-2024 18:00, Diagnosis: [], Medications: []];
-Name: Aaron | NRIC: S9089079U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [18-09-2024 11:00, Diagnosis: [], Medications: []];
-Name: Yusof | NRIC: T0289078I | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [05-11-2024 18:00, Diagnosis: [], Medications: []];
-Name: Bob | NRIC: T0980978I | Phone Number: 90808907 | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [20-11-2024 05:00, Diagnosis: [], Medications: []];
-Name: Bryan | NRIC: S9089079U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [08-11-2024 08:00, Diagnosis: [], Medications: []];
-Name: Carlson | NRIC: S8768950U | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [10-12-1989 19:00, Diagnosis: [], Medications: [], 10-12-2024 18:00, Diagnosis: [Gastric], Medications: [Gaviscon]];
-Name: James Ho | NRIC: S9534567A | Phone Number: 91234567 | Date_Of_Birth: 01-01-1995 | Home Address: NUS-PGPR | Allergy: [Pollen] | Sex: Female | Medical History: [Diabetes] | Visit: [21-11-2024 15:00, Diagnosis: [COVID], Medications: [Cough syrup, Cetirizine]];
-Name: Uganda | NRIC: T0987567U | Phone Number: 90879068 | Date_Of_Birth: 01-10-2009 | Home Address: Farrer Road 650190 | Allergy: [Pollen] | Sex:  | Medical History: [] | Visit: [21-10-2024 15:00, Diagnosis: [], Medications: []];
+Name: John Doe | NRIC: S1234567A | Phone Number: 98765432 | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [01-10-2024 15:30, Diagnosis: [], Medications: [], 21-10-2024 15:48, Diagnosis: [], Medications: []];
