@@ -26,7 +26,7 @@ public class CommandHandler {
 
     public CommandHandler() throws IOException {
     }
-
+    
     // Prints output for help command
     //@@author coraleaf0602 and yentheng0110 and G13nd0n and PrinceCatt and kaboomzxc
     public void help() {
@@ -147,7 +147,7 @@ public class CommandHandler {
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
         String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/",
-            "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
+                             "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -392,29 +392,36 @@ public class CommandHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            return switch (key) {
-            case "n" -> patient.getName().toLowerCase().contains(value);
-            case "ic" -> patient.getNric().toLowerCase().contains(value);
-            case "p" -> patient.getPhoneNumber().toLowerCase().contains(value);
-            case "ha" -> patient.getHomeAddress().toLowerCase().contains(value);
-            case "dob" -> patient.getDateOfBirth().format(formatter).contains(value);
-            case "al" ->
-                        // Check if any allergy matches the search value
-                        patient.getAllergies().stream()
-                                .anyMatch(allergy -> allergy.toLowerCase().contains(value));
-            case "s" -> patient.getSex().toLowerCase().contains(value);
-            case "mh" ->
-                        // Check if any medical history matches the search value
-                        patient.getMedicalHistories().stream()
-                                .anyMatch(history -> history.toLowerCase().contains(value));
-            default -> false;
-            };
+            switch (key) {
+            case "n":
+                return patient.getName().toLowerCase().contains(value);
+            case "ic":
+                return patient.getNric().toLowerCase().contains(value);
+            case "p":
+                return patient.getPhoneNumber().toLowerCase().contains(value);
+            case "ha":
+                return patient.getHomeAddress().toLowerCase().contains(value);
+            case "dob":
+                return patient.getDateOfBirth().format(formatter).contains(value);
+            case "al":
+                // Check if any allergy matches the search value
+                return patient.getAllergies().stream()
+                        .anyMatch(allergy -> allergy.toLowerCase().contains(value));
+            case "s":
+                return patient.getSex().toLowerCase().contains(value);
+            case "mh":
+                // Check if any medical history matches the search value
+                return patient.getMedicalHistories().stream()
+                        .anyMatch(history -> history.toLowerCase().contains(value));
+            default:
+                return false;
+            }
         });
 
         logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
         return matches;
     }
-
+    
     //@@author kaboomzxc
     private void displayResults(List<Patient> patients) {
         if (patients.isEmpty()) {
