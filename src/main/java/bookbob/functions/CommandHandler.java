@@ -787,7 +787,19 @@ public class CommandHandler {
             return "";
         }
         int nricEnd = findNextFieldStart(input, nricStart + lengthOfNricIndicator);
-        String nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
+        nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
+        if (nric.isEmpty() || nric.length() != lengthOfNric) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
+        String nricFirstLetter = nric.substring(0,1);
+        String nricLastLetter = nric.substring(8);
+        String nricNumber = nric.substring(1,8);
+        if (!nricFirstLetter.matches("[A-Za-z]+") || !nricLastLetter.matches("[A-Za-z]+")
+                || !nricNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
         return nric;
     }
 
