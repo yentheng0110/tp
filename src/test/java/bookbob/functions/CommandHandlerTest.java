@@ -362,10 +362,11 @@ public class CommandHandlerTest {
 
     //@@author kaboomzxc
     @Test
-    void testAddVisitMissingNRIC() throws IOException {
-        command.addVisit("addVisit v/21-10-2024 15:48 d/Fever m/Paracetamol", records);
-
-        assertEquals("Please provide the patient's NRIC.", outputStreamCaptor.toString().trim());
+    void testAddVisit_missingNRIC_expectAssertionError() throws IOException {
+        String input = "addVisit v/21-10-2024 15:48 d/Fever m/Paracetamol";
+        assertThrows(AssertionError.class, () -> {
+            command.addVisit(input, records);
+        });
     }
 
     //@@author kaboomzxc
@@ -373,10 +374,9 @@ public class CommandHandlerTest {
     void testAddVisitMissingVisitDate() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 v/01-10-2024 15:30", records);
         outputStreamCaptor.reset();
-
-        command.addVisit("addVisit ic/S1234567A d/Fever m/Paracetamol", records);
-
-        assertEquals("Please provide the visit date and time.", outputStreamCaptor.toString().trim());
+        assertThrows(AssertionError.class, () -> {
+            command.addVisit("addVisit ic/S1234567A d/Fever m/Paracetamol", records);
+        });
     }
 
     //@@author kaboomzxc
@@ -569,7 +569,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_inputWithoutNRIC_expectAssertionError() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             command.add("add n/Jane Tan", records);
         });
     }
@@ -577,7 +577,7 @@ public class CommandHandlerTest {
     //@@author yentheng0110
     @Test
     void addCommand_inputWithoutVisitDate_expectAssertionError() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             command.add("add n/Jane Tan ic/S9087689B p/90876543", records);
         });
     }
@@ -900,7 +900,7 @@ public class CommandHandlerTest {
     void editVisitCommand_nricInputtedNotInRecord_noPatientFoundMessageGetsPrinted() throws IOException {
         String input = "editVisit ic/T0267890J date/06-11-2024 10:00 d/Asthma";
         command.editVisit(input, records);
-        String expectedOutput = "No patient found with the given NRIC.";
+        String expectedOutput = "No patient found with the given NRIC";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
