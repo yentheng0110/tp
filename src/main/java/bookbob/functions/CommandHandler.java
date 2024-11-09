@@ -791,7 +791,9 @@ public class CommandHandler {
 
     //@@author G13nd0n
     private String extractNric(String input) {
+        string nric = "";
         int lengthOfNricIndicator = 3;
+        int lengthOfNric = 9;
         int nricStart = input.indexOf("ic/");
         if (nricStart == -1) {
             System.out.println("Please provide the patient's NRIC.");
@@ -846,17 +848,24 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+            System.out.println("Please provide a valid patient's name");
+        }
         return name;
     }
 
     private String extractNewName(String input) {
+        String name = "";
         int lengthOfNameIndicator = 2;
         int nameStart = input.indexOf("n/");
         if (nameStart == -1) {
             return "";
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
-        String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+            System.out.println("Please provide a valid patient's name");
+        }
         return name;
     }
 
