@@ -116,13 +116,31 @@ public class CommandHandler {
     //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = extractName(input);
-        if (name.isEmpty()) {
-            return;
-        }
         String nric = extractNric(input);
+        LocalDateTime visitDate = extractVisitDateTime(input);
+        StringBuilder errorMessages = new StringBuilder();
+
+        // Check if name is missing or invalid
+        if (name.isEmpty()) {
+            errorMessages.append("Please provide the patient's name\n");
+        }
+
+        // Check if NRIC is missing or invalid
         if (nric.isEmpty()) {
+            errorMessages.append("Please provide the patient's NRIC\n");
+        }
+
+        // Check if visit date is missing or invalid
+        if (visitDate == null) {
+            errorMessages.append("Please provide the patient's visit date and time");
+        }
+
+        // If there are error messages, print them and return
+        if (errorMessages.length() > 0) {
+            System.out.println(errorMessages.toString());
             return;
         }
+
         String sex = extractGender(input);
         LocalDate dateOfBirth = extractDateOfBirth(input);
         String phoneNumber = extractPhoneNumber(input);
