@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import bookbob.entity.AppointmentRecord;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,11 +40,12 @@ public class FileHandlerTest {
         ArrayList<String> medicalHistory = new ArrayList<>();
         medicalHistory.add("History of gastritis");
 
-        Patient patient = new Patient("John", "S9765432T", "87658976", "06071997",
+        LocalDate dob = LocalDate.of(1990,01,01);
+        Patient patient = new Patient("John", "S9765432T", "87658976", dob,
                 "Bukit Gombak", allergies, "Male", medicalHistory, visits);
         String output = patient.convertPatientToOutputText();
         assertEquals(output, "Name: John | NRIC: S9765432T | Phone Number: 87658976 | " +
-                "Date_Of_Birth: 06071997 | Home Address: Bukit Gombak | Allergy: [Peanuts] " +
+                "Date_Of_Birth: 01-01-1990 | Home Address: Bukit Gombak | Allergy: [Peanuts] " +
                 "| Sex: Male | Medical History: [History of gastritis] | Visit: " +
                 "[21-10-2024 15:48, Diagnosis: [Tummy bug], " +
                 "Medications: [Gaviscon]];", output);
@@ -81,7 +83,7 @@ public class FileHandlerTest {
         Records records = new Records();            //initialize a new record to clear file content
         fileHandler.autosave(records);
         command.add("add n/Jack Wong ic/S9765432T p/87658976 mh/diabetes d/Gastric m/Gaviscon Panadol " +
-                "v/01-10-2024 17:30 ha/Bukit Gombak dob/06071997", records);
+                "v/01-10-2024 17:30 ha/Bukit Gombak dob/06-07-1997", records);
         Patient patient = records.getPatients().get(0);
         fileHandler.autosave(records);
         fileHandler.initFile(records);

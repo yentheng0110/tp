@@ -1,12 +1,14 @@
 package bookbob.entity;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Patient implements OutputConversion {
     private String name;
     private String nric;
     private String sex;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String phoneNumber;
     private String homeAddress;
     private ArrayList<Visit> visits;
@@ -19,7 +21,7 @@ public class Patient implements OutputConversion {
         this.name = name;
         this.nric = nric;
         this.sex = "";
-        this.dateOfBirth = "";
+        this.dateOfBirth = null;
         this.phoneNumber = "";
         this.homeAddress = "";
         this.visits = visits;
@@ -29,7 +31,7 @@ public class Patient implements OutputConversion {
 
     // constructor used in retrieving data
     // @@author G13nd0n and kaboomzxc and yentheng0110
-    public Patient(String name, String nric, String phoneNumber, String dateOfBirth, String homeAddress,
+    public Patient(String name, String nric, String phoneNumber, LocalDate dateOfBirth, String homeAddress,
                    ArrayList<String> allergies, String sex, ArrayList<String> medicalHistories,
                    ArrayList<Visit> visits) {
         this.name = name;
@@ -60,11 +62,11 @@ public class Patient implements OutputConversion {
         this.nric = nric;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -119,9 +121,14 @@ public class Patient implements OutputConversion {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dateOfBirthString = "";
+        if (getDateOfBirth() != null) {
+            dateOfBirthString = getDateOfBirth().format(formatter);
+        }
         return "Name: " + getName() + ", NRIC: " + getNric() +
                 ", Phone: " + getPhoneNumber() +  ", Address: " + getHomeAddress() +
-                ", DOB: " + getDateOfBirth() + ", Allergy: " + getAllergies() +
+                ", DOB: " + dateOfBirthString + ", Allergy: " + getAllergies() +
                 ", Sex: " + getSex() + ", Medical History: " + getMedicalHistories();
     }
 
@@ -129,8 +136,13 @@ public class Patient implements OutputConversion {
     @Override
     public String convertPatientToOutputText() {
         String output = "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String dateOfBirthString = "";
+        if (getDateOfBirth() != null) {
+            dateOfBirthString = getDateOfBirth().format(formatter);
+        }
         output += "Name: " + this.getName() + " | " + "NRIC: " + this.getNric() + " | "
-                + "Phone Number: " + this.getPhoneNumber() + " | " + "Date_Of_Birth: " + this.getDateOfBirth()
+                + "Phone Number: " + this.getPhoneNumber() + " | " + "Date_Of_Birth: " + dateOfBirthString
                 + " | " + "Home Address: " + this.getHomeAddress() + " | " + "Allergy: " + this.getAllergies()
                 + " | " + "Sex: " + this.getSex() + " | " + "Medical History: " + this.getMedicalHistories()
                 + " | " + "Visit: " + this.getVisits() + ";";

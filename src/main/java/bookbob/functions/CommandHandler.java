@@ -7,6 +7,7 @@ import bookbob.entity.Records;
 import bookbob.entity.Visit;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -25,7 +26,7 @@ public class CommandHandler {
 
     public CommandHandler() throws IOException {
     }
-  
+    
     // Prints output for help command
     //@@author coraleaf0602 and yentheng0110 and G13nd0n and PrinceCatt and kaboomzxc
     public void help() {
@@ -123,7 +124,7 @@ public class CommandHandler {
             return;
         }
         String sex = extractGender(input);
-        String dateOfBirth = extractDateOfBirth(input);
+        LocalDate dateOfBirth = extractDateOfBirth(input);
         String phoneNumber = extractPhoneNumber(input);
         String homeAddress = extractHomeAddress(input);
         ArrayList<String> diagnoses = extractDiagnoses(input);
@@ -165,11 +166,17 @@ public class CommandHandler {
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter dobFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         for (Patient patient : patients) {
+            String dateOfBirthString = "";
+            if (patient.getDateOfBirth() != null) {
+                dateOfBirthString = patient.getDateOfBirth().format(dobFormatter);
+            }
+
             // Print patient information
             System.out.println("Name: " + patient.getName() + ", NRIC: " + patient.getNric() +
                     ", Phone: " + patient.getPhoneNumber() + ", Home Address: " + patient.getHomeAddress() +
-                    ", DOB: " + patient.getDateOfBirth() + ", Allergies: " + patient.getAllergies() +
+                    ", DOB: " + dateOfBirthString + ", Allergies: " + patient.getAllergies() +
                     ", Sex: " + patient.getSex() + ", Medical Histories: " + patient.getMedicalHistories());
 
             //@@author kaboomzxc
@@ -208,7 +215,7 @@ public class CommandHandler {
         String newName = extractNewName(updates);
         String newNRIC = extractNewNric(updates);
         String newSex = extractGender(updates);
-        String newDob = extractDateOfBirth(updates);
+        LocalDate newDob = extractDateOfBirth(updates);
         String newPhone = extractPhoneNumber(updates);
         String newHomeAddress = extractHomeAddress(updates);
         ArrayList<String> newAllergies = extractAllergies(updates);
@@ -224,7 +231,7 @@ public class CommandHandler {
         if (!newSex.isEmpty()) {
             patientToBeEdited.setSex(newSex);
         }
-        if (!newDob.isEmpty()) {
+        if (newDob != null) {
             patientToBeEdited.setDateOfBirth(newDob);
         }
         if (!newPhone.isEmpty()) {
@@ -316,7 +323,7 @@ public class CommandHandler {
     // @@author coraleaf0602
     // Takes in an input string and determines whether to exit the program
     public void exit(String input) {
-        if(input.equalsIgnoreCase("exit")) {
+        if (input.equalsIgnoreCase("exit")) {
             System.exit(0);
         }
     }
@@ -384,6 +391,7 @@ public class CommandHandler {
         boolean matches = searchParams.entrySet().stream().allMatch(entry -> {
             String key = entry.getKey();
             String value = entry.getValue();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             switch (key) {
             case "n":
                 return patient.getName().toLowerCase().contains(value);
@@ -394,7 +402,7 @@ public class CommandHandler {
             case "ha":
                 return patient.getHomeAddress().toLowerCase().contains(value);
             case "dob":
-                return patient.getDateOfBirth().toLowerCase().contains(value);
+                return patient.getDateOfBirth().format(formatter).contains(value);
             case "al":
                 // Check if any allergy matches the search value
                 return patient.getAllergies().stream()
@@ -719,14 +727,24 @@ public class CommandHandler {
         return phoneNumber;
     }
 
-    //@@author yentheng0110 @@author G13nd0n
-    private String extractDateOfBirth(String input) {
-        int lengthOfDateOfBirthIndicator = 4;
-        String dateOfBirth = "";
+    //@@author G13nd0n @@PrinceCatt @@yentheng0110
+    private LocalDate extractDateOfBirth(String input) throws DateTimeParseException {
+        LocalDate dateOfBirth = null;
         int dobStart = input.indexOf("dob/");
         if (dobStart != -1) {
-            int dobEnd = findNextFieldStart(input, dobStart + lengthOfDateOfBirthIndicator);
-            dateOfBirth = input.substring(dobStart + lengthOfDateOfBirthIndicator, dobEnd).trim();
+            try {
+                int lengthOfDateOfBirthIndicator = 4;
+                String dateOfBirthString = "";
+                int dobEnd = findNextFieldStart(input, dobStart + lengthOfDateOfBirthIndicator);
+                dateOfBirthString = input.substring(dobStart + lengthOfDateOfBirthIndicator, dobEnd).trim();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
+            } catch (DateTimeParseException e) {
+                logger.warning("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
+                throw new IllegalArgumentException("Invalid date of birth entered. " +
+                        "Please follow the format: dd-MM-yyyy");
+
+            }
         }
         return dateOfBirth;
     }
@@ -740,7 +758,7 @@ public class CommandHandler {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
         }
-        if(!sex.equals("M") || !sex.equals("F")) {
+        if (!sex.equals("M") || !sex.equals("F")) {
             sex = "";
             System.out.println("Please kindly input M or F for sex only");
         }
@@ -819,7 +837,6 @@ public class CommandHandler {
             System.out.println("Please provide a valid patient's nric");
             return "";
         }
-
         return newNRIC;
     }
 
