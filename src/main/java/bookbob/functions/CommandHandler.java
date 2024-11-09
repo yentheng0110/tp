@@ -734,15 +734,17 @@ public class CommandHandler {
         if (phoneStart != -1) {
             int phoneEnd = findNextFieldStart(input, phoneStart + lengthOfPhoneNumberIndicator);
             phoneNumber = input.substring(phoneStart + lengthOfPhoneNumberIndicator, phoneEnd).trim();
-        }
-        if (!phoneNumber.matches("[0-9]+")) {
-            System.out.println("Please provide a valid local phone number");
-            return "";
-        }
-        int number = Integer.parseInt(phoneNumber);
-        if (number < 80000000 && number > 99999999) {
-            System.out.println("Please provide a valid local phone number");
-            return "";
+
+            if (!phoneNumber.matches("[0-9]+")) {
+                System.out.println("Please provide a valid local phone number");
+                return "";
+            }
+
+            int number = Integer.parseInt(phoneNumber);
+            if (number <= 80000000 || number >= 99999999) {
+                System.out.println("Please provide a valid local phone number");
+                return "";
+            }
         }
         return phoneNumber;
     }
