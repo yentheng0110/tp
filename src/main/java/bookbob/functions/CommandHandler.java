@@ -314,7 +314,7 @@ public class CommandHandler {
         FileHandler.autosave(records);
     }
 
-    // @@author G13nd0n
+    //@@author G13nd0n
     public void delete(String nric, Records records) throws IOException {
         records.delete(nric);
         FileHandler.autosave(records);
@@ -610,7 +610,7 @@ public class CommandHandler {
         }
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private LocalDateTime extractVisitDateTime(String input) {
         LocalDateTime visitDate = null;
         String visitDateString = extractVisitDate(input);
@@ -623,7 +623,7 @@ public class CommandHandler {
         return visitDate;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractMedicalHistories(String input) {
         int lengthOfMedicalHistoriesIndicator = 3;
         ArrayList<String> medicalHistories = new ArrayList<>();
@@ -641,7 +641,7 @@ public class CommandHandler {
         return medicalHistories;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractAllergies(String input) {
         int lengthOfAllergiesIndicator = 3;
         ArrayList<String> allergies = new ArrayList<>();
@@ -657,7 +657,7 @@ public class CommandHandler {
         return allergies;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractMedications(String input) {
         int lengthOfMedicationIndicator = 2;
         ArrayList<String> medications = new ArrayList<>();
@@ -674,7 +674,7 @@ public class CommandHandler {
         return medications;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private ArrayList<String> extractDiagnoses(String input) {
         int lengthOfDiagnosesIndicator = 2;
         ArrayList<String> diagnoses = new ArrayList<>();
@@ -690,7 +690,7 @@ public class CommandHandler {
         return diagnoses;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractHomeAddress(String input) {
         int lengthOfHomeAdressIndicator = 3;
         String homeAddress = "";
@@ -706,7 +706,7 @@ public class CommandHandler {
         return homeAddress;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractPhoneNumber(String input) {
         int lengthOfPhoneNumberIndicator = 2;
         String phoneNumber = "";
@@ -749,7 +749,7 @@ public class CommandHandler {
         return dateOfBirth;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractGender(String input) {
         int lengthOfGenderIndicator = 2;
         String sex = "";
@@ -819,8 +819,8 @@ public class CommandHandler {
     //@@author G13nd0n
     private String extractNewNric(String updates) {
         int lenghtOfNewNricIndicator = 6;
-        String newNRIC = "";
         int lengthOfNric = 9;
+        String newNRIC = "";
         int newNRICStart = updates.indexOf("newic/");
         if (newNRICStart != -1) {
             int newNRICEnd = findNextFieldStart(updates, newNRICStart + lenghtOfNewNricIndicator);
