@@ -237,6 +237,7 @@ public class AppointmentRecord implements FileOperation {
         }
     }
 
+    //@@author G13nd0n
     public void listAppointments() {
         if (appointments.isEmpty()) {
             System.out.println("No appointments found.");
@@ -247,6 +248,7 @@ public class AppointmentRecord implements FileOperation {
         }
     }
 
+    //@@author G13nd0n
     public void removePastAppointments() {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now();
@@ -263,6 +265,7 @@ public class AppointmentRecord implements FileOperation {
         }
     }
 
+    //@@author G13nd0n
     public void deleteAppointment(String nric, String date, String time) {
         String patientName = "";
         int initialAppointmentSize = appointments.size();
