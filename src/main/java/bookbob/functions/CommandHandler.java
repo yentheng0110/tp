@@ -820,6 +820,7 @@ public class CommandHandler {
     private String extractNewNric(String updates) {
         int lenghtOfNewNricIndicator = 6;
         String newNRIC = "";
+        int lengthOfNric = 9;
         int newNRICStart = updates.indexOf("newic/");
         if (newNRICStart != -1) {
             int newNRICEnd = findNextFieldStart(updates, newNRICStart + lenghtOfNewNricIndicator);
