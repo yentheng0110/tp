@@ -30,15 +30,7 @@ public class AppointmentRecord implements FileOperation {
         LocalTime nextAvailableTime= this.checkAvailability(availableDate, availableTime);
         if (nextAvailableTime == availableTime) {
             appointments.add(appointment);
-
-            System.out.println("Appointment on " + appointment.getDate().format(formatter) + " " +
-                    appointment.getTime() + " with Patient " + appointment.getPatientName() + ", " +
-                    appointment.getPatientNric() + " has been added.");
-        } else {
-            System.out.println("There is already an appointment at the given timeslot. " +
-                    "The next available timeslot is: " + nextAvailableTime.toString());
         }
-        this.sort();
     }
 
     //@@author G13nd0n
@@ -263,6 +255,7 @@ public class AppointmentRecord implements FileOperation {
                 updatedAppointments.add(currentAppointment);
             }
         }
+        this.appointments = updatedAppointments;
     }
 
     //@@author G13nd0n
