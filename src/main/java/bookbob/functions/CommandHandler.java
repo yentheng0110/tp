@@ -222,12 +222,14 @@ public class CommandHandler {
             System.out.println("No patient found.");
             return;
         }
-        records.getPatients().remove(patientToBeEdited);
+
         String[] parts = input.split("/to", 2);
         if (parts.length < 2) {
             System.out.println("No fields provided to update.");
             return;
         }
+        records.getPatients().remove(patientToBeEdited);
+        
         String updates = parts[1].trim();  // Get everything after "/to"
         // Extract optional fields for updating if provided by the user
         String newName = extractNewName(updates);
