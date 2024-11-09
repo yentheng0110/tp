@@ -192,8 +192,7 @@ public class FileHandler {
                 String nric = data[1].substring(6).trim();
                 String date = data[2].substring(6).trim();
                 String time = data[3].substring(6).trim();
-                Appointment appointment = new Appointment(name, nric, date, time);
-                appointmentRecord.addAppointment(appointment);
+                appointmentRecord.addAppointment(name, nric, date, time);
             }
             logger.log(Level.INFO, "Retrieved successfully");
         } catch (FileNotFoundException e) {
