@@ -23,7 +23,10 @@ import java.util.logging.Logger;
 
 public class CommandHandler {
     private static final Logger logger = Logger.getLogger(CommandHandler.class.getName());
-  
+
+    public CommandHandler() throws IOException {
+    }
+
     // Prints output for help command
     //@@author coraleaf0602 and yentheng0110 and G13nd0n and PrinceCatt and kaboomzxc
     public void help() {
@@ -113,7 +116,13 @@ public class CommandHandler {
     //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = extractName(input);
+        if (name.isEmpty()) {
+            return;
+        }
         String nric = extractNric(input);
+        if (nric.isEmpty()) {
+            return;
+        }
         String sex = extractGender(input);
         LocalDate dateOfBirth = extractDateOfBirth(input);
         String phoneNumber = extractPhoneNumber(input);
@@ -138,7 +147,7 @@ public class CommandHandler {
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
         String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/",
-                             "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
+            "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
             if (index != -1 && index < nextIndex) {
@@ -383,36 +392,29 @@ public class CommandHandler {
             String key = entry.getKey();
             String value = entry.getValue();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            switch (key) {
-            case "n":
-                return patient.getName().toLowerCase().contains(value);
-            case "ic":
-                return patient.getNric().toLowerCase().contains(value);
-            case "p":
-                return patient.getPhoneNumber().toLowerCase().contains(value);
-            case "ha":
-                return patient.getHomeAddress().toLowerCase().contains(value);
-            case "dob":
-                return patient.getDateOfBirth().format(formatter).contains(value);
-            case "al":
-                // Check if any allergy matches the search value
-                return patient.getAllergies().stream()
-                        .anyMatch(allergy -> allergy.toLowerCase().contains(value));
-            case "s":
-                return patient.getSex().toLowerCase().contains(value);
-            case "mh":
-                // Check if any medical history matches the search value
-                return patient.getMedicalHistories().stream()
-                        .anyMatch(history -> history.toLowerCase().contains(value));
-            default:
-                return false;
-            }
+            return switch (key) {
+            case "n" -> patient.getName().toLowerCase().contains(value);
+            case "ic" -> patient.getNric().toLowerCase().contains(value);
+            case "p" -> patient.getPhoneNumber().toLowerCase().contains(value);
+            case "ha" -> patient.getHomeAddress().toLowerCase().contains(value);
+            case "dob" -> patient.getDateOfBirth().format(formatter).contains(value);
+            case "al" ->
+                        // Check if any allergy matches the search value
+                        patient.getAllergies().stream()
+                                .anyMatch(allergy -> allergy.toLowerCase().contains(value));
+            case "s" -> patient.getSex().toLowerCase().contains(value);
+            case "mh" ->
+                        // Check if any medical history matches the search value
+                        patient.getMedicalHistories().stream()
+                                .anyMatch(history -> history.toLowerCase().contains(value));
+            default -> false;
+            };
         });
 
         logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
         return matches;
     }
-    
+
     //@@author kaboomzxc
     private void displayResults(List<Patient> patients) {
         if (patients.isEmpty()) {
@@ -690,6 +692,10 @@ public class CommandHandler {
             int homeAddressEnd = findNextFieldStart(input, homeAddressStart + lengthOfHomeAdressIndicator);
             homeAddress = input.substring(homeAddressStart + lengthOfHomeAdressIndicator, homeAddressEnd).trim();
         }
+        if (!homeAddress.matches("[a-zA-z0-9]+")) {
+            System.out.println("Please provide a valid address");
+            return "";
+        }
         return homeAddress;
     }
 
@@ -701,6 +707,15 @@ public class CommandHandler {
         if (phoneStart != -1) {
             int phoneEnd = findNextFieldStart(input, phoneStart + lengthOfPhoneNumberIndicator);
             phoneNumber = input.substring(phoneStart + lengthOfPhoneNumberIndicator, phoneEnd).trim();
+        }
+        if (!phoneNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid local phone number");
+            return "";
+        }
+        int number = Integer.parseInt(phoneNumber);
+        if (number < 80000000 && number > 99999999) {
+            System.out.println("Please provide a valid local phone number");
+            return "";
         }
         return phoneNumber;
     }
@@ -736,6 +751,10 @@ public class CommandHandler {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
         }
+        if(!sex.equals("M") || !sex.equals("F")) {
+            sex = "";
+            System.out.println("Please kindly input M or F for sex only");
+        }
         return sex;
     }
 
@@ -765,14 +784,28 @@ public class CommandHandler {
 
     //@@author G13nd0n
     private String extractNric(String input) {
+        String nric = "";
         int lengthOfNricIndicator = 3;
+        int lengthOfNric = 9;
         int nricStart = input.indexOf("ic/");
         if (nricStart == -1) {
             System.out.println("Please provide the patient's NRIC.");
             return "";
         }
         int nricEnd = findNextFieldStart(input, nricStart + lengthOfNricIndicator);
-        String nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
+        nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
+        if (nric.isEmpty() || nric.length() != lengthOfNric) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
+        String nricFirstLetter = nric.substring(0,1);
+        String nricLastLetter = nric.substring(8);
+        String nricNumber = nric.substring(1,8);
+        if (!nricFirstLetter.matches("[A-Za-z]+") || !nricLastLetter.matches("[A-Za-z]+")
+                || !nricNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
+        }
         return nric;
     }
 
@@ -780,10 +813,22 @@ public class CommandHandler {
     private String extractNewNric(String updates) {
         int lenghtOfNewNricIndicator = 6;
         String newNRIC = "";
+        int lengthOfNric = 9;
         int newNRICStart = updates.indexOf("newic/");
         if (newNRICStart != -1) {
             int newNRICEnd = findNextFieldStart(updates, newNRICStart + lenghtOfNewNricIndicator);
             newNRIC = updates.substring(newNRICStart + lenghtOfNewNricIndicator, newNRICEnd).trim();
+        }
+        if (newNRIC.isEmpty() || newNRIC.length() != lengthOfNric) {
+            System.out.println("Please provide a valid patient's nric");
+        }
+        String newNRICFirstLetter = newNRIC.substring(0,1);
+        String newNRICLastLetter = newNRIC.substring(8);
+        String newNRICNumber = newNRIC.substring(1,8);
+        if (!newNRICFirstLetter.matches("[A-Za-z]+") || !newNRICLastLetter.matches("[A-Za-z]+")
+                || !newNRICNumber.matches("[0-9]+")) {
+            System.out.println("Please provide a valid patient's nric");
+            return "";
         }
         return newNRIC;
     }
@@ -797,17 +842,24 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+            System.out.println("Please provide a valid patient's name");
+        }
         return name;
     }
 
     private String extractNewName(String input) {
+        String name = "";
         int lengthOfNameIndicator = 2;
         int nameStart = input.indexOf("n/");
         if (nameStart == -1) {
             return "";
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
-        String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
+        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+            System.out.println("Please provide a valid patient's name");
+        }
         return name;
     }
 
