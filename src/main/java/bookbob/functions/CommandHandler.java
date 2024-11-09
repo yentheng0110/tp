@@ -700,8 +700,8 @@ public class CommandHandler {
             homeAddress = input.substring(homeAddressStart + lengthOfHomeAdressIndicator, homeAddressEnd).trim();
         }
         if (!homeAddress.matches("[a-zA-z0-9]+")) {
-        System.out.println("Please provide a valid address");
-        return "";
+            System.out.println("Please provide a valid address");
+            return "";
         }
         return homeAddress;
     }
@@ -759,8 +759,8 @@ public class CommandHandler {
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
         }
         if(!sex.equals("M") || !sex.equals("F")) {
-        sex = "";
-        System.out.println("Please kindly input M or F for sex only");
+            sex = "";
+            System.out.println("Please kindly input M or F for sex only");
         }
         return sex;
     }
