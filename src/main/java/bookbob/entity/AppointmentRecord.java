@@ -1,15 +1,20 @@
 package bookbob.entity;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 //@@author G13nd0n
-public class AppointmentRecord {
+public class AppointmentRecord implements FileOperation {
     private List<Appointment> appointments;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -20,7 +25,38 @@ public class AppointmentRecord {
 
     //@@author G13nd0n
     public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
+        LocalDate availableDate = appointment.getDate();
+        LocalTime availableTime = appointment.getTime();
+        LocalTime nextAvailableTime= this.checkAvailability(availableDate, availableTime);
+        if (nextAvailableTime == availableTime) {
+            appointments.add(appointment);
+
+            System.out.println("Appointment on " + appointment.getDate().format(formatter) + " " +
+                    appointment.getTime() + " with Patient " + appointment.getPatientName() + ", " +
+                    appointment.getPatientNric() + " has been added.");
+        } else {
+            System.out.println("There is already an appointment at the given timeslot. " +
+                    "The next available timeslot is: " + nextAvailableTime.toString());
+        }
+        this.sort();
+    }
+
+    //@@author G13nd0n
+    public void addAppointment(String name, String nric, String date, String time) {
+        LocalDate availableDate = LocalDate.parse(date, formatter);
+        LocalTime availableTime = LocalTime.parse(time);
+        LocalTime nextAvailableTime= this.checkAvailability(availableDate, availableTime);
+        if (nextAvailableTime == availableTime) {
+            Appointment appointment = new Appointment(name, nric, date, time);
+            appointments.add(appointment);
+
+            System.out.println("Appointment on " + appointment.getDate().format(formatter) + " " +
+                    appointment.getTime() + " with Patient " + appointment.getPatientName() + ", " +
+                    appointment.getPatientNric() + " has been added.");
+        } else {
+            System.out.println("There is already an appointment at the given timeslot. " +
+                    "The next available timeslot is: " + nextAvailableTime.toString());
+        }
         this.sort();
     }
 
@@ -28,16 +64,18 @@ public class AppointmentRecord {
     public List<Appointment> findAppointments(String input) {
         List<Appointment> results = new ArrayList<>();
         String[] inputs = input.split("/");
+        String filters = inputs[0];
         String details = inputs[1];
-        if (inputs[0].equals("n")) {
+
+        if (filters.equals("n")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String patientName = appointment.getPatientName();
-                if (patientName.equals(details)) {
+                if (patientName.contains(details)) {
                     results.add(appointment);
                 }
             }
-        } else if (inputs[0].equals("ic")) {
+        } else if (filters.equals("ic")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String nric = appointment.getPatientNric();
@@ -45,7 +83,7 @@ public class AppointmentRecord {
                     results.add(appointment);
                 }
             }
-        } else if (inputs[0].equals("date")){
+        } else if (filters.equals("date")){
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String date = appointment.getDate().format(formatter);
@@ -53,7 +91,7 @@ public class AppointmentRecord {
                     results.add(appointment);
                 }
             }
-        } else if (inputs[0].equals("time")) {
+        } else if (filters.equals("time")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
                 String time = appointment.getTime().toString();
@@ -84,7 +122,7 @@ public class AppointmentRecord {
     //@@author G13nd0n
     public void appointmentNotice() {
         if (appointments.size() == 0) {
-            System.out.println("No appointments scheduled for today");
+            noAppointmentMessage();
             return;
         }
 
@@ -92,7 +130,7 @@ public class AppointmentRecord {
         LocalDate today = LocalDate.now();
 
         if (firstAppointmentDate.isAfter(today)) {
-            System.out.println("No appointments scheduled for today");
+            noAppointmentMessage();
             return;
         }
         System.out.println("Appointment scheduled for today:");
@@ -106,6 +144,11 @@ public class AppointmentRecord {
     }
 
     //@@author G13nd0n
+    private static void noAppointmentMessage() {
+        System.out.println("No appointments scheduled for today");
+    }
+
+    //@@author G13nd0n
     public LocalTime checkAvailability(LocalDate date, LocalTime time) {
         LocalTime nextAvailableTime = time;
         long consultationDuration = 30;
@@ -114,26 +157,142 @@ public class AppointmentRecord {
             LocalDate appointmentDate = appointment.getDate();
             LocalTime appointmentTime = appointment.getTime();
             LocalTime appointmentEndTime = appointmentTime.plusMinutes(consultationDuration);
-            if (appointmentDate.equals(date) && appointmentTime.equals(nextAvailableTime)) {
-                nextAvailableTime = appointmentEndTime;
-                endTime = appointmentEndTime.plusMinutes(consultationDuration);
-                break;
-            } else if (appointmentDate.isAfter(date)) {
+            if (appointmentDate.isAfter(date)) {
                 break;
             } else if (appointmentDate.isBefore(date)) {
                 continue;
-            } else if (appointmentDate.equals(date) && appointmentTime.isBefore(nextAvailableTime)
+            } else if (appointmentTime.equals(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+                break;
+            } else if (appointmentTime.isBefore(nextAvailableTime)
                     && appointmentEndTime.isAfter(nextAvailableTime)) {
                 nextAvailableTime = appointmentEndTime;
                 endTime = appointmentEndTime.plusMinutes(consultationDuration);
-            } else if (appointmentDate.equals(date) && appointmentEndTime.isBefore(nextAvailableTime)) {
+            } else if (appointmentEndTime.isBefore(nextAvailableTime)) {
                 continue;
-            } else if (appointmentDate.equals(date) &&  appointmentTime.isBefore(endTime)) {
+            } else if (appointmentEndTime.equals(nextAvailableTime)) {
+                nextAvailableTime = appointmentEndTime;
+            } else if (appointmentTime.isBefore(endTime)) {
                 nextAvailableTime = appointmentEndTime;
                 endTime = appointmentEndTime.plusMinutes(consultationDuration);
             }
         }
         return nextAvailableTime;
+    }
+
+    //@@author G13nd0n
+    @Override
+    public void initFile(String appointmentFilePath) {
+        try {
+            String directoryName = "data";
+            String currentDirectory = System.getProperty("user.dir");
+            String directory = currentDirectory + File.separator + directoryName;
+            File directoryFile = new File(directory);
+
+            if(directoryFile.mkdirs()) {           //directory was not created
+                File file = new File(appointmentFilePath);
+                file.createNewFile();              //create new data file
+            } else {                               //directory already created
+                File file = new File(appointmentFilePath);
+                if (file.createNewFile()) {         //file was not created
+                } else {
+                    this.retrieveData(appointmentFilePath);
+                }
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //@@author G13nd0n
+    @Override
+    public void autosave(String appointmentFilePath) throws IOException, IOException {
+        List<Appointment> appointments = this.getAppointments();
+        FileWriter fw = new FileWriter(appointmentFilePath);
+        for (Appointment appointment : appointments) {
+            String toWrite = appointment.convertPatientToOutputText();
+            fw.write(toWrite + "\n");
+        }
+        fw.close();
+    }
+
+    //@@author G13nd0n
+    @Override
+    public void retrieveData(String appointmentFilePath) {
+        try {
+            File file = new File(appointmentFilePath);
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] data = line.split("\\|");
+                String name = data[0].substring(6).trim();
+                String nric = data[1].substring(6).trim();
+                String date = data[2].substring(6).trim();
+                String time = data[3].substring(6).trim();
+                Appointment appointment = new Appointment(name, nric, date, time);
+                this.addAppointment(appointment);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void listAppointments() {
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+    }
+
+    public void removePastAppointments() {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+        List<Appointment> updatedAppointments = new ArrayList<Appointment>();
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment currentAppointment = appointments.get(i);
+            LocalDate appointmentDate = currentAppointment.getDate();
+            LocalTime appointmentTime = currentAppointment.getTime();
+            if (appointmentDate.isAfter(today)) {
+                updatedAppointments.add(currentAppointment);
+            } else if (appointmentDate.isEqual(today) && appointmentTime.isAfter(now)) {
+                updatedAppointments.add(currentAppointment);
+            }
+        }
+    }
+
+    public void deleteAppointment(String nric, String date, String time) {
+        String patientName = "";
+        int initialAppointmentSize = appointments.size();
+
+        for (int i = 0; i < initialAppointmentSize; i++) {
+            Appointment appointment = appointments.get(i);
+            patientName = appointment.getPatientName();
+            String patientNric = appointment.getPatientNric();
+            String patientDate = appointment.getDate().format(formatter);
+            String patientTime = appointment.getTime().toString();
+            if (!patientNric.equals(nric)) {
+                continue;
+            }
+            if (!patientDate.equals(date)) {
+                continue;
+            }
+            if (!patientTime.equals(time)) {
+                continue;
+            }
+            appointments.remove(i);
+            break;
+        }
+
+        if (appointments.size() == initialAppointmentSize) {
+            System.out.println("Patient with " + nric + " do not have appointment on the given date and time.");
+            return;
+        }
+        System.out.println("Appointment on " + date + " " + time + " with Patient " + patientName + ", " +
+                nric + " has been deleted.");
+
     }
 }
 
