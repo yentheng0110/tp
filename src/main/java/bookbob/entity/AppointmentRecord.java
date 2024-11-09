@@ -235,6 +235,7 @@ public class AppointmentRecord implements FileOperation {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
 
     public void listAppointments() {
         if (appointments.isEmpty()) {

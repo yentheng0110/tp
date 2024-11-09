@@ -133,6 +133,8 @@ public class Records implements FileOperation{
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
 
     public void delete(String nric) {
         assert nric != null : "Please provide a valid NRIC";
