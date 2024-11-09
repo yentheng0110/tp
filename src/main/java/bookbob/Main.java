@@ -53,7 +53,7 @@ public class Main {
             System.out.println("Invalid input: " + e.getMessage());
         } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Error in {0} command: incorrect date format", commandName);
-            System.out.println("Error: incorrect date format123.");
+            System.out.println("Error: incorrect date format.");
         } catch (DateTimeException e) {
             logger.log(Level.WARNING, "Error in {0} command: incorrect time format", commandName);
             System.out.println("Error: incorrect time format.");
