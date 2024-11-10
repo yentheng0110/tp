@@ -428,7 +428,7 @@ If the selected appointment slot has already been taken, it will prompt the next
 Format: appointment n/NAME ic/NRIC date/DATE time/TIME
 #### Extra Information:
 Date format is in DD-MM-YYYY and Time format is in HH:mm\
-All past appointments will be removed from the system upon exiting.
+All past appointments will be removed from the system upon exiting.\
 Appointments before today's date and time will not be added.
 
 Example: `appointment n/John Doe ic/S1234567A date/18-11-2024 time/18:00`
@@ -451,7 +451,8 @@ Format: appointment ic/NRIC date/DATE time/TIME \
 Note: Deleting a Patient Appointment is case-insensitive.
 
 #### Extra Information
-Date format is in DD-MM-YYYY and Time format is in HH:mm
+Date format is in DD-MM-YYYY and Time format is in HH:mm\
+The nric is case-insensitive
 
 Example: `deleteAppointment ic/S1234567A date/18-11-2024 time/18:00`
 ```

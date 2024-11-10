@@ -30,6 +30,11 @@ public class Parser {
 
         switch (command) {
         case "help":
+            if (inputArray.length > 1) {
+                System.out.println("Unknown command. Type 'help' for a list of commands.");
+                logger.log(Level.INFO, "Unknown command received: {0}", command);
+                break;
+            }
             logAndExecute("help", commandHandler::help);
             break;
 
@@ -60,6 +65,11 @@ public class Parser {
             break;
 
         case "list":
+            if (inputArray.length > 1) {
+                System.out.println("Unknown command. Type 'help' for a list of commands.");
+                logger.log(Level.INFO, "Unknown command received: {0}", command);
+                break;
+            }
             logAndExecute("list", () -> commandHandler.list(records));
             break;
 
@@ -108,6 +118,11 @@ public class Parser {
             break;
 
         case "listAppointments":
+            if (inputArray.length > 1) {
+                System.out.println("Unknown command. Type 'help' for a list of commands.");
+                logger.log(Level.INFO, "Unknown command received: {0}", command);
+                break;
+            }
             logAndExecute("listAppointments", () -> commandHandler.listAppointments(appointmentRecord));
             break;
 
@@ -159,6 +174,11 @@ public class Parser {
             break;
 
         case "exit":
+            if (inputArray.length > 1) {
+                System.out.println("Unknown command. Type 'help' for a list of commands.");
+                logger.log(Level.INFO, "Unknown command received: {0}", command);
+                break;
+            }
             logAndExecute("exit", () -> {
                 try {
                     commandHandler.removePastAppointments(appointmentRecord);

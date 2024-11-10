@@ -66,7 +66,7 @@ public class AppointmentRecord implements FileOperation {
         if (availableDate.isBefore(todayDate)) {
             System.out.println("Date given is before today, please select another date");
             return false;
-        } else if (availableTime.isBefore(timeNow)) {
+        } else if (availableDate.isEqual(todayDate) && availableTime.isBefore(timeNow)) {
             System.out.println("Time given is before current time, please select another time");
             return false;
         }
@@ -324,14 +324,16 @@ public class AppointmentRecord implements FileOperation {
     //@@author G13nd0n
     public void deleteAppointment(String nric, String date, String time) {
         String patientName = "";
+        String originalNric = nric;
         int initialAppointmentSize = appointments.size();
 
         for (int i = 0; i < initialAppointmentSize; i++) {
             Appointment appointment = appointments.get(i);
             patientName = appointment.getPatientName();
-            String patientNric = appointment.getPatientNric();
+            String patientNric = appointment.getPatientNric().toLowerCase();
             String patientDate = appointment.getDate().format(formatter);
             String patientTime = appointment.getTime().toString();
+            nric = nric.toLowerCase();
             if (!patientNric.equals(nric)) {
                 continue;
             }
@@ -346,11 +348,11 @@ public class AppointmentRecord implements FileOperation {
         }
 
         if (appointments.size() == initialAppointmentSize) {
-            System.out.println("Patient with " + nric + " do not have appointment on the given date and time.");
+            System.out.println("Patient with " + originalNric + " do not have appointment on the given date and time.");
             return;
         }
         System.out.println("Appointment on " + date + " " + time + " with Patient " + patientName + ", " +
-                nric + " has been deleted.");
+                originalNric + " has been deleted.");
 
     }
 }

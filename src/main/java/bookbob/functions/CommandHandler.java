@@ -123,14 +123,14 @@ public class CommandHandler {
         // Check if name is missing or invalid
         if (name.isEmpty()) {
             errorMessages.append("Please provide the patient's name\n");
+        } else if (name.equals("Invalid name")) {
+            errorMessages.append("Please provde a valid patient's name\n");
         }
 
         // Check if NRIC is missing or invalid
         if (nric.isEmpty()) {
             errorMessages.append("Please provide the patient's NRIC\n");
-        }
-
-        if (nric.equals("Invalid NRIC")) {
+        } else if (nric.equals("Invalid NRIC")) {
             errorMessages.append("Please provide a valid patient's NRIC\n");
         }
 
@@ -774,7 +774,8 @@ public class CommandHandler {
         int diagnosisStart = input.indexOf("d/");
         if (diagnosisStart != -1) {
             int diagnosisEnd = findNextFieldStart(input, diagnosisStart + lengthOfDiagnosesIndicator);
-            String diagnosisInput = input.substring(diagnosisStart + lengthOfDiagnosesIndicator, diagnosisEnd).trim();
+            String diagnosisInput = input.substring(diagnosisStart + lengthOfDiagnosesIndicator, diagnosisEnd)
+                    .trim();
             String[] diagnosisArray = diagnosisInput.split(",\\s*");
             for (String diagnosis : diagnosisArray) {
                 diagnoses.add(diagnosis.trim());
@@ -807,7 +808,6 @@ public class CommandHandler {
         if (phoneStart != -1) {
             int phoneEnd = findNextFieldStart(input, phoneStart + lengthOfPhoneNumberIndicator);
             phoneNumber = input.substring(phoneStart + lengthOfPhoneNumberIndicator, phoneEnd).trim();
-
             // Check if the phone number is exactly 8 digits long, starts with 8 or 9, and contains only digits
             if (!phoneNumber.matches("[89]\\d{7}")) {
                 System.out.println("Please provide a valid local phone number " +
@@ -944,25 +944,26 @@ public class CommandHandler {
     }
 
     //@@author G13nd0n
-    private String extractNewNric(String updates) {
+    private String extractNewNric(String input) {
         int lenghtOfNewNricIndicator = 6;
         int lengthOfNric = 9;
         String newNRIC = "";
-        int newNRICStart = updates.indexOf("newic/");
+        int newNRICStart = input.indexOf("newic/");
         if (newNRICStart != -1) {
-            int newNRICEnd = findNextFieldStart(updates, newNRICStart + lenghtOfNewNricIndicator);
-            newNRIC = updates.substring(newNRICStart + lenghtOfNewNricIndicator, newNRICEnd).trim();
+            int newNRICEnd = findNextFieldStart(input, newNRICStart + lenghtOfNewNricIndicator);
+            newNRIC = input.substring(newNRICStart + lenghtOfNewNricIndicator, newNRICEnd).trim();
 
-            if (newNRIC.length() != lengthOfNric) {
-                System.out.println("Please provide a valid patient's NRIC");
+            if (newNRIC.isEmpty()) {
+                return "";
+            } else if (newNRIC.length() != lengthOfNric) {
+                return "Invalid NRIC";
             }
             String newNRICFirstLetter = newNRIC.substring(0, 1);
             String newNRICLastLetter = newNRIC.substring(8);
             String newNRICNumber = newNRIC.substring(1, 8);
             if (!newNRICFirstLetter.matches("[A-Za-z]+") || !newNRICLastLetter.matches("[A-Za-z]+")
                     || !newNRICNumber.matches("[0-9]+")) {
-                System.out.println("Please provide a valid patient's NRIC");
-                return "";
+                return "Invalid NRIC";
             }
         }
         return newNRIC;
@@ -978,8 +979,11 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
-        if (name.isEmpty() || !name.matches("[A-Za-z,\\s/-]+")) {
-            System.out.println("Please provide a valid patient's name");
+        if (name.isEmpty()) {
+            return "";
+        }
+        if (!name.matches("[A-Za-z,\\s/-]+")) {
+            return "Invalid name";
         }
         return name;
     }
@@ -994,8 +998,10 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
-        if (!name.matches("[A-Za-z,\\s/-]+")) {
-            System.out.println("Please provide a valid patient's name");
+        if (name.isEmpty()) {
+            return "";
+        } else if (!name.matches("[A-Za-z,\\s/-]+")) {
+            return "Invalid name";
         }
         return name;
     }
