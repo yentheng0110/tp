@@ -232,7 +232,7 @@ public class AppointmentRecord implements FileOperation {
                 }
             }
         } catch(Exception e){
-            e.printStackTrace();
+            throw new IllegalArgumentException("Error while initializing appointment file");
         }
     }
 
@@ -248,6 +248,26 @@ public class AppointmentRecord implements FileOperation {
         fw.close();
     }
 
+
+
+    private void checkForCorruptedNric(String nric) {
+        int lengthOfNric = 9;
+        boolean isCorrupted = false;
+        if (nric.length() != lengthOfNric) {
+            isCorrupted = true;
+        }
+        String nricFirstLetter = nric.substring(0,1);
+        String nricLastLetter = nric.substring(8);
+        String nricNumber = nric.substring(1,8);
+        if (!nricFirstLetter.matches("[A-Za-z]+") ||
+                !nricLastLetter.matches("[A-Za-z]+") || !nricNumber.matches("[0-9]+")) {
+            isCorrupted = true;
+        }
+        if (isCorrupted) {
+            throw new IllegalArgumentException("Corrupted NRIC");
+        }
+    }
+
     //@@author G13nd0n
     @Override
     public void retrieveData(String appointmentFilePath) {
@@ -261,6 +281,9 @@ public class AppointmentRecord implements FileOperation {
                 String nric = data[1].substring(6).trim();
                 String date = data[2].substring(6).trim();
                 String time = data[3].substring(6).trim();
+
+                checkForCorruptedNric(nric);
+
                 Appointment appointment = new Appointment(name, nric, date, time);
                 this.addAppointment(appointment);
             }

@@ -3,10 +3,12 @@ package bookbob.entity;
 import bookbob.functions.FileHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -64,7 +66,7 @@ public class Records implements FileOperation{
                 }
             }
         } catch(Exception e){
-            e.printStackTrace();
+            throw new IllegalArgumentException("Error while initializing file");
         }
     }
 
@@ -78,6 +80,30 @@ public class Records implements FileOperation{
             fw.write(toWrite + "\n");
         }
         fw.close();
+    }
+
+    private void checkForCorruptedPhoneNumber(String phoneNumber) {
+        if (!phoneNumber.matches("[89]\\d{7}")) {
+            throw new IllegalArgumentException("Corrupted phone number");
+        }
+    }
+
+    private void checkForCorruptedNric(String nric) {
+        int lengthOfNric = 9;
+        boolean isCorrupted = false;
+        if (nric.length() != lengthOfNric) {
+            isCorrupted = true;
+        }
+        String nricFirstLetter = nric.substring(0,1);
+        String nricLastLetter = nric.substring(8);
+        String nricNumber = nric.substring(1,8);
+        if (!nricFirstLetter.matches("[A-Za-z]+") ||
+                !nricLastLetter.matches("[A-Za-z]+") || !nricNumber.matches("[0-9]+")) {
+            isCorrupted = true;
+        }
+        if (isCorrupted) {
+            throw new IllegalArgumentException("Corrupted NRIC");
+        }
     }
 
     //@@author PrinceCatt
@@ -101,6 +127,9 @@ public class Records implements FileOperation{
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirthString = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
+
+                checkForCorruptedPhoneNumber(phoneNumber);
+                checkForCorruptedNric(nric);
 
                 LocalDate dateOfBirth = null;
                 if(!dateOfBirthString.isEmpty()) {
@@ -140,8 +169,8 @@ public class Records implements FileOperation{
                 this.addPatient(patient);
             }
             reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DateTimeParseException | FileNotFoundException e) {
+            throw new IllegalArgumentException("Error while reading file.");
         }
     }
 

@@ -43,13 +43,23 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Welcome to BookBob, Dr. Bob!");
+
         loggerConfig();
         Scanner in = new Scanner(System.in);
         Records records = new Records();
         AppointmentRecord appointmentRecord = new AppointmentRecord();
-        FileHandler.initFile(records);
-        FileHandler.initFile(appointmentRecord);
+
+        try {
+            FileHandler.initFile(records);
+            FileHandler.initFile(appointmentRecord);
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            System.out.println("Data file corrupted");
+            System.out.println("Please check data file or delete it to start afresh");
+            System.out.println("Exiting");
+            System.exit(0);
+        }
+        System.out.println("Welcome to BookBob, Dr. Bob!");
         CommandHandler commandHandler = new CommandHandler();
         appointmentRecord.appointmentNotice();
 

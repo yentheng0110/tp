@@ -1,1 +1,1 @@
-Name: John Doe | NRIC: S1234567A | Phone Number: 98765432 | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [01-10-2024 15:30, Diagnosis: [], Medications: [], 21-10-2024 15:48, Diagnosis: [], Medications: []];
+Name: Jack Wong | NRIC: S9765432T | Phone Number: 87658976 | Date_Of_Birth: 06-07-1997 | Home Address: Bukit Gombak | Allergy: [] | Sex:  | Medical History: [diabetes] | Visit: [01-10-2024 17:30, Diagnosis: [Gastric], Medications: [Gaviscon Panadol]];
