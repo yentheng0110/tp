@@ -183,9 +183,16 @@ Visit Date: 04-11-2024 09:00, Diagnosis: [], Medications: []
 Name: Jacky Cheung, NRIC: S7209876Y, Phone: 98765789, Home Address: Farrer Road, DOB: , Allergies: [], Sex: , Medical Histories: []
 Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 ```
-\
+<br>
+
+<div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
+🚨 <b>NOTE:</b> The example below is achieved by executing the commands in the exact order; <b>"add" followed by "addVisit" then "list"</b>.
+Not by using the "add" command multiple times.
+</div>
+
 Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple repeated visits during <u>different dates</u>, 
 with different illness diagnosed and medications prescribed during the different visit event : 
+
 ```
 Name: Wang Ritz, NRIC: S8634567A, Phone: 91234567, Home Address: PGPR, DOB: 01-02-1990, Allergies: [grass], Sex: female, Medical Histories: [diabetes]
     Visit Date: 20-10-1995 12:35, Diagnosis: [], Medications: []
@@ -214,8 +221,8 @@ Format: find Prefix/Value where Prefix can be:
 - s/SEX
 - mh/MEDICAL_HISTORY <br>
 <br>
-Note : <br>
-- Trailing spaces are fine, but there are no spaces anywhere in between Prefix/Value.  <br>
+**Note** : <br>
+- Trailing spaces are fine, but there are <u>no spaces</u> anywhere in <u>between Prefix/Value</u>.  <br>
 
 Examples:
 * `find n/John` - Finds all patients whose names contain "John"
@@ -233,10 +240,10 @@ Name: John Doe, NRIC: S9534567A, Phone: 91234567, Home Address: Clementi Road, D
 * `find s/Male` - Finds all male patients
 * `find mh/Asthma` - Finds all patients with asthma in their medical history
 
-Note : <br> 
-* Partial String character search matches are allowed and will work. E.g. "find ic/S953", "find p/9123" is allowed.
-* "find" is case-insensitive, searching with either capital or non-capital letters is allowed and will work.
-* Multiple search parameters are allowed, and parameters entered in the input can be of any order.
+**Note** : <br> 
+* Partial String character search matches are <u>allowed</u> and will work. E.g. "find ic/S953", "find p/9123" is <u>allowed</u>.
+* "find" is case-insensitive, searching with either capital or non-capital letters is <u>allowed</u> and will work.
+* Multiple search parameters are <u>allowed</u>, and parameters entered in the input can be of any order.
 
 ---
 ## Deleting a Patient Record
@@ -572,6 +579,16 @@ Format: `exit`
 
 **A**: BookBob is compatible with any operating system that supports Java 17, including Windows, macOS, and Linux distributions.
 
+### Miscellaneous
+
+**Q1**: What is the setting and scope of BookBob? 
+
+**A**: BookBob is specialised for the Singapore setting, with NRICs starting with "S" or "T", 
+and with Phone Numbers having exactly eight digits and starting with "9" or "8". 
+
+**Q2**: Can 24/7 clinics use BookBob?
+
+**A**: Yes, definitely. BookBoB is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
 
 ---
 ## Command Summary
