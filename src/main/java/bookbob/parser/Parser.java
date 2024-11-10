@@ -16,18 +16,19 @@ public class Parser {
 
     private static final List<String> keywords = List.of("|");
 
-    public static void handleCommand(String input, CommandHandler commandHandler, Records records,
+    public static boolean handleCommand(String input, CommandHandler commandHandler, Records records,
                                      AppointmentRecord appointmentRecord) {
         String[] inputArray = input.split(" ", 2);
 
         boolean isBanned = keywords.stream().anyMatch(input::contains);
         if (isBanned) {
             System.out.println("You have entered a command containing illegal characters");
-            return;
+            return true;
         }
 
         String command = inputArray[0];
 
+    try{
         switch (command) {
         case "help":
             if (inputArray.length > 1) {
@@ -87,12 +88,15 @@ public class Parser {
             logAndExecute("find", () -> commandHandler.find(input, records));
             break;
 
+        //@@author kaboomzxc
         case "addVisit":
             logAndExecute("addVisit", () -> {
                 try {
                     commandHandler.addVisit(input, records);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    logger.log(Level.SEVERE, "IO error in addVisit", e);
+                    System.out.println("Error saving data. Please try again.");
+                    throw new RuntimeException("Failed to save data", e);
                 }
             });
             break;
@@ -194,6 +198,12 @@ public class Parser {
             logger.log(Level.INFO, "Unknown command received: {0}", command);
             break;
         }
+        return true;
+    } catch (Exception e) {
+        logger.log(Level.SEVERE, "Error in command execution", e);
+        System.out.println("An error occurred. Please enter another command.");
+        return true;
+    }
     }
 
     private static void logAndExecute(String commandName, Runnable action) {
@@ -201,21 +211,31 @@ public class Parser {
         try {
             action.run();
             logger.log(Level.INFO, "Successfully processed {0} command", commandName);
-        } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, "Invalid input for {0} command: {1}", new Object[]{commandName, e.getMessage()});
-            System.out.println("Invalid input: " + e.getMessage());
-        } catch (DateTimeParseException e) {
-            logger.log(Level.WARNING, "Error in {0} command: incorrect date format", commandName);
-            System.out.println("Error: incorrect date format.");
-        } catch (DateTimeException e) {
+        } catch (DateTimeParseException e) {  // More specific exception first
+            logger.log(Level.WARNING, "Error in {0} command: incorrect date/time format", commandName);
+            System.out.println("Error: incorrect date/time format. Please use dd-MM-yyyy HH:mm");
+        } catch (DateTimeException e) {  // More general exception second
             logger.log(Level.WARNING, "Error in {0} command: incorrect time format", commandName);
             System.out.println("Error: incorrect time format.");
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.WARNING, "Invalid input for {0} command: {1}",
+                    new Object[]{commandName, e.getMessage()});
+            System.out.println("Invalid input: " + e.getMessage());
         } catch (NullPointerException e) {
-            logger.log(Level.WARNING, "Error in {0} command: No input is given for a mandatory field", commandName);
+            logger.log(Level.WARNING, "Error in {0} command: No input is given for a mandatory field",
+                    commandName);
             System.out.println("Error: No input is given for a mandatory field.");
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof IOException) {
+                logger.log(Level.SEVERE, "IO error in " + commandName, e);
+                System.out.println("Error saving data. Please try again.");
+            } else {
+                throw e;  // Rethrow other runtime exceptions
+            }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Unexpected error processing {0} command", e);
-            System.out.println("An unexpected error occurred: " + e.getMessage());
+            logger.log(Level.SEVERE, "Unexpected error processing {0} command", commandName);
+            System.out.println("An error occurred: " + e.getMessage());
+            System.out.println("Please try again.");
         }
     }
 }
