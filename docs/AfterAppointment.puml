@@ -1,27 +1,60 @@
 @startuml
 'https://plantuml.com/object-diagram
 
-object "<u>:Main</u>" as Main
-object "<u> :CommandHandler</u>" as CommandHandler
-object "<u> in:Scanner</u>" as Scanner
-object "<u> appointment:Appointment </u>" as Appointment {
-name = "John Doe"
-nric = "S123A"
-date = 18-11-2024
-time = 18:00
-}
-object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
-object "<u> record:Record </u>" as Record
-object "<u> :FileHandler </u>" as FileHandler
 
-Main --> Record
+object "<u>:Main</u>" as Main
+
+object "<u>in:Scanner</u>" as Scanner {
+
+}
+
+object "<u>records:Records</u>" as Records {
+
+}
+
+object "<u>appointmentRecord:AppointmentRecord</u>" as AppointmentRecord {
+
+}
+
+object "<u>:FileHandler</u>" as FileHandler {
+
+}
+
+object "<u>commandHandler:CommandHandler</u>" as CommandHandler {
+
+}
+
+object "<u>:Parser</u>" as Parser {
+
+}
+
+
+object "<u>newAppointment:Appointment</u>" as Appointment {
+    patientName = "Patricia Chan"
+    patientNric = "S9870789B"
+    date = "06-11-2024"
+    time = "14:30"
+    consultationDuration = 30
+}
+
+Main --> Scanner
+Main --> Records
 Main --> AppointmentRecord
 Main --> FileHandler
 Main --> CommandHandler
-Main --> Scanner
-CommandHandler --> FileHandler
+Main --> Parser
+Parser --> CommandHandler
+
+CommandHandler --> Records
 CommandHandler --> AppointmentRecord
-CommandHandler --> Record
+
 AppointmentRecord --> Appointment
+FileHandler --> Records
+FileHandler --> AppointmentRecord
+
+note right of Appointment
+    New appointment created and
+    added to AppointmentRecord
+end note
 
 @enduml

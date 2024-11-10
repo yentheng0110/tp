@@ -152,13 +152,13 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 - date and time
 - `FileHandler.autosave(AppointmentRecord appointmentRecord)` - save the appointment records
 
-**Doctor enters the command:** `appointment n/John Doe ic/S123A date/18-11-2024 time/18:00`
+**Doctor enters the command:** `appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time/14:30`
 
 > The Object Diagram before the execution of appointment command:
-![img.png](BeforeExecutionOD.png)
+![img.png](BeforeAppointmentOD.png)
 
 > The Object Diagram after the execution of appointment command:
-![img.png](AfterExecutionOD.png)
+![img.png](AfterAppointmentOD.png)
 
 > The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)
