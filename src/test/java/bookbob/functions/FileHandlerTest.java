@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileHandlerTest {
     FileHandler fileHandler = new FileHandler();
@@ -130,7 +131,8 @@ public class FileHandlerTest {
     @Test
     void testParseVisitInputStringNull2() throws IOException {
         String visitString = "[01-10-2024 17:30, : [Gastric], Medications: [Gaviscon]]";
-        Visit convertedVisit = fileHandler.parseVisitInputString(visitString);
-        assertEquals(null, convertedVisit);
+        assertThrows(IllegalArgumentException.class, () -> {
+            fileHandler.parseVisitInputString(visitString);
+        });
     }
 }
