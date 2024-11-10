@@ -56,7 +56,7 @@ public class CommandHandler {
                 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
-                |             | v/VISIT_DATE_TIME                     | v/06-11-2024 14:00           |
+                |             | v/VISIT_DATE_TIME                     | v/06-11-2024 14:00              |
                 |             | [newDate/NEW_DATE_TIME]  [d/DIAGNOSIS]| newDate/08-11-2024 14:00        |
                 |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
                 |             | DATE format: dd-mm-yyyy               |                                 |

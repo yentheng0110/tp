@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -904,7 +903,7 @@ public class CommandHandlerTest {
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
-/*
+    /*
     //@@author yentheng0110
     @Test
     void editVisitCommand_inputWithoutVisitDate_expectAssertionError() throws IOException {
@@ -914,7 +913,7 @@ public class CommandHandlerTest {
             command.editVisit(input, records);
         });
     }
-*/
+    */
 
     //@@author yentheng0110
     @Test
