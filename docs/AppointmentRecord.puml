@@ -3,28 +3,51 @@
 skinparam classAttributeIconSize 0
 hide circle
 
-skinparam classAttributeIconSize 0
-hide circle
-
 class AppointmentRecord {
-- formatter : DateTimeFormatter = "dd-MM-yyyy"
-+ AppointmentRecord()
-+ addAppointment(appointment : Appointment)
-+ findAppointments(input : String) : List<Appointment>
-+ getAppointments() : List<Appointment>
-+ sort()
-+ setAppointments(appointments : List<Appointment>)
-+ appointmentNotice()
-+ LocalTime checkAvailability(date : LocalDate, time : LocalTime )
+    -appointments: List<Appointment>
+    -formatter: DateTimeFormatter = "dd-MM-yyyy"
+    +AppointmentRecord()
+    +addAppointment(appointment: Appointment): void
+    +addAppointment(name: String, nric: String, date: String, time: String): void
+    +findAppointments(input: String): List<Appointment>
+    +getAppointments(): List<Appointment>
+    -sort(): void
+    +setAppointments(appointments: List<Appointment>): void
+    +appointmentNotice(): void
+    -noAppointmentMessage(): void
+    +checkAvailability(date: LocalDate, time: LocalTime): LocalTime
+    +listAppointments(): void
+    +removePastAppointments(): void
+    +deleteAppointment(nric: String, date: String, time: String): void
+    +initFile(appointmentFilePath: String): void
+    +autosave(appointmentFilePath: String): void
+    +retrieveData(appointmentFilePath: String): void
 }
 
-class Main {}
-class CommandHandler {}
-class AppointmentRecord {}
+interface FileOperation {
+    +initFile(filePath: String): void
+    +autosave(filePath: String): void
+    +retrieveData(filePath: String): void
+}
 
+class Appointment {
+}
 
-CommandHandler --> Appointment : searches and modifies >
+class CommandHandler {
+}
+
+class FileHandler {
+}
+
+class Main {
+}
+
+FileOperation <|.. AppointmentRecord
+
+Main --> AppointmentRecord : creates >
+CommandHandler --> AppointmentRecord : modifies >
+FileHandler --> AppointmentRecord : manages files >
+
 AppointmentRecord "1" o-- "many" Appointment
-Main --> CommandHandler : calls >
 
 @enduml

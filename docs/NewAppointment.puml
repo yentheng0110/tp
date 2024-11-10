@@ -1,45 +1,69 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+
 actor Doctor
+
 Doctor -> ":Main" ++
-":Main" -> ":Record" **
-activate ":Record"
-":Record" --> ":Main" -- : record:Record
+":Main" -> ":Records" **
+activate ":Records"
+":Records" --> ":Main" --: records:Records
+
 ":Main" -> ":AppointmentRecord" **
 activate ":AppointmentRecord"
-":AppointmentRecord" --> ":Main" -- : appointmentRecord:AppointmentRecord
-":Main" -> ":FileHandler" ++ : initFile(records)
-":FileHandler" --> ":Main" -- :
-":Main" -> ":FileHandler" ++ : initFile(appointmentRecords)
-":FileHandler" --> ":Main" -- :
-":Main" -> ":CommandHandler" ** :
+":AppointmentRecord" --> ":Main" --: appointmentRecord:AppointmentRecord
+
+":Main" -> ":FileHandler" ++: initFile(records)
+":FileHandler" --> ":Main" --
+
+":Main" -> ":FileHandler" ++: initFile(appointmentRecord)
+":FileHandler" --> ":Main" --
+
+":Main" -> ":CommandHandler" **
 activate ":CommandHandler"
 ":CommandHandler" --> ":Main" --: commandHandler:CommandHandler
-Doctor -> ":Main" : appointment("n/John Doe, ic/S123A, date/18-11-2024, time/18:00")
-":Main" -> ":CommandHandler" ++: commandHandler.appointment("n/John Doe, ic/S123A, date/18-11-2024, time/18:00")
-":CommandHandler" -> ":CommandHandler" ++: commandHandler.extractName("n/John Doe, ic/S123A, date/18-11-2024, time/18:00")
-":CommandHandler" --> ":CommandHandler" --: name = "John Doe"
-":CommandHandler" -> ":CommandHandler" ++: commandHandler.extractNric("n/John Doe, ic/S123A, date/18-11-2024, time/18:00")
-":CommandHandler" --> ":CommandHandler" --: nric = "S123A""
-":CommandHandler" --> ":CommandHandler" ++: commandHandler.extractDate("n/John Doe, ic/S123A, date/18-11-2024, time/18:00")
-":CommandHandler" --> ":CommandHandler" --: date = "18-11-2024""
-":CommandHandler" -> ":CommandHandler" ++: commandHandler.extractTime("n/John Doe, ic/S123A, date/18-11-2024, time/18:00")
-":CommandHandler" --> ":CommandHandler" --: time = "18:00"
-":CommandHandler" -> ":AppointmentRecord" ++ : appointmentRecord.checkAvailability("18-11-2024, 18:00")
-":AppointmentRecord" --> ":CommandHandler" -- : nextAvailableTime
-group alt [nextAvailableTime == "18:00"]
-    ":CommandHandler" -> ":Appointment" **
-    activate ":Appointment"
-    ":CommandHandler" -> ":Appointment" : new Appointment("John Doe", "S123A", "18-11-2024", "18:00")
-    ":Appointment" --> ":CommandHandler" -- : appointment
 
-    ":CommandHandler" -> ":AppointmentRecord" ++ : appointmentRecords.addAppointment(appointment)
-    ":AppointmentRecord" --> ":CommandHandler" --
-    else
+Doctor -> ":Main": appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time/14:30
+
+":Main" -> ":Parser" ++: handleCommand(input, commandHandler, records, appointmentRecord)
+":Parser" -> ":CommandHandler" ++: appointment(input, appointmentRecord)
+
+":CommandHandler" -> ":CommandHandler" ++: extractName(input)
+":CommandHandler" --> ":CommandHandler" --: name = "Patricia Chan"
+
+":CommandHandler" -> ":CommandHandler" ++: extractNric(input)
+":CommandHandler" --> ":CommandHandler" --: nric = "S9870789B"
+
+":CommandHandler" -> ":CommandHandler" ++: extractDate(input)
+":CommandHandler" --> ":CommandHandler" --: date = "06-11-2024"
+
+":CommandHandler" -> ":CommandHandler" ++: extractTime(input)
+":CommandHandler" --> ":CommandHandler" --: time = "14:30"
+
+":CommandHandler" -> ":AppointmentRecord" ++: checkAvailability(date, time)
+":AppointmentRecord" --> ":CommandHandler" --: nextAvailableTime
+
+alt nextAvailableTime == "14:30"
+    create ":Appointment"
+    ":CommandHandler" -> ":Appointment" **: new Appointment("Patricia Chan", "S9870789B",\n"06-11-2024", "14:30")
+    activate ":Appointment"
+    ":Appointment" --> ":CommandHandler" --: appointment
+
+    ":CommandHandler" -> ":AppointmentRecord" ++: addAppointment(appointment)
+    ":AppointmentRecord" -> ":AppointmentRecord": appointments.add(appointment)
+    ":AppointmentRecord" -> ":AppointmentRecord": sort()
+    return
+
+    ":CommandHandler" -> ":FileHandler" ++: autosave(appointmentRecord)
+    return
+
+    Doctor <-- ":CommandHandler": Appointment on 06-11-2024 14:30 with Patient\nPatricia Chan, S9870789B has been added.
+else
+    Doctor <-- ":CommandHandler": There is already an appointment at the given timeslot.\nThe next available timeslot is: [nextAvailableTime]
 end
-":CommandHandler" -> ":FileHandler" ++ : FileHandler.autosave(appointmentRecords)
-":FileHandler" --> ":CommandHandler" --
-":CommandHandler" --> ":Main" --
+
+":CommandHandler" --> ":Parser" --
+":Parser" --> ":Main" --
 deactivate ":Main"
+
 @enduml

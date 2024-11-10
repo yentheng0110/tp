@@ -1,20 +1,49 @@
 @startuml
 'https://plantuml.com/object-diagram
+skinparam classAttributeIconSize 0
+hide circle
 
 object "<u>:Main</u>" as Main
-object "<u> :CommandHandler</u>" as CommandHandler
-object "<u> in:Scanner</u>" as Scanner
-object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
-object "<u> record:Record </u>" as Record
-object "<u> :FileHandler </u>" as FileHandler
 
-Main --> Record
+object "<u>in:Scanner</u>" as Scanner {
+
+}
+
+object "<u>records:Records</u>" as Records {
+
+}
+
+object "<u>appointmentRecord:AppointmentRecord</u>" as AppointmentRecord {
+
+}
+
+object "<u>:FileHandler</u>" as FileHandler {
+
+}
+
+object "<u>commandHandler:CommandHandler</u>" as CommandHandler {
+
+}
+
+object "<u>:Parser</u>" as Parser {
+
+}
+
+
+
+Main --> Scanner
+Main --> Records
 Main --> AppointmentRecord
 Main --> FileHandler
 Main --> CommandHandler
-Main --> Scanner
-CommandHandler --> FileHandler
+Main --> Parser
+Parser --> CommandHandler
+
+CommandHandler --> Records
 CommandHandler --> AppointmentRecord
-CommandHandler --> Record
+
+FileHandler --> Records
+FileHandler --> AppointmentRecord
+
 
 @enduml

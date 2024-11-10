@@ -2,55 +2,61 @@
 'https://plantuml.com/sequence-diagram
 
 actor Doctor
-
 participant ":CommandHandler"
-participant ":Records"
-participant ":FileHandler" as FileHandler <<class>>
 
-create "diagnoses:ArrayList<String>"
-":CommandHandler" -> "diagnoses:ArrayList<String>"**: new ArrayList<>()
+note over ":CommandHandler": Continuing from Part 1\nafter successful validation
 
-create "medications:ArrayList<String>"
-":CommandHandler" -> "medications:ArrayList<String>"**: new ArrayList<>()
+":CommandHandler" -> ":CommandHandler" ++: extractSex(input)
+return "Female"
 
-":CommandHandler" -> ":Visit"**: new Visit(visitDate, diagnoses, medications)
+":CommandHandler" -> ":CommandHandler" ++: extractDateOfBirth(input)
+return LocalDate("01-11-1998")
+
+":CommandHandler" -> ":CommandHandler" ++: extractPhoneNumber(input)
+return "98097890"
+
+":CommandHandler" -> ":CommandHandler" ++: extractHomeAddress(input)
+return "Bukit Batok East Avenue 3"
+
+":CommandHandler" -> ":CommandHandler" ++: extractDiagnoses(input)
+return ["Gastric"]
+
+":CommandHandler" -> ":CommandHandler" ++: extractMedications(input)
+return ["Gaviscon", "Paracetamol"]
+
+":CommandHandler" -> ":CommandHandler" ++: extractAllergies(input)
+return ["Peanuts"]
+
+":CommandHandler" -> ":CommandHandler" ++: extractMedicalHistories(input)
+return ["Hypertension", "Breast Cancer"]
+
+create ":Visit"
+":CommandHandler" -> ":Visit"**: new Visit(visitDateTime, diagnoses, medications)
 activate ":Visit"
-":CommandHandler" <-- ":Visit": visit:Visit
+":CommandHandler" <-- ":Visit": newVisit:Visit
 deactivate ":Visit"
 
-create "visits:ArrayList<Visit>"
-":CommandHandler" -> "visits:ArrayList<Visit>"**: new ArrayList<>()
-activate "visits:ArrayList<Visit>"
-"visits:ArrayList<Visit>" -> "visits:ArrayList<Visit>" ++: add(visit)
-return true
-deactivate "visits:ArrayList<Visit>"
+create "newPatient:Patient"
+":CommandHandler" -> "newPatient:Patient"**: new Patient(name, nric, visits)
+activate "newPatient:Patient"
 
-participant "patient:Patient"
+"newPatient:Patient" -> "newPatient:Patient": setSex(sex)
+"newPatient:Patient" -> "newPatient:Patient": setDateOfBirth(dateOfBirth)
+"newPatient:Patient" -> "newPatient:Patient": setPhoneNumber(phoneNumber)
+"newPatient:Patient" -> "newPatient:Patient": setHomeAddress(homeAddress)
+"newPatient:Patient" -> "newPatient:Patient": setAllergies(allergies)
+"newPatient:Patient" -> "newPatient:Patient": setMedicalHistories(medicalHistories)
 
-":CommandHandler" -> ":Patient"**: new Patient(name, nric, visits)
-activate ":Patient"
-":CommandHandler" <-- ":Patient": patient:Patient
-deactivate ":Patient"
+":CommandHandler" <-- "newPatient:Patient": patient created
+deactivate "newPatient:Patient"
 
-":CommandHandler" -> "patient:Patient" ++: setPhoneNumber(phoneNumber)
-return
-":CommandHandler" -> "patient:Patient" ++: setHomeAddress(homeAddress)
-return
-":CommandHandler" -> "patient:Patient" ++: setDateOfBirth(dateOfBirth)
-return
-":CommandHandler" -> "patient:Patient" ++: setAllergies(allergies)
-return
-":CommandHandler" -> "patient:Patient" ++: setSex(sex)
-return
-":CommandHandler" -> "patient:Patient" ++: setMedicalHistories(medicalHistories)
+":CommandHandler" -> ":Records" ++: addPatient(newPatient)
+":Records" -> ":Records": patients.add(newPatient)
 return
 
-":CommandHandler" -> ":Records" ++: addPatient(patient)
+":CommandHandler" -> ":FileHandler" ++: autosave(records)
 return
 
-":CommandHandler" -> FileHandler ++: autosave(records)
-return
-
-Doctor <-- ":CommandHandler": Patient details added successfully
+Doctor <-- ":CommandHandler": Patient Patricia Chan with NRIC S9870789B added.
 
 @enduml

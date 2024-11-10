@@ -124,19 +124,18 @@ shows the Patient Creation and Data Storage processes.
 ![img.png](NewPatientSequenceDiagram_1.png)
 • This sequence diagram illustrates the initial phase of adding a new patient to the BookBob.
 When the Doctor inputs the "add" command with patient details, the system workflow begins :
-1. Initializes necessary components (Scanner, Records, FileHandler, CommandHandler).
-2. Processes the input command.
-3. Performs validation checks for required fields (Name, NRIC, Visit Date).
-4. Either returns an error message if validation fails, or proceeds to patient creation.
+1. Main receives doctor's "add" command and routes it through Parser to CommandHandler.
+2. CommandHandler performs validation checks and extracts mandatory fields (name, NRIC, visit date)
+3. System either returns an error message if validation fails, or proceeds to patient creation.
 
 <u>Part (2) Patient Creation and Data Storage</u> :
 ![img.png](NewPatientSequenceDiagram_2.png)
 This sequence diagram shows the process of creating and storing a new patient's record after successful validation. The system workflow :
-1. Creating necessary data structures (ArrayLists for diagnoses, medications, visits).
+1. Extracts all remaining patient information (phone number, home address, DOB, allergies, medical histories).
 2. Constructing a new Visit object with the provided data.
 3. Creating a new Patient object (with core information i.e. name, NRIC).
-4. Setting additional patient attributes (phone number, home address, DOB, allergies, medical histories).
-5. Storing the patient record and auto-saves the data.
+4. Setting additional patient attributes (phone number, home address, DOB, allergies, medical histories). 
+5. Adds patient to Records and auto-saves the data.
 
  ---
 ### c. Appointment Feature
@@ -153,13 +152,13 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 - date and time
 - `FileHandler.autosave(AppointmentRecord appointmentRecord)` - save the appointment records
 
-**Doctor enters the command:** `appointment n/John Doe ic/S123A date/18-11-2024 time/18:00`
+**Doctor enters the command:** `appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time/14:30`
 
 > The Object Diagram before the execution of appointment command:
-![img.png](BeforeExecutionOD.png)
+![img.png](BeforeAppointmentOD.png)
 
 > The Object Diagram after the execution of appointment command:
-![img.png](AfterExecutionOD.png)
+![img.png](AfterAppointmentOD.png)
 
 > The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)

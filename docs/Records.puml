@@ -4,19 +4,45 @@ skinparam classAttributeIconSize 0
 hide circle
 
 class Records {
-+Records()
-+addPatient(patient: Patient): void
-+getPatients(): ArrayList<Patient>
+    -patients: ArrayList<Patient>
+    +Records()
+    +addPatient(patient: Patient): void
+    +addPatient(name: String, nric: String, visits: ArrayList<Visit>, sex: String,\n dateOfBirth: LocalDate, phoneNumber: String, homeAddress: String,\n allergies: ArrayList<String>, medicalHistories: ArrayList<String>): void
+    +getPatients(): ArrayList<Patient>
+    +delete(nric: String): void
+    +initFile(filePath: String): void
+    +autosave(filePath: String): void
+    +retrieveData(filePath: String): void
 }
 
-class Patient {}
-class Main {}
-class Records {}
-class CommandHandler {}
+interface FileOperation {
+    +initFile(filePath: String): void
+    +autosave(filePath: String): void
+    +retrieveData(filePath: String): void
+}
 
-Main --> CommandHandler : calls >
-CommandHandler --> Patient : searches and modifies >
+class Patient {
+}
+
+class Visit {
+}
+
+class CommandHandler {
+}
+
+class FileHandler {
+}
+
+class Main {
+}
+
+FileOperation <|.. Records
+
+Main --> Records : creates >
+CommandHandler --> Records : modifies >
+FileHandler --> Records : manages files >
+
 Records "1" o-- "many" Patient
-
+Patient "1" o-- "many" Visit
 
 @enduml

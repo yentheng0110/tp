@@ -3,48 +3,30 @@
 
 actor Doctor
 
-Doctor -> ":Main" ++:  add n/Patricia Chan ic/S9870789B p/98097890 d/Cough\n m/Antibiotics ha/Bukit Batok East Avenue 3 dob/01111998\n v/21-10-2024 18:00 al/Peanuts s/Female mh/Hypertension
-
-":Main" -> ":Scanner"**: new Scanner()
-activate ":Scanner"
-":Main" <-- ":Scanner": in:Scanner
-deactivate ":Scanner"
-
-":Main" -> ":Records"**: new Records()
-activate ":Records"
-":Main" <-- ":Records": records:Records
-deactivate ":Records"
-
-participant ":FileHandler" as FileHandler <<class>>
-
-":Main" -> FileHandler ++: initFile(records)
-return
-
-":Main" -> ":CommandHandler"**: new CommandHandler()
-activate ":CommandHandler"
-":Main" <-- ":CommandHandler": commandHandler:CommandHandler
-deactivate ":CommandHandler"
+Doctor -> ":Main" ++: add n/Patricia Chan ic/S9870789B p/98097890 d/Gastric m/Gaviscon, Paracetamol\n dob/01-11-1998 ha/Bukit Batok East Avenue 3 v/29-10-2024 10:00\n al/Peanuts s/Female mh/Hypertension, Breast Cancer
 
 ":Main" -> ":Scanner" ++: nextLine()
 return input
 
-":Main" -> ":CommandHandler" ++: add(input, records)
+":Main" -> ":Parser" ++: handleCommand(input, commandHandler,\nrecords, appointmentRecord)
+":Parser" -> ":CommandHandler" ++: add(input, records)
 
-":CommandHandler" -> ":CommandHandler" ++: findNextFieldStart(...)
-return the endindex of next prefix
+":CommandHandler" -> ":CommandHandler" ++: extractName(input)
+return "Patricia Chan"
 
-":CommandHandler" -> ":Records" ++: getPatients()
-":CommandHandler" <-- ":Records": ArrayList<Patient>
-deactivate ":Records"
+":CommandHandler" -> ":CommandHandler" ++: extractNric(input)
+return "S9870789B"
 
-alt Missing Name
-    ":CommandHandler" --> ":Main": "Please provide the patient's name"
-else Missing NRIC
-    ":CommandHandler" --> ":Main": "Please provide the patient's NRIC"
-else Missing Visit Date
-    ":CommandHandler" --> ":Main": "Please provide a date for the patient's visit"
-else Valid Input
-    ":CommandHandler" --> ":Main": "Continue to patient creation..."
+":CommandHandler" -> ":CommandHandler" ++: extractVisitDateTime(input)
+return LocalDateTime("29-10-2024 10:00")
+
+alt Validation Fails
+    ":CommandHandler" --> Doctor: Error: Please provide valid [name/NRIC/visit date]
+else  Validation Succeeds
+    note over ":CommandHandler"
+        Continue to Part 2
+        for Patient Creation
+    end note
 end
 
 @enduml

@@ -4,31 +4,32 @@ skinparam classAttributeIconSize 0
 hide circle
 
 class Visit {
--visitDate: LocalDateTime
--diagnoses: ArrayList<String>
--medications: ArrayList<String>
-+Visit (visitDate: LocalDateTime)
-+Visit (visitDate: LocalDateTime, diagnoses: ArrayList<String>, medications: ArrayList<String>);
-+getDiagnoses(): ArrayList<String>
-+setDiagnoses(diagnoses: ArrayList<String>): void
-+getMedications(): ArrayList<String>
-+setMedications(medications: ArrayList<String>): void
-+getVisitDate(): LocalDateTime
-+setVisitDate((visitDate: LocalDateTime): void
-+toString(): String
+    -visitDate: LocalDateTime
+    -diagnoses: ArrayList<String>
+    -medications: ArrayList<String>
+    +Visit(visitDate: LocalDateTime)
+    +Visit(visitDate: LocalDateTime, diagnoses: ArrayList<String>,\n medications: ArrayList<String>)
+    +getDiagnoses(): ArrayList<String>
+    +setDiagnoses(diagnoses: ArrayList<String>): void
+    +getMedications(): ArrayList<String>
+    +setMedications(medications: ArrayList<String>): void
+    +getVisitDate(): LocalDateTime
+    +setVisitDate(visitDate: LocalDateTime): void
+    +toString(): String
 }
 
-class Patient {}
-class Visit {}
-class Main {}
-class Records {}
-class CommandHandler {}
+class Patient {
+}
 
+class CommandHandler {
+}
 
-Main --> CommandHandler : calls >
-CommandHandler --> Patient : searches and modifies >
-CommandHandler --> Visit : searches and modifies >
-Records "1" o-- "many" Patient
+class FileHandler {
+}
+
 Patient "1" o-- "many" Visit
+CommandHandler --> Visit : creates and modifies >
+FileHandler --> Visit : parses and processes >
+
 
 @enduml

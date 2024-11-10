@@ -4,27 +4,54 @@ skinparam classAttributeIconSize 0
 hide circle
 
 class FileHandler {
-  -{static} logger: Logger
-  -{static} filePath: String
-  -{static} appointmentFilePath: String
-  +{static} initFile(Records): void
-  +{static} initFile(AppointmentRecord): void
-  +{static} convertPatientToOutputText(Records): String
-  +{static} convertPatientToOutputText(AppointmentRecord): String
-  +{static} autosave(Records): void
-  +{static} autosave(AppointmentRecord): void
-  +{static} retrieveData(Records): void
-  +{static} retrieveData(AppointmentRecord): void
-  +{static} parseVisitInputString(visitString): Visit
-  +{static} parseList(input): ArrayList<String>
+    -{static} logger: Logger
+    -{static} filePath: String
+    -{static} appointmentFilePath: String
+    +{static} initFile(fileOperation: FileOperation): void
+    +{static} autosave(fileOperation: FileOperation): void
+    +{static} parseList(input: String): ArrayList<String>
+    +{static} parseVisitInputString(visitString: String): Visit
 }
 
-class Main {}
-class CommandHandler {}
+class Main {
 
-CommandHandler --> FileHandler: calls autosave
-Main --> FileHandler: calls initFile
-FileHandler --> FileHandler: initFile calls retrieveData
-FileHandler --> FileHandler: retrieveData calls parseVisitInputString and parseList
+}
+
+class CommandHandler {
+
+}
+
+interface FileOperation {
+    +initFile(filePath: String): void
+    +autosave(filePath: String): void
+    +retrieveData(filePath: String): void
+}
+
+class Records {
+}
+
+class AppointmentRecord {
+}
+
+class Visit {
+}
+
+class Patient {
+}
+
+class Appointment {
+}
+
+FileOperation <|.. Records
+FileOperation <|.. AppointmentRecord
+
+Main --> FileHandler : calls initFile >
+CommandHandler --> FileHandler : calls autosave >
+
+FileHandler --> Records : manages files >
+FileHandler --> AppointmentRecord : manages files >
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
+AppointmentRecord "1" o-- "many" Appointment
 
 @enduml

@@ -1,27 +1,52 @@
 @startuml
+'https://plantuml.com/sequence-diagram
+skinparam classAttributeIconSize 0
+hide circle
+
 actor Doctor
 
 Doctor -> ":Main" ++: initialises the application
+":Main" -> Console: println("Welcome to BookBob, Dr. Bob!")
 
-":Main" -> ":Scanner"**: new Scanner()
+":Main" -> ":Logger" ++: loggerConfig()
+":Logger" -> ":Logger": createDirectories(logs)
+":Logger" -> ":Logger": setFormatter
+":Logger" -> ":Logger": setLevel(FINE)
+return logger configured
+
+":Main" -> ":Scanner"**: new Scanner(System.in)
 activate ":Scanner"
 ":Main" <-- ":Scanner": in:Scanner
 deactivate ":Scanner"
 
 ":Main" -> ":Records"**: new Records()
 activate ":Records"
+":Records" -> ":Records": patients = new ArrayList<>()
 ":Main" <-- ":Records": records:Records
 deactivate ":Records"
 
 ":Main" -> ":AppointmentRecord"**: new AppointmentRecord()
 activate ":AppointmentRecord"
+":AppointmentRecord" -> ":AppointmentRecord": appointments = new ArrayList<>()
 ":Main" <-- ":AppointmentRecord": appointmentRecord:AppointmentRecord
 deactivate ":AppointmentRecord"
 
-":Main" -> ":FileHandler" ++: initFile(records)
+participant ":FileHandler" as FileHandler <<class>>
+
+":Main" -> FileHandler ++: initFile(records)
+FileHandler -> ":Records" ++: initFile(filePath)
+":Records" -> ":Records": createDirectories("data")
+":Records" -> ":Records": retrieveData(filePath)
+note right: Loads existing patient data\nif file exists
+return
 return
 
-":Main" -> ":FileHandler" ++: initFile(appointmentRecord)
+":Main" -> FileHandler ++: initFile(appointmentRecord)
+FileHandler -> ":AppointmentRecord" ++: initFile(appointmentFilePath)
+":AppointmentRecord" -> ":AppointmentRecord": createDirectories("data")
+":AppointmentRecord" -> ":AppointmentRecord": retrieveData(appointmentFilePath)
+note right: Loads existing appointments\nif file exists
+return
 return
 
 ":Main" -> ":CommandHandler"**: new CommandHandler()
@@ -30,14 +55,22 @@ activate ":CommandHandler"
 deactivate ":CommandHandler"
 
 ":Main" -> ":AppointmentRecord" ++: appointmentNotice()
+":AppointmentRecord" -> ":AppointmentRecord": checkTodayAppointments()
+alt appointments.size() == 0
+    ":AppointmentRecord" -> Console: println("No appointments scheduled for today")
+else has appointments for today
+    ":AppointmentRecord" -> Console: println("Appointments scheduled for today:")
+    loop for each today's appointment
+        ":AppointmentRecord" -> Console: println(appointment details)
+    end
+end
 return
 
 loop until exit command is entered
-    ":Main" -> ":Scanner" ++: in.nextLine()
-    ":Main" <-- ":Scanner": input:String
-    deactivate ":Scanner"
-    ":Main" -> ":CommandHandler" ++: handleCommand(input)
-    return
+    ":Main" -> ":Scanner" ++: nextLine()
+    return input
+    ":Main" -> ":Parser" ++: handleCommand(input, commandHandler,\nrecords, appointmentRecord)
+    return command executed
 end
 
 Doctor <-- ":Main": a message with the specific command processed
