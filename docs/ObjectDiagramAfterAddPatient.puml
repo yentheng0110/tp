@@ -1,46 +1,66 @@
 @startuml
 'https://plantuml.com/object-diagram
+skinparam classAttributeIconSize 0
+hide circle
 
-object "<u> :Main</u>" as Main
-object "<u> in:Scanner</u>" as Scanner
-object "<u> records:Records</u>" as Records
-object "<u> appointmentRecord:AppointmentRecord</u>" as AppointmentRecord
-object "<u> :FileHandler</u>" as FileHandler
-object "<u> commandHandler:CommandHandler</u>" as CommandHandler
+object "<u>:Main</u>" as Main
 
-object "<u> newPatient:Patient</u>" as Patient {
-name = Patricia Chan
-nric = S9870789B
-sex = Female
-dateOfBirth = 01111998
-phoneNumber = 98097890
-homeAddress = Bukit Batok East Avenue 3
-allergies = [Peanuts]
-medicalHistories = [Hypertension, Breast Cancer]
+object "<u>in:Scanner</u>" as Scanner {
+
 }
 
+object "<u>records:Records</u>" as Records {
 
-object "<u> newVisit:Visit</u>" as Visit {
-visitDate = 29-10-2024 10:00
-diagnoses = [Gastric]
-medications = [Gaviscon, Paracetamol]
 }
 
-object "<u> existingPatient:Patient</u>" as existingPatient {
-name = John Goh
-nric = S8971129B
-sex = Male
-dateOfBirth = 02092001
-phoneNumber = 93809923
-homeAddress = PGPR
-allergies = [fur]
-medicalHistories = [Diabetes]
+object "<u>appointmentRecord:AppointmentRecord</u>" as AppointmentRecord {
+
 }
 
-object "<u> existingVisit:Visit</u>" as existingVisit {
-visitDate = 21-10-2024 18:00
-diagnoses = [Cough]
-medications = [Antibiotics]
+object "<u>:FileHandler</u>" as FileHandler {
+
+}
+
+object "<u>commandHandler:CommandHandler</u>" as CommandHandler {
+
+}
+
+object "<u>:Parser</u>" as Parser {
+
+}
+
+object "<u>newPatient:Patient</u>" as NewPatient {
+    name = "Patricia Chan"
+    nric = "S9870789B"
+    sex = "Female"
+    dateOfBirth = "01-11-1998"
+    phoneNumber = "98097890"
+    homeAddress = "Bukit Batok East Avenue 3"
+    allergies = ["Peanuts"]
+    medicalHistories = ["Hypertension", "Breast Cancer"]
+}
+
+object "<u>newVisit:Visit</u>" as NewVisit {
+    visitDate = "29-10-2024 10:00"
+    diagnoses = ["Gastric"]
+    medications = ["Gaviscon", "Paracetamol"]
+}
+
+object "<u>existingPatient:Patient</u>" as ExistingPatient {
+    name = "John Goh"
+    nric = "S8971129B"
+    sex = "Male"
+    dateOfBirth = "02-09-2001"
+    phoneNumber = "93809923"
+    homeAddress = "PGPR"
+    allergies = ["fur"]
+    medicalHistories = ["Diabetes"]
+}
+
+object "<u>existingVisit:Visit</u>" as ExistingVisit {
+    visitDate = "21-10-2024 18:00"
+    diagnoses = ["Cough"]
+    medications = ["Antibiotics"]
 }
 
 Main --> Scanner
@@ -48,12 +68,19 @@ Main --> Records
 Main --> AppointmentRecord
 Main --> FileHandler
 Main --> CommandHandler
-Patient --> Visit
+Main --> Parser
+Parser --> CommandHandler
+NewPatient --> NewVisit
+ExistingPatient --> ExistingVisit
 CommandHandler --> Records
-Records --> Patient
-Records --> existingPatient
-existingPatient --> existingVisit
+Records --> NewPatient
+Records --> ExistingPatient
 FileHandler --> Records
 FileHandler --> AppointmentRecord
+
+note right of NewPatient
+    This patient was just added
+    to the records
+end note
 
 @enduml
