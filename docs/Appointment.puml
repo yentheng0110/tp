@@ -1,39 +1,48 @@
-@startuml Appointment
+@startuml
 'https://plantuml.com/class-diagram
 skinparam classAttributeIconSize 0
 hide circle
 
-interface Comparable
-
-skinparam classAttributeIconSize 0
-hide circle
-
-Comparable <|... Appointment
-
-class "Appointment" as Appointment {
-- patientName : String
-- patientNric : String
-- time : LocalTime
-- date : LocalDate
-- consultationDuration : long = 30
-- formatter : DateTimeFormatter = dd-MM-yyyy
-+ getPatientName() : String
-+ getPatientNric() : String
-+ getDate() : LocalDate
-+ getTime() : LocalTime
-+ getConsultationDuration() : long
-+ toString() : String
-+ compareTo(other : Appointment) : int
+interface Comparable<Appointment> {
+    +compareTo(other: Appointment): int
 }
 
-class AppointmentRecord {}
-class Main {}
-class CommandHandler {}
-class AppointmentRecord {}
+interface OutputConversion {
+    +convertPatientToOutputText(): String
+}
 
+class Appointment {
+    -patientName: String
+    -patientNric: String
+    -time: LocalTime
+    -date: LocalDate
+    -consultationDuration: long = 30
+    -formatter: DateTimeFormatter = "dd-MM-yyyy"
+    +Appointment(patientName: String, patientNric: String, date: String, time: String)
+    +getPatientName(): String
+    +getPatientNric(): String
+    +getDate(): LocalDate
+    +getTime(): LocalTime
+    +getConsultationDuration(): long
+    +toString(): String
+    +compareTo(other: Appointment): int
+    +convertPatientToOutputText(): String
+}
 
-CommandHandler --> Appointment : searches and modifies >
+class AppointmentRecord {
+}
+
+class CommandHandler {
+}
+
+class FileHandler {
+}
+
+Comparable <|.. Appointment
+OutputConversion <|.. Appointment
+
 AppointmentRecord "1" o-- "many" Appointment
-Main --> CommandHandler : calls >
+CommandHandler --> Appointment : creates and modifies >
+FileHandler --> Appointment : reads and writes >
 
 @enduml
