@@ -46,9 +46,11 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 ---
 # Features
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
-Note:
-1. Extra Input: Additional input provided after expected inputs for commands like list and listAppointments will be ignored.
-2. Case Sensitivity: Ensure correct lowercase input as commands are case-sensitive.
+
+**Note:**
+1. Extra Input: Additional input provided after expected inputs for commands such as `list` and `listAppointments` will be ignored.
+2. Case Sensitivity for Commands Prefixes : Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> input for <u>commands prefixes</u> E.g. "n/", "ic/", instead of 
+"N/", "IC/". 
 
 ## Viewing Help
 Shows the available list of commands and some guiding information.
@@ -186,11 +188,11 @@ Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 <br>
 
 <div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
-🚨 <b>NOTE:</b> The example below is achieved by executing the commands in the exact order; <b>"add" followed by "addVisit" then "list"</b>.
-Not by using the "add" command multiple times.
+🚨 <b>NOTE:</b> The example below is achieved by executing the commands in this exact order; <b>"add" followed by "addVisit" followed by "list"</b>.
+Not by using the "add" command multiple times followed by "list".
 </div>
 
-Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple repeated visits during <u>different dates</u>, 
+Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple <u>new visits</u> during <u>different dates</u>, 
 with different illness diagnosed and medications prescribed during the different visit event : 
 
 ```
@@ -295,7 +297,7 @@ The examples above result in successful patient record updates, which are automa
 ---
 
 ## Adding a Visit Record
-Adds a new visit record for an existing patient.<br>
+Adds a <u>new visit</u> record for an **<u>existing patient</u>**.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
 Date and Time format must be in : dd-MM-yyyy HH:mm <br>
     Note: <br>
@@ -316,7 +318,7 @@ Additional examples:
 * `addVisit ic/S9534567A v/23-10-2024 14:00` - Adds a visit without diagnosis or medication
 
     Note : <br>
-• The NRIC must belong to an existing patient in the system <br>
+• The NRIC must belong to an **<u>existing patient</u>** in the system <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
 Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
@@ -421,7 +423,7 @@ No patient found with medication: Panadol
 ## Adding a Patient Appointment
 Adds an appointment for a patient on the date and time\
 If the selected appointment slot has already been taken, it will prompt the next available time slot\
-Format: appointment n/NAME ic/NRIC date/DATE time/TIME\
+Format: appointment n/NAME ic/NRIC date/DATE time/TIME
 #### Extra Information:
 Date format is in DD-MM-YYYY and Time format is in HH:mm\
 All past appointments will be removed from the system upon exiting.
@@ -443,7 +445,8 @@ There is already an appointment at the given timeslot. The next available timesl
 ---
 ## Deleting a Patient Appointment
 Delete an appointment for a patient on the date and time\
-Format: appointment ic/NRIC date/DATE time/TIME\
+Format: appointment ic/NRIC date/DATE time/TIME \
+Note: Deleting a Patient Appointment is case-insensitive.
 
 #### Extra Information
 Date format is in DD-MM-YYYY and Time format is in HH:mm
@@ -475,7 +478,7 @@ Format:
 findAppointment n/NAME OR\
 findAppointment ic/NRIC OR\
 findAppointment date/DATE OR\
-findAppointment time/TIME\
+findAppointment time/TIME
 
 #### Extra Information:
 Date format is in DD-MM-YYYY and Time format is in HH:mm
@@ -588,7 +591,7 @@ and with Phone Numbers having exactly eight digits and starting with "9" or "8".
 
 **Q2**: Can 24/7 clinics use BookBob?
 
-**A**: Yes, definitely. BookBoB is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
+**A**: Yes, definitely. BookBob is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
 
 ---
 ## Command Summary
