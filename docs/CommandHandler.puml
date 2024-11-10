@@ -4,26 +4,46 @@ skinparam classAttributeIconSize 0
 hide circle
 
 class CommandHandler {
--{static} logger: Logger
-+CommandHandler(): void
-+help(): void
-+add(input: String, records: Records): void
-+list(records: Records): void
-+edit(input: String, records: Records): void
-+editVisit(input: String, records: Records): void
-+delete(nric: String, records: Records): void
-+find(input: String, records: Records): void
-+exit(input: String): void
-+addVisit(input: String, records: Records): void
-+Appointment(input: String, appointmentRecord: AppointmentRecord): void
-+deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
-+listAppointment(appointmentRecord: AppointmentRecord): void
-+findAppointment(input: String, appointmentRecord: AppointmentRecord): void
-+deleteAppointment(appointmentRecord: AppointmentRecord): void
--findNextFieldStart(input: String, currentIndex: int): int
-+findVisitByIc(input: String, records: Records)
-+findVisitByDiagnosis(input: String, records: Records)
-+findVisitByMedication(input: String, records: Records)
+    -{static} logger: Logger
+    +CommandHandler()
+    +help(): void
+    +add(input: String, records: Records): void
+    +list(records: Records): void
+    +edit(input: String, records: Records): void
+    +editVisit(input: String, records: Records): void
+    +delete(nric: String, records: Records): void
+    +find(input: String, records: Records): void
+    +exit(input: String): void
+    +addVisit(input: String, records: Records): void
+    +appointment(input: String, appointmentRecord: AppointmentRecord): void
+    +deleteAppointment(input: String, appointmentRecord: AppointmentRecord): void
+    +listAppointments(appointmentRecord: AppointmentRecord): void
+    +findAppointment(input: String, appointmentRecord: AppointmentRecord): void
+    +removePastAppointments(appointmentRecord: AppointmentRecord): void
+    +findVisitByIc(nric: String, records: Records): void
+    +findVisitByDiagnosis(symptom: String, records: Records): void
+    +findVisitByMedication(medication: String, records: Records): void
+    -findNextFieldStart(input: String, currentIndex: int): int
+    -extractVisitDateTime(input: String): LocalDateTime
+    -extractMedicalHistories(input: String): ArrayList<String>
+    -extractAllergies(input: String): ArrayList<String>
+    -extractMedications(input: String): ArrayList<String>
+    -extractDiagnoses(input: String): ArrayList<String>
+    -extractHomeAddress(input: String): String
+    -extractPhoneNumber(input: String): String
+    -extractDateOfBirth(input: String): LocalDate
+    -extractGender(input: String): String
+    -extractTime(input: String): String
+    -extractDate(input: String): String
+    -extractNewDate(input: String): LocalDateTime
+    -extractNric(input: String): String
+    -extractNewNric(updates: String): String
+    -extractName(input: String): String
+    -extractNewName(input: String): String
+    -extractVisitDate(input: String): String
+}
+
+class Main {
 }
 
 class Patient {
@@ -32,18 +52,19 @@ class Patient {
 class Visit {
 }
 
-class Main {
-}
-
 class Records {
 }
 
 class AppointmentRecord {
 }
 
-CommandHandler --> Appointment : searches and modifies >
-AppointmentRecord "1" o-- "many" Appointment
+class Appointment {
+}
+
 Main --> CommandHandler : calls >
+CommandHandler --> Appointment : searches and modifies >
+CommandHandler --> Visit : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
 CommandHandler --> Patient : searches and modifies >
 Records "1" o-- "many" Patient
 Patient "1" o-- "many" Visit
