@@ -49,8 +49,10 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 
 **Note:**
 1. Extra Input: Additional input provided after expected inputs for commands such as `list` and `listAppointments` will be ignored.
-2. Case Sensitivity for Commands Prefixes : Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> input for <u>commands prefixes</u> E.g. "n/", "ic/", instead of 
-"N/", "IC/". 
+2. Case Sensitivity for Commands : Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
+and <u>mixed-case</u> for e.g. `addVisit` instead of `addvisit`
+3. Case Sensitivity for Commands Prefixes : Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
+  "N/", "IC/"
 
 ## Viewing Help
 Shows the available list of commands and some guiding information.
