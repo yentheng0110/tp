@@ -915,11 +915,12 @@ public class CommandHandlerTest {
         });
     }
 
+
     //@@author yentheng0110
     @Test
     void editVisitCommand_visitDateInputtedNotInRecord_noPatientFoundMessageGetsPrinted() throws IOException {
         command.add("add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 d/Asthma ha/NUS-PGPR", records);
-        String input = "editVisit ic/S9534567A date/01-11-2024 10:00 d/Asthma, Gastric";
+        String input = "editVisit ic/S9534567A v/01-11-2024 10:00 d/Asthma, Gastric";
         command.editVisit(input, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.\nNo visit found on the given date.";
         assertEquals(expectedOutput,
@@ -930,14 +931,15 @@ public class CommandHandlerTest {
     @Test
     void editVisitCommand_editVisitDateOnlyWithCorrectInputFormat_editVisitSuccessfully() throws IOException {
         command.add("add n/James Ho ic/S9534567A v/06-11-2024 10:00 p/90879089 ha/NUS-PGPR", records);
-        String input = "editVisit ic/S9534567A date/06-11-2024 10:00 newDate/07-11-2024 10:00";
+        String input = "editVisit ic/S9534567A v/06-11-2024 10:00 newDate/07-11-2024 10:00";
         command.editVisit(input, records);
         String expectedOutput = "Patient James Ho with NRIC S9534567A added.\nVisit record updated successfully.\n" +
                 "Updated visit details:\n07-11-2024 10:00, Diagnosis: [], Medications: []";
         assertEquals(expectedOutput,
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
-  
+
+
     //@@author G13nd0n
     @Test
     void testdeleteAppointment_onePatient_onePatient() throws IOException {

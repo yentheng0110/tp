@@ -81,7 +81,7 @@ Format: `help`
 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
 +-------------+---------------------------------------+---------------------------------+
 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
-|             | date/VISIT_DATE_AND_TIME              | date/06-11-2024 14:00           |
+|             | v/VISIT_DATE_AND_TIME                 | v/06-11-2024 14:00           |
 |             | [newDate/NEW_DATE]  [d/DIAGNOSIS]     | newDate/08-11-2024 14:00        |
 |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
 |             | DATE format: dd-mm-yyyy               |                                 |
@@ -318,7 +318,7 @@ Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" 
 
 ## Editing a Visit Record
 Edits a current visit record of a patient saved in BookBob. <br>
-Format: editVisit ic/NRIC date/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION] <br>
+Format: editVisit ic/NRIC v/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION] <br>
 
 Note : <br>
 • The mandatory fields for searching and editing a specific visit in a patient's record are the patient's NRIC and visit
@@ -327,7 +327,7 @@ are the new information to be updated for the patient. <br>
 • Single diagnosis and medication can be added; <u>Multiple diagnoses and/or medications are also allowed</u>, by 
 separating them with commas. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `editVisit ic/S7209876Y date/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`
+Example: `editVisit ic/S7209876Y v/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`
 
 Example Output:
 ```
@@ -337,7 +337,7 @@ Updated visit details:
 ```
 
 Additional examples:
-* `editVisit ic/S9089087U date/19-11-2024 18:00 d/Runny Nose newDate/20-11-2024 18:00` - Edit a visit record of a 
+* `editVisit ic/S9089087U v/19-11-2024 18:00 d/Runny Nose newDate/20-11-2024 18:00` - Edit a visit record of a 
 patient with optional fields in a different order than the format shown above.
 
 The examples above result in successful visit record updates, which are automatically saved.
@@ -415,7 +415,10 @@ No patient found with medication: Panadol
 Adds an appointment for a patient on the date and time\
 If the selected appointment slot has already been taken, it will prompt the next available time slot\
 Format: appointment n/NAME ic/NRIC date/DATE time/TIME\
-Date format is in DD-MM-YYYY and Time format is in HH:mm
+#### Extra Information:
+Date format is in DD-MM-YYYY and Time format is in HH:mm\
+All past appointments will be removed from the system upon exiting.
+Appointments before today's date and time will not be added.
 
 Example: `appointment n/John Doe ic/S1234567A date/18-11-2024 time/18:00`
 ```
@@ -574,7 +577,7 @@ Format: `exit`
 | Add patient record  | `add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]`                                                                                      | `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`                                                                   |
 | Edit patient record | `edit ic/NRIC /to [n/NAME] [newic/NEW_NRIC] [p/PHONE_NUMBER] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]`                                                                                                            | `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension `                                                                                                                                              |
 | Add Visit           | `addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                   | `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`                                                                                                                    |
-| Edit Visit          | `editVisit ic/NRIC date/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                        | `editVisit ic/S7209876Y date/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`                                                                                                                             |
+| Edit Visit          | `editVisit ic/NRIC v/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                           | `editVisit ic/S7209876Y date/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`                                                                                                                             |
 | List                | `list`                                                                                                                                                                                                                                                   | `list`                                                                                                                                                                                                     |
 | Find                | `find n/NAME` OR<br>`find ic/NRIC` OR<br>`find p/PHONE_NUMBER` OR<br>`find d/DIAGNOSIS` OR<br>`find m/MEDICATION` OR<br>`find ha/HOME_ADDRESS` OR<br>`find dob/DATE_OF_BIRTH` OR<br>`find al/ALLERGY` OR<br>`find s/SEX` OR<br>`find mh/MEDICAL_HISTORY` | `find n/John Doe`<br>`find ic/S1234`<br>`find p/91234567`<br>`find d/Fever`<br>`find m/Panadol`<br>`find ha/NUS PGPR`<br>`find dob/01011990`<br>`find al/Peanuts`<br>`find s/Female`<br>`find mh/Diabetes` |
 | Delete              | `delete NRIC`                                                                                                                                                                                                                                            | `delete S9534567A`                                                                                                                                                                                         |

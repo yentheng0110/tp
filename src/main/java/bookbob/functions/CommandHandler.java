@@ -56,7 +56,7 @@ public class CommandHandler {
                 |             | TIME format: HH:mm                    | m/Paracetamol,Ibuprofen         |
                 +-------------+---------------------------------------+---------------------------------+
                 | Edit Visit  | editVisit ic/NRIC                     | editVisit ic/S7209876Y          |
-                |             | date/VISIT_DATE_TIME                  | date/06-11-2024 14:00           |
+                |             | v/VISIT_DATE_TIME                     | v/06-11-2024 14:00           |
                 |             | [newDate/NEW_DATE_TIME]  [d/DIAGNOSIS]| newDate/08-11-2024 14:00        |
                 |             | [m/MEDICATION]                        | d/Asthma m/Panadol, Antibiotics |
                 |             | DATE format: dd-mm-yyyy               |                                 |
@@ -128,6 +128,10 @@ public class CommandHandler {
         // Check if NRIC is missing or invalid
         if (nric.isEmpty()) {
             errorMessages.append("Please provide the patient's NRIC\n");
+        }
+
+        if (nric.equals("Invalid NRIC")) {
+            errorMessages.append("Please provide a valid patient's NRIC\n");
         }
 
         // Check if visit date is missing or invalid
@@ -298,9 +302,7 @@ public class CommandHandler {
         }
 
         // Extract visit date from input command
-        String date = extractDate(input);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime visitDate = LocalDateTime.parse(date, formatter);
+        LocalDateTime visitDate = extractVisitDateTime(input);
 
         Visit visitToBeEdited = null;
 
@@ -467,6 +469,35 @@ public class CommandHandler {
         String nric = extractNric(input);;
         String date = extractDate(input);
         String time = extractTime(input);
+        StringBuilder errorMessages = new StringBuilder();
+
+        if (name.isEmpty()) {
+            errorMessages.append("Please provide the patient's name\n");
+        }
+
+        if (nric.isEmpty()) {
+            errorMessages.append("Please provide the patient's NRIC\n");
+        } else if (nric.equals("Invalid NRIC")) {
+            errorMessages.append("Please provide a valid patient's NRIC\n");
+        }
+
+        if (date.isEmpty()) {
+            errorMessages.append("Please provide a date");
+        } else if (date.equals("Invalid date format")) {
+            errorMessages.append("Please follow the date format of DD-MM-YYYY\n");
+        }
+
+        if (time.isEmpty()) {
+            errorMessages.append("Please provide a time");
+        } else if (time.equals("Invalid time format")) {
+            errorMessages.append("Please follow the time format of HH:mm\n");
+        }
+
+        if (errorMessages.length() > 0) {
+            System.out.println(errorMessages.toString());
+            return;
+        }
+
         appointmentRecord.addAppointment(name, nric, date, time);
         FileHandler.autosave(appointmentRecord);
     }
@@ -477,6 +508,31 @@ public class CommandHandler {
         String nric = extractNric(input);
         String date = extractDate(input);
         String time = extractTime(input);
+        StringBuilder errorMessages = new StringBuilder();
+
+        if (nric.isEmpty()) {
+            errorMessages.append("Please provide the patient's NRIC\n");
+        } else if (nric.equals("Invalid NRIC")) {
+            errorMessages.append("Please provide a valid patient's NRIC\n");
+        }
+
+        if (date.isEmpty()) {
+            errorMessages.append("Please provide a date");
+        } else if (date.equals("Invalid date format")) {
+            errorMessages.append("Please follow the date format of DD-MM-YYYY\n");
+        }
+
+        if (time.isEmpty()) {
+            errorMessages.append("Please provide a time");
+        } else if (time.equals("Invalid time format")) {
+            errorMessages.append("Please follow the time format of HH:mm\n");
+        }
+
+        if (errorMessages.length() > 0) {
+            System.out.println(errorMessages.toString());
+            return;
+        }
+
         appointmentRecord.deleteAppointment(nric, date, time);
         FileHandler.autosave(appointmentRecord);
     }
@@ -802,23 +858,33 @@ public class CommandHandler {
         int lengthOfTimeIndicator = 5;
         int timeStart = input.indexOf("time/");
         if (timeStart == -1) {
-            System.out.println("Please provide the time");
+            return "";
         }
         int timeEnd = findNextFieldStart(input, timeStart + lengthOfTimeIndicator);
         String time = input.substring(timeStart + lengthOfTimeIndicator, timeEnd).trim();
+        if (time.isEmpty()) {
+            return "";
+        } else if (!time.matches("\\d{2}:\\d{2}")) {
+            return "Invalid time format";
+        }
         return time;
     }
 
     //@@author G13nd0n
     private String extractDate(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         int lengthOfDateIndicator = 5;
         int dateStart = input.indexOf("date/");
         if (dateStart == -1) {
-            System.out.println("Please provide the visit date");
             return "";
         }
         int dateEnd = findNextFieldStart(input, dateStart + lengthOfDateIndicator);
         String date = input.substring(dateStart + lengthOfDateIndicator, dateEnd).trim();
+        if (date.isEmpty()) {
+            return "";
+        } else if (!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            return "Invalid date format";
+        }
         return date;
     }
 
@@ -856,19 +922,20 @@ public class CommandHandler {
         }
         int nricEnd = findNextFieldStart(input, nricStart + lengthOfNricIndicator);
         nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
-        if (nric.isEmpty() || nric.length() != lengthOfNric) {
-            System.out.println("Please provide a valid patient's NRIC");
+        if (nric.isEmpty()) {
             return "";
         }
 
         //@@author Gl3nd0n
+        if (nric.length() != lengthOfNric) {
+            return "Invalid NRIC";
+        }
         String nricFirstLetter = nric.substring(0,1);
         String nricLastLetter = nric.substring(8);
         String nricNumber = nric.substring(1,8);
-        if (!nricFirstLetter.matches("[A-Za-z]+") || !nricLastLetter.matches("[A-Za-z]+")
-                || !nricNumber.matches("[0-9]+")) {
-            System.out.println("Please provide a valid patient's NRIC");
-            return "";
+        if (!nricFirstLetter.matches("[A-Za-z]+") ||
+                !nricLastLetter.matches("[A-Za-z]+") || !nricNumber.matches("[0-9]+")) {
+            return "Invalid NRIC";
         }
         return nric;
     }

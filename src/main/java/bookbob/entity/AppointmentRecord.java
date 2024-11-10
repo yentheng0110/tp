@@ -38,6 +38,13 @@ public class AppointmentRecord implements FileOperation {
         LocalDate availableDate = LocalDate.parse(date, formatter);
         LocalTime availableTime = LocalTime.parse(time);
         LocalTime nextAvailableTime= this.checkAvailability(availableDate, availableTime);
+        if (!checkDateTime(availableDate, availableTime)) {
+            return;
+        }
+        String searchInput = "ic/" + nric;
+        if (!checkExistingAppintmentRecords(name, nric, searchInput)) {
+            return;
+        }
         if (nextAvailableTime == availableTime) {
             Appointment appointment = new Appointment(name, nric, date, time);
             appointments.add(appointment);
@@ -50,6 +57,37 @@ public class AppointmentRecord implements FileOperation {
                     "The next available timeslot is: " + nextAvailableTime.toString());
         }
         this.sort();
+    }
+
+    //@@author G13nd0n
+    private static boolean checkDateTime(LocalDate availableDate, LocalTime availableTime) {
+        LocalDate todayDate = LocalDate.now();
+        LocalTime timeNow = LocalTime.now();
+        if (availableDate.isBefore(todayDate)) {
+            System.out.println("Date given is before today, please select another date");
+            return false;
+        } else if (availableTime.isBefore(timeNow)) {
+            System.out.println("Time given is before current time, please select another time");
+            return false;
+        }
+        return true;
+    }
+
+    //@@author G13nd0n
+    private boolean checkExistingAppintmentRecords(String name, String nric, String searchInput) {
+        List<Appointment> existingAppointments = findAppointments(searchInput);
+        if (existingAppointments.isEmpty()) {
+            return true;
+        }
+        Appointment existingAppointment = existingAppointments.get(0);
+        String patientName = existingAppointment.getPatientName();
+        if (!patientName.equals(name)) {
+            System.out.println("Please check if the name is correct");
+            System.out.println("Appointment made previously with patient nric, " + nric + ", has the name " +
+                    patientName);
+            return false;
+        }
+        return true;
     }
 
     //@@author G13nd0n
