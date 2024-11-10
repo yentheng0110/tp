@@ -591,7 +591,7 @@ and with Phone Numbers having exactly eight digits and starting with "9" or "8".
 
 **Q2**: Can 24/7 clinics use BookBob?
 
-**A**: Yes, definitely. BookBoB is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
+**A**: Yes, definitely. BookBob is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
 
 ---
 ## Command Summary
