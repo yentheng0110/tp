@@ -48,7 +48,6 @@ public class FileHandler {
     }
 
     private static void checkCorruptedVisitDate(String visitDetails){
-        System.out.println(visitDetails);
         String[] data = visitDetails.split("Medications:");
         if (data.length != 2) {
             logger.warning(visitDetails);

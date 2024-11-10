@@ -82,6 +82,30 @@ public class Records implements FileOperation{
         fw.close();
     }
 
+    private void checkForCorruptedPhoneNumber(String phoneNumber) {
+        if (!phoneNumber.matches("[89]\\d{7}")) {
+            throw new IllegalArgumentException("Corrupted phone number");
+        }
+    }
+
+    private void checkForCorruptedNric(String nric) {
+        int lengthOfNric = 9;
+        boolean isCorrupted = false;
+        if (nric.length() != lengthOfNric) {
+            isCorrupted = true;
+        }
+        String nricFirstLetter = nric.substring(0,1);
+        String nricLastLetter = nric.substring(8);
+        String nricNumber = nric.substring(1,8);
+        if (!nricFirstLetter.matches("[A-Za-z]+") ||
+                !nricLastLetter.matches("[A-Za-z]+") || !nricNumber.matches("[0-9]+")) {
+            isCorrupted = true;
+        }
+        if (isCorrupted) {
+            throw new IllegalArgumentException("Corrupted NRIC");
+        }
+    }
+
     //@@author PrinceCatt
     @Override
     public void retrieveData(String filePath) {
@@ -103,6 +127,9 @@ public class Records implements FileOperation{
                 String phoneNumber = data[2].substring(15).trim();
                 String dateOfBirthString = data[3].substring(16).trim();
                 String homeAddress = data[4].substring(15).trim();
+
+                checkForCorruptedPhoneNumber(phoneNumber);
+                checkForCorruptedNric(nric);
 
                 LocalDate dateOfBirth = null;
                 if(!dateOfBirthString.isEmpty()) {
