@@ -95,7 +95,7 @@ public class FileHandlerTest {
     void testFileInitializationAppointmentRecords() throws IOException {
         AppointmentRecord appointmentRecord = new AppointmentRecord();
         fileHandler.autosave(appointmentRecord);
-        command.appointment("appointment n/Jack Wong ic/S9765432T date/04-11-2024 " +
+        command.appointment("appointment n/Jack Wong ic/S9765432T date/04-11-2100 " +
                 "time/21:19", appointmentRecord);
         Appointment appointment = appointmentRecord.getAppointments().get(0);
         fileHandler.autosave(appointmentRecord);
