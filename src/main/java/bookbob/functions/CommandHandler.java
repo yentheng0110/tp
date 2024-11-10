@@ -745,14 +745,10 @@ public class CommandHandler {
             int phoneEnd = findNextFieldStart(input, phoneStart + lengthOfPhoneNumberIndicator);
             phoneNumber = input.substring(phoneStart + lengthOfPhoneNumberIndicator, phoneEnd).trim();
 
-            if (!phoneNumber.matches("[0-9]+")) {
-                System.out.println("Please provide a valid local phone number");
-                return "";
-            }
-
-            int number = Integer.parseInt(phoneNumber);
-            if (number <= 80000000 || number >= 99999999) {
-                System.out.println("Please provide a valid local phone number");
+            // Check if the phone number is exactly 8 digits long, starts with 8 or 9, and contains only digits
+            if (!phoneNumber.matches("[89]\\d{7}")) {
+                System.out.println("Please provide a valid local phone number " +
+                        "(must start with 8 or 9 and be 8 digits long)");
                 return "";
             }
         }
