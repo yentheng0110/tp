@@ -188,8 +188,8 @@ Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 <br>
 
 <div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
-🚨 <b>NOTE:</b> The example below is achieved by executing the commands in the exact order; <b>"add" followed by "addVisit" followed by "list"</b>.
-Not by using the "add" command multiple times then "list".
+🚨 <b>NOTE:</b> The example below is achieved by executing the commands in this exact order; <b>"add" followed by "addVisit" followed by "list"</b>.
+Not by using the "add" command multiple times followed by "list".
 </div>
 
 Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple repeated visits during <u>different dates</u>, 
@@ -446,7 +446,7 @@ There is already an appointment at the given timeslot. The next available timesl
 ## Deleting a Patient Appointment
 Delete an appointment for a patient on the date and time\
 Format: appointment ic/NRIC date/DATE time/TIME \
-Note: Deleting a Patient Appointment is case-insensitive
+Note: Deleting a Patient Appointment is case-insensitive.
 
 #### Extra Information
 Date format is in DD-MM-YYYY and Time format is in HH:mm
