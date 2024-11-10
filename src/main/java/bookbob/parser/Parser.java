@@ -34,15 +34,13 @@ public class Parser {
             break;
 
         case "add":
-            if (validateParameters(input, "n/", "ic/", "v/")) {
-                logAndExecute("add", () -> {
-                    try {
-                        commandHandler.add(input, records);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
+            logAndExecute("add", () -> {
+                try {
+                    commandHandler.add(input, records);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             break;
 
         case "delete":
@@ -80,15 +78,13 @@ public class Parser {
             break;
 
         case "addVisit":
-            if (validateParameters(input, "ic/", "v/")) {
-                logAndExecute("addVisit", () -> {
-                    try {
-                        commandHandler.addVisit(input, records);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
+            logAndExecute("addVisit", () -> {
+                try {
+                    commandHandler.addVisit(input, records);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             break;
 
         case "editVisit":
@@ -102,15 +98,13 @@ public class Parser {
             break;
 
         case "appointment":
-            if (validateParameters(input, "n/", "ic/", "date/", "time/")) {
-                logAndExecute("appointment", () -> {
-                    try {
-                        commandHandler.appointment(input, appointmentRecord);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
+            logAndExecute("appointment", () -> {
+                try {
+                    commandHandler.appointment(input, appointmentRecord);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             break;
 
         case "listAppointments":
@@ -196,20 +190,12 @@ public class Parser {
         } catch (DateTimeException e) {
             logger.log(Level.WARNING, "Error in {0} command: incorrect time format", commandName);
             System.out.println("Error: incorrect time format.");
+        } catch (NullPointerException e) {
+            logger.log(Level.WARNING, "Error in {0} command: No input is given for a mandatory field", commandName);
+            System.out.println("Error: No input is given for a mandatory field.");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Unexpected error processing {0} command", e);
             System.out.println("An unexpected error occurred: " + e.getMessage());
         }
-    }
-
-    private static boolean validateParameters(String input, String... requiredMarkers) {
-        for (String marker : requiredMarkers) {
-            if (!input.contains(marker)) {
-                System.out.println("Please provide the required parameter: " + marker);
-                logger.log(Level.INFO, "Missing required parameter: {0}", marker);
-                return false;
-            }
-        }
-        return true;
     }
 }

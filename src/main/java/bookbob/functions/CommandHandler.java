@@ -116,13 +116,31 @@ public class CommandHandler {
     //@@author yentheng0110
     public void add(String input, Records records) throws IOException {
         String name = extractName(input);
-        if (name.isEmpty()) {
-            return;
-        }
         String nric = extractNric(input);
+        LocalDateTime visitDate = extractVisitDateTime(input);
+        StringBuilder errorMessages = new StringBuilder();
+
+        // Check if name is missing or invalid
+        if (name.isEmpty()) {
+            errorMessages.append("Please provide the patient's name\n");
+        }
+
+        // Check if NRIC is missing or invalid
         if (nric.isEmpty()) {
+            errorMessages.append("Please provide the patient's NRIC\n");
+        }
+
+        // Check if visit date is missing or invalid
+        if (visitDate == null) {
+            errorMessages.append("Please provide the patient's visit date and time");
+        }
+
+        // If there are error messages, print them and return
+        if (errorMessages.length() > 0) {
+            System.out.println(errorMessages.toString());
             return;
         }
+
         String sex = extractGender(input);
         LocalDate dateOfBirth = extractDateOfBirth(input);
         String phoneNumber = extractPhoneNumber(input);
@@ -132,7 +150,7 @@ public class CommandHandler {
         ArrayList<String> allergies = extractAllergies(input);
         ArrayList<String> medicalHistories = extractMedicalHistories(input);
         ArrayList<Visit> visits = new ArrayList<>();
-        LocalDateTime visitDate = extractVisitDateTime(input);
+
 
         Visit visit = new Visit(visitDate, diagnoses, medications);
         visits.add(visit);
@@ -146,7 +164,7 @@ public class CommandHandler {
     // Utility method to find the start of the next field or the end of the input string
     private int findNextFieldStart(String input, int currentIndex) {
         int nextIndex = input.length(); // Default to end of input
-        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/",
+        String[] prefixes = {"ic/", "p/", "d/", "m/", "ha/", "dob/", "v/", "n/",
                              "date/", "time/", "al/", "s/", "mh/", "/to", "newDate/"};
         for (String prefix : prefixes) {
             int index = input.indexOf(prefix, currentIndex);
@@ -195,6 +213,11 @@ public class CommandHandler {
     public void edit(String input, Records records) throws IOException {
         // Extract NRIC from the input command
         String nric = extractNric(input);
+        if (nric.isEmpty()) {
+            System.out.println("Please provide the patient's NRIC");
+            return;
+        }
+        
         Patient patientToBeEdited = null;
 
         // Search for the patient with matching name and NRIC
@@ -204,12 +227,14 @@ public class CommandHandler {
             System.out.println("No patient found.");
             return;
         }
-        records.getPatients().remove(patientToBeEdited);
+
         String[] parts = input.split("/to", 2);
         if (parts.length < 2) {
             System.out.println("No fields provided to update.");
             return;
         }
+        records.getPatients().remove(patientToBeEdited);
+        
         String updates = parts[1].trim();  // Get everything after "/to"
         // Extract optional fields for updating if provided by the user
         String newName = extractNewName(updates);
@@ -259,12 +284,16 @@ public class CommandHandler {
     public void editVisit(String input, Records records) throws IOException {
         // Extract NRIC from input command
         String nric = extractNric(input);
+        if (nric.isEmpty()) {
+            System.out.println("Please provide the patient's NRIC");
+            return;
+        }
 
-        Patient patient = null;
-        patient = extractPatient(records, nric, patient);
+        Patient targetPatient = null;
+        targetPatient = extractPatient(records, nric, targetPatient);
 
-        if (patient == null) {
-            System.out.println("No patient found with the given NRIC.");
+        if (targetPatient == null) {
+            System.out.println("No patient found with the given NRIC");
             return;
         }
 
@@ -276,7 +305,7 @@ public class CommandHandler {
         Visit visitToBeEdited = null;
 
         // Search for the visit with the matching date
-        for (Visit visit : patient.getVisits()) {
+        for (Visit visit : targetPatient.getVisits()) {
             if (visit.getVisitDate().equals(visitDate)) {
                 visitToBeEdited = visit;
                 break;
@@ -288,22 +317,20 @@ public class CommandHandler {
             return;
         }
 
-        // Extract optional updates for visit\
-        LocalDateTime newDate = null;
-        int newDateStart = input.indexOf("newDate/");
-        if (newDateStart != -1) {
-            int newDateEnd = findNextFieldStart(input, newDateStart + 8);
-            newDate = LocalDateTime.parse(input.substring(newDateStart + 8, newDateEnd).trim(), formatter);
+        // Extract optional updates for visit
+        LocalDateTime newDate = extractNewDate(input);
+        ArrayList<String> newDiagnoses = extractDiagnoses(input);
+        ArrayList<String> newMedications = extractMedications(input);
+
+        if (newDate != null) {
             visitToBeEdited.setVisitDate(newDate);
         }
-
-        ArrayList<String> newDiagnoses = extractDiagnoses(input);
-        visitToBeEdited.setDiagnoses(newDiagnoses);
-
-
-        int medicationStart = input.indexOf("m/");
-        ArrayList<String> newMedications = extractMedications(input);
-        visitToBeEdited.setMedications(newMedications);
+        if (!newDiagnoses.isEmpty()) {
+            visitToBeEdited.setDiagnoses(newDiagnoses);
+        }
+        if (!newMedications.isEmpty()) {
+            visitToBeEdited.setMedications(newMedications);
+        }
 
         // Confirm the updated visit details
         System.out.println("Visit record updated successfully.");
@@ -615,10 +642,13 @@ public class CommandHandler {
         LocalDateTime visitDate = null;
         String visitDateString = extractVisitDate(input);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        try {
-            visitDate = LocalDateTime.parse(visitDateString, formatter);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid visit date format. Please use 'dd-MM-yyyy HH:mm' format.");
+        if (visitDateString != null) {
+            try {
+                visitDate = LocalDateTime.parse(visitDateString, formatter);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid visit date and time format. " +
+                        "Please use 'dd-MM-yyyy HH:mm' format.");
+            }
         }
         return visitDate;
     }
@@ -657,7 +687,7 @@ public class CommandHandler {
         return allergies;
     }
 
-    //@@author yentheng0110 @@author G13nd0n
+    //@@author yentheng0110 
     private ArrayList<String> extractMedications(String input) {
         int lengthOfMedicationIndicator = 2;
         ArrayList<String> medications = new ArrayList<>();
@@ -674,7 +704,7 @@ public class CommandHandler {
         return medications;
     }
 
-    //@@author yentheng0110 @@author G13nd0n
+    //@@author yentheng0110 
     private ArrayList<String> extractDiagnoses(String input) {
         int lengthOfDiagnosesIndicator = 2;
         ArrayList<String> diagnoses = new ArrayList<>();
@@ -698,10 +728,10 @@ public class CommandHandler {
         if (homeAddressStart != -1) {
             int homeAddressEnd = findNextFieldStart(input, homeAddressStart + lengthOfHomeAdressIndicator);
             homeAddress = input.substring(homeAddressStart + lengthOfHomeAdressIndicator, homeAddressEnd).trim();
-        }
-        if (!homeAddress.matches("[a-zA-z0-9]+")) {
-            System.out.println("Please provide a valid address");
-            return "";
+            if (!homeAddress.matches("[a-zA-Z0-9\\s-]+")) {
+                System.out.println("Please provide a valid home address");
+                return "";
+            }
         }
         return homeAddress;
     }
@@ -714,15 +744,17 @@ public class CommandHandler {
         if (phoneStart != -1) {
             int phoneEnd = findNextFieldStart(input, phoneStart + lengthOfPhoneNumberIndicator);
             phoneNumber = input.substring(phoneStart + lengthOfPhoneNumberIndicator, phoneEnd).trim();
-        }
-        if (!phoneNumber.matches("[0-9]+")) {
-            System.out.println("Please provide a valid local phone number");
-            return "";
-        }
-        int number = Integer.parseInt(phoneNumber);
-        if (number < 80000000 && number > 99999999) {
-            System.out.println("Please provide a valid local phone number");
-            return "";
+
+            if (!phoneNumber.matches("[0-9]+")) {
+                System.out.println("Please provide a valid local phone number");
+                return "";
+            }
+
+            int number = Integer.parseInt(phoneNumber);
+            if (number <= 80000000 || number >= 99999999) {
+                System.out.println("Please provide a valid local phone number");
+                return "";
+            }
         }
         return phoneNumber;
     }
@@ -740,9 +772,9 @@ public class CommandHandler {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 dateOfBirth = LocalDate.parse(dateOfBirthString, formatter);
             } catch (DateTimeParseException e) {
-                logger.warning("Invalid date of birth entered. Please follow the format: dd-MM-yyyy");
+                logger.warning("Invalid date of birth entered. Please follow the format: DD-MM-YYYY");
                 throw new IllegalArgumentException("Invalid date of birth entered. " +
-                        "Please follow the format: dd-MM-yyyy");
+                        "Please follow the format: DD-MM-YYYY");
 
             }
         }
@@ -757,10 +789,10 @@ public class CommandHandler {
         if (sexStart != -1) {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
-        }
-        if (!sex.equals("M") || !sex.equals("F")) {
-            sex = "";
-            System.out.println("Please kindly input M or F for sex only");
+            if (!(sex.startsWith("M") || sex.startsWith("m")) && !(sex.startsWith("F") || sex.startsWith("f"))) {
+                sex = "";
+                System.out.println("Please input Male or Female for sex");
+            }
         }
         return sex;
     }
@@ -782,35 +814,60 @@ public class CommandHandler {
         int lengthOfDateIndicator = 5;
         int dateStart = input.indexOf("date/");
         if (dateStart == -1) {
-            System.out.println("Please provide the date");
+            System.out.println("Please provide the visit date");
+            return "";
         }
         int dateEnd = findNextFieldStart(input, dateStart + lengthOfDateIndicator);
         String date = input.substring(dateStart + lengthOfDateIndicator, dateEnd).trim();
         return date;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110
+    private LocalDateTime extractNewDate(String input) {
+        LocalDateTime newDate = null;
+        int newDateStart = input.indexOf("newDate/");
+        if (newDateStart != -1) {
+            try {
+                int lengthOfNewDateIndicator = 8;
+                String newDateString = "";
+                int newDateEnd = findNextFieldStart(input, newDateStart + lengthOfNewDateIndicator);
+                newDateString = input.substring(newDateStart + lengthOfNewDateIndicator, newDateEnd).trim();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                newDate = LocalDateTime.parse(newDateString, formatter);
+            } catch (DateTimeParseException e) {
+                logger.warning("Invalid new date entered. Please follow the format: DD-MM-YYYY hh:mm");
+                throw new IllegalArgumentException("Invalid new date entered. " +
+                        "Please follow the format: DD-MM-YYYY hh:mm");
+
+            }
+        }
+        return newDate;
+    }
+
+    //@@author yentheng0110
     private String extractNric(String input) {
         String nric = "";
         int lengthOfNricIndicator = 3;
         int lengthOfNric = 9;
         int nricStart = input.indexOf("ic/");
+        assert nricStart != -1 : "Please provide the patient's NRIC";
         if (nricStart == -1) {
-            System.out.println("Please provide the patient's NRIC.");
             return "";
         }
         int nricEnd = findNextFieldStart(input, nricStart + lengthOfNricIndicator);
         nric = input.substring(nricStart + lengthOfNricIndicator, nricEnd).trim();
         if (nric.isEmpty() || nric.length() != lengthOfNric) {
-            System.out.println("Please provide a valid patient's nric");
+            System.out.println("Please provide a valid patient's NRIC");
             return "";
         }
+
+        //@@author Gl3nd0n
         String nricFirstLetter = nric.substring(0,1);
         String nricLastLetter = nric.substring(8);
         String nricNumber = nric.substring(1,8);
         if (!nricFirstLetter.matches("[A-Za-z]+") || !nricLastLetter.matches("[A-Za-z]+")
                 || !nricNumber.matches("[0-9]+")) {
-            System.out.println("Please provide a valid patient's nric");
+            System.out.println("Please provide a valid patient's NRIC");
             return "";
         }
         return nric;
@@ -825,36 +882,39 @@ public class CommandHandler {
         if (newNRICStart != -1) {
             int newNRICEnd = findNextFieldStart(updates, newNRICStart + lenghtOfNewNricIndicator);
             newNRIC = updates.substring(newNRICStart + lenghtOfNewNricIndicator, newNRICEnd).trim();
-        }
-        if (newNRIC.isEmpty() || newNRIC.length() != lengthOfNric) {
-            System.out.println("Please provide a valid patient's nric");
-        }
-        String newNRICFirstLetter = newNRIC.substring(0,1);
-        String newNRICLastLetter = newNRIC.substring(8);
-        String newNRICNumber = newNRIC.substring(1,8);
-        if (!newNRICFirstLetter.matches("[A-Za-z]+") || !newNRICLastLetter.matches("[A-Za-z]+")
-                || !newNRICNumber.matches("[0-9]+")) {
-            System.out.println("Please provide a valid patient's nric");
-            return "";
+
+            if (newNRIC.length() != lengthOfNric) {
+                System.out.println("Please provide a valid patient's NRIC");
+            }
+            String newNRICFirstLetter = newNRIC.substring(0, 1);
+            String newNRICLastLetter = newNRIC.substring(8);
+            String newNRICNumber = newNRIC.substring(1, 8);
+            if (!newNRICFirstLetter.matches("[A-Za-z]+") || !newNRICLastLetter.matches("[A-Za-z]+")
+                    || !newNRICNumber.matches("[0-9]+")) {
+                System.out.println("Please provide a valid patient's NRIC");
+                return "";
+            }
         }
         return newNRIC;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110 @@author G13nd0n
     private String extractName(String input) {
         int lengthOfNameIndicator = 2;
         int nameStart = input.indexOf("n/");
+        assert nameStart != -1 : "Please provide the patient's name";
         if (nameStart == -1) {
-            System.out.println("Please provide the patient's name");
+            return "";
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         String name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
-        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+        if (name.isEmpty() || !name.matches("[A-Za-z,\\s/-]+")) {
             System.out.println("Please provide a valid patient's name");
         }
         return name;
     }
 
+    //@@author yentheng0110 @@author G13nd0n
     private String extractNewName(String input) {
         String name = "";
         int lengthOfNameIndicator = 2;
@@ -864,13 +924,13 @@ public class CommandHandler {
         }
         int nameEnd = findNextFieldStart(input, nameStart + lengthOfNameIndicator);
         name = input.substring(nameStart + lengthOfNameIndicator, nameEnd).trim();
-        if (name.isEmpty() || !name.matches("[A-Za-z]+")) {
+        if (!name.matches("[A-Za-z,\\s/-]+")) {
             System.out.println("Please provide a valid patient's name");
         }
         return name;
     }
 
-    //@@author G13nd0n
+    //@@author yentheng0110
     private static Patient extractPatient(Records records, String nric, Patient patientToBeEdited) {
         for (Patient patient : records.getPatients()) {
             if (patient.getNric().trim().replaceAll("\\s+", "")
@@ -882,16 +942,16 @@ public class CommandHandler {
         return patientToBeEdited;
     }
 
+    //@@author yentheng0110
     private String extractVisitDate(String input) {
         int lengthOfVisitIndicator = 2;
         int visitStart = input.indexOf("v/");
+        assert visitStart != -1 : "Please provide the patient's visit date and time";
         if (visitStart == -1) {
-            System.out.println("Please provide the visit date and time.");
             return null;
         }
         int visitEnd = findNextFieldStart(input, visitStart + lengthOfVisitIndicator);
         String visitDateString = input.substring(visitStart + lengthOfVisitIndicator, visitEnd).trim();
         return visitDateString;
     }
-
 }

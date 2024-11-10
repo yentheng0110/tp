@@ -46,6 +46,9 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 ---
 # Features
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
+Note:
+1. Extra Input: Additional input provided after expected inputs for commands like list and listAppointments will be ignored.
+2. Case Sensitivity: Ensure correct lowercase input as commands are case-sensitive.
 
 ## Viewing Help
 Shows the available list of commands and some guiding information.
@@ -149,7 +152,7 @@ number, diagnoses, medications, home address, date of birth, allergies, sex and 
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br> 
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
+Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
 Example Output: 
 ```
@@ -498,13 +501,15 @@ Appointment on 20-11-2024 18:00 with Patient Hela, S9876543A.
 ## Saving/Retrieving Patient Records and Appointment Records Data
 <br>
 Saving and retrieving are performed automatically whenever changes are made, with no additional commands required.
----
-## Exiting the Program
-Exits the program.
 
+---
+
+## Exiting the Program
+To exit the program, type `exit` exactly, with no extra spaces or characters following it.
 Format: `exit`
 
 ---
+
 ## FAQ
 
 ### Data Management, Updates, & Migration
