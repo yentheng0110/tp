@@ -170,6 +170,18 @@ and optional fields with a different order as the format above.
 
 The examples above result in successful patient record additions, which are then saved automatically.
 
+<div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
+💡 <b>Best Practices of using</b> <em><strong>"add" command together with "addVisit" command</strong></em> <b>:</b> <br>
+1.) When a new patient visits the clinic, we use "add" command. <br>
+<ins> The "add" command is primarily used for adding a patient record with the patient's basic key details information </ins> (such as Name , NRIC , Phone Number), and that Name, NRIC, Patient's First Visit Date, are <ins>Compulsory fields</ins>. <br>
+Other <ins>Optional fields</ins> includes e.g. Phone Number, Home Address, DOB, <i>and</i> Diagnoses and Medications from patient's first visit. 
+
+2.) If the <ins>same patient(with same NRIC)</ins> comes back to the clinic for a new visit, we use "addVisit" command,  
+to key in the visit Date&Time of this new visit event(which is a compulsory field along with NRIC), AND the Diagnoses of illnesses and Medications prescribed for this new visit event (which are optional fields).
+
+3.) We then use "list" command to see all patient information.
+</div>
+
 ---
 
 ## Listing All Patient Records
