@@ -437,6 +437,8 @@ There is already an appointment at the given timeslot. The next available timesl
 ## Deleting a Patient Appointment
 Delete an appointment for a patient on the date and time\
 Format: appointment ic/NRIC date/DATE time/TIME\
+
+#### Extra Information
 Date format is in DD-MM-YYYY and Time format is in HH:mm
 
 Example: `deleteAppointment ic/S1234567A date/18-11-2024 time/18:00`
@@ -467,7 +469,10 @@ findAppointment n/NAME OR\
 findAppointment ic/NRIC OR\
 findAppointment date/DATE OR\
 findAppointment time/TIME\
+
+#### Extra Information:
 Date format is in DD-MM-YYYY and Time format is in HH:mm
+The name and nric are case-insensitive
 
 Example: `findAppointment n/John`
 ```

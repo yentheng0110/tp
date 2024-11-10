@@ -100,7 +100,8 @@ public class AppointmentRecord implements FileOperation {
         if (filters.equals("n")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
-                String patientName = appointment.getPatientName();
+                String patientName = appointment.getPatientName().toLowerCase();
+                details = details.toLowerCase();
                 if (patientName.contains(details)) {
                     results.add(appointment);
                 }
@@ -108,7 +109,8 @@ public class AppointmentRecord implements FileOperation {
         } else if (filters.equals("ic")) {
             for (int i = 0; i < appointments.size(); i++) {
                 Appointment appointment = appointments.get(i);
-                String nric = appointment.getPatientNric();
+                String nric = appointment.getPatientNric().toLowerCase();
+                details = details.toLowerCase();
                 if (nric.equals(details)) {
                     results.add(appointment);
                 }
