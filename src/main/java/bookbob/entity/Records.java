@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Records implements FileOperation{
@@ -29,6 +30,10 @@ public class Records implements FileOperation{
     public void addPatient(String name, String nric, ArrayList<Visit> visits, String sex, LocalDate dateOfBirth,
                            String phoneNumber, String homeAddress, ArrayList<String> allergies,
                            ArrayList<String> medicalHistories) {
+        String searchInput = "ic/" + nric;
+        if (!checkExistingRecords(name, nric, searchInput)) {
+            return;
+        }
         Patient patient = new Patient(name, nric, visits);
         patient.setSex(sex);
         patient.setDateOfBirth(dateOfBirth);
@@ -38,6 +43,31 @@ public class Records implements FileOperation{
         patient.setMedicalHistories(medicalHistories);
         patients.add(patient);
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
+    }
+
+    private boolean checkExistingRecords(String name, String nric, String searchInput) {
+        String originalNric = nric;
+        List<Patient> existingRecords = new ArrayList<>();
+        for (int i = 0; i < patients.size(); i++) {
+            Patient patient = patients.get(i);
+            String patientNRIC = patient.getNric().toLowerCase();
+            nric = nric.toLowerCase();
+            if (patientNRIC.equals(nric)) {
+                existingRecords.add(patient);
+            }
+        }
+        if (existingRecords.isEmpty()) {
+            return true;
+        }
+        Patient existingPatient = existingRecords.get(0);
+        String patientName = existingPatient.getName();
+        if (!patientName.equals(name)) {
+            System.out.println("Please check if the name is correct");
+            System.out.println("Appointment made previously with patient nric, " + originalNric + ", has the name " +
+                    patientName);
+            return false;
+        }
+        return true;
     }
 
     public ArrayList<Patient> getPatients() {
@@ -147,7 +177,7 @@ public class Records implements FileOperation{
 
     public void delete(String nric) {
         assert nric != null : "Please provide a valid NRIC";
-
+        String originalNric = nric;
         double initialSize = patients.size();
         if (patients.isEmpty()) {
             System.out.println("No patients found.");
@@ -161,9 +191,11 @@ public class Records implements FileOperation{
         }
         for (int i = 0; i < patients.size(); i++) {
             Patient patient = patients.get(i);
-            if (patient.getNric().equals(nric)) {
+            String patientNRIC = patient.getNric().toLowerCase();
+            nric = nric.toLowerCase();
+            if (patientNRIC.equals(nric)) {
                 patients.remove(i);
-                System.out.println("Patient " + patient.getName() + ", " + nric + ", has been deleted.");
+                System.out.println("Patient " + patient.getName() + ", " + originalNric + ", has been deleted.");
                 break;
             }
         }
