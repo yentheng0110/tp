@@ -652,34 +652,16 @@ public class CommandHandler {
     //find patient by diagnosis and print the specific patient and visit to terminal
     //@@author PrinceCatt
     public void findVisitByDiagnosis(String symptom, Records records) {
-        ArrayList<Patient> patientList = records.getPatients();
-        boolean found = false;
-        for (Patient patient : patientList) {
-            ArrayList<Visit> visits = patient.getVisits();
-            for (Visit visit : visits) {
-                if (visit.getDiagnoses().contains(symptom) || patient.getMedicalHistories().contains(symptom)) {
-                    System.out.println("---------------------------------");
-                    System.out.println(patient.toString());
-                    System.out.println(visit.toString());
-                    System.out.println("---------------------------------");
-                    found = true;
-                }
-            }
-        }
-        if (!found) {
-            System.out.println("No patient found with symptom: " + symptom);
-        }
-    }
-
-    //find visit by medication and print all visits to terminal
-    //@@author PrinceCatt
-    public void findVisitByMedication(String medication, Records records) {
-        ArrayList<Patient> patientList = records.getPatients();
+        String finalSymptom = symptom.toLowerCase();
         boolean isFound = false;
+        ArrayList<Patient> patientList = records.getPatients();
         for (Patient patient : patientList) {
             ArrayList<Visit> visits = patient.getVisits();
             for (Visit visit : visits) {
-                if (visit.getMedications().contains(medication)) {
+                boolean isCurrentFound = visit.getDiagnoses().stream().anyMatch(diagnosis -> diagnosis.toLowerCase()
+                        .contains(finalSymptom) || patient.getMedicalHistories().stream().anyMatch(history -> history
+                        .toLowerCase().contains(finalSymptom)));
+                if (isCurrentFound) {
                     System.out.println("---------------------------------");
                     System.out.println(patient.toString());
                     System.out.println(visit.toString());
@@ -689,7 +671,32 @@ public class CommandHandler {
             }
         }
         if (!isFound) {
-            System.out.println("No patient found with medication: " + medication);
+            System.out.println("No patient found with symptom: " + symptom);
+        }
+    }
+
+    //find visit by medication and print all visits to terminal
+    //@@author PrinceCatt
+    public void findVisitByMedication(String medicine, Records records) {
+        String finalMedicine = medicine.toLowerCase();
+        ArrayList<Patient> patientList = records.getPatients();
+        boolean isFound = false;
+        for (Patient patient : patientList) {
+            ArrayList<Visit> visits = patient.getVisits();
+            for (Visit visit : visits) {
+                boolean isCurrentFound = visit.getMedications().stream().anyMatch(medication -> medication
+                        .toLowerCase().contains(finalMedicine));
+                if (isCurrentFound) {
+                    System.out.println("---------------------------------");
+                    System.out.println(patient.toString());
+                    System.out.println(visit.toString());
+                    System.out.println("---------------------------------");
+                    isFound = true;
+                }
+            }
+        }
+        if (!isFound) {
+            System.out.println("No patient found with medicine: " + finalMedicine);
         }
     }
 
