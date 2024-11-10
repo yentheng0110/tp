@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -46,6 +47,15 @@ public class FileHandler {
         return list;
     }
 
+    private static void checkCorruptedVisitDate(String visitDetails){
+        System.out.println(visitDetails);
+        String[] data = visitDetails.split("Medications:");
+        if (data.length != 2) {
+            logger.warning(visitDetails);
+            throw new IllegalArgumentException("Error reading visit date");
+        }
+    }
+
     //@@author coraleaf0602
     public static Visit parseVisitInputString(String visitString) {
         try {
@@ -57,6 +67,7 @@ public class FileHandler {
             }
 
             String visitDetails = visitString.substring(visitStartIndex + 1, visitEndIndex).trim();
+            checkCorruptedVisitDate(visitDetails);
 
             // Parse date time
             String dateTimeString;
@@ -106,8 +117,8 @@ public class FileHandler {
             }
             //@@author coraleaf0602
             return new Visit(visitDateTime, diagnosisList, medicationsList);
-        } catch (Exception e) {
-            return null;
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format");
         }
     }
 }

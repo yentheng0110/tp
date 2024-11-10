@@ -3,10 +3,12 @@ package bookbob.entity;
 import bookbob.functions.FileHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -64,7 +66,7 @@ public class Records implements FileOperation{
                 }
             }
         } catch(Exception e){
-            e.printStackTrace();
+            throw new IllegalArgumentException("Error while initializing file");
         }
     }
 
@@ -140,8 +142,8 @@ public class Records implements FileOperation{
                 this.addPatient(patient);
             }
             reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DateTimeParseException | FileNotFoundException e) {
+            throw new IllegalArgumentException("Error while reading file.");
         }
     }
 
