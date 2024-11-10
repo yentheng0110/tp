@@ -192,7 +192,7 @@ Visit Date: 06-11-2024 14:00, Diagnosis: [], Medications: []
 Not by using the "add" command multiple times followed by "list".
 </div>
 
-Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple repeated visits during <u>different dates</u>, 
+Additional Example Output of the <u>same Patient(with same NRIC)</u> with multiple <u>new visits</u> during <u>different dates</u>, 
 with different illness diagnosed and medications prescribed during the different visit event : 
 
 ```
@@ -297,7 +297,7 @@ The examples above result in successful patient record updates, which are automa
 ---
 
 ## Adding a Visit Record
-Adds a new visit record for an existing patient.<br>
+Adds a <u>new visit</u> record for an **<u>existing patient</u>**.<br>
 Format: addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION] <br>
 Date and Time format must be in : dd-MM-yyyy HH:mm <br>
     Note: <br>
@@ -318,7 +318,7 @@ Additional examples:
 * `addVisit ic/S9534567A v/23-10-2024 14:00` - Adds a visit without diagnosis or medication
 
     Note : <br>
-• The NRIC must belong to an existing patient in the system <br>
+• The NRIC must belong to an **<u>existing patient</u>** in the system <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
 Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
