@@ -39,30 +39,30 @@ public class Parser {
                 logAndExecute("help", commandHandler::help);
                 break;
 
-                case "add":
+            case "add":
                 logAndExecute("add", () -> {
-                try {
-                    commandHandler.add(input, records);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                    try {
+                        commandHandler.add(input, records);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 break;
 
             case "delete":
                 logAndExecute("delete", () -> {
-                if (inputArray.length > 1) {
-                    String nric = inputArray[1].trim();
-                    try {
-                        commandHandler.delete(nric, records);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    if (inputArray.length > 1) {
+                        String nric = inputArray[1].trim();
+                        try {
+                            commandHandler.delete(nric, records);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else {
+                        System.out.println("Please specify an NRIC to delete.");
+                        logger.log(Level.INFO, "Empty NRIC inputted for delete command");
                     }
-                } else {
-                    System.out.println("Please specify an NRIC to delete.");
-                    logger.log(Level.INFO, "Empty NRIC inputted for delete command");
-                }
-            });
+                });
                 break;
 
             case "list":
@@ -76,12 +76,12 @@ public class Parser {
 
             case "edit":
                 logAndExecute("edit", () -> {
-                try {
-                    commandHandler.edit(input, records);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                    try {
+                        commandHandler.edit(input, records);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 break;
 
             case "find":
@@ -91,34 +91,34 @@ public class Parser {
             //@@author kaboomzxc
             case "addVisit":
                 logAndExecute("addVisit", () -> {
-                try {
-                    commandHandler.addVisit(input, records);
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, "IO error in addVisit", e);
-                    System.out.println("Error saving data. Please try again.");
-                    throw new RuntimeException("Failed to save data", e);
-                }
-            });
+                    try {
+                        commandHandler.addVisit(input, records);
+                    } catch (IOException e) {
+                        logger.log(Level.SEVERE, "IO error in addVisit", e);
+                        System.out.println("Error saving data. Please try again.");
+                        throw new RuntimeException("Failed to save data", e);
+                    }
+                });
                 break;
 
             case "editVisit":
                 logAndExecute("editVisit", () -> {
-                try {
-                    commandHandler.editVisit(input, records);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                    try {
+                        commandHandler.editVisit(input, records);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 break;
 
             case "appointment":
                 logAndExecute("appointment", () -> {
-                try {
-                    commandHandler.appointment(input, appointmentRecord);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                    try {
+                        commandHandler.appointment(input, appointmentRecord);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 break;
 
             case "listAppointments":
@@ -132,12 +132,12 @@ public class Parser {
 
             case "deleteAppointment":
                 logAndExecute("deleteAppointment", () -> {
-                try {
-                    commandHandler.deleteAppointment(input, appointmentRecord);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+                    try {
+                        commandHandler.deleteAppointment(input, appointmentRecord);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 break;
 
             case "findAppointment":
@@ -184,13 +184,13 @@ public class Parser {
                     break;
                 }
                 logAndExecute("exit", () -> {
-                try {
-                    commandHandler.removePastAppointments(appointmentRecord);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                commandHandler.exit(input);
-            });
+                    try {
+                        commandHandler.removePastAppointments(appointmentRecord);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    commandHandler.exit(input);
+                });
                 break;
 
             default:
