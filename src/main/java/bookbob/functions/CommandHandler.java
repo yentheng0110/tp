@@ -597,18 +597,19 @@ public class CommandHandler {
             try {
                 visitDate = LocalDateTime.parse(visitDateString, formatter);
 
-              // Add validation for future dates
+            // Add validation for future dates
             LocalDateTime currentDateTime = LocalDateTime.now();
-            if (visitDate.isAfter(currentDateTime)) {
-                System.out.println("Error: Cannot add visits for future dates. Please consider scheduling an appointment instead.");
-                logger.log(Level.WARNING, "Attempted to add future visit date: " + visitDateString);
+                if (visitDate.isAfter(currentDateTime)) {
+                    System.out.println("Error: Cannot add visits for future dates. Please consider scheduling an " +
+                    "appointment instead.");
+                    logger.log(Level.WARNING, "Attempted to add future visit date: " + visitDateString);
                 return;
             }
 
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use dd-MM-yyyy HH:mm format (e.g., 21-10-2024 15:48)");
-            return;
-        }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use dd-MM-yyyy HH:mm format (e.g., 21-10-2024 15:48)");
+                return;
+            }
 
 
             // Duplicate Date&Time check
