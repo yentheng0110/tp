@@ -49,7 +49,7 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
 
 **Note:**
-1. Extra Input After Input: Additional input provided after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be treated as unknown commands.
+1. Extra Input After Commands: Additional input provided after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be treated as unknown commands.
 2. Extra Spaces After Commands: Additional spaces after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be ignored.
 2. Case Sensitivity for Commands: Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
 and <u>mixed-case</u> for e.g. `addVisit` instead of `addvisit`
