@@ -51,9 +51,9 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 **Note:**
 1. Extra Input After Commands: Additional input provided after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be treated as unknown commands.
 2. Extra Spaces After Commands: Additional spaces after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be ignored.
-2. Case Sensitivity for Commands: Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
+3. Case Sensitivity for Commands: Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
 and <u>mixed-case</u> for e.g. `addVisit` instead of `addvisit`
-3. Case Sensitivity for Commands Prefixes: Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
+4. Case Sensitivity for Commands Prefixes: Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
   "N/", "IC/"
 
 ## Viewing Help
@@ -173,7 +173,7 @@ and optional fields with a different order as the format above.
 The examples above result in successful patient record additions, which are then saved automatically.
 
 <div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
-💡 <b>Best Practices of using</b> <em><strong> "add" command together with "addVisit" command</strong></em> <b>:</b> <br>
+💡 <b>Best Practices of using</b> <em><strong>"add" command together with "addVisit" command</strong></em> <b>:</b> <br>
 1.) When a new patient visits the clinic, we use <b>"add" command</b>. <br>
 <ins> The "add" command is primarily used for adding a patient record with the patient's basic key details information </ins> (such as Name , NRIC , Phone Number), and that Name, NRIC, Patient's First Visit Date, are <ins>Compulsory fields</ins>. <br>
 Other <ins>Optional fields</ins> includes e.g. Phone Number, Home Address, DOB, <i>and</i> Diagnoses and Medications from patient's first visit. <br>
