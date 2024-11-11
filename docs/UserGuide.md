@@ -48,7 +48,7 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
 
 **Note:**
-1. Extra Input: Additional input provided after expected inputs for commands such as `list` and `listAppointments` will be ignored.
+1. Exact Input Required with No Extra Spaces or Inputs: Any extra inputs or spaces after the expected commands will be treated as unknown commands.
 2. Case Sensitivity for Commands : Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
 and <u>mixed-case</u> for e.g. `addVisit` instead of `addvisit`
 3. Case Sensitivity for Commands Prefixes : Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
