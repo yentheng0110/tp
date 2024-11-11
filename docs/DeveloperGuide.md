@@ -175,7 +175,7 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 ![img.png](NewAppointmentSD.png)
 
 
----
+ ---
 
 ## Appendix A: Product Scope
 ### Target User Profile
@@ -189,7 +189,7 @@ birth, phone number, home address, allergies, medical history and visit records 
 prescribed medications. Additionally, BookBob helps Dr Bob stay organised by tracking his daily appointments and
 providing reminders of upcoming appointments at the start of each day. BookBob is a CLI-Optimised program, allowing quicker and easier managing of patients records compared to a typical mouse/GUI driven app.
 
----
+ ---
 
 ## Appendix B: User Stories
 
@@ -203,7 +203,7 @@ providing reminders of upcoming appointments at the start of each day. BookBob i
 | v2.0    | user     | view my daily appointments at a glance                                | prepare for my day efficiently                                      |
 | v2.0    | user     | easily refer to and update a patient's care plan over multiple visits | ensure consistent, long-term care                                   |                                       
 
----
+ ---
 
 ## Appendix C: Non-Functional Requirements
 1. Should work on any mainstream OS (Windows, Linux, Unix, MacOS) as long as it has Java 17 or above installed.
@@ -213,13 +213,13 @@ should be able to accomplish most of the tasks faster using commands than using 
 4. Should be able to respond to any commands within 1 second under normal load.
 5. Automated saving of data should happen after every modification of data.
 
----
+ ---
 
 ## Appendix D: Glossary
 - Mainstream OS: Windows, Linux, Unix, MacOS
 - NRIC: National Registration Identity Card (Identification Number)
 
----
+ ---
 
 ## Appendix E: Instructions for Manual Testing
 Given below are instructions to test the app manually.
@@ -257,7 +257,7 @@ Given below are instructions to test the app manually.
    Test Case: `exit` <br>
    Expected: Application terminates, all data are saved.
 
----
+ ---
 
 ## Patient Record Management
 
@@ -302,7 +302,7 @@ Given below are instructions to test the app manually.
     2. (Negative) Test Case (non-existent NRIC): `delete S0000000X` <br>
        Expected: Error message that patient not found.
 
----
+ ---
 
 ### Visit Management
 
@@ -322,7 +322,9 @@ Given below are instructions to test the app manually.
 
     3. (Positive) Test Case (by medication): `findMedication Paracetamol` <br>
        Expected: Lists all patients who were prescribed paracetamol.
----
+
+ ---
+
 ### Appointment Management
 
 1. Adding appointments
@@ -348,7 +350,9 @@ Given below are instructions to test the app manually.
 
     2. (Negative) Test Case (non-existent appointment): Delete appointment that doesn't exist <br>
        Expected: Error message that appointment doesn't exist.
----
+
+ ---
+
 ### Data Persistence (Saving and Loading)
 
 1. Automatic Storage
@@ -376,7 +380,7 @@ Given below are instructions to test the app manually.
             * Option 1: Manually remove corrupted lines from `bookbob_data.txt`
             * Option 2: Delete `bookbob_data.txt` to start afresh 
 
----
+ ---
 
 ### Command Summary Reference
 
