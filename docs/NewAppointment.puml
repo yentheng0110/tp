@@ -43,7 +43,7 @@ Doctor -> ":Main": appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time
 ":CommandHandler" -> ":AppointmentRecord" ++: checkAvailability(date, time)
 ":AppointmentRecord" --> ":CommandHandler" --: nextAvailableTime
 
-alt nextAvailableTime == "14:30"
+opt nextAvailableTime == "14:30"
     create ":Appointment"
     ":CommandHandler" -> ":Appointment" **: new Appointment("Patricia Chan", "S9870789B",\n"06-11-2024", "14:30")
     activate ":Appointment"
