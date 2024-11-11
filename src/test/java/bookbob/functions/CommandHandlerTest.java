@@ -722,7 +722,7 @@ public class CommandHandlerTest {
     @Test
     void add_onePatient_onePatientInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
-                "v/23-11-2024 12:29", records);
+                "v/01-11-2024 12:29", records);
         assertEquals(1, records.getPatients().size());
     }
 
@@ -730,7 +730,7 @@ public class CommandHandlerTest {
     @Test
     void delete_onePatient_twoPatientInRecord() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
-                "v/23-11-2024 12:29", records);
+                "v/06-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
                 "v/15-10-2024 11:53", records);
         command.add("add n/Shawn Knowles ic/S2468013C p/87654321 d/Fever m/Aspirin ha/Tembusu dob/23-11-1998" +
@@ -743,7 +743,7 @@ public class CommandHandlerTest {
     @Test
     void testList_twoInputs_twoPatientsInRecord() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
-                "v/23-11-2024 12:29", records);
+                "v/03-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
                 "v/15-10-2024 11:53", records);
         command.list(records);
@@ -766,7 +766,7 @@ public class CommandHandlerTest {
     @Test
     void testFind_nric_oneOutput() throws IOException{
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
-                "v/23-11-2024 12:29", records);
+                "v/02-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
                 "v/21-10-2024 15:30 al/peanuts s/male mh/diabetes", records);
         command.find("ic/S7654321B", records);
@@ -795,7 +795,7 @@ public class CommandHandlerTest {
     @Test
     void testFind_name_multipleOutputs() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
-                "v/23-11-2024 12:29", records);
+                "v/01-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
                 "v/21-10-2024 15:30", records);
         command.add("add n/John Smith ic/S2468024A p/87654321 d/Diabetes m/Insulin ha/CAPT dob/13-04-2002" +
@@ -826,7 +826,7 @@ public class CommandHandlerTest {
     @Test
     void testFind_address_multipleOutputs() throws IOException {
         command.add("add n/John Doe ic/S1234567A p/98765432 d/COVID-19 m/Paracetamol ha/RC4 dob/13-04-2000" +
-                "v/23-11-2024 12:29", records);
+                "v/10-11-2024 12:29", records);
         command.add("add n/Will Smith ic/S7654321B p/91234567 d/AIDS m/Paracetamol ha/CAPT dob/18-06-2003" +
                 "v/21-10-2024 15:30", records);
         command.add("add n/John Smith ic/S2468024A p/87654321 d/Diabetes m/Insulin ha/CAPT dob/13-04-2002" +
