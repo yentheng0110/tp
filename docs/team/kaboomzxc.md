@@ -8,7 +8,7 @@ Below are my contributions to the Team Project.
 
 ---
 
-### Summary of Contributions
+## Summary of Contributions
 - <b>Code contributed:</b> [RepoSense link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=kaboomzxc&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20)
   - I have contributed over 3.5k LoC spread among functional code, test code and documentation writings.
 
@@ -36,7 +36,7 @@ Below are my contributions to the Team Project.
 - <b>Enhancements implemented:</b>
    - Implemented JUnit Tests for my "find" command and "addVisit" command. Implement Tests in the aspiration for higher quality and reliability of our product.
    - Contributed testing of Parser class, ParserTest.java and achieved 51 tests case passed, 100% class, 100% method, 70% line, 92% branch coverage. [PR#375](https://github.com/AY2425S1-CS2113-T10-2/tp/pull/375)
-   - I enhanced the appearance of all our Github Pages by using Jekyll and HTML+CSS.  <br>
+   - I enhanced the appearance of all our team organisation's Github Pages by using Jekyll and HTML+CSS.  <br>
      <br>
 - <b>Contributions to the User Guide(UG):</b><br>
     - I made extensive contributions to the UG.
@@ -57,7 +57,7 @@ Below are my contributions to the Team Project.
 - <b>Contributions to Team-Based Tasks</b>
     - Setting up of GitHub team Org and Repo.
     - Fix Continuous Integration(CI) and Checkstyle issues.
-    - Generating UG and DG Pdf files and sending to group.
+    - Generating UG and DG PDF files and sending to group.
     - JUnit Testing. Tools : Integrated Mockito into our project.
     - Fixing Bugs, e.g. fixing compile error [Issue#140](https://github.com/AY2425S1-CS2113-T10-2/tp/issues/140) <br>
     <br>
@@ -66,6 +66,6 @@ Below are my contributions to the Team Project.
       responding to questions, giving reminders, asking TA and Prof and conveying to our Team, finding and screenshotting info from CS2113 website to provide easy reference and readability to team, etc. <br>
     <br>
 - <b>Contributions Beyond the Project Team</b>
-    - Evidence of helping others: 
-    - Link to the repository's GitHub Issues where I reported bugs during PE-D [(I am Tester E)](https://github.com/AY2425S1-CS2113-T11-3/tp/issues?q=tester+E)
-    - PRs reviewed(with non-trivial review comments) [W12-1](https://github.com/nus-cs2113-AY2425S1/tp/pull/1)
+    - Evidence of helping others : 
+      - Link to the repository's GitHub Issues where I reported bugs during PE-D [(I am Tester E)](https://github.com/AY2425S1-CS2113-T11-3/tp/issues?q=tester+E)
+      - PRs reviewed(with non-trivial review comments) : [W12-1](https://github.com/nus-cs2113-AY2425S1/tp/pull/1)
