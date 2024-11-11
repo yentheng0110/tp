@@ -425,10 +425,10 @@ class ParserTest {
         void testFindAppointmentAllParameters() throws IOException {
             // Test each type of parameter for findAppointment
             String[] inputs = {
-                    "findAppointment n/John Doe",
-                    "findAppointment ic/S9534567A",
-                    "findAppointment date/21-10-2024",
-                    "findAppointment time/15:48"
+                "findAppointment n/John Doe",
+                "findAppointment ic/S9534567A",
+                "findAppointment date/21-10-2024",
+                "findAppointment time/15:48"
             };
 
             for (String input : inputs) {
@@ -726,10 +726,10 @@ class ParserTest {
         void testMultipleCommandHandling() throws IOException {
             // Testing how parser handles multiple commands in sequence
             String[] commands = {
-                    "list",
-                    "listAppointments",
-                    "help",
-                    "exit"
+                "list",
+                "listAppointments",
+                "help",
+                "exit"
             };
 
             for (String command : commands) {
@@ -766,9 +766,9 @@ class ParserTest {
         void testSpecialCharacterCommands() throws IOException {
             // Testing various special characters that aren't the pipe character
             String[] inputs = {
-                    "add n/John@Doe ic/S9534567A v/21-10-2024 15:48",
-                    "add n/John_Doe ic/S9534567A v/21-10-2024 15:48",
-                    "add n/John&Doe ic/S9534567A v/21-10-2024 15:48"
+                "add n/John@Doe ic/S9534567A v/21-10-2024 15:48",
+                "add n/John_Doe ic/S9534567A v/21-10-2024 15:48",
+                "add n/John&Doe ic/S9534567A v/21-10-2024 15:48"
             };
 
             for (String input : inputs) {
@@ -808,9 +808,9 @@ class ParserTest {
         void testMinimumParameters() throws IOException {
             // Testing commands with minimum required parameters
             String[] inputs = {
-                    "add n/J ic/S9534567A v/21-10-2024 15:48",
-                    "edit ic/S9534567A /to n/J",
-                    "appointment n/J ic/S9534567A date/21-10-2024 time/15:48"
+                "add n/J ic/S9534567A v/21-10-2024 15:48",
+                "edit ic/S9534567A /to n/J",
+                "appointment n/J ic/S9534567A date/21-10-2024 time/15:48"
             };
 
             for (String input : inputs) {
@@ -861,9 +861,9 @@ class ParserTest {
         @DisplayName("Test deleteAppointment with missing parameters")
         void testDeleteAppointmentMissingParams() throws IOException {
             String[] inputs = {
-                    "deleteAppointment ic/S9534567A", // missing date and time
-                    "deleteAppointment ic/S9534567A date/21-10-2024", // missing time
-                    "deleteAppointment ic/S9534567A time/15:48" // missing date
+                "deleteAppointment ic/S9534567A", // missing date and time
+                "deleteAppointment ic/S9534567A date/21-10-2024", // missing time
+                "deleteAppointment ic/S9534567A time/15:48" // missing date
             };
 
             for (String input : inputs) {
@@ -885,11 +885,11 @@ class ParserTest {
         @DisplayName("Test find commands with empty search criteria")
         void testFindEmptySearchCriteria() throws IOException {
             String[] inputs = {
-                    "find n/",
-                    "find ic/",
-                    "find p/",
-                    "find ha/",
-                    "find dob/"
+                "find n/",
+                "find ic/",
+                "find p/",
+                "find ha/",
+                "find dob/"
             };
 
             for (String input : inputs) {
@@ -926,11 +926,11 @@ class ParserTest {
         void testMultipleConsecutiveCommands() throws IOException {
             // Test handling of multiple commands in quick succession
             String[] commands = {
-                    "list",
-                    "help",
-                    "listAppointments",
-                    "findVisit S9534567A",
-                    "findDiagnosis fever"
+                "list",
+                "help",
+                "listAppointments",
+                "findVisit S9534567A",
+                "findDiagnosis fever"
             };
 
             for (String cmd : commands) {
@@ -949,9 +949,9 @@ class ParserTest {
         @DisplayName("Test addVisit with varying parameter orders")
         void testAddVisitParameterOrder() throws IOException {
             String[] inputs = {
-                    "addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever m/Paracetamol",
-                    "addVisit v/21-10-2024 15:48 ic/S9534567A m/Paracetamol d/Fever",
-                    "addVisit d/Fever m/Paracetamol ic/S9534567A v/21-10-2024 15:48"
+                "addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever m/Paracetamol",
+                "addVisit v/21-10-2024 15:48 ic/S9534567A m/Paracetamol d/Fever",
+                "addVisit d/Fever m/Paracetamol ic/S9534567A v/21-10-2024 15:48"
             };
 
             for (String input : inputs) {
