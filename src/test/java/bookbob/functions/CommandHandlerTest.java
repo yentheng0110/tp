@@ -189,16 +189,22 @@ public class CommandHandlerTest {
     @Test
     void findCommand_homeAddressDoesNotExist_returnsNotFound() {
         command.find("ha/NUS Utown", records);
-        String expectedOutput = "Invalid search format. Please use one of the following formats:\n" +
-                "find n/NAME\n" +
-                "find ic/NRIC\n" +
-                "find p/PHONE\n" +
-                "find ha/ADDRESS\n" +
-                "find dob/DD-MM-YYYY\n" +
-                "find al/ALLERGY\n" +
-                "find s/SEX\n" +
-                "find mh/MEDICAL_HISTORY";
-        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+        String expectedOutput = String.join(System.lineSeparator(),
+                "Invalid search format. Please use one of the following formats:",
+                "find n/NAME",
+                "find ic/NRIC",
+                "find p/PHONE",
+                "find ha/ADDRESS",
+                "find dob/DD-MM-YYYY",
+                "find al/ALLERGY",
+                "find s/SEX",
+                "find mh/MEDICAL_HISTORY");
+
+
+        String actualOutput = outputStreamCaptor.toString().trim().replace("\r\n", "\n");
+        expectedOutput = expectedOutput.replace("\r\n", "\n");
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
     //@@author coraleaf0602
