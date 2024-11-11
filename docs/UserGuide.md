@@ -6,12 +6,12 @@ layout: default
 
 ---
 ## Introduction
-BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic, which operates on an 
-appointment basis. Patients book appointments to visit Dr Bob. BookBob helps streamline clinic management by storing 
-and retrieving patient information, including names, NRICs, genders, dates of birth, phone numbers, home addresses, 
-allergies, medical histories and detailed visit records with diagnoses and prescribed medications. BookBob also assists 
-Dr Bob in staying organised by tracking daily appointments and sending reminders each morning. Optimised for a Command 
-Line Interface (CLI), BookBob enables efficient management of patient information and appointment scheduling.
+BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. BookBob helps 
+streamline clinic management by storing and retrieving patient information, including names, NRICs, genders, dates of 
+birth, phone numbers, home addresses, allergies, medical histories and detailed visit records with diagnoses and 
+prescribed medications. BookBob also assists Dr Bob in staying organised by tracking daily appointments and sending 
+reminders each morning. Optimised for a Command Line Interface (CLI), BookBob enables efficient management of patient 
+information and appointment scheduling.
 
 ---
 ## Table of Contents
@@ -49,10 +49,11 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
 
 **Note:**
-1. Extra Input: Additional input provided after expected inputs for commands such as `list` and `listAppointments` will be ignored.
-2. Case Sensitivity for Commands : Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
+1. Extra Input After Input: Additional input provided after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be treated as unknown commands.
+2. Extra Spaces After Commands: Additional spaces after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be ignored.
+2. Case Sensitivity for Commands: Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
 and <u>mixed-case</u> for e.g. `addVisit` instead of `addvisit`
-3. Case Sensitivity for Commands Prefixes : Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
+3. Case Sensitivity for Commands Prefixes: Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
   "N/", "IC/"
 
 ## Viewing Help
@@ -413,7 +414,7 @@ No patient found with symptom: Runny Nose
 
 By Medication: <br> Format: findMedication medication<br>
 Note : <br>
-• Single medicationj to be entered (case-insensitive). All corresponding patients' information and visit records will be printed to terminal,
+• Single medication to be entered (case-insensitive). All corresponding patients' information and visit records will be printed to terminal,
 with exactly matched medication. <br>
 Example: `findMedication Panadol`
 
