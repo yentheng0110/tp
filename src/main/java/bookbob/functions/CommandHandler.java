@@ -500,7 +500,7 @@ public class CommandHandler {
             String value = entry.getValue().toLowerCase();
 
             try {
-            switch (key) {
+                switch (key) {
                 case "n":
                     return patient.getName() != null && patient.getName().toLowerCase().contains(value);
                 case "ic":

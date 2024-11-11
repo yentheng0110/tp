@@ -265,15 +265,9 @@ public class CommandHandlerTest {
         command.find("ha/NUS-PGPR", records);
         assertEquals("Patient James Ho with NRIC S9534567A added.\n" +
                         "Patient John Doe with NRIC S1234567Z added.\n" +
-                        "Invalid search format. Please use one of the following formats:\n" +
-                        "find n/NAME\n" +
-                        "find ic/NRIC\n" +
-                        "find p/PHONE\n" +
-                        "find ha/ADDRESS\n" +
-                        "find dob/DD-MM-YYYY\n" +
-                        "find al/ALLERGY\n" +
-                        "find s/SEX\n" +
-                        "find mh/MEDICAL_HISTORY",
+                        "Matching patients:\n" +
+                        "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
+                        "DOB: 13/12/1995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
