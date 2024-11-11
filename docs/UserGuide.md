@@ -269,7 +269,8 @@ Name: John Doe, NRIC: S9534567A, Phone: 91234567, Home Address: Clementi Road, D
 ## Deleting a Patient Record
 Deletes the patient record based on the given NRIC number\
 The delete function will only work on the NRIC number and not the patient's name\
-Format: delete NRIC
+Format: delete NRIC \
+Note: Deleting a Patient record is case-insensitive.
 
 Example: `delete S1234567A`
 ```

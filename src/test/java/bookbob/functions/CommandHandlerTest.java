@@ -258,7 +258,7 @@ public class CommandHandlerTest {
     //@@author kaboomzxc
     @Test
     void testFindHomeAddress() throws IOException {
-        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/13-12-1995 " +
+        command.add("add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/16-12-1995 " +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Diabetes", records);
         command.add("add n/John Doe ic/S1234567Z p/97654321 d/Fever m/Panadol ha/Hougang Green dob/13-12-1995" +
                 "v/21-10-2024 15:48 al/Pollen s/Male mh/Chronic Migraine", records);
@@ -267,7 +267,7 @@ public class CommandHandlerTest {
                         "Patient John Doe with NRIC S1234567Z added.\n" +
                         "Matching patients:\n" +
                         "Name: James Ho, NRIC: S9534567A, Phone: 91234567, Address: NUS-PGPR, " +
-                        "DOB: 13/12/1995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
+                        "DOB: 16/12/1995, Allergy: [Pollen], Sex: Male, Medical History: [Diabetes]",
                 outputStreamCaptor.toString().trim().replace(System.lineSeparator(), "\n"));
     }
 
