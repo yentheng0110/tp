@@ -11,14 +11,13 @@ layout: default
         - [Adding New Visits for Existing Patients](#a-adding-new-visits-for-existing-patients)
         - [Adding New Patient to the Patient Records](#b-adding-new-patient-to-the-patient-records)
         - [Appointment Feature](#c-appointment-feature)
-2. [Appendix A: Product Scope](#appendix-a--product-scope)
+2. [Appendix A: Product Scope](#appendix-a-product-scope)
     - [Target User Profile](#target-user-profile)
     - [Value Proposition](#value-proposition)
-3. [Appendix B: User Stories](#appendix-b--user-stories)
-4. [Appendix C: Non-Functional Requirements](#appendix-c--non-functional-requirements)
-5. [Appendix D: Glossary](#appendix-d--glossary)
-6. [Appendix E: Instructions for Manual Testing](#appendix-e--instructions-for-manual-testing)
-    - [Command Summary Reference](#command-summary-reference)
+3. [Appendix B: User Stories](#appendix-b-user-stories)
+4. [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
+5. [Appendix D: Glossary](#appendix-d-glossary)
+6. [Appendix E: Instructions for Manual Testing](#appendix-e-instructions-for-manual-testing)
     - [Launch and Shutdown](#launch-and-shutdown)
         - [Initial Launch](#initial-launch)
         - [Shutdown](#shutdown)
@@ -26,8 +25,7 @@ layout: default
     - [Visit Management](#visit-management)
     - [Appointment Management](#appointment-management)
     - [Data Persistence (Saving and Loading)](#data-persistence-saving-and-loading)
-
-
+    - [Command Summary Reference](#command-summary-reference)
  ---
 ## Acknowledgements
 
