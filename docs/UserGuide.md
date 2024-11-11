@@ -338,7 +338,8 @@ Additional examples:
 • The NRIC must belong to an **<u>existing patient</u>** in the system <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
-Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
+Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order. <br>
+• "addVisit" does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an Appointment instead. 
 
 ---
 
