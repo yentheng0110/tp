@@ -5,6 +5,7 @@ layout: default
 # BookBob Developer Guide
 
  ---
+
 ## Table of Contents
 1. [Design & Implementation](#design--implementation)
     - [Architecture](#architecture)
@@ -26,7 +27,9 @@ layout: default
     - [Appointment Management](#appointment-management)
     - [Data Persistence (Saving and Loading)](#data-persistence-saving-and-loading)
     - [Command Summary Reference](#command-summary-reference)
+ 
  ---
+
 ## Acknowledgements
 
 Referenced from [SE-EDU AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
@@ -49,36 +52,44 @@ Given below is a quick overview of main components and how they interact with ea
 - At shut down, it shuts down the other components and invokes cleanup methods where necessary. 
 
  ---
+
 The bulk of the BookBob's work is done by the following components: 
 - `CommandHandler`: The command executor.<br>
   ![img.png](CommandHandler.png)
 
  ---
+
 - `FileHandler`: Reads data from, and writes data to, the hard disk.<br>
   ![img.png](FileHandler.png)
 
  ---
+
 The entities storing data are the following components: <br>
 - `Records`: The list of patients. <br>
   ![img.png](Records.png)
 
  ---
+
 - `AppointmentRecord`: The list of appointments. <br>
   ![img.png](AppointmentRecord.png)
 
  ---
+
 - `Appointment` : Information of appointment. <br>
   ![img.png](Appointment.png)
 
  ---
+
 - `Visit`: The visit of patients. <br>
   ![img.png](Visit.png)
 
  ---
+
 - `Patient`: Personal information of patient. <br>
   ![img.png](Patient.png)
 
  ---
+
 ### 1. Managing Patient Visits and Records
 ### a. Adding New Visits for Existing Patients
 The addVisit mechanism is handled by `CommandHandler`. It begins by scanning the patient records (`Records`) to locate 
@@ -98,6 +109,7 @@ records are saved using `FileHandler` to ensure they can be retrieved later.
 ![img.png](AddVisitSequenceDiagram.png)
 
  ---
+
 ### b. Adding New Patient to the Patient Records
 The "add" command mechanism for New Patients(first visit to clinic) is handled by `CommandHandler`. It begins by creating a new `Patient` object to store all related
 information from terminal input. A new `Visit` object is compulsory to be created with the `Patient` object. This new 
@@ -136,6 +148,7 @@ This sequence diagram shows the process of creating and storing a new patient's 
 5. Adds patient to Records and auto-saves the data.
 
  ---
+
 ### c. Appointment Feature
 
 The appointment mechanism is facilitated by `CommandHandler`. It creates an appointment slot via the `Appointment` 
@@ -152,17 +165,18 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 
 **Doctor enters the command:** `appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time/14:30`
 
-> The Object Diagram before the execution of appointment command:
+> The Object Diagram before the execution of appointment command:\
 ![img.png](BeforeAppointmentOD.png)
 
-> The Object Diagram after the execution of appointment command:
+> The Object Diagram after the execution of appointment command:\
 ![img.png](AfterAppointmentOD.png)
 
 > The Sequence Diagram for the execution of appointment command:
 ![img.png](NewAppointmentSD.png)
 
 
----
+ ---
+
 ## Appendix A: Product Scope
 ### Target User Profile
 Dr Bob is a General Practitioner running his own private clinic. He manages everything independently, attending to
@@ -175,7 +189,8 @@ birth, phone number, home address, allergies, medical history and visit records 
 prescribed medications. Additionally, BookBob helps Dr Bob stay organised by tracking his daily appointments and
 providing reminders of upcoming appointments at the start of each day. BookBob is a CLI-Optimised program, allowing quicker and easier managing of patients records compared to a typical mouse/GUI driven app.
 
----
+ ---
+
 ## Appendix B: User Stories
 
 | Version | As a...  | I want to...                                                          | So that I can...                                                    |
@@ -188,7 +203,8 @@ providing reminders of upcoming appointments at the start of each day. BookBob i
 | v2.0    | user     | view my daily appointments at a glance                                | prepare for my day efficiently                                      |
 | v2.0    | user     | easily refer to and update a patient's care plan over multiple visits | ensure consistent, long-term care                                   |                                       
 
----
+ ---
+
 ## Appendix C: Non-Functional Requirements
 1. Should work on any mainstream OS (Windows, Linux, Unix, MacOS) as long as it has Java 17 or above installed.
 2. Should be capable of supporting long-term use by a single doctor without requiring cache clearance.
@@ -197,12 +213,14 @@ should be able to accomplish most of the tasks faster using commands than using 
 4. Should be able to respond to any commands within 1 second under normal load.
 5. Automated saving of data should happen after every modification of data.
 
----
+ ---
+
 ## Appendix D: Glossary
 - Mainstream OS: Windows, Linux, Unix, MacOS
 - NRIC: National Registration Identity Card (Identification Number)
 
----
+ ---
+
 ## Appendix E: Instructions for Manual Testing
 Given below are instructions to test the app manually.
 
@@ -239,7 +257,8 @@ Given below are instructions to test the app manually.
    Test Case: `exit` <br>
    Expected: Application terminates, all data are saved.
 
----
+ ---
+
 ## Patient Record Management
 
 1. Adding a patient
@@ -282,7 +301,9 @@ Given below are instructions to test the app manually.
 
     2. (Negative) Test Case (non-existent NRIC): `delete S0000000X` <br>
        Expected: Error message that patient not found.
----
+
+ ---
+
 ### Visit Management
 
 1. Adding visits
@@ -301,7 +322,9 @@ Given below are instructions to test the app manually.
 
     3. (Positive) Test Case (by medication): `findMedication Paracetamol` <br>
        Expected: Lists all patients who were prescribed paracetamol.
----
+
+ ---
+
 ### Appointment Management
 
 1. Adding appointments
@@ -327,7 +350,9 @@ Given below are instructions to test the app manually.
 
     2. (Negative) Test Case (non-existent appointment): Delete appointment that doesn't exist <br>
        Expected: Error message that appointment doesn't exist.
----
+
+ ---
+
 ### Data Persistence (Saving and Loading)
 
 1. Automatic Storage
@@ -353,27 +378,27 @@ Given below are instructions to test the app manually.
         - Note: BookBob will continue to function
         - Recovery options:
             * Option 1: Manually remove corrupted lines from `bookbob_data.txt`
-            * Option 2: Delete `bookbob_data.txt` to start afresh
-    
----
+            * Option 2: Delete `bookbob_data.txt` to start afresh 
+
+ ---
 
 ### Command Summary Reference
 
-| Action              | Format                                                                                                                                                                                                | Example                                                                                                                                                                  |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Help                | `help`                                                                                                                                                                                                | `help`                                                                                                                                                                   |
-| Add patient record  | `add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]`                                   | `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`                               |
-| Edit patient record | `edit ic/NRIC /to [n/NAME] [newic/NEW_NRIC] [p/PHONE_NUMBER] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]`                                                         | `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension `                                                                                                            |
-| Add Visit           | `addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                                                | `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`                                                                                  |
-| Edit Visit          | `editVisit ic/NRIC v/VISIT_DATE_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                            | `editVisit ic/S7209876Y v/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`                                                                                              |
-| List                | `list`                                                                                                                                                                                                | `list`                                                                                                                                                                   |
-| Find                | `find n/NAME` OR<br>`find ic/NRIC` OR<br>`find p/PHONE_NUMBER` OR<br>`find ha/HOME_ADDRESS` OR<br>`find dob/DATE_OF_BIRTH` OR<br>`find al/ALLERGY` OR<br>`find s/SEX` OR<br>`find mh/MEDICAL_HISTORY` | `find n/John Doe`<br>`find ic/S9234567A`<br>`find p/91234567`<br>`find ha/NUS PGPR`<br>`find dob/01011990`<br>`find al/Peanuts`<br>`find s/Female`<br>`find mh/Diabetes` |
-| Delete              | `delete NRIC`                                                                                                                                                                                         | `delete S9534567A`                                                                                                                                                       |
-| Add Appointment     | `appointment n/NAME ic/NRIC date/DATE time/TIME`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                                                                 | `appointment n/James Ho ic/S9534567A date/01-04-2025 time/12:00`                                                                                                         |
-| List Appointment    | `listAppointments`                                                                                                                                                                                    | `listAppointments`                                                                                                                                                       |
-| Find Appointment    | `findAppointment n/NAME` OR<br>`findAppointment ic/NRIC` OR<br>`findAppointment date/DATE` OR<br>`findAppointment time/TIME`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                     | `findAppointment n/John Doe`<br>`findAppointment ic/S9234567A`<br>`findAppointment date/01-04-2025`<br>`findAppointment time/12:00`                                      |
-| Delete Appointment  | `deleteAppointment NRIC date/DATE time/TIME`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                                                                     | `deleteAppointment S9534567A date/01-04-2025 time/12:00`                                                                                                                 |
-| Find Visits         | `findVisit NRIC`                                                                                                                                                                                      | `findVisit S9534567A`                                                                                                                                                    |
-| Find Diagnosis      | `findDiagnosis diagnosis`                                                                                                                                                                             | `findDiagnosis fever`                                                                                                                                                    |
-| Find Medication     | `findMedication medication`                                                                                                                                                                           | `findMedication Panadol`                                                                                                                                                 | 
-| Exit                | `exit`                                                                                                                                                                                                | `exit`                                                                                                                                                                   |
+| Action              | Format                                                                                                                                                                                                | Example                                                                                                                                                                    |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Help                | `help`                                                                                                                                                                                                | `help`                                                                                                                                                                     |
+| Add patient record  | `add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]`                                   | `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/31-01-1990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`                                 |
+| Edit patient record | `edit ic/NRIC /to [n/NAME] [newic/NEW_NRIC] [p/PHONE_NUMBER] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]`                                                         | `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension `                                                                                                              |
+| Add Visit           | `addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                                                | `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`                                                                                    |
+| Edit Visit          | `editVisit ic/NRIC v/VISIT_DATE_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                            | `editVisit ic/S7209876Y v/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`                                                                                                |
+| List                | `list`                                                                                                                                                                                                | `list`                                                                                                                                                                     |
+| Find                | `find n/NAME` OR<br>`find ic/NRIC` OR<br>`find p/PHONE_NUMBER` OR<br>`find ha/HOME_ADDRESS` OR<br>`find dob/DATE_OF_BIRTH` OR<br>`find al/ALLERGY` OR<br>`find s/SEX` OR<br>`find mh/MEDICAL_HISTORY` | `find n/John Doe`<br>`find ic/S9234567A`<br>`find p/91234567`<br>`find ha/NUS PGPR`<br>`find dob/31-01-1990`<br>`find al/Peanuts`<br>`find s/Female`<br>`find mh/Diabetes` |
+| Delete              | `delete NRIC`                                                                                                                                                                                         | `delete S9534567A`                                                                                                                                                         |
+| Add Appointment     | `appointment n/NAME ic/NRIC date/DATE time/TIME`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                                                                 | `appointment n/James Ho ic/S9534567A date/01-04-2025 time/12:00`                                                                                                           |
+| List Appointment    | `listAppointments`                                                                                                                                                                                    | `listAppointments`                                                                                                                                                         |
+| Find Appointment    | `findAppointment n/NAME` OR<br>`findAppointment ic/NRIC` OR<br>`findAppointment date/DATE` OR<br>`findAppointment time/TIME`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                     | `findAppointment n/John Doe`<br>`findAppointment ic/S9234567A`<br>`findAppointment date/01-04-2025`<br>`findAppointment time/12:00`                                        |
+| Delete Appointment  | `deleteAppointment NRIC date/DATE time/TIME`<br>DATE format: `dd-MM-yyyy`<br>TIME format: `HH:mm`                                                                                                     | `deleteAppointment S9534567A date/01-04-2025 time/12:00`                                                                                                                   |
+| Find Visits         | `findVisit NRIC`                                                                                                                                                                                      | `findVisit S9534567A`                                                                                                                                                      |
+| Find Diagnosis      | `findDiagnosis diagnosis`                                                                                                                                                                             | `findDiagnosis fever`                                                                                                                                                      |
+| Find Medication     | `findMedication medication`                                                                                                                                                                           | `findMedication Panadol`                                                                                                                                                   | 
+| Exit                | `exit`                                                                                                                                                                                                | `exit`                                                                                                                                                                     |

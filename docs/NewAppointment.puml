@@ -40,26 +40,40 @@ Doctor -> ":Main": appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time
 ":CommandHandler" -> ":CommandHandler" ++: extractTime(input)
 ":CommandHandler" --> ":CommandHandler" --: time = "14:30"
 
-":CommandHandler" -> ":AppointmentRecord" ++: checkAvailability(date, time)
-":AppointmentRecord" --> ":CommandHandler" --: nextAvailableTime
+":CommandHandler" -> ":AppointmentRecord" ++: addAppointment(appointment)
+":AppointmentRecord" -> ":AppointmentRecord" ++: checkAvailability(date, time)
+":AppointmentRecord" --> ":AppointmentRecord" --: nextAvailableTime
+":AppointmentRecord" -> ":AppointmentRecord" ++: checkDateTime(availableDate, availableTime)
+":AppointmentRecord" --> ":AppointmentRecord" --:
+":AppointmentRecord" -> ":AppointmentRecord" ++: checkExistingAppintmentRecords(name, nric, searchInput)
+":AppointmentRecord" --> ":AppointmentRecord" --:
+
+opt checkDateTime(availableDate, availableTime) == false
+    Doctor <-- ":AppointmentRecord": There is already an appointment at the given timeslot. The next available timeslot is: 18:30
+    end
+
+opt checkExistingAppintmentRecords(name, nric, searchInput) == false
+    Doctor <-- ":AppointmentRecord":Please check if the name is correct
+    Doctor <-- ":AppointmentRecord":Appointment made previously with patient NRIC, S1234567A, has the name John Doe
+    end
 
 alt nextAvailableTime == "14:30"
     create ":Appointment"
-    ":CommandHandler" -> ":Appointment" **: new Appointment("Patricia Chan", "S9870789B",\n"06-11-2024", "14:30")
+    ":AppointmentRecord" -> ":Appointment" **: new Appointment("Patricia Chan", "S9870789B",\n"06-11-2024", "14:30")
     activate ":Appointment"
-    ":Appointment" --> ":CommandHandler" --: appointment
+    ":Appointment" --> ":AppointmentRecord" --: appointment
 
-    ":CommandHandler" -> ":AppointmentRecord" ++: addAppointment(appointment)
-    ":AppointmentRecord" -> ":AppointmentRecord": appointments.add(appointment)
-    ":AppointmentRecord" -> ":AppointmentRecord": sort()
-    return
+    ":AppointmentRecord" -> ":AppointmentRecord" ++: sort()
+    ":AppointmentRecord" --> ":AppointmentRecord" --:
+
+    ":AppointmentRecord" --> ":CommandHandler" --:
 
     ":CommandHandler" -> ":FileHandler" ++: autosave(appointmentRecord)
     return
 
-    Doctor <-- ":CommandHandler": Appointment on 06-11-2024 14:30 with Patient\nPatricia Chan, S9870789B has been added.
+    Doctor <-- ":AppointmentRecord": Appointment on 06-11-2024 14:30 with Patient\nPatricia Chan, S9870789B has been added.
 else
-    Doctor <-- ":CommandHandler": There is already an appointment at the given timeslot.\nThe next available timeslot is: [nextAvailableTime]
+    Doctor <-- ":AppointmentRecord": There is already an appointment at the given timeslot.\nThe next available timeslot is: [nextAvailableTime]
 end
 
 ":CommandHandler" --> ":Parser" --

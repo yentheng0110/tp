@@ -33,6 +33,7 @@ information and appointment scheduling.
     - [Saving/Retrieving Patient Records and Appointment Records Data](#savingretrieving-patient-records-and-appointment-records-data)
     - [Exiting the Program](#exiting-the-program)
 - [FAQ](#faq)
+- [Appendix A: Miscellaneous](#appendix-a-miscellaneous)
 - [Command Summary](#command-summary)
 
 ---
@@ -69,7 +70,7 @@ Format: `help`
 +-------------+---------------------------------------+---------------------------------+
 | Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
 |             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-|             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+|             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/31-01-1990      |
 |             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |
 |             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |
 |             | DATE format: dd-mm-yyyy               |                                 |
@@ -101,7 +102,7 @@ Format: `help`
 |             | find d/DIAGNOSIS     OR               | find d/Fever                    |
 |             | find m/MEDICATION    OR               | find m/Panadol                  |
 |             | find ha/HOME_ADDRESS OR               | find ha/NUS PGPR                |
-|             | find dob/DATE_OF_BIRTH OR             | find dob/01011990               |
+|             | find dob/DATE_OF_BIRTH OR             | find dob/31-01-1990             |
 |             | find al/ALLERGY      OR               | find al/Peanuts                 |
 |             | find find s/SEX      OR               | find find s/Female              |
 |             | find mh/MEDICAL_HISTORY               | find mh/Diabetes                |
@@ -156,9 +157,10 @@ Note : <br>
 • The mandatory fields are name, NRIC and visit date. Optional fields (denoted by square brackets above) include phone
 number, diagnoses, medications, home address, date of birth, allergies, sex and medical histories. <br>
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
-• Date and Time format must be in : dd-MM-yyyy HH:mm <br> 
+• Date and Time format must be in : dd-MM-yyyy HH:mm <br>
+• "add" command does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an Appointment instead. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
+Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/31-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
 Example Output: 
 ```
@@ -192,7 +194,7 @@ Format: `list`
 
 Example Output:
 ```
-Name: James Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 01011995, Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]
+Name: James Ho, NRIC: S9534567A, Phone: 91234567, Home Address: NUS-PGPR, DOB: 31-01-1990, Allergies: [Pollen], Sex: Female, Medical Histories: [Diabetes]
 Visit Date: 21-10-2024 15:48, Diagnosis: [Asthma], Medications: [Albuterol]
 
 Name: Patricia Chan, NRIC: S90890897U, Phone: , Home Address: , DOB: , Allergies: [], Sex: , Medical Histories: []
@@ -212,11 +214,11 @@ Additional Example Output of the <u>same Patient(with same NRIC)</u> with multip
 with different illness diagnosed and medications prescribed during the different visit event : 
 
 ```
-Name: Wang Ritz, NRIC: S8634567A, Phone: 91234567, Home Address: PGPR, DOB: 01-02-1990, Allergies: [grass], Sex: female, Medical Histories: [diabetes]
+Name: Wang Ritz, NRIC: S8634567A, Phone: 91234567, Home Address: PGPR, DOB: 31-02-1990, Allergies: [grass], Sex: female, Medical Histories: [diabetes]
     Visit Date: 20-10-1995 12:35, Diagnosis: [], Medications: []
-    Visit Date: 21-10-2024 15:48, Diagnosis: [Fever, Headache, Flu], Medications: [Paracetamol, Ibuprofen, Aspirin]
-    Visit Date: 29-12-2026 23:59, Diagnosis: [Fatigue, Dizziness, Cough], Medications: [Mint, Mentos, Coke]
-    Visit Date: 11-10-2030 16:45, Diagnosis: [Myopia, Acid Reflux, Rhinitis], Medications: [Naproxen, Omeprazole, Zyrtec]
+    Visit Date: 21-10-2004 15:48, Diagnosis: [Fever, Headache, Flu], Medications: [Paracetamol, Ibuprofen, Aspirin]
+    Visit Date: 29-09-2020 23:59, Diagnosis: [Fatigue, Dizziness, Cough], Medications: [Mint, Mentos, Coke]
+    Visit Date: 31-10-2024 16:45, Diagnosis: [Myopia, Acid Reflux, Rhinitis], Medications: [Naproxen, Omeprazole, Zyrtec]
 ```
 
 
@@ -296,17 +298,17 @@ phone number, home address, date of birth, allergies, sex and medical histories.
 updated for the patient. <br>
 • Single allergy and medical history can be added; <u>Multiple allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
-Example: `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension`
+Example: `edit ic/S9534567A /to p/80976890 al/Pollen, Dust`
 
 Example Output:
 ```
 Patient record updated successfully.
 Updated patient details:
-Name: James Ho, NRIC: S9534567A, Phone: 80976890, Address: NUS-PGPR, DOB: 01011990, Allergy: [], Sex: Female, Medical History: [Diabetes, Hypertension]
+Name: James Ho, NRIC: S9534567A, Phone: 80976890, Address: , DOB: , Allergy: [Pollen, Dust], Sex: Female, Medical History: []
 ```
 
 Additional examples:
-* `edit ic/S9890897U dob/01011998 ha/Orchard Road` - Edit a patient record with optional fields in a different order than the format shown above.
+* `edit ic/S9890897U dob/31-01-1990 ha/Orchard Road` - Edit a patient record with optional fields in a different order than the format shown above.
 
 The examples above result in successful patient record updates, which are automatically saved.
 
@@ -337,8 +339,12 @@ Additional examples:
 • The NRIC must belong to an **<u>existing patient</u>** in the system <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
 • Parameters entered in the input can be of <u>any order</u> and is <u>allowed</u>, i.e. you may input "ic/", "v/", "d/", "m/" <u>in any order</u>. 
-Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order.
-
+Or you may also choose to stick to convention and input "ic/", "v/", "d/", "m/" in this order. <br>
+• "addVisit" does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an Appointment instead. 
+<div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
+💭 <b>Note:</b> There are many Diagnoses and Medications with special characters. Hence, BookBob allows and does not ban special characters, in [diagnosis], [medications], [allergies], [medical histories] fields.<br><br>
+Examples : Ménière's disease, Ehlers-Danlos syndrome, Vitamin B₁₂, 5-Fluorouracil, L-thyroxine, α-Tocopherol, D₅W, 17β-Estradiol.
+</div>
 ---
 
 ## Editing a Visit Record
@@ -362,7 +368,7 @@ Updated visit details:
 ```
 
 Additional examples:
-* `editVisit ic/S9089087U v/19-11-2024 18:00 d/Runny Nose newDate/20-11-2024 18:00` - Edit a visit record of a 
+* `editVisit ic/S9089087U v/19-08-2024 18:00 d/Runny Nose newDate/20-09-2024 18:00` - Edit a visit record of a 
 patient with optional fields in a different order than the format shown above.
 
 The examples above result in successful visit record updates, which are automatically saved.
@@ -382,7 +388,7 @@ Example Output:
 ```
 Processing find visit command
 Successfully processed find visit command
-20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+20-09-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
 ```
 If nothing found:
 ```
@@ -399,7 +405,7 @@ Example Output:
 ```
 ---------------------------------
 Name: Patricia Chan, NRIC: S9089087U, Phone: , Address: , DOB: , Allergy: [], Sex: , Medical History: []
-20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+20-09-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
 ---------------------------------
 ---------------------------------
 Name: Jacky Cheung, NRIC: S7209876Y, Phone: 91234567 | DOB: , Address: Farrer Road, Allergy: [], Sex: , 
@@ -422,7 +428,7 @@ Example Output:
 ```
 ---------------------------------
 Name: Patricia Chan, NRIC: S9089087U, Phone: , Address: , DOB: , Allergy: [], Sex: , Medical History: []
-20-11-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
+20-09-2024 18:00, Diagnosis: [Runny Nose], Medications: [Panadol, Antibiotics]
 ---------------------------------
 ---------------------------------
 Name: Jacky Cheung, NRIC: S7209876Y, Phone: 91234567, Address: Farrer Road, DOB: , Allergy: [], Sex: , Medical History: []
@@ -611,23 +617,39 @@ and with Phone Numbers having exactly eight digits and starting with "9" or "8".
 **A**: Yes, definitely. BookBob is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
 
 ---
+
+## Appendix A: Miscellaneous
+**• Regarding a “global universal in-sync time check” to prevent any Date&Time clashes at all** <br>
+BookBob currently guards against duplicate exact Date&Time clashes for the following situations : <br>
+1.) Same patient entering a new visit at the clinic, at the exact same Date&Time of a previous visit. <br>
+2.) Appointment clashes, e.g. different Patients(or even same patient) attempting to schedule an appointment with a timeslot that has already been occupied. <br>
+• BookBob will prompt patient to schedule at the next available time. <br>
+
+BookBob currently does not guard against duplicate exact Date&Time clashes for the following situations :<br>
+1.) Scheduled Appointment time and a Walk-in consultation visit at the same exact time. <br>
+Reason : It could be possible that a patient with an emergency visited the clinic. We cannot reject/deny/decline such emergency unscheduled walk-in patients. <br>
+2.) Walk-in consultation visits of two different patients at the exact same time. <br>
+Reason : It could be possible that the two patients arrived at the clinic with emergencies. We cannot reject/deny/decline such emergency unscheduled walk-in patients.
+
+---
+
 ## Command Summary
 
-| Action              | Format                                                                                                                                                                                                                                                   | Example                                                                                                                                                                                                    |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Help                | `help`                                                                                                                                                                                                                                                   | `help`                                                                                                                                                                                                     |
-| Add patient record  | `add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]`                                                                                      | `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01011990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`                                                                   |
-| Edit patient record | `edit ic/NRIC /to [n/NAME] [newic/NEW_NRIC] [p/PHONE_NUMBER] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]`                                                                                                            | `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension `                                                                                                                                              |
-| Add Visit           | `addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                   | `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`                                                                                                                    |
-| Edit Visit          | `editVisit ic/NRIC v/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                           | `editVisit ic/S7209876Y v/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`                                                                                                                                |
-| List                | `list`                                                                                                                                                                                                                                                   | `list`                                                                                                                                                                                                     |
-| Find                | `find n/NAME` OR<br>`find ic/NRIC` OR<br>`find p/PHONE_NUMBER` OR<br>`find d/DIAGNOSIS` OR<br>`find m/MEDICATION` OR<br>`find ha/HOME_ADDRESS` OR<br>`find dob/DATE_OF_BIRTH` OR<br>`find al/ALLERGY` OR<br>`find s/SEX` OR<br>`find mh/MEDICAL_HISTORY` | `find n/John Doe`<br>`find ic/S1234`<br>`find p/91234567`<br>`find d/Fever`<br>`find m/Panadol`<br>`find ha/NUS PGPR`<br>`find dob/01011990`<br>`find al/Peanuts`<br>`find s/Female`<br>`find mh/Diabetes` |
-| Delete              | `delete NRIC`                                                                                                                                                                                                                                            | `delete S9534567A`                                                                                                                                                                                         |
-| Add Appointment     | `appointment n/NAME ic/NRIC date/DATE time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                                    | `appointment n/James Ho ic/S9534567A date/01-04-2025 time/12:00`                                                                                                                                           |
-| List Appointment    | `listAppointments`                                                                                                                                                                                                                                       | `listAppointments`                                                                                                                                                                                         |
-| Find Appointment    | `findAppointment n/NAME` OR<br>`findAppointment ic/NRIC` OR<br>`findAppointment date/DATE` OR<br>`findAppointment time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                        | `findAppointment n/John Doe`<br>`findAppointment ic/S1234`<br>`findAppointment date/01-04-2025`<br>`findAppointment time/12:00`                                                                            |
-| Delete Appointment  | `deleteAppointment NRIC date/DATE time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                                        | `deleteAppointment S9534567A date/01-04-2025 time/12:00`                                                                                                                                                   |
-| Find Visits         | `findVisit NRIC`                                                                                                                                                                                                                                         | `findVisit S9534567A`                                                                                                                                                                                      |
-| Find Diagnosis      | `findDiagnosis diagnosis`                                                                                                                                                                                                                                | `findDiagnosis fever`                                                                                                                                                                                      |
-| Find Medication     | `findMedication medication`                                                                                                                                                                                                                              | `findMedication Panadol`                                                                                                                                                                                   | 
-| Exit                | `exit`                                                                                                                                                                                                                                                   | `exit`                                                                                                                                                                                                     |
+| Action              | Format                                                                                                                                                                                                                                                   | Example                                                                                                                                                                                                      |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Help                | `help`                                                                                                                                                                                                                                                   | `help`                                                                                                                                                                                                       |
+| Add patient record  | `add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY]`                                                                                      | `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/31-01-1990 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`                                                                   |
+| Edit patient record | `edit ic/NRIC /to [n/NAME] [newic/NEW_NRIC] [p/PHONE_NUMBER] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] [al/ALLERGY] [s/SEX] [mh/MEDICAL_HISTORY]`                                                                                                            | `edit ic/S9534567A /to p/80976890 mh/Diabetes, Hypertension `                                                                                                                                                |
+| Add Visit           | `addVisit ic/NRIC v/VISIT_DATE_TIME [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                   | `addVisit ic/S9534567A v/21-10-2024 15:48 d/Fever,Headache,Flu m/Paracetamol,Ibuprofen`                                                                                                                      |
+| Edit Visit          | `editVisit ic/NRIC v/VISIT_DATE_AND_TIME [newDate/NEW_DATE] [d/DIAGNOSIS] [m/MEDICATION]`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                           | `editVisit ic/S7209876Y v/06-11-2024 14:00 d/Asthma m/Panadol, Antibiotics`                                                                                                                                  |
+| List                | `list`                                                                                                                                                                                                                                                   | `list`                                                                                                                                                                                                       |
+| Find                | `find n/NAME` OR<br>`find ic/NRIC` OR<br>`find p/PHONE_NUMBER` OR<br>`find d/DIAGNOSIS` OR<br>`find m/MEDICATION` OR<br>`find ha/HOME_ADDRESS` OR<br>`find dob/DATE_OF_BIRTH` OR<br>`find al/ALLERGY` OR<br>`find s/SEX` OR<br>`find mh/MEDICAL_HISTORY` | `find n/John Doe`<br>`find ic/S1234`<br>`find p/91234567`<br>`find d/Fever`<br>`find m/Panadol`<br>`find ha/NUS PGPR`<br>`find dob/31-01-1990`<br>`find al/Peanuts`<br>`find s/Female`<br>`find mh/Diabetes` |
+| Delete              | `delete NRIC`                                                                                                                                                                                                                                            | `delete S9534567A`                                                                                                                                                                                           |
+| Add Appointment     | `appointment n/NAME ic/NRIC date/DATE time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                                    | `appointment n/James Ho ic/S9534567A date/01-04-2025 time/12:00`                                                                                                                                             |
+| List Appointment    | `listAppointments`                                                                                                                                                                                                                                       | `listAppointments`                                                                                                                                                                                           |
+| Find Appointment    | `findAppointment n/NAME` OR<br>`findAppointment ic/NRIC` OR<br>`findAppointment date/DATE` OR<br>`findAppointment time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                        | `findAppointment n/John Doe`<br>`findAppointment ic/S1234`<br>`findAppointment date/01-04-2025`<br>`findAppointment time/12:00`                                                                              |
+| Delete Appointment  | `deleteAppointment NRIC date/DATE time/TIME`<br>DATE format: `dd-mm-yyyy`<br>TIME format: `HH:mm`                                                                                                                                                        | `deleteAppointment S9534567A date/01-04-2025 time/12:00`                                                                                                                                                     |
+| Find Visits         | `findVisit NRIC`                                                                                                                                                                                                                                         | `findVisit S9534567A`                                                                                                                                                                                        |
+| Find Diagnosis      | `findDiagnosis diagnosis`                                                                                                                                                                                                                                | `findDiagnosis fever`                                                                                                                                                                                        |
+| Find Medication     | `findMedication medication`                                                                                                                                                                                                                              | `findMedication Panadol`                                                                                                                                                                                     | 
+| Exit                | `exit`                                                                                                                                                                                                                                                   | `exit`                                                                                                                                                                                                       |
