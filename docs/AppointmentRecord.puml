@@ -5,16 +5,19 @@ hide circle
 
 class AppointmentRecord {
     -appointments: List<Appointment>
-    -formatter: DateTimeFormatter = "dd-MM-yyyy"
+    -formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    -checkDateTime(availableDate: LocalDate, availableTime: LocalTime): boolean
+    -checkExistingAppintmentRecords(name: String, nric: String, searchInput: String): boolean
+    -checkForCorruptedNric(nric: String): void
+    -sort(): void
+    -noAppointmentMessage(): void
     +AppointmentRecord()
     +addAppointment(appointment: Appointment): void
     +addAppointment(name: String, nric: String, date: String, time: String): void
     +findAppointments(input: String): List<Appointment>
     +getAppointments(): List<Appointment>
-    -sort(): void
     +setAppointments(appointments: List<Appointment>): void
     +appointmentNotice(): void
-    -noAppointmentMessage(): void
     +checkAvailability(date: LocalDate, time: LocalTime): LocalTime
     +listAppointments(): void
     +removePastAppointments(): void
@@ -31,23 +34,25 @@ interface FileOperation {
 }
 
 class Appointment {
+    -patientName: String
+    -patientNric: String
+    -time: LocalTime
+    -date: LocalDate
+    -consultationDuration: long = 30
 }
 
-class CommandHandler {
-}
+class CommandHandler {}
+class FileHandler {}
+class Main {}
 
-class FileHandler {
-}
-
-class Main {
-}
-
-FileOperation <|.. AppointmentRecord
+FileOperation <|.. AppointmentRecord : implements
 
 Main --> AppointmentRecord : creates >
 CommandHandler --> AppointmentRecord : modifies >
 FileHandler --> AppointmentRecord : manages files >
 
 AppointmentRecord "1" o-- "many" Appointment
+
+
 
 @enduml

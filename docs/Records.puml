@@ -5,6 +5,9 @@ hide circle
 
 class Records {
     -patients: ArrayList<Patient>
+    -checkForCorruptedPhoneNumber(phoneNumber: String): void
+    -checkForCorruptedNric(nric: String): void
+    -nricIsPresentInExistingRecords(name: String, nric: String): boolean
     +Records()
     +addPatient(patient: Patient): void
     +addPatient(name: String, nric: String, visits: ArrayList<Visit>, sex: String,\n dateOfBirth: LocalDate, phoneNumber: String, homeAddress: String,\n allergies: ArrayList<String>, medicalHistories: ArrayList<String>): void
@@ -22,21 +25,26 @@ interface FileOperation {
 }
 
 class Patient {
+
 }
 
 class Visit {
+
 }
 
 class CommandHandler {
+
 }
 
 class FileHandler {
+
 }
 
 class Main {
+
 }
 
-FileOperation <|.. Records
+FileOperation <|.. Records : implements
 
 Main --> Records : creates >
 CommandHandler --> Records : modifies >
@@ -44,5 +52,6 @@ FileHandler --> Records : manages files >
 
 Records "1" o-- "many" Patient
 Patient "1" o-- "many" Visit
+
 
 @enduml
