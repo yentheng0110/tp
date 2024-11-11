@@ -154,8 +154,8 @@ class ParserTest {
 
     //@@author kaboomzxc
     @Nested
-    @DisplayName("Search Command Tests")
-    class SearchCommandTests {
+    @DisplayName("Find Command Tests")
+    class FindCommandTests {
         @Test
         @DisplayName("Test find diagnosis command")
         void testFindDiagnosisCommand() throws IOException {
@@ -261,8 +261,8 @@ class ParserTest {
 
     //@@author kaboomzxc
     @Nested
-    @DisplayName("Find Command Tests")
-    class FindCommandTests {
+    @DisplayName("Specific Find Command Tests")
+    class SpecificFindCommandTests {
         @Test
         @DisplayName("Test find by name")
         void testFindByName() throws IOException {
