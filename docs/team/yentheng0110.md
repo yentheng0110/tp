@@ -1,12 +1,11 @@
 # Wong Yen Theng's Project Portfolio Page
 
 ## Overview
-BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. BookBob helps
-streamline clinic management by storing and retrieving patient information, including names, NRICs, genders, dates of
-birth, phone numbers, home addresses, allergies, medical histories and detailed visit records (visit dates and times,
-diagnoses and prescribed medications). BookBob also assists Dr Bob in staying organised by tracking daily appointments 
-and sending reminders each morning. Optimised for a Command Line Interface (CLI), BookBob enables efficient management 
-of patient information and appointment scheduling.
+BookBob is a Command Line Interface (CLI) desktop application tailored for Dr Bob's private General Practitioner clinic,
+streamlining clinic management by storing and retrieving patient information (name, NRIC, gender, date of birth, phone 
+number, home address, allergies, medical histories and visit records). BookBob also helps Dr Bob manage daily 
+appointments by tracking them and sending morning reminders, ensuring efficient handling of patient information and 
+appointment scheduling.
 
 Given below are my contributions to the project.
 
