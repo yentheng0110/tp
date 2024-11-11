@@ -158,6 +158,7 @@ Note : <br>
 number, diagnoses, medications, home address, date of birth, allergies, sex and medical histories. <br>
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
 • Date and Time format must be in : dd-MM-yyyy HH:mm <br>
+• Names can only contain alphabets (both uppercase and lowercase), hyphens, slashes, commas and spaces. <br>
 • "add" command does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an Appointment instead. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
 Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/31-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
@@ -269,7 +270,8 @@ Name: John Doe, NRIC: S9534567A, Phone: 91234567, Home Address: Clementi Road, D
 ## Deleting a Patient Record
 Deletes the patient record based on the given NRIC number\
 The delete function will only work on the NRIC number and not the patient's name\
-Format: delete NRIC
+Format: delete NRIC \
+Note: Deleting a Patient record is case-insensitive.
 
 Example: `delete S1234567A`
 ```
