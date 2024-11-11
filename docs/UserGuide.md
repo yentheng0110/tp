@@ -6,11 +6,12 @@ layout: default
 
 ---
 ## Introduction
-BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. It facilitates the storage 
-and retrieval of patient information, including names, NRICs, genders, dates of birth, phone numbers, home addresses, 
-allergies, medical histories and visit records with details on diagnoses and prescribed medications. BookBob also helps 
-Dr Bob stay organised by tracking daily appointments and providing reminders each morning. Optimised for a Command Line 
-Interface (CLI), BookBob allows for efficient management of patient information and appointments.
+BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. BookBob helps 
+streamline clinic management by storing and retrieving patient information, including names, NRICs, genders, dates of 
+birth, phone numbers, home addresses, allergies, medical histories and detailed visit records with diagnoses and 
+prescribed medications. BookBob also assists Dr Bob in staying organised by tracking daily appointments and sending 
+reminders each morning. Optimised for a Command Line Interface (CLI), BookBob enables efficient management of patient 
+information and appointment scheduling.
 
 ---
 ## Table of Contents
@@ -48,10 +49,11 @@ The following output would be shown :`Welcome to BookBob, Dr. Bob!`
 <hr style="width: 15%; height: 2px; background-color: black; border: none; margin-top: 10px; margin-bottom: 20px;">
 
 **Note:**
-1. Exact Input Required with No Extra Spaces or Inputs: Any extra inputs or spaces after the expected commands will be treated as unknown commands.
-2. Case Sensitivity for Commands : Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
+1. Extra Input After Commands: Additional input provided after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be treated as unknown commands.
+2. Extra Spaces After Commands: Additional spaces after expected inputs for commands such as `list`, `listAppointments`, `help` and `exit` will be ignored.
+3. Case Sensitivity for Commands: Commands are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands</u> e.g. `list` instead of `LIST`,
 and <u>mixed-case</u> for e.g. `addVisit` instead of `addvisit`
-3. Case Sensitivity for Commands Prefixes : Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
+4. Case Sensitivity for Commands Prefixes: Command Prefixes are case-sensitive. Ensure correct <u>lowercase</u> for <u>commands prefixes</u> E.g. "n/", "ic/", instead of
   "N/", "IC/"
 
 ## Viewing Help
@@ -172,11 +174,11 @@ The examples above result in successful patient record additions, which are then
 
 <div style="background-color: #F5F9FE; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3; color: #1A1A1A;">
 💡 <b>Best Practices of using</b> <em><strong>"add" command together with "addVisit" command</strong></em> <b>:</b> <br>
-1.) When a new patient visits the clinic, we use "add" command. <br>
+1.) When a new patient visits the clinic, we use <b>"add" command</b>. <br>
 <ins> The "add" command is primarily used for adding a patient record with the patient's basic key details information </ins> (such as Name , NRIC , Phone Number), and that Name, NRIC, Patient's First Visit Date, are <ins>Compulsory fields</ins>. <br>
 Other <ins>Optional fields</ins> includes e.g. Phone Number, Home Address, DOB, <i>and</i> Diagnoses and Medications from patient's first visit. <br>
 <br>
-2.) If the <ins>same patient(with same NRIC)</ins> comes back to the clinic for a new visit, we use "addVisit" command,  
+2.) If the <ins>same patient(with same NRIC)</ins> comes back to the clinic for a new visit, we use <b>"addVisit" command</b>,  
 to key in the visit Date&Time of this new visit event(which is a compulsory field along with NRIC), AND the Diagnoses of illnesses and Medications prescribed for this new visit event (which are optional fields).<br>
 <br>
 3.) We then use "list" command to see all patient information.
@@ -389,7 +391,7 @@ No patient visit record found with NRIC: S7209876Y
 
 By diagnosis: <br> Format: findDiagnosis diagnosis<br>
 Note : <br>
-• Single diagnosis to be entered. All corresponding patients' information and visit records will be printed to terminal,
+• Single diagnosis to be entered (case-insensitive). All corresponding patients' information and visit records will be printed to terminal,
 with exactly matched diagnosis. <br>
 Example: `findDiagnosis Runny Nose`
 
@@ -412,7 +414,7 @@ No patient found with symptom: Runny Nose
 
 By Medication: <br> Format: findMedication medication<br>
 Note : <br>
-• Single diagnosis to be entered. All corresponding patients' information and visit records will be printed to terminal,
+• Single medication to be entered (case-insensitive). All corresponding patients' information and visit records will be printed to terminal,
 with exactly matched medication. <br>
 Example: `findMedication Panadol`
 
@@ -463,8 +465,8 @@ Format: appointment ic/NRIC date/DATE time/TIME \
 Note: Deleting a Patient Appointment is case-insensitive.
 
 #### Extra Information
-Date format is in DD-MM-YYYY and Time format is in HH:mm\
-The nric is case-insensitive
+Date format is in DD-MM-YYYY and time format is in HH:mm\
+The NRIC is case-insensitive
 
 Example: `deleteAppointment ic/S1234567A date/18-11-2024 time/18:00`
 ```
@@ -488,7 +490,7 @@ Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
 
 ---
 ## Finding a Patient Appointment
-Find an appointment with a patient based on the given name, nric, date or time\
+Find an appointment with a patient based on the given name, NRIC, date or time\
 Format:
 findAppointment n/NAME OR\
 findAppointment ic/NRIC OR\
@@ -497,7 +499,7 @@ findAppointment time/TIME
 
 #### Extra Information:
 Date format is in DD-MM-YYYY and Time format is in HH:mm
-The name and nric are case-insensitive
+The name and NRIC are case-insensitive
 
 Example: `findAppointment n/John`
 ```
