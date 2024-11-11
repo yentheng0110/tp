@@ -15,7 +15,7 @@ Interface (CLI), BookBob allows for efficient management of patient information 
       - What it does: allow user to add appointments made with patients
       - Justifications: This features improve the product by allowing user to track their time to avoid possible 
         overbooking of time for consultation with patients
-      - Highlights: 
+      - Highlights:
         - The adding of appointment will also check if the time is available based on the current list of 
           appointments that have already been made. Additionally, it is taken into account that the consultation duration is 
           30 minutes. It will suggest the next available timing, ensuring that the time and consultation duration will not 
@@ -37,7 +37,8 @@ Interface (CLI), BookBob allows for efficient management of patient information 
     - Find appointments based on specific keywords such as date, time, name or nric
       - What it does: Display all appointments based on the search keyword
       - Justifications: This feature improves the product by allowing users to find the appointments for the specific
-        name, nric, date or time instead of listing all appointments and look for the appointments wanted
+        name, nric, date or time instead of listing all appointments and look for the appointments wanted. The search 
+        feature is case-insensitive.
     - Appointments Notice upon logging in to the system
       - What it does: Display all the appointments for the day
       - Justification: This feature improves the product by removing the need for the user to list all appointments and 
@@ -68,8 +69,8 @@ Interface (CLI), BookBob allows for efficient management of patient information 
 - AppointmentRecord Class Diagram\
 ![AppointmentRecord.png](..%2FAppointmentRecord.png)
 - Object Diagram for Appointment Feature\
-![BeforeExecutionOD.png](..%2FBeforeExecutionOD.png)
-![AfterExecutionOD.png](..%2FAfterExecutionOD.png)
+![BeforeAppointmentOD.png](..%2FBeforeAppointmentOD.png)
+![AfterAppointmentOD.png](..%2FAfterAppointmentOD.png)
 - Sequence Diagram for Appointment Feature\
 ![NewAppointmentSD.png](..%2FNewAppointmentSD.png)
 

@@ -154,10 +154,10 @@ class and records it within the `AppointmentRecord` class. The appointment recor
 
 **Doctor enters the command:** `appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time/14:30`
 
-> The Object Diagram before the execution of appointment command:
+> The Object Diagram before the execution of appointment command:\
 ![img.png](BeforeAppointmentOD.png)
 
-> The Object Diagram after the execution of appointment command:
+> The Object Diagram after the execution of appointment command:\
 ![img.png](AfterAppointmentOD.png)
 
 > The Sequence Diagram for the execution of appointment command:
