@@ -32,8 +32,7 @@ public class Parser {
             switch (command) {
             case "help":
                 if (inputArray.length > 1) {
-                    System.out.println("Unknown command. Type 'help' for a list of commands.");
-                    logger.log(Level.INFO, "Unknown command received: {0}", command);
+                    printUnknownCommand(command);
                     break;
                 }
                 logAndExecute("help", commandHandler::help);
@@ -59,7 +58,7 @@ public class Parser {
                             throw new RuntimeException(e);
                         }
                     } else {
-                        System.out.println("Please specify an NRIC to delete.");
+                        System.out.println("Please specify a NRIC to delete.");
                         logger.log(Level.INFO, "Empty NRIC inputted for delete command");
                     }
                 });
@@ -67,8 +66,7 @@ public class Parser {
 
             case "list":
                 if (inputArray.length > 1) {
-                    System.out.println("Unknown command. Type 'help' for a list of commands.");
-                    logger.log(Level.INFO, "Unknown command received: {0}", command);
+                    printUnknownCommand(command);
                     break;
                 }
                 logAndExecute("list", () -> commandHandler.list(records));
@@ -123,8 +121,7 @@ public class Parser {
 
             case "listAppointments":
                 if (inputArray.length > 1) {
-                    System.out.println("Unknown command. Type 'help' for a list of commands.");
-                    logger.log(Level.INFO, "Unknown command received: {0}", command);
+                    printUnknownCommand(command);
                     break;
                 }
                 logAndExecute("listAppointments", () -> commandHandler.listAppointments(appointmentRecord));
@@ -154,7 +151,7 @@ public class Parser {
                 if (inputArray.length > 1) {
                     logAndExecute("findVisit", () -> commandHandler.findVisitByIc(inputArray[1], records));
                 } else {
-                    System.out.println("Please provide NRIC for findVisit.");
+                    System.out.println("Please provide a NRIC for findVisit.");
                     logger.log(Level.INFO, "Missing NRIC for findVisit");
                 }
                 break;
@@ -163,7 +160,7 @@ public class Parser {
                 if (inputArray.length > 1) {
                     logAndExecute("findMedication", () -> commandHandler.findVisitByMedication(inputArray[1], records));
                 } else {
-                    System.out.println("Please provide medication for findMedication.");
+                    System.out.println("Please provide a medication for findMedication.");
                     logger.log(Level.INFO, "Missing medication for findMedication");
                 }
                 break;
@@ -172,15 +169,14 @@ public class Parser {
                 if (inputArray.length > 1) {
                     logAndExecute("findDiagnosis", () -> commandHandler.findVisitByDiagnosis(inputArray[1], records));
                 } else {
-                    System.out.println("Please provide diagnosis for findDiagnosis.");
+                    System.out.println("Please provide a diagnosis for findDiagnosis.");
                     logger.log(Level.INFO, "Missing diagnosis for findDiagnosis");
                 }
                 break;
 
             case "exit":
                 if (inputArray.length > 1) {
-                    System.out.println("Unknown command. Type 'help' for a list of commands.");
-                    logger.log(Level.INFO, "Unknown command received: {0}", command);
+                    printUnknownCommand(command);
                     break;
                 }
                 logAndExecute("exit", () -> {
@@ -194,8 +190,7 @@ public class Parser {
                 break;
 
             default:
-                System.out.println("Unknown command. Type 'help' for a list of commands.");
-                logger.log(Level.INFO, "Unknown command received: {0}", command);
+                printUnknownCommand(command);
                 break;
             }
             return true;
@@ -204,6 +199,11 @@ public class Parser {
             System.out.println("An error occurred. Please enter another command.");
             return true;
         }
+    }
+
+    private static void printUnknownCommand(String command) {
+        System.out.println("Unknown command. Type 'help' for a list of commands.");
+        logger.log(Level.INFO, "Unknown command received: {0}", command);
     }
 
     private static void logAndExecute(String commandName, Runnable action) {
