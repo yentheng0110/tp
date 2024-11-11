@@ -191,13 +191,13 @@ public class CommandHandlerTest {
         command.find("ha/NUS Utown", records);
         String expectedOutput = "Invalid search format. Please use one of the following formats:\n" +
                 "find n/NAME\n" +
-                "find ic/NRIC\n" +
-                "find p/PHONE\n" +
-                "find ha/ADDRESS\n" +
-                "find dob/DD-MM-YYYY\n" +
-                "find al/ALLERGY\n" +
-                "find s/SEX\n" +
-                "find mh/MEDICAL_HISTORY";
+                " find ic/NRIC\n" +
+                " find p/PHONE\n" +
+                " find ha/ADDRESS\n" +
+                " find dob/DD-MM-YYYY\n" +
+                " find al/ALLERGY\n" +
+                " find s/SEX\n" +
+                " find mh/MEDICAL_HISTORY";
         assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
     }
 
