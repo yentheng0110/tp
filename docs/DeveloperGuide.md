@@ -353,8 +353,10 @@ Given below are instructions to test the app manually.
         - Note: BookBob will continue to function
         - Recovery options:
             * Option 1: Manually remove corrupted lines from `bookbob_data.txt`
-            * Option 2: Delete `bookbob_data.txt` to start afresh 
+            * Option 2: Delete `bookbob_data.txt` to start afresh
+    
 ---
+
 ### Command Summary Reference
 
 | Action              | Format                                                                                                                                                                                                | Example                                                                                                                                                                  |
