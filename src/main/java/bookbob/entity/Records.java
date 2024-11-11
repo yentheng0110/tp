@@ -110,7 +110,7 @@ public class Records implements FileOperation{
     }
 
     private void checkForCorruptedPhoneNumber(String phoneNumber) {
-        if (!phoneNumber.matches("[89]\\d{7}")) {
+        if (!phoneNumber.matches("[89]\\d{7}") && !phoneNumber.isEmpty()) {
             throw new IllegalArgumentException("Corrupted phone number");
         }
     }
