@@ -17,13 +17,13 @@ Given below are my contributions to the project.
   - <b>`CommandHandler` class, `Main` class and `Records` class</b><br>
     - >`add` command
     - Adds a new patient record based on the details given by the user. 
-    - I implemented mandatory fields (name, NRIC, and visit date/time), requiring user input to successfully add a patient 
-   to the records. If any of these fields are missing, an error message prompts the user to complete them. 
-    - If an input does not meet the required format but the mandatory fields with the correct formate are provided, the 
-    patient will still be added to the records. Any incorrectly formatted fields will be left empty but not affecting other correct inputs.
-    - I designed the command to accept multiple entries for attributes like allergies, medical histories, diagnoses and 
-medications, separated by commas. This structure does not limit the number of entries, enhancing the system's flexibility and usability.<br>
-<br>
+    - Mandatory fields (name, NRIC, visit date and time) require user input to add a patient successfully. If any of 
+    these fields are missing, an error message will prompt the user to provide the missing inputs. 
+    - If an input is incorrectly formatted but mandatory fields are correctly filled, the patient will still be added, 
+    with incorrectly formatted fields left empty and other inputs unaffected.
+    - Accepts multiple entries for attributes like allergies, medical histories, diagnoses and medications, separated by
+    commas.<br>
+    <br>
     - >`list` command
     - Iterates through all patient records and displays their details, including name, NRIC, date of birth, sex, phone 
     number, home address, allergies and medical histories. For each patient, the command also iterates through their 
@@ -93,13 +93,8 @@ focus on the `add`, `list`, `edit` and `editVisit` commands, to achieve maximum 
   [PR2](https://github.com/AY2425S1-CS2113-T10-2/tp/pull/153),
   [PR3](https://github.com/AY2425S1-CS2113-T10-2/tp/pull/186)
 
-  - I always try my best to help team members by answering their questions in the Telegram group chat, suggesting possible 
-  solutions. For example, a teammate asked: 
-> Hi all, due to records class calling the functions parseVisitInputString and parseList, I had to move them to the 
-> records class, but this feels like it doesn't abide by the coding standards. Does anyone have any suggestions as to what I can do?
-
-  - My answer:
-> Can we import the FileHandler class in Records class? Then call these 2 static methods of FileHandler class?
+  - I always try my best to help my team members and answer their queries in our Telegram group chat, suggesting possible 
+  solutions. 
 
 - <b>Contributions Beyond the Project Team</b>
   - Evidence of helping others: [Link to the repository's GitHub Issues where I reported bugs during PE-D (I am Tester D)](https://github.com/AY2425S1-CS2113-T11-4/tp/issues?q=is%3Aopen+is%3Aissue)
