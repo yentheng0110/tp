@@ -139,6 +139,18 @@ public class CommandHandler {
             errorMessages.append("Please provide the patient's visit date and time");
         }
 
+        // Only validate future dates if we have a valid visit date
+        if (visitDate != null) {
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            if (visitDate.isAfter(currentDateTime)) {
+                System.out.println("Error: Cannot add patient records for future dates. Please consider " +
+                        "scheduling an appointment instead.");
+                logger.log(Level.WARNING, "Attempted to add patient record with future visit date: " +
+                        visitDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+                return;
+            }
+        }
+
         // If there are error messages, print them and return
         if (errorMessages.length() > 0) {
             System.out.println(errorMessages.toString());
