@@ -33,6 +33,7 @@ information and appointment scheduling.
     - [Saving/Retrieving Patient Records and Appointment Records Data](#savingretrieving-patient-records-and-appointment-records-data)
     - [Exiting the Program](#exiting-the-program)
 - [FAQ](#faq)
+- [Appendix A: Miscellaneous](#appendix-a-miscellaneous)
 - [Command Summary](#command-summary)
 
 ---
@@ -611,6 +612,22 @@ and with Phone Numbers having exactly eight digits and starting with "9" or "8".
 **A**: Yes, definitely. BookBob is intended to support 24/7 clinics. Day Clinics are also welcomed to use BookBob.
 
 ---
+
+## Appendix A: Miscellaneous
+**• Regarding a “global universal in-sync time check” to prevent any Date&Time clashes at all** <br>
+BookBob currently guards against duplicate exact Date&Time clashes for the following situations : <br>
+1.) Same patient entering a new visit at the clinic, at the exact same Date&Time of a previous visit. <br>
+2.) Appointment clashes, e.g. different Patients(or even same patient) attempting to schedule an appointment with a timeslot that has already been occupied. <br>
+• BookBob will prompt patient to schedule at the next available time. <br>
+
+BookBob currently does not guard against duplicate exact Date&Time clashes for the following situations :<br>
+1.) Scheduled Appointment time and a Walk-in consultation visit at the same exact time. <br>
+Reason : It could be possible that a patient with an emergency visited the clinic. We cannot reject/deny/decline such emergency unscheduled walk-in patients. <br>
+2.) Walk-in consultation visits of two different patients at the exact same time. <br>
+Reason : It could be possible that the two patients arrived at the clinic with emergencies. We cannot reject/deny/decline such emergency unscheduled walk-in patients.
+
+---
+
 ## Command Summary
 
 | Action              | Format                                                                                                                                                                                                                                                   | Example                                                                                                                                                                                                    |
