@@ -61,7 +61,7 @@ public class Main {
             System.out.println("Please check data file or delete it to start afresh");
             System.out.println("Exiting");
             System.exit(0);
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "Error during initialization: " + e.getMessage(), e);
             System.out.println("Error initializing program. Please check data files.");
             System.exit(0);
