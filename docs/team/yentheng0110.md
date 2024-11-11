@@ -16,45 +16,45 @@ Given below are my contributions to the project.
 - <b>Enhancements implemented:</b>
   - <b>CommandHandler class</b><br>
     - >`add` command
-      - I implemented extensive input validation to ensure accurate and reliable patient data. This feature is 
+    - I implemented extensive input validation to ensure accurate and reliable patient data. This feature is 
 complex and robust, as it handles multiple data checks. 
-      - I implemented mandatory fields (name, NRIC, and visit date/time), requiring user input to successfully add a patient 
+    - I implemented mandatory fields (name, NRIC, and visit date/time), requiring user input to successfully add a patient 
    to the records. If any of these fields are missing, an error message prompts the user to complete them.
-      - Optional fields will remain empty if no input is provided, patient will still be added to the records successfully. 
-      - If an input does not meet the required format but the mandatory fields are provided, the patient will still be
-      added to the records. Any incorrectly formatted fields will be left empty but not affecting other correct inputs.
-      An error message will inform the user of the invalid input. User can use the edit command to edit the specific field(s).
-      - I designed the command to accept multiple entries for attributes like allergies, medical histories, diagnoses and 
+    - Optional fields will remain empty if no input is provided, patient will still be added to the records successfully. 
+    - If an input does not meet the required format but the mandatory fields are provided, the patient will still be
+    added to the records. Any incorrectly formatted fields will be left empty but not affecting other correct inputs.
+    An error message will inform the user of the invalid input. User can use the edit command to edit the specific field(s).
+    - I designed the command to accept multiple entries for attributes like allergies, medical histories, diagnoses and 
 medications, separated by commas. This structure does not limit the number of entries, enhancing the system's flexibility and usability.<br>
 <br>
     - >`list` command
-      - Iterates through all patient records and displays their details in a structured format. This includes essential 
-      patient information such as name, NRIC, date of birth, sex, phone number, home address, allergies and medical 
-      histories. For each patient, the command also iterates through their visit records, displaying visit dates and 
-      times, diagnoses and medications prescribed during the visits.<br>
-      <br>
-      - <b>Completeness of this Feature:</b><br>
-      The data is formatted neatly for printing. To enhance readability and help users easily differentiate between 
-      records, I also included a blank line between each patient's details. This approach improves the user experience by presenting 
-      the information in a clear and organised manner, while also accommodating a wide range of patient data.<br>
-      <br>
+    - Iterates through all patient records and displays their details in a structured format. This includes essential 
+    patient information such as name, NRIC, date of birth, sex, phone number, home address, allergies and medical 
+    histories. For each patient, the command also iterates through their visit records, displaying visit dates and 
+    times, diagnoses and medications prescribed during the visits.<br>
+    <br>
+    - <b>Completeness of this Feature:</b><br>
+    The data is formatted neatly for printing. To enhance readability and help users easily differentiate between 
+    records, I also included a blank line between each patient's details. This approach improves the user experience by presenting 
+    the information in a clear and organised manner, while also accommodating a wide range of patient data.<br>
+    <br>
     - > `edit` command: 
-      - Allows users to modify specific field(s) in a patient's record. The user provides the patient's NRIC and 
-      specifies the field(s) they wish to edit, such as name, NRIC, date of birth, sex, phone number, home address, 
-      allergies or medical histories, all of which are optional fields.<br>
-       <br>
-      - <b>Completeness of this Feature:</b><br>
-      The system updates the specified field(s) while retaining the existing data for other attributes, allowing for 
-      seamless updates in patient records. 
+    - Allows users to modify specific field(s) in a patient's record. The user provides the patient's NRIC and 
+    specifies the field(s) they wish to edit, such as name, NRIC, date of birth, sex, phone number, home address, 
+    allergies or medical histories, all of which are optional fields.<br>
+     <br>
+    - <b>Completeness of this Feature:</b><br>
+    The system updates the specified field(s) while retaining the existing data for other attributes, allowing for 
+    seamless updates in patient records. 
      <br>
     - >`editVisit` command: 
-      - Allows users to modify a patient's visit record. The user provides the patient's NRIC, the visit date and time
-      to be edited (mandatory fields), and specifies the new visit detail(s) to be updated such as the updated date, 
-      diagnoses and medications, all of which are optional fields.<br>
-      <br>
-      - <b>Completeness of this Feature:</b><br>
-      The system updates the visit record with the new information while preserving other visit details, enabling 
-      seamless updates to a patient's visit history, 
+    - Allows users to modify a patient's visit record. The user provides the patient's NRIC, the visit date and time
+    to be edited (mandatory fields), and specifies the new visit detail(s) to be updated such as the updated date, 
+    diagnoses and medications, all of which are optional fields.<br>
+    <br>
+    - <b>Completeness of this Feature:</b><br>
+    The system updates the visit record with the new information while preserving other visit details, enabling 
+    seamless updates to a patient's visit history, 
 
     <b>Implementation Complexity for `add`, `list`, `edit` and `editVisit` commands::</b><br>
     Each field requires custom logic to validate inputs and printing meaningful error messages for the users. Examples:<br>
@@ -78,10 +78,9 @@ Adding a Patient Record, Listing All Patient Records, Editing a Patient Record a
 - <b>Contributions to the DG</b><br>
 I added the following sections: Design & Implementation (Adding New Visits for Existing Patients) and Product Scope 
 (Target User Profile and Value Proposition). Additionally, I updated the Command Summary Reference to account for code 
-modifications over time, ensuring users receive accurate guidance.
-
-I also created the following UML diagrams: class diagrams for the Patient and Records classes, object diagrams before 
-and after adding a new visit for an existing patient, and a sequence diagram for the execution of the addVisit command.
+modifications over time, ensuring users receive accurate guidance. I also created the following UML diagrams: class 
+diagrams for the Patient and Records classes, object diagrams before and after adding a new visit for an existing patient,
+and a sequence diagram for the execution of the addVisit command.
 
 - <b>Contributions to Team-Based Tasks</b>
    - Made necessary general code enhancements, some examples are given below:<br>
