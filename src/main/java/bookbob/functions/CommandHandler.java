@@ -441,7 +441,7 @@ public class CommandHandler {
                 }
             }
         }
-        
+
         if (params.isEmpty()) {
             logger.log(Level.WARNING, "No valid search parameters found in input: {0}", input);
         }
@@ -500,27 +500,27 @@ public class CommandHandler {
             String value = entry.getValue().toLowerCase();
 
             try {
-                switch (key) {
-                    case "n":
-                        return patient.getName() != null && patient.getName().toLowerCase().contains(value);
-                    case "ic":
-                        return patient.getNric() != null && patient.getNric().toLowerCase().contains(value);
-                    case "p":
-                        return patient.getPhoneNumber() != null && patient.getPhoneNumber().toLowerCase().contains(value);
-                    case "ha":
-                        return patient.getHomeAddress() != null && patient.getHomeAddress().toLowerCase().contains(value);
-                    case "dob":
-                        return matchesDateOfBirth(patient.getDateOfBirth(), value);
-                    case "al":
-                        return patient.getAllergies() != null && patient.getAllergies().stream()
-                                .anyMatch(allergy -> allergy != null && allergy.toLowerCase().contains(value));
-                    case "s":
-                        return patient.getSex() != null && patient.getSex().toLowerCase().contains(value);
-                    case "mh":
-                        return patient.getMedicalHistories() != null && patient.getMedicalHistories().stream()
-                                .anyMatch(history -> history != null && history.toLowerCase().contains(value));
-                    default:
-                        return false;
+            switch (key) {
+                case "n":
+                    return patient.getName() != null && patient.getName().toLowerCase().contains(value);
+                case "ic":
+                    return patient.getNric() != null && patient.getNric().toLowerCase().contains(value);
+                case "p":
+                    return patient.getPhoneNumber() != null && patient.getPhoneNumber().toLowerCase().contains(value);
+                case "ha":
+                    return patient.getHomeAddress() != null && patient.getHomeAddress().toLowerCase().contains(value);
+                case "dob":
+                    return matchesDateOfBirth(patient.getDateOfBirth(), value);
+                case "al":
+                    return patient.getAllergies() != null && patient.getAllergies().stream()
+                            .anyMatch(allergy -> allergy != null && allergy.toLowerCase().contains(value));
+                case "s":
+                    return patient.getSex() != null && patient.getSex().toLowerCase().contains(value);
+                case "mh":
+                    return patient.getMedicalHistories() != null && patient.getMedicalHistories().stream()
+                            .anyMatch(history -> history != null && history.toLowerCase().contains(value));
+                default:
+                    return false;
                 }
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Error matching criteria: {0} for patient {1}: {2}",
