@@ -103,7 +103,3 @@ focus on the `add`, `list`, `edit` and `editVisit` commands, to achieve maximum 
 
 - <b>Contributions Beyond the Project Team</b>
   - Evidence of helping others: [Link to the repository's GitHub Issues where I reported bugs during PE-D (I am Tester D)](https://github.com/AY2425S1-CS2113-T11-4/tp/issues?q=is%3Aopen+is%3Aissue)
-  
-## Contributions to the User Guide (Extract)
-
-## Contributions to the Developer Guide (Extracts)
