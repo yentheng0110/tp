@@ -1,1 +1,3 @@
 Name: Jack Wong | NRIC: S9765432T | Phone Number: 87658976 | Date_Of_Birth: 06-07-1997 | Home Address: Bukit Gombak | Allergy: [] | Sex:  | Medical History: [diabetes] | Visit: [01-10-2024 17:30, Diagnosis: [Gastric], Medications: [Gaviscon Panadol]];
+Name: Patricia | NRIC: S9089079J | Phone Number: 89079097 | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [11-11-2024 18:00, Diagnosis: [], Medications: []];
+Name: Isetan | NRIC: T0890789I | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [11-11-2024 19:00, Diagnosis: [], Medications: []];

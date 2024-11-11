@@ -83,7 +83,7 @@ public class AppointmentRecord implements FileOperation {
         String patientName = existingAppointment.getPatientName();
         if (!patientName.equals(name)) {
             System.out.println("Please check if the name is correct");
-            System.out.println("Appointment made previously with patient nric, " + nric + ", has the name " +
+            System.out.println("Appointment made previously with patient NRIC, " + nric + ", has the name " +
                     patientName);
             return false;
         }

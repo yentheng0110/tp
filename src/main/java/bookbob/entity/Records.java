@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Records implements FileOperation{
@@ -32,8 +31,7 @@ public class Records implements FileOperation{
     public void addPatient(String name, String nric, ArrayList<Visit> visits, String sex, LocalDate dateOfBirth,
                            String phoneNumber, String homeAddress, ArrayList<String> allergies,
                            ArrayList<String> medicalHistories) {
-        String searchInput = "ic/" + nric;
-        if (!checkExistingRecords(name, nric, searchInput)) {
+        if (nricIsPresentInExistingRecords(name, nric)) {
             return;
         }
         Patient patient = new Patient(name, nric, visits);
@@ -47,29 +45,27 @@ public class Records implements FileOperation{
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
-    private boolean checkExistingRecords(String name, String nric, String searchInput) {
-        String originalNric = nric;
-        List<Patient> existingRecords = new ArrayList<>();
-        for (int i = 0; i < patients.size(); i++) {
-            Patient patient = patients.get(i);
+    private boolean nricIsPresentInExistingRecords(String name, String nric) {
+        String nricInputted = nric.toLowerCase();
+        for (Patient patient : this.patients) {
             String patientNRIC = patient.getNric().toLowerCase();
-            nric = nric.toLowerCase();
-            if (patientNRIC.equals(nric)) {
-                existingRecords.add(patient);
+            if (!patientNRIC.equals(nricInputted)) {
+                continue;
             }
+
+            System.out.println("Duplicate NRIC is found in the records");
+
+            String existingPatientName = patient.getName();
+            if (existingPatientName.equals(name)) {
+                System.out.println("Patient named " + name + " is already present in the records");
+            } else {
+                System.out.println("The NRIC: " + nric + " found in the records is under the name " +
+                        existingPatientName);
+                System.out.println("Please check if the name inputted is correct");
+            }
+            return true; // matching NRIC found
         }
-        if (existingRecords.isEmpty()) {
-            return true;
-        }
-        Patient existingPatient = existingRecords.get(0);
-        String patientName = existingPatient.getName();
-        if (!patientName.equals(name)) {
-            System.out.println("Please check if the name is correct");
-            System.out.println("Appointment made previously with patient nric, " + originalNric + ", has the name " +
-                    patientName);
-            return false;
-        }
-        return true;
+        return false; // No matching NRIC found
     }
 
     public ArrayList<Patient> getPatients() {
@@ -90,7 +86,7 @@ public class Records implements FileOperation{
                 file.createNewFile();              //create new data file
             } else {                               //directory already created
                 File file = new File(filePath);
-                if(file.createNewFile()) {         //file was not created
+                if (file.createNewFile()) {         //file was not created
                 } else {
                     this.retrieveData(filePath);
                 }
@@ -120,10 +116,7 @@ public class Records implements FileOperation{
 
     private void checkForCorruptedNric(String nric) {
         int lengthOfNric = 9;
-        boolean isCorrupted = false;
-        if (nric.length() != lengthOfNric) {
-            isCorrupted = true;
-        }
+        boolean isCorrupted = nric.length() != lengthOfNric;
         String nricFirstLetter = nric.substring(0,1);
         String nricLastLetter = nric.substring(8);
         String nricNumber = nric.substring(1,8);
