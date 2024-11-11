@@ -6,11 +6,12 @@ layout: default
 
 ---
 ## Introduction
-BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic. It facilitates the storage 
-and retrieval of patient information, including names, NRICs, genders, dates of birth, phone numbers, home addresses, 
-allergies, medical histories and visit records with details on diagnoses and prescribed medications. BookBob also helps 
-Dr Bob stay organised by tracking daily appointments and providing reminders each morning. Optimised for a Command Line 
-Interface (CLI), BookBob allows for efficient management of patient information and appointments.
+BookBob is a desktop application tailored for Dr Bob's private General Practitioner clinic, which operates on an 
+appointment basis. Patients book appointments to visit Dr Bob. BookBob helps streamline clinic management by storing 
+and retrieving patient information, including names, NRICs, genders, dates of birth, phone numbers, home addresses, 
+allergies, medical histories and detailed visit records with diagnoses and prescribed medications. BookBob also assists 
+Dr Bob in staying organised by tracking daily appointments and sending reminders each morning. Optimised for a Command 
+Line Interface (CLI), BookBob enables efficient management of patient information and appointment scheduling.
 
 ---
 ## Table of Contents
@@ -389,7 +390,7 @@ No patient visit record found with NRIC: S7209876Y
 
 By diagnosis: <br> Format: findDiagnosis diagnosis<br>
 Note : <br>
-• Single diagnosis to be entered. All corresponding patients' information and visit records will be printed to terminal,
+• Single diagnosis to be entered (case-insensitive). All corresponding patients' information and visit records will be printed to terminal,
 with exactly matched diagnosis. <br>
 Example: `findDiagnosis Runny Nose`
 
@@ -412,7 +413,7 @@ No patient found with symptom: Runny Nose
 
 By Medication: <br> Format: findMedication medication<br>
 Note : <br>
-• Single diagnosis to be entered. All corresponding patients' information and visit records will be printed to terminal,
+• Single medicationj to be entered (case-insensitive). All corresponding patients' information and visit records will be printed to terminal,
 with exactly matched medication. <br>
 Example: `findMedication Panadol`
 
@@ -463,8 +464,8 @@ Format: appointment ic/NRIC date/DATE time/TIME \
 Note: Deleting a Patient Appointment is case-insensitive.
 
 #### Extra Information
-Date format is in DD-MM-YYYY and Time format is in HH:mm\
-The nric is case-insensitive
+Date format is in DD-MM-YYYY and time format is in HH:mm\
+The NRIC is case-insensitive
 
 Example: `deleteAppointment ic/S1234567A date/18-11-2024 time/18:00`
 ```
@@ -488,7 +489,7 @@ Appointment on 18-11-2024 18:00 with Patient Will Smith, S7654321A.
 
 ---
 ## Finding a Patient Appointment
-Find an appointment with a patient based on the given name, nric, date or time\
+Find an appointment with a patient based on the given name, NRIC, date or time\
 Format:
 findAppointment n/NAME OR\
 findAppointment ic/NRIC OR\
@@ -497,7 +498,7 @@ findAppointment time/TIME
 
 #### Extra Information:
 Date format is in DD-MM-YYYY and Time format is in HH:mm
-The name and nric are case-insensitive
+The name and NRIC are case-insensitive
 
 Example: `findAppointment n/John`
 ```
