@@ -45,6 +45,7 @@ public class Records implements FileOperation{
         System.out.println("Patient " + name + " with NRIC " + nric + " added.");
     }
 
+    //@@author yentheng0110
     private boolean nricIsPresentInExistingRecords(String name, String nric) {
         String nricInputted = nric.toLowerCase();
         for (Patient patient : this.patients) {
