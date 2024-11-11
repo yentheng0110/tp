@@ -52,20 +52,64 @@ public class Main {
         try {
             FileHandler.initFile(records);
             FileHandler.initFile(appointmentRecord);
+
+            records.getPatients();
+            appointmentRecord.appointmentNotice();
         } catch (IllegalArgumentException e) {
             logger.log(Level.SEVERE, e.getMessage());
             System.out.println("Data file corrupted");
             System.out.println("Please check data file or delete it to start afresh");
             System.out.println("Exiting");
             System.exit(0);
+        }catch (Exception e) {
+            logger.log(Level.SEVERE, "Error during initialization: " + e.getMessage(), e);
+            System.out.println("Error initializing program. Please check data files.");
+            System.exit(0);
         }
         System.out.println("Welcome to BookBob, Dr. Bob!");
         CommandHandler commandHandler = new CommandHandler();
-        appointmentRecord.appointmentNotice();
 
-        while (true) {
-            String input = in.nextLine();
-            Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+
+        //@@author kaboomzxc
+        try {
+            if (records.getPatients() == null) {
+                throw new IllegalStateException("Records not properly initialized");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Records initialization failed", e);
+            System.out.println("Error loading patient records. Please restart the program.");
+            System.exit(0);
+        }
+
+        //@@author kaboomzxc
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.print("Enter command: ");
+            System.out.flush();
+
+            try {
+                String input = "";
+                if (in.hasNextLine()) {
+                    input = in.nextLine().trim();
+                } else {
+                    System.out.println("Error reading input. Restarting input scanner...");
+                    in.close();
+                    in = new Scanner(System.in);
+                    continue;
+                }
+
+                // Skip empty input
+                if (input.isEmpty()) {
+                    continue;
+                }
+
+                // Handle the command and get continuation status
+                isRunning = Parser.handleCommand(input, commandHandler, records, appointmentRecord);
+
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Critical error in main loop: " + e.getMessage(), e);
+                System.out.println("A critical error occurred. Please try again.");
+            }
         }
     }
 }
