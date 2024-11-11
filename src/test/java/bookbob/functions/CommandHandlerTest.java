@@ -190,7 +190,7 @@ public class CommandHandlerTest {
     void findCommand_homeAddressDoesNotExist_returnsNotFound() {
         command.find("ha/NUS Utown", records);
         String expectedOutput = "Invalid search format. Please use one of the following formats:\n" +
-                "find n/NAME\n" +
+                " find n/NAME\n" +
                 " find ic/NRIC\n" +
                 " find p/PHONE\n" +
                 " find ha/ADDRESS\n" +
