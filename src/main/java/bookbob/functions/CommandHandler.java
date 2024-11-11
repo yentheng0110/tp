@@ -371,52 +371,81 @@ public class CommandHandler {
 
     //@@author kaboomzxc
     public void find(String input, Records records) {
-
-        // Assertion to ensure input is not null
+        // Assertion and input validation
         assert input != null : "Input cannot be null";
 
-        // Input validation
-        if (input == null || input.trim().isEmpty()) {
-            logger.log(Level.WARNING, "Input cannot be null or empty");
-            throw new IllegalArgumentException("Input cannot be null or empty");
+        try {
+            // Input validation
+            if (input == null || input.trim().isEmpty()) {
+                logger.log(Level.WARNING, "Input cannot be null or empty");
+                System.out.println("Search input cannot be empty.");
+                return;
+            }
+
+            Map<String, String> searchParams = extractSearchParams(input);
+
+            if (searchParams.isEmpty()) {
+                System.out.println("Invalid search format. Please use one of the following formats:");
+                System.out.println("find n/NAME");
+                System.out.println("find ic/NRIC");
+                System.out.println("find p/PHONE");
+                System.out.println("find ha/ADDRESS");
+                System.out.println("find dob/DD-MM-YYYY");
+                System.out.println("find al/ALLERGY");
+                System.out.println("find s/SEX");
+                System.out.println("find mh/MEDICAL_HISTORY");
+                return;
+            }
+
+            if (records.getPatients() == null) {
+                logger.log(Level.WARNING, "Patient records is null");
+                System.out.println("No patient records available.");
+                return;
+            }
+
+            List<Patient> matchedPatients = records.getPatients().stream()
+                    .filter(patient -> matchesSearchCriteria(patient, searchParams))
+                    .collect(Collectors.toList());
+
+            displayResults(matchedPatients);
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error in find command: " + e.getMessage(), e);
+            System.out.println("An error occurred while searching. Please try again.");
         }
-
-        Map<String, String> searchParams = extractSearchParams(input);
-
-        if (searchParams.isEmpty()) {
-            logger.log(Level.WARNING, "No valid search parameters provided.");
-            System.out.println("Invalid search parameters. Please use the format: "
-                    + "find [n/NAME] [ic/NRIC] [p/PHONE] [ha/ADDRESS] [dob/DOB] [al/ALLERGY] [s/SEX] " +
-                    "[mh/MEDICAL_HISTORY]");
-            return;
-        }
-
-        List<Patient> matchedPatients = records.getPatients().stream()
-                .filter(patient -> matchesSearchCriteria(patient, searchParams))
-                .collect(Collectors.toList());
-
-        displayResults(matchedPatients);
     }
 
     //@@author kaboomzxc
     private Map<String, String> extractSearchParams(String input) {
         Map<String, String> params = new HashMap<>();
-        String[] parts = input.split("\\s+");
+
+        // Remove the "find" command from the input
+        String searchInput = input.substring(input.indexOf(" ") + 1).trim();
+
+        // Split on spaces that are not between forward slashes
+        String[] parts = searchInput.split("\\s+(?=\\w+/)");
+
         for (String part : parts) {
             if (part.contains("/")) {
                 String[] keyValue = part.split("/", 2);
-                if (keyValue.length == 2 && !keyValue[1].trim().isEmpty()) {
+                if (keyValue.length == 2) {
                     String key = keyValue[0].trim();
                     String value = keyValue[1].trim();
-                    if (isValidSearchKey(key)) {
-                        params.put(key, value.toLowerCase().trim());
+
+                    // Validate that both key and value are present
+                    if (!key.isEmpty() && !value.isEmpty() && isValidSearchKey(key)) {
+                        params.put(key, value.toLowerCase());
                     } else {
-                        logger.log(Level.WARNING, "Invalid search key encountered: {0}", key);
-                        throw new IllegalArgumentException("Invalid search key: " + key);
+                        logger.log(Level.WARNING, "Invalid search parameter: {0}", part);
                     }
                 }
             }
         }
+        
+        if (params.isEmpty()) {
+            logger.log(Level.WARNING, "No valid search parameters found in input: {0}", input);
+        }
+
         return params;
     }
 
@@ -426,40 +455,82 @@ public class CommandHandler {
     }
 
     //@@author kaboomzxc
+    private boolean matchesDateOfBirth(LocalDate dateOfBirth, String searchValue) {
+        if (dateOfBirth == null) {
+            logger.log(Level.FINE, "Date of birth is null");
+            return false;
+        }
+
+        try {
+            // Format the patient's date of birth
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String dateStr = dateOfBirth.format(formatter);
+
+            // For exact date match (dd-MM-yyyy format)
+            if (searchValue.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                logger.log(Level.FINE, "Attempting exact date match");
+                return dateStr.equals(searchValue);
+            }
+
+            // For partial matches
+            dateStr = dateStr.replace("-", "");
+            searchValue = searchValue.replace("-", "");
+
+            // For numeric searches (partial matches)
+            if (searchValue.matches("\\d+")) {
+                logger.log(Level.FINE, "Attempting partial numeric match");
+                return dateStr.contains(searchValue);
+            }
+
+            logger.log(Level.FINE, "No match found");
+            return false;
+
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error matching date of birth: {0}", e.getMessage());
+            return false;
+        }
+    }
+
+    //@@author kaboomzxc
     private boolean matchesSearchCriteria(Patient patient, Map<String, String> searchParams) {
         logger.log(Level.FINE, "Checking if patient matches search criteria: {0}", patient);
 
         boolean matches = searchParams.entrySet().stream().allMatch(entry -> {
             String key = entry.getKey();
-            String value = entry.getValue();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            switch (key) {
-            case "n":
-                return patient.getName().toLowerCase().contains(value);
-            case "ic":
-                return patient.getNric().toLowerCase().contains(value);
-            case "p":
-                return patient.getPhoneNumber().toLowerCase().contains(value);
-            case "ha":
-                return patient.getHomeAddress().toLowerCase().contains(value);
-            case "dob":
-                return patient.getDateOfBirth().format(formatter).contains(value);
-            case "al":
-                // Check if any allergy matches the search value
-                return patient.getAllergies().stream()
-                        .anyMatch(allergy -> allergy.toLowerCase().contains(value));
-            case "s":
-                return patient.getSex().toLowerCase().contains(value);
-            case "mh":
-                // Check if any medical history matches the search value
-                return patient.getMedicalHistories().stream()
-                        .anyMatch(history -> history.toLowerCase().contains(value));
-            default:
+            String value = entry.getValue().toLowerCase();
+
+            try {
+                switch (key) {
+                    case "n":
+                        return patient.getName() != null && patient.getName().toLowerCase().contains(value);
+                    case "ic":
+                        return patient.getNric() != null && patient.getNric().toLowerCase().contains(value);
+                    case "p":
+                        return patient.getPhoneNumber() != null && patient.getPhoneNumber().toLowerCase().contains(value);
+                    case "ha":
+                        return patient.getHomeAddress() != null && patient.getHomeAddress().toLowerCase().contains(value);
+                    case "dob":
+                        return matchesDateOfBirth(patient.getDateOfBirth(), value);
+                    case "al":
+                        return patient.getAllergies() != null && patient.getAllergies().stream()
+                                .anyMatch(allergy -> allergy != null && allergy.toLowerCase().contains(value));
+                    case "s":
+                        return patient.getSex() != null && patient.getSex().toLowerCase().contains(value);
+                    case "mh":
+                        return patient.getMedicalHistories() != null && patient.getMedicalHistories().stream()
+                                .anyMatch(history -> history != null && history.toLowerCase().contains(value));
+                    default:
+                        return false;
+                }
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Error matching criteria: {0} for patient {1}: {2}",
+                        new Object[]{key, patient.getNric(), e.getMessage()});
                 return false;
             }
         });
 
-        logger.log(Level.FINE, "Patient {0} matches criteria: {1}", new Object[]{patient.getNric(), matches});
+        logger.log(Level.FINE, "Patient {0} matches criteria: {1}",
+                new Object[]{patient.getNric(), matches});
         return matches;
     }
     
