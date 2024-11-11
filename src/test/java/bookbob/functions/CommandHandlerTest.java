@@ -752,7 +752,7 @@ public class CommandHandlerTest {
                 "Patient Will Smith with NRIC S7654321B added.\n" +
                 "Name: John Doe, NRIC: S1234567A, Phone: 98765432, Home Address: RC4, " +
                 "DOB: 13-04-2000, Allergies: [], Sex: , Medical Histories: []\n" +
-                "    Visit Date: 23-11-2024 12:29, Diagnosis: [COVID-19], Medications: [Paracetamol]\n" +
+                "    Visit Date: 03-11-2024 12:29, Diagnosis: [COVID-19], Medications: [Paracetamol]\n" +
                 "Name: Will Smith, NRIC: S7654321B, Phone: 91234567, Home Address: CAPT, " +
                 "DOB: 18-06-2003, Allergies: [], Sex: , Medical Histories: []\n" +
                 "    Visit Date: 15-10-2024 11:53, Diagnosis: [AIDS], Medications: [Paracetamol]";
