@@ -49,12 +49,12 @@ Doctor -> ":Main": appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time
 ":AppointmentRecord" --> ":AppointmentRecord" --:
 
 opt checkDateTime(availableDate, availableTime) == false
-    Doctor <-- ":CommandHandler": There is already an appointment at the given timeslot. The next available timeslot is: 18:30
+    Doctor <-- ":AppointmentRecord": There is already an appointment at the given timeslot. The next available timeslot is: 18:30
     end
 
 opt checkExistingAppintmentRecords(name, nric, searchInput) == false
-    Doctor <-- ":CommandHandler":Please check if the name is correct
-    Doctor <-- ":CommandHandler":Appointment made previously with patient NRIC, S1234567A, has the name John Doe
+    Doctor <-- ":AppointmentRecord":Please check if the name is correct
+    Doctor <-- ":AppointmentRecord":Appointment made previously with patient NRIC, S1234567A, has the name John Doe
     end
 
 alt nextAvailableTime == "14:30"
@@ -71,9 +71,9 @@ alt nextAvailableTime == "14:30"
     ":CommandHandler" -> ":FileHandler" ++: autosave(appointmentRecord)
     return
 
-    Doctor <-- ":CommandHandler": Appointment on 06-11-2024 14:30 with Patient\nPatricia Chan, S9870789B has been added.
+    Doctor <-- ":AppointmentRecord": Appointment on 06-11-2024 14:30 with Patient\nPatricia Chan, S9870789B has been added.
 else
-    Doctor <-- ":CommandHandler": There is already an appointment at the given timeslot.\nThe next available timeslot is: [nextAvailableTime]
+    Doctor <-- ":AppointmentRecord": There is already an appointment at the given timeslot.\nThe next available timeslot is: [nextAvailableTime]
 end
 
 ":CommandHandler" --> ":Parser" --

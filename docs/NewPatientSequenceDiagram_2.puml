@@ -39,7 +39,7 @@ deactivate ":Visit"
 ":CommandHandler" -> ":Records" ++: name, nric, visits, sex, dateOfBirth, phoneNumber, homeAddress, allergies, medicalHistories
 
 opt nricIsPresentInExistingRecords(name, nric) == true
-    Doctor <-- ":CommandHandler" : Duplicate NRIC is found in the records
+    Doctor <-- ":Records" : Duplicate NRIC is found in the records
     end
 
 create "newPatient:Patient"
