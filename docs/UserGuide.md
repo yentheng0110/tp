@@ -157,7 +157,8 @@ Note : <br>
 • The mandatory fields are name, NRIC and visit date. Optional fields (denoted by square brackets above) include phone
 number, diagnoses, medications, home address, date of birth, allergies, sex and medical histories. <br>
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
-• Date and Time format must be in : dd-MM-yyyy HH:mm <br> 
+• Date and Time format must be in : dd-MM-yyyy HH:mm <br>
+• "add" command does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an Appointment instead. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
 Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/01-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
