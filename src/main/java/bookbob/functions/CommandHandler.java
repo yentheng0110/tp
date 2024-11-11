@@ -597,7 +597,7 @@ public class CommandHandler {
             try {
                 visitDate = LocalDateTime.parse(visitDateString, formatter);
 
-            // Add validation for future dates
+                // Add validation for future dates
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 if (visitDate.isAfter(currentDateTime)) {
                     System.out.println("Error: Cannot add visits for future dates. Please consider scheduling an " +
