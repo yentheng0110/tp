@@ -651,6 +651,7 @@ public class CommandHandler {
             if (patient.getNric().equals(nric)) {
                 ArrayList<Visit> visits = patient.getVisits();
                 isFound = true;
+                System.out.println("Patient name: " + patient.getName());
 
                 for (Visit visit : visits) {
                     System.out.println(visit.toString());
