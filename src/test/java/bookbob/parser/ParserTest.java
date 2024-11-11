@@ -15,12 +15,11 @@ import org.junit.jupiter.api.Assertions;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.IOException;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
+//@@author kaboomzxc
 class ParserTest {
     @Mock
     private CommandHandler commandHandler;
@@ -34,12 +33,14 @@ class ParserTest {
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final PrintStream standardOut = System.out;
 
+    //@@author kaboomzxc
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Visit Command Tests")
     class VisitCommandTests {
@@ -56,7 +57,7 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.times(1)).addVisit(input, records);
             Assertions.assertTrue(result);
         }
-
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test edit visit command")
         void testEditVisitCommand() throws IOException {
@@ -71,6 +72,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find visit command")
         void testFindVisitCommand() throws IOException {
@@ -86,6 +88,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Appointment Command Tests")
     class AppointmentCommandTests {
@@ -103,6 +106,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test list appointments command")
         void testListAppointmentsCommand() throws IOException {
@@ -117,6 +121,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find appointment command")
         void testFindAppointmentCommand() throws IOException {
@@ -131,6 +136,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test delete appointment command")
         void testDeleteAppointmentCommand() throws IOException {
@@ -146,6 +152,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Search Command Tests")
     class SearchCommandTests {
@@ -163,6 +170,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find medication command")
         void testFindMedicationCommand() throws IOException {
@@ -177,6 +185,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find command with missing criteria")
         void testFindCommandWithMissingCriteria() throws IOException {
@@ -198,6 +207,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     @DisplayName("Test exit command with appointment cleanup")
     void testExitCommandWithCleanup() throws IOException {
@@ -212,6 +222,8 @@ class ParserTest {
         Mockito.verify(commandHandler, Mockito.times(1)).exit(input);
         Assertions.assertTrue(result);
     }
+
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Edit Command Tests")
     class EditCommandTests {
@@ -229,6 +241,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test edit command without /to parameter")
         void testEditCommandWithoutToParameter() throws IOException {
@@ -246,6 +259,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Find Command Tests")
     class FindCommandTests {
@@ -263,6 +277,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find by NRIC")
         void testFindByNric() throws IOException {
@@ -277,6 +292,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find by phone")
         void testFindByPhone() throws IOException {
@@ -292,6 +308,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Error Handling Tests")
     class ErrorHandlingTests {
@@ -310,6 +327,7 @@ class ParserTest {
             Assertions.assertTrue(outputStreamCaptor.toString().contains("An error occurred"));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test IOException handling")
         void testIOExceptionHandling() throws IOException {
@@ -328,6 +346,7 @@ class ParserTest {
                     outputStreamCaptor.toString().contains("An error occurred"));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test IllegalArgumentException handling")
         void testIllegalArgumentExceptionHandling() throws IOException {
@@ -345,6 +364,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Complex Command Tests")
     class ComplexCommandTests {
@@ -363,6 +383,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test appointment command with validation")
         void testAppointmentCommandWithValidation() throws IOException {
@@ -380,6 +401,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     @DisplayName("Test command with multiple spaces")
     void testCommandWithMultipleSpaces() throws IOException {
@@ -393,6 +415,8 @@ class ParserTest {
         Mockito.verify(commandHandler, Mockito.times(1)).add(input.trim(), records);
         Assertions.assertTrue(result);
     }
+
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Find Parameter Tests")
     class FindParameterTests {
@@ -422,6 +446,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Command Format Tests")
     class CommandFormatTests {
@@ -440,6 +465,7 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.never()).listAppointments(appointmentRecord);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test list with extra arguments")
         void testListWithExtraArgs() throws IOException {
@@ -456,6 +482,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Exception Handling Tests")
     class ExceptionHandlingTests {
@@ -476,6 +503,7 @@ class ParserTest {
                     .contains("Error: No input is given for a mandatory field"));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test DateTimeException handling")
         void testDateTimeExceptionHandling() throws IOException {
@@ -494,6 +522,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Test
     @DisplayName("Test empty command parts")
     void testEmptyCommandParts() throws IOException {
@@ -508,6 +537,7 @@ class ParserTest {
         Assertions.assertTrue(outputStreamCaptor.toString().contains("Unknown command"));
     }
 
+    //@@author kaboomzxc
     @Test
     @DisplayName("Test scanner error handling")
     void testScannerErrorHandling() throws IOException {
@@ -521,6 +551,7 @@ class ParserTest {
         Assertions.assertTrue(result);
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Additional Command Validation Tests")
     class AdditionalCommandValidationTests {
@@ -540,6 +571,7 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.times(1)).delete("12345678", records);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test addVisit with missing diagnosis")
         void testAddVisitMissingDiagnosis() throws IOException {
@@ -554,6 +586,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test editVisit with missing medication")
         void testEditVisitMissingMedication() throws IOException {
@@ -569,6 +602,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Edge Case Tests")
     class EdgeCaseTests {
@@ -586,6 +620,7 @@ class ParserTest {
             Assertions.assertTrue(result);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test empty string after command")
         void testEmptyStringAfterCommand() throws IOException {
@@ -610,6 +645,7 @@ class ParserTest {
             }
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test appointment command with past date")
         void testAppointmentWithPastDate() throws IOException {
@@ -625,6 +661,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Additional Error Handling Tests")
     class AdditionalErrorHandlingTests {
@@ -644,6 +681,7 @@ class ParserTest {
             Assertions.assertTrue(outputStreamCaptor.toString().contains("Invalid date format"));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find with invalid search parameter")
         void testFindInvalidSearchParameter() throws IOException {
@@ -660,6 +698,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Parser Input Edge Cases")
     class ParserInputEdgeCases {
@@ -681,6 +720,7 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.times(1)).add(longInput.toString(), records);
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test multiple command handling")
         void testMultipleCommandHandling() throws IOException {
@@ -700,6 +740,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Complex Error Scenarios")
     class ComplexErrorScenarios {
@@ -719,6 +760,7 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.never()).add(anyString(), any(Records.class));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test commands with special characters")
         void testSpecialCharacterCommands() throws IOException {
@@ -738,6 +780,7 @@ class ParserTest {
             }
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test nested exception handling")
         void testNestedException() throws IOException {
@@ -756,6 +799,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Boundary Value Tests")
     class BoundaryValueTests {
@@ -776,6 +820,7 @@ class ParserTest {
             }
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test command with leading/trailing whitespace")
         void testWhitespaceHandling() throws IOException {
@@ -792,6 +837,8 @@ class ParserTest {
             Mockito.verify(commandHandler, Mockito.never()).list(records);
         }
     }
+
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Command Parser Edge Cases")
     class CommandParserEdgeCases {
@@ -809,6 +856,7 @@ class ParserTest {
             Assertions.assertTrue(outputStreamCaptor.toString().contains("Please specify a NRIC"));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test deleteAppointment with missing parameters")
         void testDeleteAppointmentMissingParams() throws IOException {
@@ -832,6 +880,7 @@ class ParserTest {
             }
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test find commands with empty search criteria")
         void testFindEmptySearchCriteria() throws IOException {
@@ -853,6 +902,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Additional Error Scenarios")
     class AdditionalErrorScenarios {
@@ -870,6 +920,7 @@ class ParserTest {
             Assertions.assertTrue(outputStreamCaptor.toString().contains("Please provide search criteria"));
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test multiple consecutive commands")
         void testMultipleConsecutiveCommands() throws IOException {
@@ -890,6 +941,7 @@ class ParserTest {
         }
     }
 
+    //@@author kaboomzxc
     @Nested
     @DisplayName("Parameter Handling Tests")
     class ParameterHandlingTests {
@@ -911,6 +963,7 @@ class ParserTest {
             }
         }
 
+        //@@author kaboomzxc
         @Test
         @DisplayName("Test edit with multiple fields")
         void testEditMultipleFields() throws IOException {
