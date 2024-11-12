@@ -10,7 +10,7 @@ Below are my contributions to the Team Project.
 
 ## Summary of Contributions
 - <b>Code contributed:</b> [RepoSense link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=kaboomzxc&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20)
-  - I have contributed over 3.5k LoC spread among functional code, test code and documentation writings.
+  - I have contributed over 3.3k LoC spread among functional code, test code and documentation writings.
 
 - <b>Core Features implemented:</b>
     - <b>`CommandHandler` class, `Main` class </b><br>
