@@ -157,7 +157,7 @@ these fields are missing, an error message will prompt the user to provide the m
 • Optional fields (denoted by square brackets above) include phone number, diagnoses, medications, home address, date of
 birth, allergies, sex and medical histories. <br>
 • If an input is incorrectly formatted but mandatory fields are correctly filled, the patient will still be added,
-with incorrectly formatted fields left empty and other inputs unaffected.
+with incorrectly formatted fields left empty and other inputs unaffected. <br>
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
 • "add" command does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an appointment instead. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
@@ -171,6 +171,7 @@ Duplicate NRIC entries are not allowed.
 5. a Singapore phone number must be 8 digits long and start with "8" or "9")
 6. Home addresses can only contain alphabets (both uppercase and lowercase), numbers, spaces and hyphens.
 7. Visit date and time must be in the format: dd-MM-yyyy HH:mm <br>
+
 Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/31-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
 Example Output: 
