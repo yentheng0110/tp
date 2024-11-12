@@ -55,7 +55,7 @@ Command Line Interface (CLI), BookBob streamlines the management of patient reco
 - Review/mentoring contributions: 
   - Aided in the process of fixing CI issues - however was not merged in the end
   - Sent reminders to teammates on project expectations and adhering to project guidelines
-    - eg. Ensuring no one merges their own PR, and practices to boost our project quality to enhance our overall grades
+    - e.g. Ensuring no one merges their own PR, and practices to boost our project quality to enhance our overall grades
   - Actively contributed input in project meetings
 
 ## Contributions to the Developer Guide
