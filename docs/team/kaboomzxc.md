@@ -36,7 +36,7 @@ Below are my contributions to the Team Project.
 - <b>Enhancements implemented:</b>
    - Implemented JUnit Tests for my "find" command and "addVisit" command. Implement Tests in the aspiration for higher quality and reliability of our product.
    - Contributed testing of Parser class, ParserTest.java and achieved 51 tests case passed, 100% class, 100% method, 70% line, 92% branch coverage. [PR#375](https://github.com/AY2425S1-CS2113-T10-2/tp/pull/375)
-   - I enhanced the appearance of all our team organisation's Github Pages by using Jekyll and HTML+CSS.  <br>
+   - I enhanced the appearance of all our team organisation's Github Pages by using Jekyll and HTML+CSS. (Which you can currently see now at all our team's website github pages and in this PDF you are currently reading)  <br>
      <br>
 - <b>Contributions to the User Guide(UG):</b><br>
     - I made extensive contributions to the UG.
@@ -59,7 +59,9 @@ Below are my contributions to the Team Project.
     - Fix Continuous Integration(CI) and Checkstyle issues.
     - Generating UG and DG PDF files and sending to group.
     - JUnit Testing. Tools : Integrated Mockito into our project.
-    - Fixing Bugs, e.g. fixing compile error [Issue#140](https://github.com/AY2425S1-CS2113-T10-2/tp/issues/140) <br>
+    - Fixing Bugs, e.g. Fixing compile error [Issue#140](https://github.com/AY2425S1-CS2113-T10-2/tp/issues/140) 
+    - Discovered and Fixed a _very tricky elusive_ bug; whereby prefix "a/" (allergy) is a substring of "ha/" (home address), thereby causing
+      wrong information to be parsed and being outputted. <u>Solved</u> by changing **"a/"** to become **"al/"**. <br>
     <br>
 - <b>Review/Mentoring Contributions</b>
     - I always try my best to be a meaningful and helpful teammate, being very active and responsive in tP throughout, engaging in discussions, suggesting solutions and improvements,
