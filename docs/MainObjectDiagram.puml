@@ -7,13 +7,20 @@ object "<u>:Main</u>" as Main
 
 object "<u>in:Scanner</u>" as Scanner
 
-object "<u>records:Records</u>" as Records {
+interface "<u>:FileOperation</u>" as FileOperation {
+    +initFile(filePath: String)
+    +autosave(filePath: String)
+    +retrieveData(filePath: String)
+}
 
+
+object "<u>records:Records</u>" as Records {
 }
 
 object "<u>appointmentRecord:AppointmentRecord</u>" as AppointmentRecord {
-
 }
+
+
 
 object "<u>:FileHandler</u>" as FileHandler
 
@@ -27,12 +34,22 @@ Main --> AppointmentRecord
 Main --> FileHandler
 Main --> CommandHandler
 Main --> Parser
+
 CommandHandler --> Records
 CommandHandler --> AppointmentRecord
+
 Parser --> CommandHandler
 Parser --> Records
 Parser --> AppointmentRecord
+
 FileHandler --> Records
 FileHandler --> AppointmentRecord
+
+Records ..|> FileOperation : implements >
+AppointmentRecord ..|> FileOperation : implements >
+
+
+
+
 
 @enduml
