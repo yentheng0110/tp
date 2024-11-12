@@ -948,7 +948,7 @@ public class CommandHandler {
         return dateOfBirth;
     }
 
-    //@@author yentheng0110 @@author G13nd0n
+    //@@author yentheng0110
     private String extractGender(String input) {
         int lengthOfGenderIndicator = 2;
         String sex = "";
@@ -956,9 +956,10 @@ public class CommandHandler {
         if (sexStart != -1) {
             int sexEnd = findNextFieldStart(input, sexStart + lengthOfGenderIndicator);
             sex = input.substring(sexStart + lengthOfGenderIndicator, sexEnd).trim();
-            if (!(sex.startsWith("M") || sex.startsWith("m")) && !(sex.startsWith("F") || sex.startsWith("f"))) {
+            // Check if the extracted value matches "m", "f", "male", or "female" (case-insensitive)
+            if (!sex.matches("(?i)^(male|female|m|f)$")) {
                 sex = "";
-                System.out.println("Please input Male or Female for sex");
+                System.out.println("Please input Male or M or Female or F (case-insensitive) for sex");
             }
         }
         return sex;
