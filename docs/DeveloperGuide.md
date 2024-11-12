@@ -259,7 +259,7 @@ Given below are instructions to test the app manually.
 
  ---
 
-## Patient Record Management
+### Patient Record Management
 
 1. Adding a patient
     1. (Positive) Test Case (all fields): `add n/Mary Jane ic/S9876543A p/91234567 d/Fever m/Paracetamol ha/NUS PGPR dob/01011990 v/21-10-2024 15:48 al/Peanuts s/Female mh/Asthma` <br>
