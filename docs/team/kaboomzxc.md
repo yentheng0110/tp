@@ -42,7 +42,7 @@ Below are my contributions to the Team Project.
     - I made extensive contributions to the UG.
     - For UG v1.0, I contributed a near-complete full draft.
     - For UG v2.0 and v2.1, added the following sections : "Quick Start", "Finding a Patient Record", "Adding a Visit Record", "FAQ", "Appendix A: Miscellaneous". 
-    I also contributed to many other portions throughout the UG, e.g. all the colored info boxes with Notes. 
+    - I also contributed to many other portions throughout the UG, e.g. all the colored info boxes with Notes. Updated "help" and "Command Summary Reference" Sections, as and when it comes.
     - I also contributed the implemenation of the fine line dividers between sections, enhancing the appearance of the whole UG. 
       And Proofreading, Formatting, cleaning up & Typo fixing.
     - I also contributed to the "ReadME" file in ./tp/docs, which fronts the main landing page of our tP Github pages.<br>
@@ -50,18 +50,20 @@ Below are my contributions to the Team Project.
 - <b>Contributions to the Developer Guide(DG):</b><br>   
     - I made extensive contributions to the DG.
     - I added the following sections : "Table of Contents", "Appendix E: Instructions for Manual Testing". 
-    - I also contributed to many other portions throughout the DG e.g. adding the fine line dividers between sections, formatting, proofreading, etc.
+    - I also contributed to many other portions throughout the DG e.g. adding the fine line dividers between sections, formatting, proofreading, etc. Updated "Command Summary Reference" Section, as and when it comes.
     - I did almost all the (revision v2) Diagrams seen in the DG. (Note, our v1 Diagrams were shared equally, 
-      for v2 the team worked on other tasks e.g. refactoring the codebase while I worked on the v2 Diagrams) <br>
+      for v2 the team worked on other tasks e.g. refactoring the codebase, while I worked on updating all the v2 Diagrams) <br>
     <br>
 - <b>Contributions to Team-Based Tasks</b>
     - Setting up of GitHub team Org and Repo.
-    - Fix Continuous Integration(CI) and Checkstyle issues.
+    - Fix Continuous Integration(CI) and Checkstyle issues throughout. Including helping to update teammate's JUnit as and when it comes.
     - Generating UG and DG PDF files and sending to group.
     - JUnit Testing. Tools : Integrated Mockito into our project.
     - Fixing Bugs, e.g. Fixing compile error [Issue#140](https://github.com/AY2425S1-CS2113-T10-2/tp/issues/140) 
     - Discovered and Fixed a _very tricky elusive_ bug; whereby prefix "a/" (allergy) is a substring of "ha/" (home address), thereby causing
       wrong information to be parsed and being outputted. <u>Solved</u> by changing **"a/"** to become **"al/"**. <br>
+    - Fixed bugs identified by other students after the Practical Exam Dry-Run.
+    - Maintained the issue tracker.
     <br>
 - <b>Review/Mentoring Contributions</b>
     - I always try my best to be a meaningful and helpful teammate, being very active and responsive in tP throughout, engaging in discussions, suggesting solutions and improvements,
@@ -69,5 +71,5 @@ Below are my contributions to the Team Project.
     <br>
 - <b>Contributions Beyond the Project Team</b>
     - Evidence of helping others : 
-      - Link to the repository's GitHub Issues where I reported bugs during PE-D [(I am Tester E)](https://github.com/AY2425S1-CS2113-T11-3/tp/issues?q=tester+E)
+      - Helped to spot bugs during Practical Exam Dry-Run(PE-D). Link to the repository's GitHub Issues : [(I am Tester E)](https://github.com/AY2425S1-CS2113-T11-3/tp/issues?q=tester+E)
       - PRs reviewed(with non-trivial review comments) : [W12-1](https://github.com/nus-cs2113-AY2425S1/tp/pull/1)
