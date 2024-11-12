@@ -1,7 +1,7 @@
 # Ong JunZheng - Project Portfolio Page
 
 ## Overview
-BookBob is a Command Line Interface (CLI) desktop application to assist in the efficient management of patient information and appointment scheduling.
+BookBob is a Command Line Interface (CLI) desktop application used to assist in the efficient management of patient information and appointment scheduling.
 Clinicians, Doctors, and Medical Professionals are welcomed to use BookBob. <br>
 
 Below are my contributions to the Team Project.
