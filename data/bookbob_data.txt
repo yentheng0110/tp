@@ -1,1 +1,4 @@
 Name: John Doe | NRIC: S1234567A | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [01-10-2024 15:30, Diagnosis: [], Medications: [], 21-10-2024 15:48, Diagnosis: [], Medications: []];
+Name: Charles | NRIC: S9089078K | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex: m | Medical History: [] | Visit: [11-11-2024 09:00, Diagnosis: [], Medications: []];
+Name: Dillan | NRIC: S9089079K | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex: Male | Medical History: [] | Visit: [11-11-2024 09:00, Diagnosis: [], Medications: []];
+Name: Erica | NRIC: T0367879B | Phone Number:  | Date_Of_Birth:  | Home Address:  | Allergy: [] | Sex:  | Medical History: [] | Visit: [11-11-2024 19:00, Diagnosis: [], Medications: []];
