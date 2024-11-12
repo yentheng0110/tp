@@ -152,13 +152,25 @@ Adds a new patient record to BookBob. <br>
 Format: add n/NAME ic/NRIC [p/PHONE_NUMBER] [d/DIAGNOSIS] [m/MEDICATION] [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] v/VISIT_DATE_TIME [al/ALLERGY] [s/SEX] [mh/MEDICALHISTORY] <br>
 
 Note : <br>
-• The mandatory fields are name, NRIC and visit date. Optional fields (denoted by square brackets above) include phone
-number, diagnoses, medications, home address, date of birth, allergies, sex and medical histories. <br>
+• Mandatory fields (name, NRIC, visit date and time) require user input to add a patient successfully. If any of
+these fields are missing, an error message will prompt the user to provide the missing inputs.<br>
+• Optional fields (denoted by square brackets above) include phone number, diagnoses, medications, home address, date of
+birth, allergies, sex and medical histories. <br>
+• If an input is incorrectly formatted but mandatory fields are correctly filled, the patient will still be added,
+with incorrectly formatted fields left empty and other inputs unaffected.
 • Single diagnosis, medication, allergy and medical history can be added; <u>Multiple diagnoses, medications, allergies and/or medical histories are also allowed</u>, by separating them with commas. <br>
-• Date and Time format must be in : dd-MM-yyyy HH:mm <br>
-• Names can only contain alphabets (both uppercase and lowercase), hyphens, slashes, commas and spaces. <br>
-• "add" command does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an Appointment instead. <br>
+• "add" command does <u>not allow</u> for adding <u>future Dates&Time</u>. Consider scheduling an appointment instead. <br>
 • Parameters entered in the input can be of <u>any order</u> or you may also choose to stick to the format above. <br>
+
+• Each field requires custom logic to validate inputs and printing meaningful error messages for the users. Examples:<br>
+1. Names can only contain alphabets (both uppercase and lowercase), hyphens, slashes, commas and spaces.
+2. a Singapore NRIC must be 9 characters long, starting with "S" or "T", containing numbers in the middle and ending with an alphabet) (case-insensitive).<br>
+Duplicate NRIC entries are not allowed.
+3. Date of birth must be in the format: dd-MM-yyyy
+4. Sex can only be "F", "Female", "M" or "Male" (case-insensitive).
+5. a Singapore phone number must be 8 digits long and start with "8" or "9")
+6. Home addresses can only contain alphabets (both uppercase and lowercase), numbers, spaces and hyphens.
+7. Visit date and time must be in the format: dd-MM-yyyy HH:mm <br>
 Example: `add n/James Ho ic/S9534567A p/91234567 d/Asthma m/Albuterol ha/NUS-PGPR dob/31-01-1995 v/21-10-2024 15:48 al/Pollen s/Female mh/Diabetes`
 
 Example Output: 
